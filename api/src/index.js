@@ -45,9 +45,12 @@ export default {
       // GET /api/articles — list all published
       if (method === 'GET' && path === '/api/articles') {
         const { results } = await env.DB.prepare(
-          `SELECT id, title, url_id, excerpt, author, publish_date, categories, cover_url
-           FROM articles WHERE status = 'publish'
-           ORDER BY publish_date DESC`
+          `SELECT a.id, a.title, a.url_id, a.excerpt, a.author, a.publish_date, a.categories, a.cover_url,
+                  w.photo_url AS writer_photo_url, w.bio AS writer_bio
+           FROM articles a
+           LEFT JOIN writers w ON a.author = w.name
+           WHERE a.status = 'publish'
+           ORDER BY a.publish_date DESC`
         ).all();
         return Response.json({ articles: results }, { headers: corsHeaders });
       }
@@ -56,7 +59,10 @@ export default {
       if (method === 'GET' && path.startsWith('/api/articles/')) {
         const urlId = path.replace('/api/articles/', '');
         const article = await env.DB.prepare(
-          `SELECT * FROM articles WHERE url_id = ? AND status = 'publish'`
+          `SELECT a.*, w.photo_url AS writer_photo_url, w.bio AS writer_bio
+           FROM articles a
+           LEFT JOIN writers w ON a.author = w.name
+           WHERE a.url_id = ? AND a.status = 'publish'`
         ).bind(urlId).first();
         if (!article) {
           return new Response('Not found', { status: 404, headers: corsHeaders });
@@ -94,6 +100,44 @@ export default {
           return new Response('All deleted', { headers: corsHeaders });
         }
         await env.DB.prepare('DELETE FROM articles WHERE url_id = ?').bind(urlId).run();
+        return new Response('Deleted', { headers: corsHeaders });
+      }
+
+      // GET /api/writers — list all
+      if (method === 'GET' && path === '/api/writers') {
+        const { results } = await env.DB.prepare('SELECT * FROM writers ORDER BY name ASC').all();
+        return Response.json({ writers: results }, { headers: corsHeaders });
+      }
+
+      // GET /api/writers/:name
+      if (method === 'GET' && path.startsWith('/api/writers/')) {
+        const writerName = decodeURIComponent(path.replace('/api/writers/', ''));
+        const writer = await env.DB.prepare('SELECT * FROM writers WHERE name = ?').bind(writerName).first();
+        if (!writer) return new Response('Not found', { status: 404, headers: corsHeaders });
+        return Response.json({ writer }, { headers: corsHeaders });
+      }
+
+      // POST /api/writers
+      if (method === 'POST' && path === '/api/writers') {
+        const { name, photo_url, bio } = await request.json();
+        await env.DB.prepare('INSERT INTO writers (name, photo_url, bio) VALUES (?, ?, ?)')
+          .bind(name, photo_url || '', bio || '').run();
+        return new Response('Created', { status: 201, headers: corsHeaders });
+      }
+
+      // PUT /api/writers/:name
+      if (method === 'PUT' && path.startsWith('/api/writers/')) {
+        const writerName = decodeURIComponent(path.replace('/api/writers/', ''));
+        const { name, photo_url, bio } = await request.json();
+        await env.DB.prepare('UPDATE writers SET name=?, photo_url=?, bio=? WHERE name=?')
+          .bind(name || writerName, photo_url || '', bio || '', writerName).run();
+        return new Response('Updated', { headers: corsHeaders });
+      }
+
+      // DELETE /api/writers/:name
+      if (method === 'DELETE' && path.startsWith('/api/writers/')) {
+        const writerName = decodeURIComponent(path.replace('/api/writers/', ''));
+        await env.DB.prepare('DELETE FROM writers WHERE name = ?').bind(writerName).run();
         return new Response('Deleted', { headers: corsHeaders });
       }
 

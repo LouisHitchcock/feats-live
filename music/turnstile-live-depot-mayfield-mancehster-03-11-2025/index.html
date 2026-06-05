@@ -83,6 +83,7 @@
   <figcaption>Image Credit: @markybymarc on instagram</figcaption>
 </figure>
 <p>One of the night’s most memorable moments arrived during ‘SEEIN’ STARS’ when a disco ball was projecting all these flickering lights across the ceiling of the venue. The combination of the melody, and floaty guitar chords created a euphoric wave across the venue, chilling everyone out after the sweaty mosh of the rest of the gig —perfectly capturing Turnstile’s uncanny ability to make every person in the room feel connected to the music and to each other no matter what the song they are playing is. Turnstile proved exactly why they stand out in today’s melodic hardcore landscape. Every element—sound, light, energy—worked together to make this Monday night feel like one of the most unforgettable Hardcore shows Manchester has witnessed in years.</p>
+          <div class="writer-credit hidden" id="writerCredit"><img class="writer-credit-photo" id="writerPhoto" src="" alt="" /><div class="writer-credit-info"><h4 id="writerName"></h4><p id="writerBio"></p></div></div>
     </article>
   </main>
 <footer class="site-footer">
@@ -99,6 +100,31 @@
     </div>
   </footer>
   <script>
+    // Fetch writer credit from API
+    (function() {
+      var apiUrl = window.location.pathname.replace(/\/$/, '');
+      var slug = window.location.pathname.replace(/\/$/, '').split('/').pop();
+      fetch('https://feats-api.fpvgate-analytics.workers.dev/api/articles/' + slug)
+        .then(function(data) {
+          var a = data.article;
+          if (!a) return;
+          var name = document.getElementById('writerName');
+          var bio = document.getElementById('writerBio');
+          var photo = document.getElementById('writerPhoto');
+          if (name) name.textContent = a.author || 'Feats.';
+          if (bio) bio.textContent = a.writer_bio || '';
+          if (photo && a.writer_photo_url) {
+            photo.src = a.writer_photo_url;
+            photo.alt = a.author || '';
+          }
+          var credit = document.getElementById('writerCredit');
+          if (credit && (a.writer_bio || a.writer_photo_url)) {
+            credit.classList.remove('hidden');
+          }
+        })
+        .catch(function() {});
+    })();
+
     document.getElementById('navToggle').addEventListener('click', function(){
       document.getElementById('navLinks').classList.toggle('open');
     });

@@ -13,3 +13,10 @@ CREATE TABLE IF NOT EXISTS articles (
   created_at TEXT DEFAULT (datetime('now')),
   updated_at TEXT DEFAULT (datetime('now'))
 );
+CREATE TABLE IF NOT EXISTS writers (
+  id INTEGER PRIMARY KEY AUTOINCREMENT,
+  name TEXT UNIQUE NOT NULL,
+  photo_url TEXT DEFAULT '',
+  bio TEXT DEFAULT '',
+  created_at TEXT DEFAULT (datetime('now'))
+);
