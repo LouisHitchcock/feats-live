@@ -1,69 +1,58 @@
-import os, xml.etree.ElementTree as ET
+import os
 
 BASE = r'C:\Users\Louis\Desktop\Code\Feats'
-XML = r'C:\Users\Louis\Downloads\Squarespace-Wordpress-Export-06-05-2026.xml'
-
-NS = {'wp': 'http://wordpress.org/export/1.2/'}
-tree = ET.parse(XML)
-channel = tree.getroot().find('channel')
-
-articles = []
-for item in channel.findall('item'):
-    if item.findtext('wp:status', '', NS) != 'publish':
-        continue
-    link = item.findtext('link', '')
-    url_id = link.split('/')[-1] if '/' in link else ''
-    if url_id:
-        articles.append(url_id)
-
-print(f'Article count: {len(articles)}')
 
 fixes = []
 for root, _, files in os.walk(BASE):
+    if '.git' in root or 'api' in root:
+        continue
     for fn in files:
         if not fn.endswith('.html'):
             continue
         path = os.path.join(root, fn)
+
+        rel = os.path.relpath(path, BASE)
+        depth = rel.count(os.sep)
+        prefix = '../' * depth if depth > 0 else ''
+
         with open(path, 'r', encoding='utf-8') as f:
             html = f.read()
-
         old = html
 
-        # Fix /css/ -> css/
-        html = html.replace('href="/css/', 'href="css/')
-        html = html.replace('src="/css/', 'src="css/')
+        for tgt in ['css/', 'images/', 'favicon.ico', 'article_index.json']:
+            expected = prefix + tgt
+            html = html.replace('href="' + tgt, 'href="' + expected)
+            html = html.replace('src="' + tgt, 'src="' + expected)
+            html = html.replace('url("' + tgt, 'url("' + expected)
+            html = html.replace('fetch("' + tgt, 'fetch("' + expected)
 
-        # Fix nav links
-        html = html.replace('href="/music"', 'href="music/"')
-        html = html.replace('href="/about"', 'href="about/"')
-        html = html.replace('href="/contact"', 'href="contact/"')
+        for nav in ['music', 'about', 'contact']:
+            expected = prefix + nav
+            html = html.replace('href="' + nav + '"', 'href="' + expected + '"')
 
-        # Fix /images/ -> images/
-        html = html.replace('src="/images/', 'src="images/')
-        html = html.replace('url("/images/', 'url("images/')
+        for f_link in ['youth-development', 'privacy-policy', 'sitemap.xml', 'robots.txt']:
+            expected = prefix + f_link
+            html = html.replace('href="' + f_link + '"', 'href="' + expected + '"')
 
-        # Fix /favicon.ico -> favicon.ico
-        html = html.replace('href="/favicon.ico"', 'href="favicon.ico"')
+        html = html.replace('href="s/', 'href="' + prefix + 's/')
+        html = html.replace('href="music?', 'href="' + prefix + 'music?')
 
-        # Fix /music/xxx links -> music/xxx
-        for a in articles:
-            html = html.replace('href="/music/' + a + '"', 'href="music/' + a + '"')
-            html = html.replace('href="/music/' + a + '#"', 'href="music/' + a + '#"')
-
-        # Fix /music or /music? -> music/?
-        html = html.replace('href="/music?', 'href="music?')
-
-        # Fix /s/ links
-        html = html.replace('href="/s/', 'href="s/')
-        html = html.replace('href="/youth-development"', 'href="youth-development/"')
-        html = html.replace('href="/privacy-policy"', 'href="privacy-policy/"')
-        html = html.replace('href="/sitemap.xml"', 'href="sitemap.xml"')
-        html = html.replace('href="/robots.txt"', 'href="robots.txt"')
+        if depth == 1:
+            html = html.replace('href="../../', 'href="../')
+            html = html.replace('src="../../', 'src="../')
+            html = html.replace('fetch("../../', 'fetch("../')
+        elif depth >= 2:
+            html = html.replace('href="../../', 'href="../')
+            html = html.replace('src="../../', 'src="../')
+            html = html.replace('fetch("../../', 'fetch("../')
+            html = html.replace('href="../../../', 'href="../../')
+            html = html.replace('src="../../../', 'src="../../')
+            html = html.replace('fetch("../../../', 'fetch("../../')
 
         if html != old:
             with open(path, 'w', encoding='utf-8') as f:
                 f.write(html)
-            fixes.append(path)
+            fixes.append(rel)
 
 print(f'Fixed: {len(fixes)} files')
 for p in fixes:

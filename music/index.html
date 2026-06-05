@@ -8,8 +8,8 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Work+Sans:ital,wght@0,500;0,700;1,500;1,700&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="css/style.css">
-  <link rel="icon" type="image/x-icon" href="favicon.ico">
+  <link rel="stylesheet" href="../css/style.css">
+  <link rel="icon" type="image/x-icon" href="../favicon.ico">
 </head>
 <body>
 <header class="site-header">
@@ -38,7 +38,7 @@
       <div style="text-align:center;margin-top:3rem" id="load-more" style="display:none">
         <a href="#" class="btn" onclick="loadMore();return false">Older Posts</a>
       </div>
-        <a href="music?offset=0" class="btn">Older Posts</a>
+        <a href="../music?offset=0" class="btn">Older Posts</a>
       </div>
     </section>
   </main>
@@ -55,10 +55,10 @@
     <div class="info">&copy; 2026 FEATS LIVE CIC | Company Number: 16660624</div>
     <div class="footer-links">
       <a href="youth-development/">Youth Development Programme</a>
-      <a href="s/Feats-Contributor-Code-of-Conduct-V3.pdf">Contributor Code of Conduct</a>
+      <a href="../s/Feats-Contributor-Code-of-Conduct-V3.pdf">Contributor Code of Conduct</a>
       <a href="privacy-policy/">Privacy Policy</a>
-      <a href="sitemap.xml">Sitemap</a>
-      <a href="robots.txt">Robots.txt</a>
+      <a href="../sitemap.xml">Sitemap</a>
+      <a href="../robots.txt">Robots.txt</a>
     </div>
   </footer>
   <script>
@@ -106,7 +106,7 @@ function loadMore() {
   }
 }
 
-fetch('/article_index.json')
+fetch('../article_index.json')
   .then(function(r) { return r.json(); })
   .then(function(data) {
     allArticles = data;

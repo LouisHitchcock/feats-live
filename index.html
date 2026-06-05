@@ -143,7 +143,7 @@ ps://images.squarespace-cdn.com/content/v1/627907a6b74722549de2ec0c/d163f869-ee3
     }, 5000);
 
     // Load recent articles
-    fetch('/article_index.json')
+    fetch('article_index.json')
       .then(r => r.json())
       .then(data => {
         const grid = document.getElementById('recent-grid');
