@@ -1,28 +1,11 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>We're Taking Applications to Contribute to Feats! &mdash; Feats.</title>
-  <meta name="description" content="We’re Taking Applications for Writers, Journalists and Photographers to Join the FEATS team! Our goal is to shine a light on stories that so often get missed - ">
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Work+Sans:ital,wght@0,500;0,700;1,500;1,700&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="/feats-live/css/style.css">
-  <link rel="icon" type="image/x-icon" href="/feats-live/favicon.ico">
-  <style>
-    .article-body{max-width:750px;margin:0 auto;padding:3rem 2rem}
-    .article-body .featured-img{width:100%;height:auto;margin-bottom:2rem}
-    .article-body h1{font-size:2.2rem;margin-bottom:.5rem;line-height:1.2}
-    .article-body .meta{font-size:.8rem;opacity:.5;text-transform:uppercase;letter-spacing:1px;margin-bottom:2rem}
-    .article-body p{font-size:1.05rem;opacity:.85;margin-bottom:1.5rem;line-height:1.8}
-    .article-body img{max-width:100%;height:auto;display:block;margin:1.5rem 0;border-radius:4px}
-    .article-body a{text-decoration:underline;opacity:.8}
-    .article-body a:hover{opacity:1}
-  </style>
-</head>
-<body>
-<header class="site-header">
+import os, json
+
+BASE = r'C:\Users\Louis\Desktop\Code\Feats'
+
+with open(os.path.join(BASE, 'api', 'articles_clean.json'), 'r', encoding='utf-8') as f:
+    articles = json.load(f)
+
+HEADER_NAV = '''<header class="site-header">
     <a href="/" class="site-logo">Feats.</a>
     <button class="nav-toggle" id="navToggle" aria-label="Toggle menu">&#9776;</button>
     <nav class="nav-links" id="navLinks">
@@ -38,19 +21,9 @@
         </a>
       </div>
     </nav>
-  </header>
-  <main class="page-wrap">
-    <article class="article-body">
-      <img class="featured-img" src="https://feats-api.fpvgate-analytics.workers.dev/images/articles/instagram+Post+10+Slide.png" alt="We're Taking Applications to Contribute to Feats!" loading="lazy">
-      <div class="meta">Feats &middot; Publication &middot; Feats. &middot; 2025-07-04</div>
-      <h1>We're Taking Applications to Contribute to Feats!</h1>
-      <img src="https://feats-api.fpvgate-analytics.workers.dev/images/articles/instagram+Post+10+Slide.png" alt="" style="max-width:100%;height:auto;display:block;margin:1.5rem 0;border-radius:4px">
-  
+  </header>'''
 
-<p>We’re Taking Applications for Journalists and Photographers to Join the Feats. team! Our goal is to shine a light on stories that so often get missed - And we want your help to do so!</p><p>Whatever your skill level is, or where you are in your career, Writer, Journalist, Photographer, Videographer or Host - we want to add you to the Feats. Team!</p><p><br>If that sounds like something you think you’d like to get involved with! <a href="/contributor-applications/" target=""><span>Click here to apply! </span></a>And we will get back to you as soon as possible! </p><p><br><strong>We look forward to working with you - The Feats. Team!</strong></p>
-    </article>
-  </main>
-<footer class="site-footer">
+FOOTER = '''<footer class="site-footer">
     <div class="brand">Feats.</div>
     <div class="info"><a href="mailto:Info@Feats.Live">Info@Feats.Live</a> &nbsp;|&nbsp; <a href="https://www.instagram.com/feats.live/" target="_blank">Instagram</a> &nbsp;|&nbsp; <a href="https://www.youtube.com/@FeatsLive" target="_blank">YouTube</a></div>
     <div class="info">Brighton and London Based</div>
@@ -61,11 +34,71 @@
       <a href="/feats-live/sitemap.xml">Sitemap</a>
       <a href="/feats-live/robots.txt">Robots.txt</a>
     </div>
-  </footer>
+  </footer>'''
+
+ART_CSS = '''  <style>
+    .article-body{max-width:750px;margin:0 auto;padding:3rem 2rem}
+    .article-body .featured-img{width:100%;height:auto;margin-bottom:2rem}
+    .article-body h1{font-size:2.2rem;margin-bottom:.5rem;line-height:1.2}
+    .article-body .meta{font-size:.8rem;opacity:.5;text-transform:uppercase;letter-spacing:1px;margin-bottom:2rem}
+    .article-body p{font-size:1.05rem;opacity:.85;margin-bottom:1.5rem;line-height:1.8}
+    .article-body img{max-width:100%;height:auto;display:block;margin:1.5rem 0;border-radius:4px}
+    .article-body a{text-decoration:underline;opacity:.8}
+    .article-body a:hover{opacity:1}
+  </style>'''
+
+music_dir = os.path.join(BASE, 'music')
+count = 0
+for a in articles:
+    url_id = a['url_id']
+    title = a['title']
+    body = a['body']
+    excerpt = a['excerpt'][:160]
+    author = a['author']
+    date_str = a['publish_date']
+    cats = ' &middot; '.join(a['categories'].split(', ')[:5]) if a['categories'] else 'Article'
+    cover = a['cover_url']
+    if not cover or cover == '/images/hero-3.jpg':
+        cover = 'https://feats-api.fpvgate-analytics.workers.dev/images/hero-3.jpg'
+
+    page_dir = os.path.join(music_dir, url_id)
+    os.makedirs(page_dir, exist_ok=True)
+
+    html = f'''<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>{title} &mdash; Feats.</title>
+  <meta name="description" content="{excerpt}">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Work+Sans:ital,wght@0,500;0,700;1,500;1,700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/feats-live/css/style.css">
+  <link rel="icon" type="image/x-icon" href="/feats-live/favicon.ico">
+{ART_CSS}
+</head>
+<body>
+{HEADER_NAV}
+  <main class="page-wrap">
+    <article class="article-body">
+      <img class="featured-img" src="{cover}" alt="{title}" loading="lazy">
+      <div class="meta">{cats} &middot; {author} &middot; {date_str[:10]}</div>
+      <h1>{title}</h1>
+      {body}
+    </article>
+  </main>
+{FOOTER}
   <script>
-    document.getElementById('navToggle').addEventListener('click', function(){
+    document.getElementById('navToggle').addEventListener('click', function(){{
       document.getElementById('navLinks').classList.toggle('open');
-    });
+    }});
   </script>
 </body>
-</html>
+</html>'''
+
+    with open(os.path.join(page_dir, 'index.html'), 'w', encoding='utf-8') as f:
+        f.write(html)
+    count += 1
+
+print(f'Generated {count} article pages')
