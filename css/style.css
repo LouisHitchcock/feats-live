@@ -153,23 +153,41 @@ ul{list-style:none}
 
 /* === RESPONSIVE === */
 @media(max-width:768px){
-  .site-header{padding:.95rem 1rem}
-  .site-logo{font-size:1.75rem}
+  .site-header{padding:.85rem 1rem}
+  .site-logo{font-size:1.5rem}
   .nav-links{display:none}
-  .nav-links.open{display:flex;flex-direction:column;position:absolute;top:100%;left:0;width:100%;background:rgba(255,255,255,.98);padding:1.5rem;gap:1.25rem;align-items:flex-start;border-bottom:1px solid rgba(0,0,0,.08)}
-  .nav-links > a{font-size:1rem}
-  .nav-toggle{display:block}
-  .carousel-slide img{height:50vh}
-  .section{padding:3rem 1rem}
-  .recent-grid,.music-grid{grid-template-columns:1fr}
-  .contact-grid{grid-template-columns:1fr;gap:2rem}
-  .carousel-caption{bottom:1rem;left:1rem;font-size:.65rem}
-  .carousel-controls{bottom:1rem;right:1rem}
-  .team-grid{grid-template-columns:1fr 1fr}
-  .cta-section h2{font-size:1.8rem}
+  .nav-links.open{display:flex;flex-direction:column;position:absolute;top:100%;left:0;width:100%;background:rgba(255,255,255,.98);padding:1rem;gap:.85rem;align-items:stretch;border-bottom:1px solid rgba(0,0,0,.08);box-shadow:0 4px 12px rgba(0,0,0,.06)}
+  .nav-links > a{font-size:.95rem;padding:.35rem 0}
+  .nav-links .social-links{margin-left:0;margin-top:.25rem}
+  .nav-toggle{display:block;font-size:1.4rem}
+  .carousel-slide img{height:45vh}
+  .carousel-caption{bottom:.75rem;left:.75rem;font-size:.6rem;padding:.35rem .65rem}
+  .carousel-controls{bottom:.75rem;right:.75rem;gap:.35rem}
+  .carousel-btn{width:34px;height:34px;font-size:1rem}
+  .section{padding:2rem 1rem;max-width:100%}
+  .section-title{font-size:1.5rem;letter-spacing:2px;margin-bottom:1.25rem}
+  .recent-grid{grid-template-columns:repeat(2,1fr);gap:1.25rem}
+  .recent-card h3{font-size:1rem}
+  .recent-card .excerpt{font-size:.8rem}
+  .music-grid{grid-template-columns:1fr;gap:1.5rem}
+  .music-card img{height:200px}
+  .music-card h2{font-size:1.1rem}
+  .contact-grid{grid-template-columns:1fr;gap:1.5rem}
+  .team-grid{grid-template-columns:repeat(2,1fr);gap:1.25rem}
+  .what-we-do p{font-size:1rem}
+  .cta-section{padding:3rem 1rem}
+  .cta-section h2{font-size:1.5rem}
+  .site-footer{padding:2.5rem 1rem}
+  .site-footer .brand{font-size:1.6rem}
+  .footer-links a{display:inline-block;margin:.15rem .35rem}
 }
 @media(max-width:480px){
+  .site-logo{font-size:1.35rem}
+  .carousel-slide img{height:35vh}
+  .recent-grid{grid-template-columns:1fr;gap:1.5rem}
   .team-grid{grid-template-columns:1fr}
+  .music-card img{height:180px}
+  .section-title{font-size:1.25rem}
 }
 /* === WRITER CREDIT === */
 .writer-credit{max-width:750px;margin:2rem auto;padding:2rem;display:flex;align-items:flex-start;gap:1.5rem;border-top:1px solid rgba(0,0,0,.12)}
