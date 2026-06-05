@@ -99,7 +99,7 @@
         const author = escapeHtml(a.author || 'Feats.');
         const categories = escapeHtml(a.categories || 'Article');
         const description = escapeHtml((a.excerpt || '').substring(0, 200));
-        const cover = escapeHtml(a.cover_url || 'https://feats-api.fpvgate-analytics.workers.dev/images/hero-3.jpg');
+        const cover = escapeHtml(a.cover_url || 'https://feats-live.louishitchcock.xyz/images/hero-3.jpg');
         const formattedDate = escapeHtml(formatDate(a.publish_date));
         card.className = 'music-card';
         card.innerHTML = '<a href="/music/' + slug + '">'

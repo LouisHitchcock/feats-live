@@ -11,9 +11,9 @@ dirs.forEach(function(dir) {
   if (!fs.existsSync(htmlPath)) return;
   var html = fs.readFileSync(htmlPath, 'utf8');
 
-  var oldCode = "var apiUrl = window.location.pathname.replace(/\\/$/, '');\n      var slug = window.location.pathname.replace(/\\/$/, '').split('/').pop();\n      fetch('https://feats-api.fpvgate-analytics.workers.dev/api/articles/' + slug)\n        .then(function(data) {";
+  var oldCode = "var apiUrl = window.location.pathname.replace(/\\/$/, '');\n      var slug = window.location.pathname.replace(/\\/$/, '').split('/').pop();\n      fetch('https://feats-live.louishitchcock.xyz/api/articles/' + slug)\n        .then(function(data) {";
 
-  var newCode = "var slug = window.location.pathname.replace(/\\/$/, '').split('/').pop();\n      fetch('https://feats-api.fpvgate-analytics.workers.dev/api/articles/' + slug)\n        .then(function(r) { return r.json(); })\n        .then(function(data) {";
+  var newCode = "var slug = window.location.pathname.replace(/\\/$/, '').split('/').pop();\n      fetch('https://feats-live.louishitchcock.xyz/api/articles/' + slug)\n        .then(function(r) { return r.json(); })\n        .then(function(data) {";
 
   if (html.indexOf('var apiUrl') !== -1) {
     html = html.split(oldCode).join(newCode);

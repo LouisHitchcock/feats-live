@@ -1,6 +1,8 @@
-name = "feats-api"
+name = "feats-live"
 main = "src/index.js"
 compatibility_date = "2026-06-05"
+
+routes = [{ pattern = "feats-live.louishitchcock.xyz", custom_domain = true }]
 
 [[r2_buckets]]
 binding = "IMAGES"
