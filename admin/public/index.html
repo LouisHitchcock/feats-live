@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="UTF-8">
@@ -9,25 +9,25 @@
 <link href="https://fonts.googleapis.com/css2?family=Work+Sans:ital,wght@0,500;0,700;1,500;1,700&display=swap" rel="stylesheet">
 <style>
 *{margin:0;padding:0;box-sizing:border-box}
-body{font-family:'Work Sans',-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;background:#fff;color:#0a0a0a;-webkit-font-smoothing:antialiased}
+body{font-family:'Work Sans',-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;background:#fff;color:#444;-webkit-font-smoothing:antialiased}
 
 /* Login */
 .login-page{display:flex;align-items:center;justify-content:center;min-height:100vh;background:#fff}
 .login-card{text-align:center;max-width:400px;width:90%}
 .login-card .brand{font-size:2.1rem;font-weight:700;letter-spacing:.01em;margin-bottom:.5rem}
-.login-card h1{font-size:1.25rem;font-weight:500;color:#0a0a0a;margin-bottom:2.5rem}
-.google-btn{display:inline-flex;align-items:center;gap:.75rem;padding:.85rem 2rem;border:1px solid #0a0a0a;border-radius:0;background:white;color:#0a0a0a;font-size:.85rem;font-weight:500;cursor:pointer;transition:all .3s;text-transform:uppercase;letter-spacing:2px;font-family:'Work Sans',sans-serif}
-.google-btn:hover{background:#0a0a0a;color:#fff;box-shadow:none}
+.login-card h1{font-size:1.25rem;font-weight:500;color:#444;margin-bottom:2.5rem}
+.google-btn{display:inline-flex;align-items:center;gap:.75rem;padding:.85rem 2rem;border:1px solid #444;border-radius:0;background:white;color:#444;font-size:.85rem;font-weight:500;cursor:pointer;transition:all .3s;text-transform:uppercase;letter-spacing:2px;font-family:'Work Sans',sans-serif}
+.google-btn:hover{background:#444;color:#fff;box-shadow:none}
 .google-btn svg{width:18px;height:18px}
 .keep-logged-in{display:flex;align-items:center;justify-content:center;gap:.5rem;margin-top:1.5rem;font-size:.8rem;color:#888;cursor:pointer;user-select:none}
-.keep-logged-in input[type="checkbox"]{width:14px;height:14px;accent-color:#0a0a0a;cursor:pointer}
+.keep-logged-in input[type="checkbox"]{width:14px;height:14px;accent-color:#444;cursor:pointer}
 .login-divider{display:flex;align-items:center;gap:1rem;margin:1.5rem 0;font-size:.75rem;text-transform:uppercase;letter-spacing:1px;color:#ccc}
 .login-divider::before,.login-divider::after{content:'';flex:1;height:1px;background:#eee}
 
 /* Admin layout */
 .admin-layout{display:none;min-height:100vh}
 .admin-layout.active{display:flex}
-.sidebar{width:240px;background:#0a0a0a;color:white;padding:2rem 1.25rem;display:flex;flex-direction:column;flex-shrink:0}
+.sidebar{width:240px;background:#262626;color:white;padding:2rem 1.25rem;display:flex;flex-direction:column;flex-shrink:0}
 .sidebar .brand{font-size:1.4rem;font-weight:700;letter-spacing:.01em;margin-bottom:2rem;opacity:.9}
 .sidebar nav{display:flex;flex-direction:column;gap:.15rem;flex:1}
 .sidebar nav a{padding:.6rem .75rem;border-radius:0;color:rgba(255,255,255,.6);text-decoration:none;font-size:.85rem;font-weight:500;transition:all .2s;cursor:pointer}
@@ -47,15 +47,15 @@ body{font-family:'Work Sans',-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,
 
 .card{background:#fff;padding:1.5rem;border:1px solid #eee;border-radius:0;margin-bottom:1rem}
 .card table{width:100%;border-collapse:collapse;font-size:.85rem}
-.card th{text-align:left;padding:.75rem .5rem;border-bottom:2px solid #0a0a0a;color:#0a0a0a;font-weight:700;font-size:.7rem;text-transform:uppercase;letter-spacing:1px}
+.card th{text-align:left;padding:.75rem .5rem;border-bottom:2px solid #444;color:#444;font-weight:700;font-size:.7rem;text-transform:uppercase;letter-spacing:1px}
 .card td{padding:.75rem .5rem;border-bottom:1px solid #f0f0f0}
 .card tr:last-child td{border-bottom:none}
 .card tr:hover td{background:#fafafa}
 
-.btn{padding:.5rem 1.25rem;border:1px solid #0a0a0a;border-radius:0;cursor:pointer;font-size:.75rem;font-weight:500;transition:all .3s;text-transform:uppercase;letter-spacing:1.5px;background:#fff;color:#0a0a0a;font-family:'Work Sans',sans-serif}
-.btn:hover{background:#0a0a0a;color:#fff}
-.btn-primary{border-color:#0a0a0a;background:#fff;color:#0a0a0a}
-.btn-primary:hover{background:#0a0a0a;color:#fff}
+.btn{padding:.5rem 1.25rem;border:1px solid #444;border-radius:0;cursor:pointer;font-size:.75rem;font-weight:500;transition:all .3s;text-transform:uppercase;letter-spacing:1.5px;background:#fff;color:#444;font-family:'Work Sans',sans-serif}
+.btn:hover{background:#444;color:#fff}
+.btn-primary{border-color:#444;background:#fff;color:#444}
+.btn-primary:hover{background:#444;color:#fff}
 .btn-danger{border-color:#e74c3c;background:#fff;color:#e74c3c}
 .btn-danger:hover{background:#e74c3c;color:#fff}
 .btn-sm{padding:.3rem .65rem;font-size:.7rem;letter-spacing:1px}
@@ -73,8 +73,80 @@ body{font-family:'Work Sans',-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,
 .status-draft{color:#f39c12;font-weight:700;font-size:.75rem;text-transform:uppercase;letter-spacing:.5px}
 
 .badge{display:inline-block;padding:.2rem .5rem;border-radius:0;font-size:.7rem;font-weight:600;text-transform:uppercase;letter-spacing:.5px}
-.badge-admin{background:#f0f0f0;color:#0a0a0a}
-.badge-superadmin{background:#0a0a0a;color:#fff}
+.badge-admin{background:#f0f0f0;color:#444}
+.badge-superadmin{background:#262626;color:#fff}
+
+.writer-photo-upload{display:flex;flex-direction:column;gap:.75rem}
+.writer-photo-upload input[type="file"]{font-size:.85rem;font-family:'Work Sans',sans-serif}
+.writer-photo-current{display:flex;align-items:center;gap:.75rem}
+.writer-photo-current img{width:60px;height:60px;border-radius:50%;object-fit:cover;border:1px solid #eee}
+.writer-photo-upload .btn-sm{font-size:.7rem;padding:.25rem .55rem}
+
+/* Dark mode toggle */
+.dark-toggle{display:flex;align-items:center;gap:.5rem;padding:.5rem .75rem;margin-bottom:.35rem;font-size:.75rem;text-transform:uppercase;letter-spacing:1px;color:rgba(255,255,255,.5);cursor:pointer;user-select:none;transition:all .2s}
+.dark-toggle:hover{color:rgba(255,255,255,.8)}
+.dark-toggle input[type="checkbox"]{width:32px;height:16px;appearance:none;-webkit-appearance:none;background:rgba(255,255,255,.2);border-radius:8px;position:relative;cursor:pointer;flex-shrink:0;transition:background .2s}
+.dark-toggle input[type="checkbox"]::before{content:'';position:absolute;top:2px;left:2px;width:12px;height:12px;border-radius:50%;background:#fff;transition:transform .2s}
+.dark-toggle input[type="checkbox"]:checked{background:#666}
+.dark-toggle input[type="checkbox"]:checked::before{transform:translateX(16px)}
+
+/* Dark mode */
+[data-theme="dark"] body{background:#1a1a1a;color:#d4d4d4}
+[data-theme="dark"] .login-page{background:#1a1a1a}
+[data-theme="dark"] .login-card h1{color:#ccc}
+[data-theme="dark"] .google-btn{background:#262626;border-color:#555;color:#ccc}
+[data-theme="dark"] .google-btn:hover{background:#555;color:#fff}
+[data-theme="dark"] .login-card .brand{color:#ccc}
+[data-theme="dark"] .keep-logged-in{color:#999}
+[data-theme="dark"] .keep-logged-in input[type="checkbox"]{accent-color:#888}
+[data-theme="dark"] .sidebar{background:#1a1a1a}
+[data-theme="dark"] .main h1{color:#ccc}
+[data-theme="dark"] .main{background:#1a1a1a}
+[data-theme="dark"] .stat-card{background:#262626;border-color:#333}
+[data-theme="dark"] .stat-card h3{color:#888}
+[data-theme="dark"] .stat-card .value{color:#e0e0e0}
+[data-theme="dark"] .stat-card .sub{color:#888}
+[data-theme="dark"] .card{background:#262626;border-color:#333}
+[data-theme="dark"] .card th{color:#bbb;border-bottom-color:#555}
+[data-theme="dark"] .card td{border-bottom-color:#333}
+[data-theme="dark"] .card tr:hover td{background:#2e2e2e}
+[data-theme="dark"] .btn{background:#262626;border-color:#555;color:#ccc}
+[data-theme="dark"] .btn:hover{background:#555;color:#fff}
+[data-theme="dark"] .btn-primary{background:#262626;border-color:#555;color:#ccc}
+[data-theme="dark"] .btn-primary:hover{background:#555;color:#fff}
+[data-theme="dark"] .btn-danger{background:#262626;border-color:#b42318;color:#e74c3c}
+[data-theme="dark"] .btn-danger:hover{background:#b42318;color:#fff}
+[data-theme="dark"] .modal-content{background:#262626;border:1px solid #333}
+[data-theme="dark"] .modal-content h2{color:#ccc}
+[data-theme="dark"] .modal-content label{color:#999}
+[data-theme="dark"] .modal-content input,.modal-content textarea,.modal-content select{background:#1a1a1a;border-color:#444;color:#ccc}
+[data-theme="dark"] .badge-admin{background:#333;color:#ccc}
+[data-theme="dark"] .badge-superadmin{background:#555;color:#fff}
+[data-theme="dark"] .writer-photo-current img{border-color:#444}
+[data-theme="dark"] .status-published{color:#4caf50}
+[data-theme="dark"] .status-draft{color:#ffb74d}
+[data-theme="dark"] .article-list-panel,.article-editor-panel{background:#262626;border-color:#333}
+[data-theme="dark"] .article-list-header{border-bottom-color:#333}
+[data-theme="dark"] .article-search{background:#1a1a1a;border-color:#444;color:#ccc}
+[data-theme="dark"] .article-item{background:#262626;border-color:#333;color:#ccc}
+[data-theme="dark"] .article-item:hover{background:#2e2e2e;border-color:#555}
+[data-theme="dark"] .article-item.active{border-color:#888;background:#333}
+[data-theme="dark"] .article-meta{color:#888}
+[data-theme="dark"] .article-editor-header{border-bottom-color:#333}
+[data-theme="dark"] .article-editor-title{color:#ccc}
+[data-theme="dark"] .article-editor-subtitle{color:#888}
+[data-theme="dark"] .article-editor-tabs button{background:#1a1a1a;border-color:#444;color:#888}
+[data-theme="dark"] .article-editor-tabs button.active{background:#555;border-color:#555;color:#fff}
+[data-theme="dark"] .article-save-status{color:#999;border-bottom-color:#333}
+[data-theme="dark"] .article-save-status.error{color:#ef9a9a;background:#3e1a1a}
+[data-theme="dark"] .article-save-status.success{color:#80cbc4;background:#1a3330}
+[data-theme="dark"] .article-field label{color:#999}
+[data-theme="dark"] .article-input,.article-textarea,.article-select{background:#1a1a1a;border-color:#444;color:#ccc}
+[data-theme="dark"] .editor-toolbar button{background:#1a1a1a;border-color:#444;color:#888}
+[data-theme="dark"] .editor-toolbar button:hover{background:#333}
+[data-theme="dark"] .editor-canvas{background:#1a1a1a;border-color:#444;color:#ccc}
+[data-theme="dark"] .article-preview-frame{background:#1a1a1a;border-color:#444}
+[data-theme="dark"] .article-empty-state{color:#888}
 
 @media(max-width:768px){.sidebar{width:60px;padding:.75rem}.sidebar .brand,.sidebar nav a span,.sidebar .user-info{display:none}.main{padding:1.5rem}.stats-grid{grid-template-columns:repeat(2,1fr)}}
 </style>
@@ -104,6 +176,7 @@ body{font-family:'Work Sans',-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,
       <a data-tab="users" onclick="showTab('users', this)"><span>Admin Users</span></a>
       <a data-tab="analytics" onclick="showTab('analytics', this)"><span>Analytics</span></a>
       <a data-tab="tech" onclick="showTab('tech', this)"><span>Technical</span></a>
+      <label class="dark-toggle"><input type="checkbox" id="darkModeToggle" onchange="toggleDarkMode(this.checked)"> Dark Mode</label>
       <a class="logout-link" onclick="logout()"><span>Logout</span></a>
     </nav>
     <div class="user-info" id="userInfo"></div>
@@ -330,33 +403,52 @@ function loadWriters() {
 }
 
 function showNewWriter() {
-  openModal('<h2>Add Writer</h2><label>Name</label><input id="writerName"><label>Photo URL</label><input id="writerPhoto" placeholder="https://..."><label>Bio</label><textarea id="writerBio"></textarea><div class="modal-footer"><button class="btn" onclick="closeModal()">Cancel</button><button class="btn btn-primary" onclick="saveNewWriter()">Save</button></div>');
+  openModal('<h2>Add Writer</h2><label>Name</label><input id="writerName"><label>Photo</label><div class="writer-photo-upload"><input type="file" id="writerPhotoFile" accept="image/*"><div id="writerPhotoPreview"></div></div><label>Bio</label><textarea id="writerBio"></textarea><div class="modal-footer"><button class="btn" onclick="closeModal()">Cancel</button><button class="btn btn-primary" onclick="saveNewWriter()">Save</button></div>');
 }
 
 function saveNewWriter() {
-  var body = {
-    name: document.getElementById('writerName').value,
-    photo_url: document.getElementById('writerPhoto').value,
-    bio: document.getElementById('writerBio').value
-  };
-  if (!body.name) { alert('Name required'); return; }
-  apiPost('/admin/writers', body).then(function() { closeModal(); loadWriters(); }).catch(function(e) { alert('Error: ' + e.message); });
+  var file = document.getElementById('writerPhotoFile').files[0];
+  var name = document.getElementById('writerName').value;
+  var bio = document.getElementById('writerBio').value;
+  if (!name) { alert('Name required'); return; }
+
+  function doSave(photoUrl) {
+    apiPost('/admin/writers', { name: name, photo_url: photoUrl || '', bio: bio })
+      .then(function() { closeModal(); loadWriters(); })
+      .catch(function(e) { alert('Error: ' + e.message); });
+  }
+
+  if (file) {
+    uploadImage(file).then(doSave).catch(function(e) { alert('Upload failed: ' + e.message); });
+  } else {
+    doSave('');
+  }
 }
 
 function editWriter(id) {
   apiGet('/admin/writers/' + id).then(function(d) {
     var w = d.writer;
-    openModal('<h2>Edit Writer</h2><label>Name</label><input id="writerName" value="' + esc(w.name) + '"><label>Photo URL</label><input id="writerPhoto" value="' + esc(w.photo_url || '') + '"><label>Bio</label><textarea id="writerBio">' + esc(w.bio || '') + '</textarea><div class="modal-footer"><button class="btn" onclick="closeModal()">Cancel</button><button class="btn btn-primary" onclick="saveEditWriter(' + id + ')">Save</button></div>');
+    openModal('<h2>Edit Writer</h2><label>Name</label><input id="writerName" value="' + esc(w.name) + '"><label>Photo</label><div class="writer-photo-upload">' + (w.photo_url ? '<div class="writer-photo-current"><img src="' + esc(w.photo_url) + '"><button class="btn btn-sm btn-danger" onclick="removeWriterPhoto(' + id + ')">Remove Photo</button></div>' : '') + '<input type="file" id="writerPhotoFile" accept="image/*"><div id="writerPhotoPreview"></div></div><label>Bio</label><textarea id="writerBio">' + esc(w.bio || '') + '</textarea><div class="modal-footer"><button class="btn" onclick="closeModal()">Cancel</button><button class="btn btn-primary" onclick="saveEditWriter(' + id + ')">Save</button></div>');
   });
 }
 
 function saveEditWriter(id) {
-  var body = {
-    name: document.getElementById('writerName').value,
-    photo_url: document.getElementById('writerPhoto').value,
-    bio: document.getElementById('writerBio').value
-  };
-  apiPut('/admin/writers/' + id, body).then(function() { closeModal(); loadWriters(); }).catch(function(e) { alert('Error: ' + e.message); });
+  var file = document.getElementById('writerPhotoFile').files[0];
+  var name = document.getElementById('writerName').value;
+  var bio = document.getElementById('writerBio').value;
+  if (!name) { alert('Name required'); return; }
+
+  function doSave(photoUrl) {
+    apiPut('/admin/writers/' + id, { name: name, photo_url: photoUrl || '', bio: bio })
+      .then(function() { closeModal(); loadWriters(); })
+      .catch(function(e) { alert('Error: ' + e.message); });
+  }
+
+  if (file) {
+    uploadImage(file).then(doSave).catch(function(e) { alert('Upload failed: ' + e.message); });
+  } else {
+    doSave(null);
+  }
 }
 
 function deleteWriter(id) {
@@ -431,6 +523,46 @@ function loadTech() {
 }
 
 // ===== UTILITIES =====
+function toggleDarkMode(enabled) {
+  document.documentElement.setAttribute('data-theme', enabled ? 'dark' : '');
+  localStorage.setItem('feats_admin_dark', enabled ? '1' : '');
+}
+(function() {
+  if (localStorage.getItem('feats_admin_dark') === '1') {
+    document.documentElement.setAttribute('data-theme', 'dark');
+    var cb = document.getElementById('darkModeToggle');
+    if (cb) cb.checked = true;
+  }
+})();
+
+function uploadImage(file) {
+  return new Promise(function(resolve, reject) {
+    var ext = file.name.split('.').pop().toLowerCase();
+    var key = 'uploads/' + Date.now() + '-' + Math.random().toString(36).slice(2,8) + '.' + ext;
+    var reader = new FileReader();
+    reader.onload = function(e) {
+      var contentType = ext === 'png' ? 'image/png' : 'image/jpeg';
+      fetch(API + '/images/' + key, {
+        method: 'PUT',
+        headers: Object.assign(apiHeaders(), { 'Content-Type': contentType }),
+        body: new Blob([e.target.result], { type: contentType })
+      }).then(function(r) {
+        if (!r.ok) throw new Error('Upload failed: ' + r.status);
+        resolve(API + '/images/' + key);
+      }).catch(reject);
+    };
+    reader.onerror = reject;
+    reader.readAsArrayBuffer(file);
+  });
+}
+
+function removeWriterPhoto(id) {
+  if (!confirm('Remove this writer\'s photo?')) return;
+  apiPut('/admin/writers/' + id, { name: document.getElementById('writerName').value, photo_url: '', bio: document.getElementById('writerBio').value })
+    .then(function() { closeModal(); loadWriters(); })
+    .catch(function(e) { alert('Error: ' + e.message); });
+}
+
 function esc(s) { return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;'); }
 
 // Check auth on load
