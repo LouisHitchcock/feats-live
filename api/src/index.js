@@ -259,12 +259,6 @@ export default {
         return new Response('Not found', { status: 404, headers: corsHeaders });
       }
 
-      // ===== ADMIN DASHBOARD HTML =====
-      if (path === '/admin' || path === '/admin/') {
-        const html = await env.admin_html.get("admin_index");
-        if (html) return new Response(html, { headers: { 'Content-Type': 'text/html;charset=utf-8' } });
-        return new Response('Admin dashboard not configured. Please set ADMIN_HTML KV binding.', { status: 500 });
-      }
 
       return new Response('Not found', { status: 404, headers: corsHeaders });
 

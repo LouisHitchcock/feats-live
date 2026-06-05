@@ -4,9 +4,6 @@ compatibility_date = "2026-06-05"
 
 routes = [{ pattern = "feats-live.louishitchcock.xyz", custom_domain = true }]
 
-[[kv_namespaces]]
-binding = "admin_html"
-id = "57ea96e73dca4316b39881eccf4e6279"
 
 [[r2_buckets]]
 binding = "IMAGES"
