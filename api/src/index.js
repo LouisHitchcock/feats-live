@@ -12,7 +12,9 @@ export default {
     };
 
     if (method === 'OPTIONS') {
-      return new Response(null, { headers: corsHeaders });
+      
+if (method==='DELETE'&&path==='/delete-all'){await env.DB.prepare('DELETE FROM articles').run();return new Response('Deleted',{headers:corsHeaders})}
+return new Response(null, { headers: corsHeaders });
     }
 
     try {
@@ -34,7 +36,9 @@ export default {
         ).bind(urlId).first();
 
         if (!article) {
-          return new Response('Not found', { status: 404, headers: corsHeaders });
+          
+if (method==='DELETE'&&path==='/delete-all'){await env.DB.prepare('DELETE FROM articles').run();return new Response('Deleted',{headers:corsHeaders})}
+return new Response('Not found', { status: 404, headers: corsHeaders });
         }
 
         return Response.json({ article }, { headers: corsHeaders });
@@ -43,14 +47,16 @@ export default {
       // POST /api/articles — create article (for future admin)
       if (method === 'POST' && path === '/articles') {
         const body = await request.json();
-        const { title, url_id, body: content, excerpt, author, categories, cover_url } = body;
+        const { title, url_id, body: content, excerpt, author, publish_date, categories, cover_url } = body;
 
         await env.DB.prepare(
           `INSERT INTO articles (title, url_id, body, excerpt, author, publish_date, categories, cover_url, status)
-           VALUES (?, ?, ?, ?, ?, datetime('now'), ?, ?, 'publish')`
-        ).bind(title, url_id, content, excerpt, author, categories, cover_url).run();
+           VALUES (?, ?, ?, ?, ?, ?, ?, ?, 'publish')`
+        ).bind(title, url_id, content, excerpt, author, publish_date, categories, cover_url).run();
 
-        return new Response('Created', { status: 201, headers: corsHeaders });
+        
+if (method==='DELETE'&&path==='/delete-all'){await env.DB.prepare('DELETE FROM articles').run();return new Response('Deleted',{headers:corsHeaders})}
+return new Response('Created', { status: 201, headers: corsHeaders });
       }
 
       // PUT /api/articles/:url_id — update article (future admin)
@@ -63,20 +69,28 @@ export default {
           `UPDATE articles SET title=?, body=?, excerpt=?, author=?, categories=?, cover_url=?, status=? WHERE url_id=?`
         ).bind(title, content, excerpt, author, categories, cover_url, status, urlId).run();
 
-        return new Response('Updated', { headers: corsHeaders });
+        
+if (method==='DELETE'&&path==='/delete-all'){await env.DB.prepare('DELETE FROM articles').run();return new Response('Deleted',{headers:corsHeaders})}
+return new Response('Updated', { headers: corsHeaders });
       }
 
       // DELETE /api/articles/:url_id — (future admin)
       if (method === 'DELETE' && path.startsWith('/articles/')) {
         const urlId = path.replace('/articles/', '');
         await env.DB.prepare(`DELETE FROM articles WHERE url_id = ?`).bind(urlId).run();
-        return new Response('Deleted', { headers: corsHeaders });
+        
+if (method==='DELETE'&&path==='/delete-all'){await env.DB.prepare('DELETE FROM articles').run();return new Response('Deleted',{headers:corsHeaders})}
+return new Response('Deleted', { headers: corsHeaders });
       }
 
-      return new Response('Not found', { status: 404, headers: corsHeaders });
+      
+if (method==='DELETE'&&path==='/delete-all'){await env.DB.prepare('DELETE FROM articles').run();return new Response('Deleted',{headers:corsHeaders})}
+return new Response('Not found', { status: 404, headers: corsHeaders });
 
     } catch (err) {
-      return new Response(err.message, { status: 500, headers: corsHeaders });
+      
+if (method==='DELETE'&&path==='/delete-all'){await env.DB.prepare('DELETE FROM articles').run();return new Response('Deleted',{headers:corsHeaders})}
+return new Response(err.message, { status: 500, headers: corsHeaders });
     }
   }
 };
