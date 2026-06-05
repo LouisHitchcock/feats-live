@@ -12,21 +12,56 @@
   <link rel="icon" type="image/x-icon" href="/favicon.ico">
   <style>
     .article-body{max-width:750px;margin:0 auto;padding:3rem 2rem}
+    .article-body::after{content:'';display:block;clear:both}
     .article-body .featured-img{width:100%;height:auto;margin-bottom:2rem}
     .article-body h1{font-size:2.2rem;margin-bottom:.5rem;line-height:1.2}
     .article-body .meta{font-size:.8rem;opacity:.5;text-transform:uppercase;letter-spacing:1px;margin-bottom:2rem}
     .article-body p{font-size:1.05rem;opacity:.85;margin-bottom:1.5rem;line-height:1.8}
-    .article-body img{max-width:100%;height:auto;display:block;margin:1.5rem 0;border-radius:4px}
     .article-body a{text-decoration:underline;opacity:.8}
     .article-body a:hover{opacity:1}
-      @media(max-width:768px){.article-body{padding:1.5rem 1rem}.article-body h1{font-size:1.6rem}.article-body p{font-size:.95rem;line-height:1.7}.article-media--float-right,.article-media--float-left{float:none;width:100%;margin:1rem 0}}\n</style>
+    .article-media{margin:1.5rem 0}
+    .article-media--full{width:100%;clear:both}
+    .article-media--float-right{float:right;width:45%;margin:0.5rem 0 1.2rem 1.5rem}
+    .article-media--float-left{float:left;width:45%;margin:0.5rem 1.5rem 1.2rem 0}
+    .article-media img{width:100%;height:auto;display:block;border-radius:4px}
+    .article-media figcaption{font-size:.82rem;opacity:.62;line-height:1.45;margin-top:.5rem}
+    .article-rule{margin:2.3rem 0;border:none;border-top:1px solid rgba(0,0,0,.18);clear:both}
+    .article-divider{margin:2.3rem 0;border:none;border-top:1px solid rgba(0,0,0,.18);clear:both}
+    .article-pullquote{margin:1.8rem 0;padding:1rem 1.25rem;border-left:4px solid #0a0a0a;background:#f6f6f6;font-size:1.18rem;line-height:1.5;font-style:italic}
+    .article-pullquote p{margin:0}
+    .article-callout{margin:1.8rem 0;padding:1rem 1.1rem;border-left:4px solid rgba(0,0,0,.42);background:#f4f4f4}
+    .article-callout p{margin:0}
+    .article-spacer{display:block;width:100%}
+    .article-spacer--sm{height:22px}
+    .article-spacer--md{height:42px}
+    .article-spacer--lg{height:66px}
+    .article-cta{display:inline-block;padding:.6rem 1.1rem;border:1px solid #0a0a0a;color:#0a0a0a;text-decoration:none;font-size:.79rem;font-weight:700;letter-spacing:.6px;text-transform:uppercase}
+    .article-cta:hover{background:#0a0a0a;color:#fff}
+    .article-carousel{position:relative}
+    .article-carousel-main{position:relative;background:#0a0a0a;overflow:hidden}
+    .article-carousel-slides{position:relative}
+    .article-carousel .carousel-slide{display:none}
+    .article-carousel .carousel-slide.is-active{display:block}
+    .article-carousel .carousel-nav{position:absolute;top:50%;transform:translateY(-50%);z-index:3;width:42px;height:42px;border:none;background:rgba(0,0,0,.33);color:#fff;font-size:2rem;line-height:1;cursor:pointer}
+    .article-carousel .carousel-nav.prev{left:0.65rem}
+    .article-carousel .carousel-nav.next{right:0.65rem}
+    .article-carousel.is-single .carousel-nav{display:none}
+    .article-carousel-thumbs{display:flex;gap:2px;overflow-x:auto;margin-top:.55rem;padding-bottom:2px}
+    .article-carousel .carousel-thumb{border:none;padding:0;background:transparent;opacity:.52;cursor:pointer;flex:0 0 auto}
+    .article-carousel .carousel-thumb.is-active{opacity:1}
+    .article-carousel .carousel-thumb img{width:58px;height:40px;object-fit:cover;border-radius:0}
+    @media(max-width:600px){
+      .article-media--float-right,.article-media--float-left{float:none;width:100%;margin:1rem 0}
+      .article-carousel .carousel-nav{width:36px;height:36px;font-size:1.65rem}
+    }
+  </style>
 </head>
 <body>
 <header class="site-header">
     <a href="/" class="site-logo">Feats.</a>
-    <button class="nav-toggle" id="navToggle" aria-label="Toggle menu"><span></span><span></span><span></span></button>
+    <button class="nav-toggle" id="navToggle" aria-label="Toggle menu">&#9776;</button>
     <nav class="nav-links" id="navLinks">
-      <a href="/music">Music</a>
+      <a href="/music" class="active" aria-current="page">Music</a>
       <a href="/about">About</a>
       <a href="/contact">Contact</a>
       <div class="social-links">
@@ -40,87 +75,181 @@
     </nav>
   </header>
   <main class="page-wrap">
-    <article class="article-body">
+    <article class="article-body" id="articleBody" data-article-slug="lewis-capaldi-latitude-2022-8y9we">
       <img class="featured-img" src="https://feats-live.louishitchcock.xyz/images/articles/DSC09883.jpg" alt="After a two year wait, and a long hiatus, Lewis Capaldi debuts his extraordinary Headliner performance at Latitude Festival ‘22.                    (Copy)" loading="lazy">
       <div class="meta">Live Music &middot; Festival &middot; Feats. &middot; 2023-08-17</div>
       <h1>After a two year wait, and a long hiatus, Lewis Capaldi debuts his extraordinary Headliner performance at Latitude Festival ‘22.                    (Copy)</h1>
-      <p><span>WRITTEN BY SOPHIE BINGHAM</span></p>
-
-  
-       <img src="https://feats-live.louishitchcock.xyz/images/articles/DSC09883.jpg" alt="" style="max-width:100%;height:auto;display:block;margin:1.5rem 0;border-radius:4px">  Tom Ellis (Feats./TJEphotos)©  
-  
-
-<p>Lewis Capaldi had his Latitude Festival Debut as he took to headlining the Obelisk stage at Latitude on Friday. 9:30pm, 10 minutes before Lewis was due to perform, the arena filled up swiftly, with everyone else flooding their way towards the stage. At 9:40 a remixed version of <em>Everybody</em> by the Backstreet boys blared over the speakers.</p>
-
-  
-       <img src="https://feats-live.louishitchcock.xyz/images/articles/DSC09647.jpg" alt="" style="max-width:100%;height:auto;display:block;margin:1.5rem 0;border-radius:4px">  Tom Ellis (Feats./TJEphotos)©  
-  
-
-<p><br></p><blockquote><p> “Lewis is back tonight” -in the iconic tune. The anticipation built up.</p></blockquote><p>As he stepped out wearing a good-old black hoodie and beige trousers nothing could be more on brand for the Scottish national. Without missing a beat, Capaldi started with ‘Grace’, one his most popular songs. After his hiatus, it was no surprise that everyone in the crowd (including us) belted the lyrics back at him. There was not a quiet spot at Latitude while he was performing! Confetti exploded out of the canons, it was sure a sight to see!</p>
-
-  
-       <img src="https://feats-live.louishitchcock.xyz/images/articles/DSC09681.jpg" alt="" style="max-width:100%;height:auto;display:block;margin:1.5rem 0;border-radius:4px">  Tom Ellis (Feats./TJEphotos)©  
-  
-
-<p>He joked with the audience that he had ‘no new music’ because he was ‘too lazy’, he explained that he was <em>supposed t</em>o have finished the album but instead they were going to ‘play the old stuff’. Henham Park erupted in huge cheers, happy to just have lewis’ presence&nbsp; and excited to hear his old songs again.&nbsp;</p><p>He continued on with everyone screaming the emotional lyrics to Hold Me While You Wait, feeling every emotion. He followed up by playing the first song he ever released, bruises, independently releasing back in 2017, five years later and everyone still remembers it word for word.&nbsp;</p><p><br></p><p><em>‘I've been told, I've been told to get you off my mind</em></p><p><em>But I hope I never lose the bruises that you left behind’</em></p>
-
-  
-       <img src="https://feats-live.louishitchcock.xyz/images/articles/DSC09751_1.jpg" alt="" style="max-width:100%;height:auto;display:block;margin:1.5rem 0;border-radius:4px">  Tom Ellis (Feats./TJEphotos)©  
-  
-
-<p>He mentioned earlier in the set that he was worried that people had moved on.</p><blockquote><p> ‘I always worry that people had forgotten us’. </p></blockquote><p>There is no way that anyone could ever forget his name,&nbsp; his songs or his incredibly genuine performance that he put on at Latitude Festival, he was sure a perfect Headliner for Friday night.</p><p>He however teased that new music would be out “soon”, he corrected himself after saying that new music would out next year, so it is safe to say that we will have new songs from this mega-star before the year is done. Going by his track record, I'm sure that his new releases will be met with tons of support and success. And that's exactly what he deserves!</p><p>Sophie Bingham, Feats. ©</p>
-
-  
-       <img src="https://feats-live.louishitchcock.xyz/images/articles/DSC00152.jpg" alt="" style="max-width:100%;height:auto;display:block;margin:1.5rem 0;border-radius:4px">  Tom Ellis (Feats./TJEphotos)©  
-  
-
-<p><br></p>
-          <div class="writer-credit hidden" id="writerCredit"><img class="writer-credit-photo" id="writerPhoto" src="" alt="" /><div class="writer-credit-info"><h4 id="writerName"></h4><p id="writerBio"></p></div></div>
+      <p></p>
     </article>
   </main>
 <footer class="site-footer">
     <div class="brand">Feats.</div>
-    <div class="info"><a href="mailto:Info@Feats.Live">Info@Feats.Live</a> &nbsp;|&nbsp; <a href="https://www.instagram.com/feats.live/" target="_blank">Instagram</a> &nbsp;|&nbsp; <a href="https://www.youtube.com/@FeatsLive" target="_blank">YouTube</a></div>
+    <div class="info"><a href="mailto:Info@Feats.Live">Info@Feats.Live</a> &nbsp;|&nbsp; <a href="https://www.instagram.com/feats.live/" target="_blank" rel="noopener">Instagram</a> &nbsp;|&nbsp; <a href="https://www.youtube.com/@FeatsLive" target="_blank" rel="noopener">YouTube</a></div>
     <div class="info">Brighton and London Based</div>
     <div class="info">&copy; 2026 FEATS LIVE CIC | Company Number: 16660624</div>
     <div class="footer-links">
       <a href="/youth-development">Youth Development Programme</a>
+      <a href="/s/Feats-Contributor-Code-of-Conduct-V3.pdf">Contributor Code of Conduct</a>
       <a href="/privacy-policy">Privacy Policy</a>
       <a href="/sitemap.xml">Sitemap</a>
       <a href="/robots.txt">Robots.txt</a>
     </div>
   </footer>
   <script>
-        // Fetch writer credit from API
-    (function() {
-      var slug = window.location.pathname.replace(/\/$/, '').split('/').pop();
-      fetch('https://feats-live.louishitchcock.xyz/api/articles/' + slug)
-        .then(function(r) { return r.json(); })
-        .then(function(data) {
-          var a = data.article;
-          if (!a) return;
-          var name = document.getElementById('writerName');
-          var bio = document.getElementById('writerBio');
-          var photo = document.getElementById('writerPhoto');
-          if (name) name.textContent = a.author || 'Feats.';
-          if (bio) bio.textContent = a.writer_bio || '';
-          if (photo && a.writer_photo_url) {
-            photo.src = a.writer_photo_url;
-            photo.alt = a.author || '';
-          }
-          var credit = document.getElementById('writerCredit');
-          if (credit && (a.writer_bio || a.writer_photo_url)) {
-            credit.classList.remove('hidden');
-          }
-        })
-        .catch(function() {});
-    })();
-
+    const ARTICLE_API_BASE = 'https://feats-live.louishitchcock.xyz';
+    const ARTICLE_FALLBACK_COVER = 'https://feats-live.louishitchcock.xyz/images/hero-3.jpg';
     document.getElementById('navToggle').addEventListener('click', function(){
-      this.classList.toggle('open');
       document.getElementById('navLinks').classList.toggle('open');
-      document.body.style.overflow = document.getElementById('navLinks').classList.contains('open') ? 'hidden' : '';
     });
+    function escapeHtml(value) {
+      return String(value || '')
+        .replace(/&/g, '&amp;')
+        .replace(/</g, '&lt;')
+        .replace(/>/g, '&gt;')
+        .replace(/"/g, '&quot;')
+        .replace(/'/g, '&#39;');
+    }
+
+
+    function formatDate(raw) {
+      var value = String(raw || '');
+      var pieces = value.split('-');
+      if (pieces.length < 3) return value;
+      var months = ['January','February','March','April','May','June','July','August','September','October','November','December'];
+      var monthIdx = parseInt(pieces[1], 10) - 1;
+      var day = parseInt(pieces[2], 10);
+      if (monthIdx < 0 || monthIdx > 11 || Number.isNaN(day)) return value;
+      return day + ' ' + months[monthIdx] + ' ' + pieces[0];
+    }
+
+    function getCarouselNodes(carousel) {
+      return {
+        slides: carousel ? carousel.querySelectorAll('.carousel-slide') : [],
+        thumbs: carousel ? carousel.querySelectorAll('.carousel-thumb') : []
+      };
+    }
+
+    function setCarouselSlideByElement(carousel, nextIndex) {
+      if (!carousel) return;
+      var nodes = getCarouselNodes(carousel);
+      if (!nodes.slides.length) return;
+      var safeIndex = parseInt(nextIndex, 10);
+      if (Number.isNaN(safeIndex)) safeIndex = 0;
+      if (safeIndex < 0) safeIndex = nodes.slides.length - 1;
+      if (safeIndex >= nodes.slides.length) safeIndex = 0;
+      carousel.setAttribute('data-current-slide', String(safeIndex));
+      nodes.slides.forEach(function(slide, index){
+        var active = index === safeIndex;
+        slide.classList.toggle('is-active', active);
+        slide.classList.toggle('active', active);
+      });
+      nodes.thumbs.forEach(function(thumb, index){
+        var active = index === safeIndex;
+        thumb.classList.toggle('is-active', active);
+        thumb.classList.toggle('active', active);
+      });
+    }
+
+    function initSingleCarousel(carousel) {
+      if (!carousel || carousel.dataset.bound === '1') return;
+      carousel.dataset.bound = '1';
+      var prevButton = carousel.querySelector('.carousel-nav.prev, .carousel-nav-prev');
+      var nextButton = carousel.querySelector('.carousel-nav.next, .carousel-nav-next');
+      if (prevButton) {
+        prevButton.addEventListener('click', function(event){
+          event.preventDefault();
+          var current = parseInt(carousel.getAttribute('data-current-slide') || '0', 10);
+          if (Number.isNaN(current)) current = 0;
+          setCarouselSlideByElement(carousel, current - 1);
+        });
+      }
+      if (nextButton) {
+        nextButton.addEventListener('click', function(event){
+          event.preventDefault();
+          var current = parseInt(carousel.getAttribute('data-current-slide') || '0', 10);
+          if (Number.isNaN(current)) current = 0;
+          setCarouselSlideByElement(carousel, current + 1);
+        });
+      }
+      var thumbs = carousel.querySelectorAll('.carousel-thumb');
+      thumbs.forEach(function(button, index){
+        if (button.dataset.bound === '1') return;
+        button.dataset.bound = '1';
+        button.addEventListener('click', function(event){
+          event.preventDefault();
+          setCarouselSlideByElement(carousel, index);
+        });
+      });
+      var initial = parseInt(carousel.getAttribute('data-current-slide') || '0', 10);
+      if (Number.isNaN(initial)) initial = 0;
+      setCarouselSlideByElement(carousel, initial);
+    }
+
+    function initArticleCarousels(root) {
+      var scope = root || document;
+      var carousels = scope.querySelectorAll('[data-article-carousel], .article-carousel');
+      carousels.forEach(initSingleCarousel);
+    }
+
+    function changeCarouselSlide(carouselId, newIndex) {
+      var carousel = document.getElementById(carouselId);
+      if (!carousel) return;
+      setCarouselSlideByElement(carousel, newIndex);
+    }
+
+    function moveCarouselSlide(carouselId, delta) {
+      var carousel = document.getElementById(carouselId);
+      if (!carousel) return;
+      var current = parseInt(carousel.getAttribute('data-current-slide') || '0', 10);
+      if (Number.isNaN(current)) current = 0;
+      setCarouselSlideByElement(carousel, current + parseInt(delta || 0, 10));
+    }
+
+    function hydrateArticleFromApi() {
+      var container = document.getElementById('articleBody');
+      if (!container) return;
+      var currentSlug = container.getAttribute('data-article-slug');
+      if (!currentSlug) return;
+      fetch(ARTICLE_API_BASE + '/api/articles/' + encodeURIComponent(currentSlug), { cache: 'no-store' })
+        .then(function(response){
+          if (!response.ok) throw new Error('Article API request failed: ' + response.status);
+          return response.json();
+        })
+        .then(function(payload){
+          var article = payload && payload.article ? payload.article : null;
+          if (!article) return;
+          var articleTitle = escapeHtml(article.title || 'Untitled Article');
+          var articleAuthor = escapeHtml(article.author || 'Feats.');
+          var categories = String(article.categories || '')
+            .split(',')
+            .map(function(part) { return part.trim(); })
+            .filter(Boolean)
+            .slice(0, 5)
+            .map(escapeHtml)
+            .join(' &middot; ');
+          if (!categories) categories = 'Article';
+          var publishDate = escapeHtml(formatDate(String(article.publish_date || '').slice(0, 10)));
+          var coverUrl = escapeHtml(article.cover_url || ARTICLE_FALLBACK_COVER);
+          var bodyHtml = article.body || '<p></p>';
+          container.innerHTML =
+            '<img class="featured-img" src="' + coverUrl + '" alt="' + articleTitle + '" loading="lazy">' +
+            '<div class="meta">' + categories + ' &middot; ' + articleAuthor + ' &middot; ' + publishDate + '</div>' +
+            '<h1>' + articleTitle + '</h1>' +
+            bodyHtml;
+          document.title = (article.title || 'Article') + ' — Feats.';
+          var description = document.querySelector('meta[name="description"]');
+          if (description) {
+            description.setAttribute('content', String(article.excerpt || '').slice(0, 160));
+          }
+          initArticleCarousels(container);
+        })
+        .catch(function(error){
+          console.warn('Using static article fallback for', currentSlug, error);
+        });
+    }
+
+    initArticleCarousels(document);
+    hydrateArticleFromApi();
   </script>
 </body>
 </html>

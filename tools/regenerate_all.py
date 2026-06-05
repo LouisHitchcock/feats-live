@@ -16,9 +16,10 @@ REPO_ROOT = Path(__file__).resolve().parents[1]
 MUSIC_DIR = REPO_ROOT / "music"
 INDEX_JSON_PATH = REPO_ROOT / "article_index.json"
 API_ARTICLES_PATH = REPO_ROOT / "api" / "articles_clean.json"
-DEFAULT_API_URL = "https://feats-api.fpvgate-analytics.workers.dev/api/articles"
-DEFAULT_COVER = "https://feats-api.fpvgate-analytics.workers.dev/images/hero-3.jpg"
-IMAGE_PROXY_BASE = "https://feats-api.fpvgate-analytics.workers.dev/images/articles/"
+PUBLIC_API_BASE = "https://feats-live.louishitchcock.xyz"
+DEFAULT_API_URL = PUBLIC_API_BASE + "/api/articles"
+DEFAULT_COVER = PUBLIC_API_BASE + "/images/hero-3.jpg"
+IMAGE_PROXY_BASE = PUBLIC_API_BASE + "/images/articles/"
 LEGACY_LAYOUT_URL_TEMPLATE = "https://feats.live/music/{url_id}?format=json-pretty"
 
 EXCLUDED_URL_IDS = {
@@ -47,6 +48,17 @@ ARTICLE_STYLE = """  <style>
     .article-media img{width:100%;height:auto;display:block;border-radius:4px}
     .article-media figcaption{font-size:.82rem;opacity:.62;line-height:1.45;margin-top:.5rem}
     .article-rule{margin:2.3rem 0;border:none;border-top:1px solid rgba(0,0,0,.18);clear:both}
+    .article-divider{margin:2.3rem 0;border:none;border-top:1px solid rgba(0,0,0,.18);clear:both}
+    .article-pullquote{margin:1.8rem 0;padding:1rem 1.25rem;border-left:4px solid #0a0a0a;background:#f6f6f6;font-size:1.18rem;line-height:1.5;font-style:italic}
+    .article-pullquote p{margin:0}
+    .article-callout{margin:1.8rem 0;padding:1rem 1.1rem;border-left:4px solid rgba(0,0,0,.42);background:#f4f4f4}
+    .article-callout p{margin:0}
+    .article-spacer{display:block;width:100%}
+    .article-spacer--sm{height:22px}
+    .article-spacer--md{height:42px}
+    .article-spacer--lg{height:66px}
+    .article-cta{display:inline-block;padding:.6rem 1.1rem;border:1px solid #0a0a0a;color:#0a0a0a;text-decoration:none;font-size:.79rem;font-weight:700;letter-spacing:.6px;text-transform:uppercase}
+    .article-cta:hover{background:#0a0a0a;color:#fff}
     .article-carousel{position:relative}
     .article-carousel-main{position:relative;background:#0a0a0a;overflow:hidden}
     .article-carousel-slides{position:relative}
@@ -495,6 +507,7 @@ def render_article_page(article: dict) -> str:
     excerpt = html.escape(article["excerpt"][:160], quote=True)
     author = html.escape(article["author"], quote=True)
     publish_day = html.escape(article["publish_date"][:10], quote=True)
+    slug = html.escape(article["url_id"], quote=True)
     cats_raw = [part.strip() for part in str(article["categories"]).split(",") if part.strip()]
     cats = " &middot; ".join(html.escape(part, quote=True) for part in cats_raw[:5]) if cats_raw else "Article"
     cover = html.escape(article["cover_url"] or DEFAULT_COVER, quote=True)
@@ -517,7 +530,7 @@ def render_article_page(article: dict) -> str:
 <body>
 {render_header(music_active=True)}
   <main class="page-wrap">
-    <article class="article-body">
+    <article class="article-body" id="articleBody" data-article-slug="{slug}">
       <img class="featured-img" src="{cover}" alt="{title}" loading="lazy">
       <div class="meta">{cats} &middot; {author} &middot; {publish_day}</div>
       <h1>{title}</h1>
@@ -526,45 +539,160 @@ def render_article_page(article: dict) -> str:
   </main>
 {FOOTER}
   <script>
+    const ARTICLE_API_BASE = '{PUBLIC_API_BASE}';
+    const ARTICLE_FALLBACK_COVER = '{DEFAULT_COVER}';
     document.getElementById('navToggle').addEventListener('click', function(){{
       document.getElementById('navLinks').classList.toggle('open');
     }});
+    function escapeHtml(value) {{
+      return String(value || '')
+        .replace(/&/g, '&amp;')
+        .replace(/</g, '&lt;')
+        .replace(/>/g, '&gt;')
+        .replace(/"/g, '&quot;')
+        .replace(/'/g, '&#39;');
+    }}
 
-    (function(){{
-      var carousels = document.querySelectorAll('[data-article-carousel]');
-      carousels.forEach(function(carousel){{
-        var slides = carousel.querySelectorAll('.carousel-slide');
-        var thumbs = carousel.querySelectorAll('.carousel-thumb');
-        if (!slides.length) return;
 
-        var currentIndex = 0;
-        function setSlide(nextIndex){{
-          if (nextIndex < 0) nextIndex = slides.length - 1;
-          if (nextIndex >= slides.length) nextIndex = 0;
-          currentIndex = nextIndex;
-          slides.forEach(function(slide, index){{
-            slide.classList.toggle('is-active', index === currentIndex);
-          }});
-          thumbs.forEach(function(thumb, index){{
-            thumb.classList.toggle('is-active', index === currentIndex);
-          }});
-        }}
+    function formatDate(raw) {{
+      var value = String(raw || '');
+      var pieces = value.split('-');
+      if (pieces.length < 3) return value;
+      var months = ['January','February','March','April','May','June','July','August','September','October','November','December'];
+      var monthIdx = parseInt(pieces[1], 10) - 1;
+      var day = parseInt(pieces[2], 10);
+      if (monthIdx < 0 || monthIdx > 11 || Number.isNaN(day)) return value;
+      return day + ' ' + months[monthIdx] + ' ' + pieces[0];
+    }}
 
-        var prevButton = carousel.querySelector('.carousel-nav.prev');
-        var nextButton = carousel.querySelector('.carousel-nav.next');
-        if (prevButton) {{
-          prevButton.addEventListener('click', function(){{ setSlide(currentIndex - 1); }});
-        }}
-        if (nextButton) {{
-          nextButton.addEventListener('click', function(){{ setSlide(currentIndex + 1); }});
-        }}
+    function getCarouselNodes(carousel) {{
+      return {{
+        slides: carousel ? carousel.querySelectorAll('.carousel-slide') : [],
+        thumbs: carousel ? carousel.querySelectorAll('.carousel-thumb') : []
+      }};
+    }}
 
-        thumbs.forEach(function(button, index){{
-          button.addEventListener('click', function(){{ setSlide(index); }});
-        }});
-        setSlide(0);
+    function setCarouselSlideByElement(carousel, nextIndex) {{
+      if (!carousel) return;
+      var nodes = getCarouselNodes(carousel);
+      if (!nodes.slides.length) return;
+      var safeIndex = parseInt(nextIndex, 10);
+      if (Number.isNaN(safeIndex)) safeIndex = 0;
+      if (safeIndex < 0) safeIndex = nodes.slides.length - 1;
+      if (safeIndex >= nodes.slides.length) safeIndex = 0;
+      carousel.setAttribute('data-current-slide', String(safeIndex));
+      nodes.slides.forEach(function(slide, index){{
+        var active = index === safeIndex;
+        slide.classList.toggle('is-active', active);
+        slide.classList.toggle('active', active);
       }});
-    }})();
+      nodes.thumbs.forEach(function(thumb, index){{
+        var active = index === safeIndex;
+        thumb.classList.toggle('is-active', active);
+        thumb.classList.toggle('active', active);
+      }});
+    }}
+
+    function initSingleCarousel(carousel) {{
+      if (!carousel || carousel.dataset.bound === '1') return;
+      carousel.dataset.bound = '1';
+      var prevButton = carousel.querySelector('.carousel-nav.prev, .carousel-nav-prev');
+      var nextButton = carousel.querySelector('.carousel-nav.next, .carousel-nav-next');
+      if (prevButton) {{
+        prevButton.addEventListener('click', function(event){{
+          event.preventDefault();
+          var current = parseInt(carousel.getAttribute('data-current-slide') || '0', 10);
+          if (Number.isNaN(current)) current = 0;
+          setCarouselSlideByElement(carousel, current - 1);
+        }});
+      }}
+      if (nextButton) {{
+        nextButton.addEventListener('click', function(event){{
+          event.preventDefault();
+          var current = parseInt(carousel.getAttribute('data-current-slide') || '0', 10);
+          if (Number.isNaN(current)) current = 0;
+          setCarouselSlideByElement(carousel, current + 1);
+        }});
+      }}
+      var thumbs = carousel.querySelectorAll('.carousel-thumb');
+      thumbs.forEach(function(button, index){{
+        if (button.dataset.bound === '1') return;
+        button.dataset.bound = '1';
+        button.addEventListener('click', function(event){{
+          event.preventDefault();
+          setCarouselSlideByElement(carousel, index);
+        }});
+      }});
+      var initial = parseInt(carousel.getAttribute('data-current-slide') || '0', 10);
+      if (Number.isNaN(initial)) initial = 0;
+      setCarouselSlideByElement(carousel, initial);
+    }}
+
+    function initArticleCarousels(root) {{
+      var scope = root || document;
+      var carousels = scope.querySelectorAll('[data-article-carousel], .article-carousel');
+      carousels.forEach(initSingleCarousel);
+    }}
+
+    function changeCarouselSlide(carouselId, newIndex) {{
+      var carousel = document.getElementById(carouselId);
+      if (!carousel) return;
+      setCarouselSlideByElement(carousel, newIndex);
+    }}
+
+    function moveCarouselSlide(carouselId, delta) {{
+      var carousel = document.getElementById(carouselId);
+      if (!carousel) return;
+      var current = parseInt(carousel.getAttribute('data-current-slide') || '0', 10);
+      if (Number.isNaN(current)) current = 0;
+      setCarouselSlideByElement(carousel, current + parseInt(delta || 0, 10));
+    }}
+
+    function hydrateArticleFromApi() {{
+      var container = document.getElementById('articleBody');
+      if (!container) return;
+      var currentSlug = container.getAttribute('data-article-slug');
+      if (!currentSlug) return;
+      fetch(ARTICLE_API_BASE + '/api/articles/' + encodeURIComponent(currentSlug), {{ cache: 'no-store' }})
+        .then(function(response){{
+          if (!response.ok) throw new Error('Article API request failed: ' + response.status);
+          return response.json();
+        }})
+        .then(function(payload){{
+          var article = payload && payload.article ? payload.article : null;
+          if (!article) return;
+          var articleTitle = escapeHtml(article.title || 'Untitled Article');
+          var articleAuthor = escapeHtml(article.author || 'Feats.');
+          var categories = String(article.categories || '')
+            .split(',')
+            .map(function(part) {{ return part.trim(); }})
+            .filter(Boolean)
+            .slice(0, 5)
+            .map(escapeHtml)
+            .join(' &middot; ');
+          if (!categories) categories = 'Article';
+          var publishDate = escapeHtml(formatDate(String(article.publish_date || '').slice(0, 10)));
+          var coverUrl = escapeHtml(article.cover_url || ARTICLE_FALLBACK_COVER);
+          var bodyHtml = article.body || '<p></p>';
+          container.innerHTML =
+            '<img class="featured-img" src="' + coverUrl + '" alt="' + articleTitle + '" loading="lazy">' +
+            '<div class="meta">' + categories + ' &middot; ' + articleAuthor + ' &middot; ' + publishDate + '</div>' +
+            '<h1>' + articleTitle + '</h1>' +
+            bodyHtml;
+          document.title = (article.title || 'Article') + ' — Feats.';
+          var description = document.querySelector('meta[name="description"]');
+          if (description) {{
+            description.setAttribute('content', String(article.excerpt || '').slice(0, 160));
+          }}
+          initArticleCarousels(container);
+        }})
+        .catch(function(error){{
+          console.warn('Using static article fallback for', currentSlug, error);
+        }});
+    }}
+
+    initArticleCarousels(document);
+    hydrateArticleFromApi();
   </script>
 </body>
 </html>
@@ -575,8 +703,6 @@ def write_article_pages(articles: list[dict]) -> int:
     generated = 0
     MUSIC_DIR.mkdir(parents=True, exist_ok=True)
     for article in articles:
-        if len(article["body"]) < 20:
-            continue
         page_dir = MUSIC_DIR / article["url_id"]
         page_dir.mkdir(parents=True, exist_ok=True)
         (page_dir / "index.html").write_text(render_article_page(article), encoding="utf-8")
@@ -617,6 +743,7 @@ def render_music_listing() -> str:
     }});
   </script>
   <script>
+    const ARTICLE_API_BASE = '{PUBLIC_API_BASE}';
     const EXCLUDED_URL_IDS = new Set([{excluded_list}]);
     const PER_PAGE = 12;
     let allArticles = [];
@@ -670,7 +797,21 @@ def render_music_listing() -> str:
           + '<span class="read-more">Read More</span></a>';
         grid.appendChild(card);
       }});
+      setTimeout(function() {{
+        grid.querySelectorAll('.music-card:not(.visible)').forEach(function(el) {{
+          cardsObserver.observe(el);
+        }});
+      }}, 50);
     }}
+
+    var cardsObserver = new IntersectionObserver(function(entries) {{
+      entries.forEach(function(entry) {{
+        if (entry.isIntersecting) {{
+          entry.target.classList.add('visible');
+          cardsObserver.unobserve(entry.target);
+        }}
+      }});
+    }}, {{ rootMargin: '0px 0px 80px 0px' }});
 
     function loadMore() {{
       currentPage += 1;
@@ -682,8 +823,23 @@ def render_music_listing() -> str:
       }}
     }}
 
-    fetch('/article_index.json')
-      .then(function(response) {{ return response.json(); }})
+    function loadArticles() {{
+      return fetch(ARTICLE_API_BASE + '/api/articles', {{ cache: 'no-store' }})
+        .then(function(response) {{
+          if (!response.ok) throw new Error('API request failed: ' + response.status);
+          return response.json();
+        }})
+        .then(function(payload) {{
+          return payload && Array.isArray(payload.articles) ? payload.articles : [];
+        }})
+        .catch(function(apiError) {{
+          console.warn('Falling back to static article_index.json', apiError);
+          return fetch('/article_index.json')
+            .then(function(response) {{ return response.json(); }});
+        }});
+    }}
+
+    loadArticles()
       .then(function(payload) {{
         allArticles = normalizeArticles(payload);
         renderArticles(allArticles.slice(0, PER_PAGE));
@@ -692,7 +848,7 @@ def render_music_listing() -> str:
         }}
       }})
       .catch(function(error) {{
-        console.error('Failed to load article_index.json', error);
+        console.error('Failed to load articles', error);
       }});
   </script>
 </body>

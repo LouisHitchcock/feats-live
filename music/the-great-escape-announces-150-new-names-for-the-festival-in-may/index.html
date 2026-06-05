@@ -26,6 +26,17 @@
     .article-media img{width:100%;height:auto;display:block;border-radius:4px}
     .article-media figcaption{font-size:.82rem;opacity:.62;line-height:1.45;margin-top:.5rem}
     .article-rule{margin:2.3rem 0;border:none;border-top:1px solid rgba(0,0,0,.18);clear:both}
+    .article-divider{margin:2.3rem 0;border:none;border-top:1px solid rgba(0,0,0,.18);clear:both}
+    .article-pullquote{margin:1.8rem 0;padding:1rem 1.25rem;border-left:4px solid #0a0a0a;background:#f6f6f6;font-size:1.18rem;line-height:1.5;font-style:italic}
+    .article-pullquote p{margin:0}
+    .article-callout{margin:1.8rem 0;padding:1rem 1.1rem;border-left:4px solid rgba(0,0,0,.42);background:#f4f4f4}
+    .article-callout p{margin:0}
+    .article-spacer{display:block;width:100%}
+    .article-spacer--sm{height:22px}
+    .article-spacer--md{height:42px}
+    .article-spacer--lg{height:66px}
+    .article-cta{display:inline-block;padding:.6rem 1.1rem;border:1px solid #0a0a0a;color:#0a0a0a;text-decoration:none;font-size:.79rem;font-weight:700;letter-spacing:.6px;text-transform:uppercase}
+    .article-cta:hover{background:#0a0a0a;color:#fff}
     .article-carousel{position:relative}
     .article-carousel-main{position:relative;background:#0a0a0a;overflow:hidden}
     .article-carousel-slides{position:relative}
@@ -43,12 +54,12 @@
       .article-media--float-right,.article-media--float-left{float:none;width:100%;margin:1rem 0}
       .article-carousel .carousel-nav{width:36px;height:36px;font-size:1.65rem}
     }
-      @media(max-width:768px){.article-body{padding:1.5rem 1rem}.article-body h1{font-size:1.6rem}.article-body p{font-size:.95rem;line-height:1.7}.article-media--float-right,.article-media--float-left{float:none;width:100%;margin:1rem 0}}\n</style>
+  </style>
 </head>
 <body>
 <header class="site-header">
     <a href="/" class="site-logo">Feats.</a>
-    <button class="nav-toggle" id="navToggle" aria-label="Toggle menu"><span></span><span></span><span></span></button>
+    <button class="nav-toggle" id="navToggle" aria-label="Toggle menu">&#9776;</button>
     <nav class="nav-links" id="navLinks">
       <a href="/music" class="active" aria-current="page">Music</a>
       <a href="/about">About</a>
@@ -64,7 +75,7 @@
     </nav>
   </header>
   <main class="page-wrap">
-    <article class="article-body">
+    <article class="article-body" id="articleBody" data-article-slug="the-great-escape-announces-150-new-names-for-the-festival-in-may">
       <img class="featured-img" src="https://feats-live.louishitchcock.xyz/images/articles/the+great+escape+2022.png" alt="Brightons “The Great Escape” announces completes its full line up for the festival in May." loading="lazy">
       <div class="meta">Festival &middot; Review &middot; Artist Showcase &middot; Feats. &middot; 2023-04-17</div>
       <h1>Brightons “The Great Escape” announces completes its full line up for the festival in May.</h1>
@@ -106,7 +117,6 @@
   <img src="https://feats-live.louishitchcock.xyz/images/articles/tge.JPG" alt="" loading="lazy">
   <figcaption>The Full line up is available at: https://greatescapefestival.com/line-up/</figcaption>
 </figure>
-          <div class="writer-credit hidden" id="writerCredit"><img class="writer-credit-photo" id="writerPhoto" src="" alt="" /><div class="writer-credit-info"><h4 id="writerName"></h4><p id="writerBio"></p></div></div>
     </article>
   </main>
 <footer class="site-footer">
@@ -123,72 +133,160 @@
     </div>
   </footer>
   <script>
-        // Fetch writer credit from API
-    (function() {
-      var slug = window.location.pathname.replace(/\/$/, '').split('/').pop();
-      fetch('https://feats-live.louishitchcock.xyz/api/articles/' + slug)
-        .then(function(r) { return r.json(); })
-        .then(function(data) {
-          var a = data.article;
-          if (!a) return;
-          var name = document.getElementById('writerName');
-          var bio = document.getElementById('writerBio');
-          var photo = document.getElementById('writerPhoto');
-          if (name) name.textContent = a.author || 'Feats.';
-          if (bio) bio.textContent = a.writer_bio || '';
-          if (photo && a.writer_photo_url) {
-            photo.src = a.writer_photo_url;
-            photo.alt = a.author || '';
-          }
-          var credit = document.getElementById('writerCredit');
-          if (credit && (a.writer_bio || a.writer_photo_url)) {
-            credit.classList.remove('hidden');
-          }
-        })
-        .catch(function() {});
-    })();
-
+    const ARTICLE_API_BASE = 'https://feats-live.louishitchcock.xyz';
+    const ARTICLE_FALLBACK_COVER = 'https://feats-live.louishitchcock.xyz/images/hero-3.jpg';
     document.getElementById('navToggle').addEventListener('click', function(){
-      this.classList.toggle('open');
       document.getElementById('navLinks').classList.toggle('open');
-      document.body.style.overflow = document.getElementById('navLinks').classList.contains('open') ? 'hidden' : '';
     });
+    function escapeHtml(value) {
+      return String(value || '')
+        .replace(/&/g, '&amp;')
+        .replace(/</g, '&lt;')
+        .replace(/>/g, '&gt;')
+        .replace(/"/g, '&quot;')
+        .replace(/'/g, '&#39;');
+    }
 
-    (function(){
-      var carousels = document.querySelectorAll('[data-article-carousel]');
-      carousels.forEach(function(carousel){
-        var slides = carousel.querySelectorAll('.carousel-slide');
-        var thumbs = carousel.querySelectorAll('.carousel-thumb');
-        if (!slides.length) return;
 
-        var currentIndex = 0;
-        function setSlide(nextIndex){
-          if (nextIndex < 0) nextIndex = slides.length - 1;
-          if (nextIndex >= slides.length) nextIndex = 0;
-          currentIndex = nextIndex;
-          slides.forEach(function(slide, index){
-            slide.classList.toggle('is-active', index === currentIndex);
-          });
-          thumbs.forEach(function(thumb, index){
-            thumb.classList.toggle('is-active', index === currentIndex);
-          });
-        }
+    function formatDate(raw) {
+      var value = String(raw || '');
+      var pieces = value.split('-');
+      if (pieces.length < 3) return value;
+      var months = ['January','February','March','April','May','June','July','August','September','October','November','December'];
+      var monthIdx = parseInt(pieces[1], 10) - 1;
+      var day = parseInt(pieces[2], 10);
+      if (monthIdx < 0 || monthIdx > 11 || Number.isNaN(day)) return value;
+      return day + ' ' + months[monthIdx] + ' ' + pieces[0];
+    }
 
-        var prevButton = carousel.querySelector('.carousel-nav.prev');
-        var nextButton = carousel.querySelector('.carousel-nav.next');
-        if (prevButton) {
-          prevButton.addEventListener('click', function(){ setSlide(currentIndex - 1); });
-        }
-        if (nextButton) {
-          nextButton.addEventListener('click', function(){ setSlide(currentIndex + 1); });
-        }
+    function getCarouselNodes(carousel) {
+      return {
+        slides: carousel ? carousel.querySelectorAll('.carousel-slide') : [],
+        thumbs: carousel ? carousel.querySelectorAll('.carousel-thumb') : []
+      };
+    }
 
-        thumbs.forEach(function(button, index){
-          button.addEventListener('click', function(){ setSlide(index); });
-        });
-        setSlide(0);
+    function setCarouselSlideByElement(carousel, nextIndex) {
+      if (!carousel) return;
+      var nodes = getCarouselNodes(carousel);
+      if (!nodes.slides.length) return;
+      var safeIndex = parseInt(nextIndex, 10);
+      if (Number.isNaN(safeIndex)) safeIndex = 0;
+      if (safeIndex < 0) safeIndex = nodes.slides.length - 1;
+      if (safeIndex >= nodes.slides.length) safeIndex = 0;
+      carousel.setAttribute('data-current-slide', String(safeIndex));
+      nodes.slides.forEach(function(slide, index){
+        var active = index === safeIndex;
+        slide.classList.toggle('is-active', active);
+        slide.classList.toggle('active', active);
       });
-    })();
+      nodes.thumbs.forEach(function(thumb, index){
+        var active = index === safeIndex;
+        thumb.classList.toggle('is-active', active);
+        thumb.classList.toggle('active', active);
+      });
+    }
+
+    function initSingleCarousel(carousel) {
+      if (!carousel || carousel.dataset.bound === '1') return;
+      carousel.dataset.bound = '1';
+      var prevButton = carousel.querySelector('.carousel-nav.prev, .carousel-nav-prev');
+      var nextButton = carousel.querySelector('.carousel-nav.next, .carousel-nav-next');
+      if (prevButton) {
+        prevButton.addEventListener('click', function(event){
+          event.preventDefault();
+          var current = parseInt(carousel.getAttribute('data-current-slide') || '0', 10);
+          if (Number.isNaN(current)) current = 0;
+          setCarouselSlideByElement(carousel, current - 1);
+        });
+      }
+      if (nextButton) {
+        nextButton.addEventListener('click', function(event){
+          event.preventDefault();
+          var current = parseInt(carousel.getAttribute('data-current-slide') || '0', 10);
+          if (Number.isNaN(current)) current = 0;
+          setCarouselSlideByElement(carousel, current + 1);
+        });
+      }
+      var thumbs = carousel.querySelectorAll('.carousel-thumb');
+      thumbs.forEach(function(button, index){
+        if (button.dataset.bound === '1') return;
+        button.dataset.bound = '1';
+        button.addEventListener('click', function(event){
+          event.preventDefault();
+          setCarouselSlideByElement(carousel, index);
+        });
+      });
+      var initial = parseInt(carousel.getAttribute('data-current-slide') || '0', 10);
+      if (Number.isNaN(initial)) initial = 0;
+      setCarouselSlideByElement(carousel, initial);
+    }
+
+    function initArticleCarousels(root) {
+      var scope = root || document;
+      var carousels = scope.querySelectorAll('[data-article-carousel], .article-carousel');
+      carousels.forEach(initSingleCarousel);
+    }
+
+    function changeCarouselSlide(carouselId, newIndex) {
+      var carousel = document.getElementById(carouselId);
+      if (!carousel) return;
+      setCarouselSlideByElement(carousel, newIndex);
+    }
+
+    function moveCarouselSlide(carouselId, delta) {
+      var carousel = document.getElementById(carouselId);
+      if (!carousel) return;
+      var current = parseInt(carousel.getAttribute('data-current-slide') || '0', 10);
+      if (Number.isNaN(current)) current = 0;
+      setCarouselSlideByElement(carousel, current + parseInt(delta || 0, 10));
+    }
+
+    function hydrateArticleFromApi() {
+      var container = document.getElementById('articleBody');
+      if (!container) return;
+      var currentSlug = container.getAttribute('data-article-slug');
+      if (!currentSlug) return;
+      fetch(ARTICLE_API_BASE + '/api/articles/' + encodeURIComponent(currentSlug), { cache: 'no-store' })
+        .then(function(response){
+          if (!response.ok) throw new Error('Article API request failed: ' + response.status);
+          return response.json();
+        })
+        .then(function(payload){
+          var article = payload && payload.article ? payload.article : null;
+          if (!article) return;
+          var articleTitle = escapeHtml(article.title || 'Untitled Article');
+          var articleAuthor = escapeHtml(article.author || 'Feats.');
+          var categories = String(article.categories || '')
+            .split(',')
+            .map(function(part) { return part.trim(); })
+            .filter(Boolean)
+            .slice(0, 5)
+            .map(escapeHtml)
+            .join(' &middot; ');
+          if (!categories) categories = 'Article';
+          var publishDate = escapeHtml(formatDate(String(article.publish_date || '').slice(0, 10)));
+          var coverUrl = escapeHtml(article.cover_url || ARTICLE_FALLBACK_COVER);
+          var bodyHtml = article.body || '<p></p>';
+          container.innerHTML =
+            '<img class="featured-img" src="' + coverUrl + '" alt="' + articleTitle + '" loading="lazy">' +
+            '<div class="meta">' + categories + ' &middot; ' + articleAuthor + ' &middot; ' + publishDate + '</div>' +
+            '<h1>' + articleTitle + '</h1>' +
+            bodyHtml;
+          document.title = (article.title || 'Article') + ' — Feats.';
+          var description = document.querySelector('meta[name="description"]');
+          if (description) {
+            description.setAttribute('content', String(article.excerpt || '').slice(0, 160));
+          }
+          initArticleCarousels(container);
+        })
+        .catch(function(error){
+          console.warn('Using static article fallback for', currentSlug, error);
+        });
+    }
+
+    initArticleCarousels(document);
+    hydrateArticleFromApi();
   </script>
 </body>
 </html>
