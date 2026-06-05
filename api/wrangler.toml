@@ -5,4 +5,4 @@ compatibility_date = "2026-06-05"
 [[d1_databases]]
 binding = "DB"
 database_name = "feats-db"
-database_id = ""
+database_id = "af52488d-a2d2-4a58-9c67-772621a342cd"
