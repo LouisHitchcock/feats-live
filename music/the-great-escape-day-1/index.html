@@ -12,16 +12,37 @@
   <link rel="icon" type="image/x-icon" href="/favicon.ico">
   <style>
     .article-body{max-width:750px;margin:0 auto;padding:3rem 2rem}
+    .article-body::after{content:'';display:block;clear:both}
     .article-body .featured-img{width:100%;height:auto;margin-bottom:2rem}
     .article-body h1{font-size:2.2rem;margin-bottom:.5rem;line-height:1.2}
     .article-body .meta{font-size:.8rem;opacity:.5;text-transform:uppercase;letter-spacing:1px;margin-bottom:2rem}
     .article-body p{font-size:1.05rem;opacity:.85;margin-bottom:1.5rem;line-height:1.8}
-    .article-body img{max-width:100%;height:auto;border-radius:4px}
     .article-body a{text-decoration:underline;opacity:.8}
     .article-body a:hover{opacity:1}
-    .img-wrap-right{float:right;width:45%;margin:0.5rem 0 0.5rem 1.5rem}
-    .img-wrap-left{float:left;width:45%;margin:0.5rem 1.5rem 0.5rem 0}
-    @media(max-width:600px){.img-wrap-right,.img-wrap-left{float:none;width:100%;margin:1rem 0}}
+    .article-media{margin:1.5rem 0}
+    .article-media--full{width:100%;clear:both}
+    .article-media--float-right{float:right;width:45%;margin:0.5rem 0 1.2rem 1.5rem}
+    .article-media--float-left{float:left;width:45%;margin:0.5rem 1.5rem 1.2rem 0}
+    .article-media img{width:100%;height:auto;display:block;border-radius:4px}
+    .article-media figcaption{font-size:.82rem;opacity:.62;line-height:1.45;margin-top:.5rem}
+    .article-rule{margin:2.3rem 0;border:none;border-top:1px solid rgba(0,0,0,.18);clear:both}
+    .article-carousel{position:relative}
+    .article-carousel-main{position:relative;background:#0a0a0a;overflow:hidden}
+    .article-carousel-slides{position:relative}
+    .article-carousel .carousel-slide{display:none}
+    .article-carousel .carousel-slide.is-active{display:block}
+    .article-carousel .carousel-nav{position:absolute;top:50%;transform:translateY(-50%);z-index:3;width:42px;height:42px;border:none;background:rgba(0,0,0,.33);color:#fff;font-size:2rem;line-height:1;cursor:pointer}
+    .article-carousel .carousel-nav.prev{left:0.65rem}
+    .article-carousel .carousel-nav.next{right:0.65rem}
+    .article-carousel.is-single .carousel-nav{display:none}
+    .article-carousel-thumbs{display:flex;gap:2px;overflow-x:auto;margin-top:.55rem;padding-bottom:2px}
+    .article-carousel .carousel-thumb{border:none;padding:0;background:transparent;opacity:.52;cursor:pointer;flex:0 0 auto}
+    .article-carousel .carousel-thumb.is-active{opacity:1}
+    .article-carousel .carousel-thumb img{width:58px;height:40px;object-fit:cover;border-radius:0}
+    @media(max-width:600px){
+      .article-media--float-right,.article-media--float-left{float:none;width:100%;margin:1rem 0}
+      .article-carousel .carousel-nav{width:36px;height:36px;font-size:1.65rem}
+    }
   </style>
 </head>
 <body>
@@ -47,11 +68,17 @@
       <img class="featured-img" src="https://feats-api.fpvgate-analytics.workers.dev/images/articles/The+Great+Escape+2023-02-min.JPG" alt="The Great Escape Wednesday - The Kick Off" loading="lazy">
       <div class="meta">THE GREAT ESCAPE &middot; Festival &middot; Feats. &middot; 2023-05-11</div>
       <h1>The Great Escape Wednesday - The Kick Off</h1>
-      <p>The Wednesday of the great escape festival is mainly about socialising, collecting your wristband and lanyard and just getting the lay of the land.</p><p>After arriving at Brighton station at around 17:00 pm we headed to get our wristbands and then to the beach stage after for some drinks and chit-chats.&nbsp;</p>
-<p>Kicking off the weekend COWZ performed their first set, the Brighton based pop-duo with their amazing stage presence and interactive energy had the crowd bopping and swaying which is very hard for a first act of a festival (believe us, we’ve been to enough festivals).&nbsp;</p><p>After COWZ we headed back to the bar for some refreshing craft beers. With a craving for more live music we went to the village pub to catch SNAYX with their introductory gig.&nbsp; Even though the show wasn’t a part of the great escape line-up it was the perfect way to end the first night in brighton.&nbsp;</p>
-<p>Punk-rock duo Snayx controlled our night at Brighton’s own ‘The Village’, an old time pub filled to the brim with kooky and creepy dolls decorated around the room, filled up to the brim, everyone a pint in hand. Beach riot, Brighton’s own kicked it off for us with their electric set. Snayx came in with their high energy riling everyone up, playing the Venga boys’ we like to party and they couldn’t be more right.</p><p>With such an amazing first day by the beach it only made us more excited to kick off the festival today with some of the most anticipated acts such as Hot Wax, Coach Party, VLURE, Grove and Noisy.</p><p></p>
-<img src="https://feats-api.fpvgate-analytics.workers.dev/images/articles/The+Great+Escape+2023-02-min.JPG" alt="" style="width:100%;height:auto;display:block;margin:1.5rem 0;border-radius:4px" loading="lazy">
-<img src="https://feats-api.fpvgate-analytics.workers.dev/images/articles/DSC09548.jpg" alt="" style="width:100%;height:auto;display:block;margin:1.5rem 0;border-radius:4px" loading="lazy">
+      <p>The Wednesday of the great escape festival is mainly about socialising, collecting your wristband and lanyard and just getting the lay of the land.</p><p>After arriving at Brighton station at around 17:00 pm we headed to get our wristbands and then to the beach stage after for some drinks and chit-chats. </p>
+<figure class="article-media article-media--full">
+  <img src="https://feats-api.fpvgate-analytics.workers.dev/images/articles/The+Great+Escape+2023-02-min.JPG" alt="" loading="lazy">
+  <figcaption>Credit: Louis Hitchcock (LouisHitchPhotos/Feats)</figcaption>
+</figure>
+<p>Kicking off the weekend COWZ performed their first set, the Brighton based pop-duo with their amazing stage presence and interactive energy had the crowd bopping and swaying which is very hard for a first act of a festival (believe us, we’ve been to enough festivals). </p><p>After COWZ we headed back to the bar for some refreshing craft beers. With a craving for more live music we went to the village pub to catch SNAYX with their introductory gig.  Even though the show wasn’t a part of the great escape line-up it was the perfect way to end the first night in brighton. </p>
+<figure class="article-media article-media--full">
+  <img src="https://feats-api.fpvgate-analytics.workers.dev/images/articles/DSC09548.jpg" alt="" loading="lazy">
+  <figcaption>Photo Credit: Tom Ellis (TJEPhotos/Feats)</figcaption>
+</figure>
+<p>Punk-rock duo Snayx controlled our night at Brighton’s own ‘The Village’, an old time pub filled to the brim with kooky and creepy dolls decorated around the room, filled up to the brim, everyone a pint in hand. Beach riot, Brighton’s own kicked it off for us with their electric set. Snayx came in with their high energy riling everyone up, playing the Venga boys’ we like to party and they couldn’t be more right.</p><p>With such an amazing first day by the beach it only made us more excited to kick off the festival today with some of the most anticipated acts such as Hot Wax, Coach Party, VLURE, Grove and Noisy.</p>
     </article>
   </main>
 <footer class="site-footer">
@@ -71,6 +98,42 @@
     document.getElementById('navToggle').addEventListener('click', function(){
       document.getElementById('navLinks').classList.toggle('open');
     });
+
+    (function(){
+      var carousels = document.querySelectorAll('[data-article-carousel]');
+      carousels.forEach(function(carousel){
+        var slides = carousel.querySelectorAll('.carousel-slide');
+        var thumbs = carousel.querySelectorAll('.carousel-thumb');
+        if (!slides.length) return;
+
+        var currentIndex = 0;
+        function setSlide(nextIndex){
+          if (nextIndex < 0) nextIndex = slides.length - 1;
+          if (nextIndex >= slides.length) nextIndex = 0;
+          currentIndex = nextIndex;
+          slides.forEach(function(slide, index){
+            slide.classList.toggle('is-active', index === currentIndex);
+          });
+          thumbs.forEach(function(thumb, index){
+            thumb.classList.toggle('is-active', index === currentIndex);
+          });
+        }
+
+        var prevButton = carousel.querySelector('.carousel-nav.prev');
+        var nextButton = carousel.querySelector('.carousel-nav.next');
+        if (prevButton) {
+          prevButton.addEventListener('click', function(){ setSlide(currentIndex - 1); });
+        }
+        if (nextButton) {
+          nextButton.addEventListener('click', function(){ setSlide(currentIndex + 1); });
+        }
+
+        thumbs.forEach(function(button, index){
+          button.addEventListener('click', function(){ setSlide(index); });
+        });
+        setSlide(0);
+      });
+    })();
   </script>
 </body>
 </html>

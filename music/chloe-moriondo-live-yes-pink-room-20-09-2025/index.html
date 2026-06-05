@@ -12,16 +12,37 @@
   <link rel="icon" type="image/x-icon" href="/favicon.ico">
   <style>
     .article-body{max-width:750px;margin:0 auto;padding:3rem 2rem}
+    .article-body::after{content:'';display:block;clear:both}
     .article-body .featured-img{width:100%;height:auto;margin-bottom:2rem}
     .article-body h1{font-size:2.2rem;margin-bottom:.5rem;line-height:1.2}
     .article-body .meta{font-size:.8rem;opacity:.5;text-transform:uppercase;letter-spacing:1px;margin-bottom:2rem}
     .article-body p{font-size:1.05rem;opacity:.85;margin-bottom:1.5rem;line-height:1.8}
-    .article-body img{max-width:100%;height:auto;border-radius:4px}
     .article-body a{text-decoration:underline;opacity:.8}
     .article-body a:hover{opacity:1}
-    .img-wrap-right{float:right;width:45%;margin:0.5rem 0 0.5rem 1.5rem}
-    .img-wrap-left{float:left;width:45%;margin:0.5rem 1.5rem 0.5rem 0}
-    @media(max-width:600px){.img-wrap-right,.img-wrap-left{float:none;width:100%;margin:1rem 0}}
+    .article-media{margin:1.5rem 0}
+    .article-media--full{width:100%;clear:both}
+    .article-media--float-right{float:right;width:45%;margin:0.5rem 0 1.2rem 1.5rem}
+    .article-media--float-left{float:left;width:45%;margin:0.5rem 1.5rem 1.2rem 0}
+    .article-media img{width:100%;height:auto;display:block;border-radius:4px}
+    .article-media figcaption{font-size:.82rem;opacity:.62;line-height:1.45;margin-top:.5rem}
+    .article-rule{margin:2.3rem 0;border:none;border-top:1px solid rgba(0,0,0,.18);clear:both}
+    .article-carousel{position:relative}
+    .article-carousel-main{position:relative;background:#0a0a0a;overflow:hidden}
+    .article-carousel-slides{position:relative}
+    .article-carousel .carousel-slide{display:none}
+    .article-carousel .carousel-slide.is-active{display:block}
+    .article-carousel .carousel-nav{position:absolute;top:50%;transform:translateY(-50%);z-index:3;width:42px;height:42px;border:none;background:rgba(0,0,0,.33);color:#fff;font-size:2rem;line-height:1;cursor:pointer}
+    .article-carousel .carousel-nav.prev{left:0.65rem}
+    .article-carousel .carousel-nav.next{right:0.65rem}
+    .article-carousel.is-single .carousel-nav{display:none}
+    .article-carousel-thumbs{display:flex;gap:2px;overflow-x:auto;margin-top:.55rem;padding-bottom:2px}
+    .article-carousel .carousel-thumb{border:none;padding:0;background:transparent;opacity:.52;cursor:pointer;flex:0 0 auto}
+    .article-carousel .carousel-thumb.is-active{opacity:1}
+    .article-carousel .carousel-thumb img{width:58px;height:40px;object-fit:cover;border-radius:0}
+    @media(max-width:600px){
+      .article-media--float-right,.article-media--float-left{float:none;width:100%;margin:1rem 0}
+      .article-carousel .carousel-nav{width:36px;height:36px;font-size:1.65rem}
+    }
   </style>
 </head>
 <body>
@@ -48,10 +69,88 @@
       <div class="meta">Live Music &middot; Gig Review &middot; Tour &middot; Feats. &middot; 2025-10-03</div>
       <h1>Chloe Moriondo Live @ YES Pink Room 20.09.2025</h1>
       <p>An energetic angel sets the scene in a pink daydream</p>
-<p>Michigan made indie rock/pop sensation <a href="https://chloemoriondo.com/"><span>Chloe Moriondo</span></a>, from yellow bedroom walls to gracing the most aptly pink stage at YES Mcr on a Saturday in late September, giving the audience a set so sweet that you might want to check for a cavity later.</p><p>Moriondo plunged us into the night and into her songs ‘hate it’ and&nbsp; ‘abyss’ from her latest album, <em>Oyster</em>. Immediately, Chloe was bursting with an infectious energy that washed across the cotton candied walls of YES Pink Room. This was one of the final shows of the <em>Oyster</em> tour internationally before Chloe returns to home soil for a US tour for the album in November.</p><p>There’s such an aesthetic to this album, accents of deep blue and pearlescent in Chloe’s clothes and concepts, but also the album itself. The album is filled with this inherent sense of fun, as is everything Chloe does, but something feels particularly polished in this new era.</p><p>Gracious and grateful, Moriondo endlessly thanked the audience for their attendance from the outset. There was a feeling that swept across the audience that mirrored that gratefulness. Barely containing her joy, slipping smiles in between lyrics of songs. The current takes us from her hyper-pop peppered EP <em>Suckerpunch</em>, through to older favourites from 2021’s <em>Blood Bunny</em> album.</p>
-<p>It was such a wonderful night with such an infectious energy. One particular moment, an impression still left on me over a week on, is the inclusion of a Mitski cover, ‘Liquid Smooth’ - I quite literally let out an ‘Oh my god’ when the piano track kicked in, spiritually, I was sat.</p><p>Though Chloe is known for her solid pop tracks and undeniable dalliance into indie and rock, through the experimentation of these genres, something is very clear - not only does Chloe write well, her voice is fantastic.&nbsp;</p><p>I do hate the assumption of autotune being seen as coverage or compensation for someone’s vocals, though sometimes true, Moriondo’s tracks are the example of the effect being used as embellishment. Her voice organically has an airy quality, if she hadn’t have committed so hard to the concept of being several leagues below the sea, I’d say that Chloe’s voice belongs up high with the skies and in the clouds.</p><p>There’s an air of theatre in the way Moriondo moves, acting and characterising lyrics and putting on a persona, but her unbridled sincerity flows back in as quickly as any kind of ‘character’ takes form.</p>
+<div class="article-carousel article-media article-media--float-right" data-article-carousel="carousel-1">
+  <div class="article-carousel-main">
+    <button type="button" class="carousel-nav prev" aria-label="Previous image">&#10094;</button>
+    <div class="article-carousel-slides">
+      <img class="carousel-slide is-active" src="https://feats-api.fpvgate-analytics.workers.dev/images/articles/%40Yonky.donkey+-+Chloe+Moriondo+-+YES++%2813%29.jpg" alt="@Yonky.donkey - Chloe Moriondo - YES  (13).jpg" loading="lazy">
+      <img class="carousel-slide" src="https://feats-api.fpvgate-analytics.workers.dev/images/articles/%40Yonky.donkey+-+Chloe+Moriondo+-+YES++%282%29.jpg" alt="@Yonky.donkey - Chloe Moriondo - YES  (2).jpg" loading="lazy">
+      <img class="carousel-slide" src="https://feats-api.fpvgate-analytics.workers.dev/images/articles/%40Yonky.donkey+-+Chloe+Moriondo+-+YES++%285%29.jpg" alt="@Yonky.donkey - Chloe Moriondo - YES  (5).jpg" loading="lazy">
+      <img class="carousel-slide" src="https://feats-api.fpvgate-analytics.workers.dev/images/articles/%40Yonky.donkey+-+Chloe+Moriondo+-+YES++%289%29.jpg" alt="@Yonky.donkey - Chloe Moriondo - YES  (9).jpg" loading="lazy">
+      <img class="carousel-slide" src="https://feats-api.fpvgate-analytics.workers.dev/images/articles/%40Yonky.donkey+-+Chloe+Moriondo+-+YES++%2810%29.jpg" alt="@Yonky.donkey - Chloe Moriondo - YES  (10).jpg" loading="lazy">
+    </div>
+    <button type="button" class="carousel-nav next" aria-label="Next image">&#10095;</button>
+  </div>
+  <div class="article-carousel-thumbs">
+    <button type="button" class="carousel-thumb is-active" data-slide-index="0" aria-label="View image 1">
+      <img src="https://feats-api.fpvgate-analytics.workers.dev/images/articles/%40Yonky.donkey+-+Chloe+Moriondo+-+YES++%2813%29.jpg" alt="" loading="lazy">
+    </button>
+    <button type="button" class="carousel-thumb" data-slide-index="1" aria-label="View image 2">
+      <img src="https://feats-api.fpvgate-analytics.workers.dev/images/articles/%40Yonky.donkey+-+Chloe+Moriondo+-+YES++%282%29.jpg" alt="" loading="lazy">
+    </button>
+    <button type="button" class="carousel-thumb" data-slide-index="2" aria-label="View image 3">
+      <img src="https://feats-api.fpvgate-analytics.workers.dev/images/articles/%40Yonky.donkey+-+Chloe+Moriondo+-+YES++%285%29.jpg" alt="" loading="lazy">
+    </button>
+    <button type="button" class="carousel-thumb" data-slide-index="3" aria-label="View image 4">
+      <img src="https://feats-api.fpvgate-analytics.workers.dev/images/articles/%40Yonky.donkey+-+Chloe+Moriondo+-+YES++%289%29.jpg" alt="" loading="lazy">
+    </button>
+    <button type="button" class="carousel-thumb" data-slide-index="4" aria-label="View image 5">
+      <img src="https://feats-api.fpvgate-analytics.workers.dev/images/articles/%40Yonky.donkey+-+Chloe+Moriondo+-+YES++%2810%29.jpg" alt="" loading="lazy">
+    </button>
+  </div>
+</div>
+<p>Michigan made indie rock/pop sensation <a href="https://chloemoriondo.com/"><span>Chloe Moriondo</span></a>, from yellow bedroom walls to gracing the most aptly pink stage at YES Mcr on a Saturday in late September, giving the audience a set so sweet that you might want to check for a cavity later.</p><p>Moriondo plunged us into the night and into her songs ‘hate it’ and  ‘abyss’ from her latest album, <em>Oyster</em>. Immediately, Chloe was bursting with an infectious energy that washed across the cotton candied walls of YES Pink Room. This was one of the final shows of the <em>Oyster</em> tour internationally before Chloe returns to home soil for a US tour for the album in November.</p><p>There’s such an aesthetic to this album, accents of deep blue and pearlescent in Chloe’s clothes and concepts, but also the album itself. The album is filled with this inherent sense of fun, as is everything Chloe does, but something feels particularly polished in this new era.</p><p>Gracious and grateful, Moriondo endlessly thanked the audience for their attendance from the outset. There was a feeling that swept across the audience that mirrored that gratefulness. Barely containing her joy, slipping smiles in between lyrics of songs. The current takes us from her hyper-pop peppered EP <em>Suckerpunch</em>, through to older favourites from 2021’s <em>Blood Bunny</em> album.</p>
+<figure class="article-media article-media--float-left">
+  <img src="https://feats-api.fpvgate-analytics.workers.dev/images/articles/%40Yonky.donkey+-+Chloe+Moriondo+-+YES++%2811%29.jpg" alt="" loading="lazy">
+</figure>
+<p>It was such a wonderful night with such an infectious energy. One particular moment, an impression still left on me over a week on, is the inclusion of a Mitski cover, ‘Liquid Smooth’ - I quite literally let out an ‘Oh my god’ when the piano track kicked in, spiritually, I was sat.</p><p>Though Chloe is known for her solid pop tracks and undeniable dalliance into indie and rock, through the experimentation of these genres, something is very clear - not only does Chloe write well, her voice is fantastic. </p><p>I do hate the assumption of autotune being seen as coverage or compensation for someone’s vocals, though sometimes true, Moriondo’s tracks are the example of the effect being used as embellishment. Her voice organically has an airy quality, if she hadn’t have committed so hard to the concept of being several leagues below the sea, I’d say that Chloe’s voice belongs up high with the skies and in the clouds.</p><p>There’s an air of theatre in the way Moriondo moves, acting and characterising lyrics and putting on a persona, but her unbridled sincerity flows back in as quickly as any kind of ‘character’ takes form.</p>
+<div class="article-carousel article-media article-media--float-right" data-article-carousel="carousel-2">
+  <div class="article-carousel-main">
+    <button type="button" class="carousel-nav prev" aria-label="Previous image">&#10094;</button>
+    <div class="article-carousel-slides">
+      <img class="carousel-slide is-active" src="https://feats-api.fpvgate-analytics.workers.dev/images/articles/%40Yonky.donkey+-+Chloe+Moriondo+-+YES++%2815%29.jpg" alt="@Yonky.donkey - Chloe Moriondo - YES  (15).jpg" loading="lazy">
+      <img class="carousel-slide" src="https://feats-api.fpvgate-analytics.workers.dev/images/articles/%40Yonky.donkey+-+Chloe+Moriondo+-+YES++%2813%29.jpg" alt="@Yonky.donkey - Chloe Moriondo - YES  (13).jpg" loading="lazy">
+      <img class="carousel-slide" src="https://feats-api.fpvgate-analytics.workers.dev/images/articles/%40Yonky.donkey+-+Chloe+Moriondo+-+YES++%2814%29.jpg" alt="@Yonky.donkey - Chloe Moriondo - YES  (14).jpg" loading="lazy">
+      <img class="carousel-slide" src="https://feats-api.fpvgate-analytics.workers.dev/images/articles/%40Yonky.donkey+-+Chloe+Moriondo+-+YES++%283%29.jpg" alt="@Yonky.donkey - Chloe Moriondo - YES  (3).jpg" loading="lazy">
+      <img class="carousel-slide" src="https://feats-api.fpvgate-analytics.workers.dev/images/articles/%40Yonky.donkey+-+Chloe+Moriondo+-+YES++%284%29.jpg" alt="@Yonky.donkey - Chloe Moriondo - YES  (4).jpg" loading="lazy">
+      <img class="carousel-slide" src="https://feats-api.fpvgate-analytics.workers.dev/images/articles/%40Yonky.donkey+-+Chloe+Moriondo+-+YES++%285%29.jpg" alt="@Yonky.donkey - Chloe Moriondo - YES  (5).jpg" loading="lazy">
+      <img class="carousel-slide" src="https://feats-api.fpvgate-analytics.workers.dev/images/articles/%40Yonky.donkey+-+Chloe+Moriondo+-+YES++%288%29.jpg" alt="@Yonky.donkey - Chloe Moriondo - YES  (8).jpg" loading="lazy">
+      <img class="carousel-slide" src="https://feats-api.fpvgate-analytics.workers.dev/images/articles/%40Yonky.donkey+-+Chloe+Moriondo+-+YES++%289%29.jpg" alt="@Yonky.donkey - Chloe Moriondo - YES  (9).jpg" loading="lazy">
+      <img class="carousel-slide" src="https://feats-api.fpvgate-analytics.workers.dev/images/articles/%40Yonky.donkey+-+Chloe+Moriondo+-+YES++%2811%29.jpg" alt="@Yonky.donkey - Chloe Moriondo - YES  (11).jpg" loading="lazy">
+    </div>
+    <button type="button" class="carousel-nav next" aria-label="Next image">&#10095;</button>
+  </div>
+  <div class="article-carousel-thumbs">
+    <button type="button" class="carousel-thumb is-active" data-slide-index="0" aria-label="View image 1">
+      <img src="https://feats-api.fpvgate-analytics.workers.dev/images/articles/%40Yonky.donkey+-+Chloe+Moriondo+-+YES++%2815%29.jpg" alt="" loading="lazy">
+    </button>
+    <button type="button" class="carousel-thumb" data-slide-index="1" aria-label="View image 2">
+      <img src="https://feats-api.fpvgate-analytics.workers.dev/images/articles/%40Yonky.donkey+-+Chloe+Moriondo+-+YES++%2813%29.jpg" alt="" loading="lazy">
+    </button>
+    <button type="button" class="carousel-thumb" data-slide-index="2" aria-label="View image 3">
+      <img src="https://feats-api.fpvgate-analytics.workers.dev/images/articles/%40Yonky.donkey+-+Chloe+Moriondo+-+YES++%2814%29.jpg" alt="" loading="lazy">
+    </button>
+    <button type="button" class="carousel-thumb" data-slide-index="3" aria-label="View image 4">
+      <img src="https://feats-api.fpvgate-analytics.workers.dev/images/articles/%40Yonky.donkey+-+Chloe+Moriondo+-+YES++%283%29.jpg" alt="" loading="lazy">
+    </button>
+    <button type="button" class="carousel-thumb" data-slide-index="4" aria-label="View image 5">
+      <img src="https://feats-api.fpvgate-analytics.workers.dev/images/articles/%40Yonky.donkey+-+Chloe+Moriondo+-+YES++%284%29.jpg" alt="" loading="lazy">
+    </button>
+    <button type="button" class="carousel-thumb" data-slide-index="5" aria-label="View image 6">
+      <img src="https://feats-api.fpvgate-analytics.workers.dev/images/articles/%40Yonky.donkey+-+Chloe+Moriondo+-+YES++%285%29.jpg" alt="" loading="lazy">
+    </button>
+    <button type="button" class="carousel-thumb" data-slide-index="6" aria-label="View image 7">
+      <img src="https://feats-api.fpvgate-analytics.workers.dev/images/articles/%40Yonky.donkey+-+Chloe+Moriondo+-+YES++%288%29.jpg" alt="" loading="lazy">
+    </button>
+    <button type="button" class="carousel-thumb" data-slide-index="7" aria-label="View image 8">
+      <img src="https://feats-api.fpvgate-analytics.workers.dev/images/articles/%40Yonky.donkey+-+Chloe+Moriondo+-+YES++%289%29.jpg" alt="" loading="lazy">
+    </button>
+    <button type="button" class="carousel-thumb" data-slide-index="8" aria-label="View image 9">
+      <img src="https://feats-api.fpvgate-analytics.workers.dev/images/articles/%40Yonky.donkey+-+Chloe+Moriondo+-+YES++%2811%29.jpg" alt="" loading="lazy">
+    </button>
+  </div>
+</div>
 <p>She has several songs which cut deep, like shells on your feet, like <em>shoreline</em>, another song off her new album, about an old friendship and <em>pond</em>. There’s a sadness we sink into with Chloe, briefly and with fair and tender warning, before we’re swept back into the most cyclical sense of joy that characterises the whole set.</p><p>Rest assured Chloe wouldn’t leave you washed ashore, she'll meet you at high tide, at the shoreline.</p><p>Chloe Moriondo’s latest single <em>Girls with Gills</em>, is out now. You can listen to it <a href="https://youtu.be/E2Pmf3sPBgM?si=lrULL1dizIXur5sq"><span>here</span></a> now.</p>
-<img src="https://feats-api.fpvgate-analytics.workers.dev/images/articles/%40Yonky.donkey+-+Chloe+Moriondo+-+YES++%2811%29.jpg" alt="" style="width:100%;height:auto;display:block;margin:1.5rem 0;border-radius:4px" loading="lazy">
     </article>
   </main>
 <footer class="site-footer">
@@ -71,6 +170,42 @@
     document.getElementById('navToggle').addEventListener('click', function(){
       document.getElementById('navLinks').classList.toggle('open');
     });
+
+    (function(){
+      var carousels = document.querySelectorAll('[data-article-carousel]');
+      carousels.forEach(function(carousel){
+        var slides = carousel.querySelectorAll('.carousel-slide');
+        var thumbs = carousel.querySelectorAll('.carousel-thumb');
+        if (!slides.length) return;
+
+        var currentIndex = 0;
+        function setSlide(nextIndex){
+          if (nextIndex < 0) nextIndex = slides.length - 1;
+          if (nextIndex >= slides.length) nextIndex = 0;
+          currentIndex = nextIndex;
+          slides.forEach(function(slide, index){
+            slide.classList.toggle('is-active', index === currentIndex);
+          });
+          thumbs.forEach(function(thumb, index){
+            thumb.classList.toggle('is-active', index === currentIndex);
+          });
+        }
+
+        var prevButton = carousel.querySelector('.carousel-nav.prev');
+        var nextButton = carousel.querySelector('.carousel-nav.next');
+        if (prevButton) {
+          prevButton.addEventListener('click', function(){ setSlide(currentIndex - 1); });
+        }
+        if (nextButton) {
+          nextButton.addEventListener('click', function(){ setSlide(currentIndex + 1); });
+        }
+
+        thumbs.forEach(function(button, index){
+          button.addEventListener('click', function(){ setSlide(index); });
+        });
+        setSlide(0);
+      });
+    })();
   </script>
 </body>
 </html>

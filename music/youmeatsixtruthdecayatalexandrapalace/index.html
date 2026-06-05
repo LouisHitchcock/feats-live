@@ -12,16 +12,37 @@
   <link rel="icon" type="image/x-icon" href="/favicon.ico">
   <style>
     .article-body{max-width:750px;margin:0 auto;padding:3rem 2rem}
+    .article-body::after{content:'';display:block;clear:both}
     .article-body .featured-img{width:100%;height:auto;margin-bottom:2rem}
     .article-body h1{font-size:2.2rem;margin-bottom:.5rem;line-height:1.2}
     .article-body .meta{font-size:.8rem;opacity:.5;text-transform:uppercase;letter-spacing:1px;margin-bottom:2rem}
     .article-body p{font-size:1.05rem;opacity:.85;margin-bottom:1.5rem;line-height:1.8}
-    .article-body img{max-width:100%;height:auto;border-radius:4px}
     .article-body a{text-decoration:underline;opacity:.8}
     .article-body a:hover{opacity:1}
-    .img-wrap-right{float:right;width:45%;margin:0.5rem 0 0.5rem 1.5rem}
-    .img-wrap-left{float:left;width:45%;margin:0.5rem 1.5rem 0.5rem 0}
-    @media(max-width:600px){.img-wrap-right,.img-wrap-left{float:none;width:100%;margin:1rem 0}}
+    .article-media{margin:1.5rem 0}
+    .article-media--full{width:100%;clear:both}
+    .article-media--float-right{float:right;width:45%;margin:0.5rem 0 1.2rem 1.5rem}
+    .article-media--float-left{float:left;width:45%;margin:0.5rem 1.5rem 1.2rem 0}
+    .article-media img{width:100%;height:auto;display:block;border-radius:4px}
+    .article-media figcaption{font-size:.82rem;opacity:.62;line-height:1.45;margin-top:.5rem}
+    .article-rule{margin:2.3rem 0;border:none;border-top:1px solid rgba(0,0,0,.18);clear:both}
+    .article-carousel{position:relative}
+    .article-carousel-main{position:relative;background:#0a0a0a;overflow:hidden}
+    .article-carousel-slides{position:relative}
+    .article-carousel .carousel-slide{display:none}
+    .article-carousel .carousel-slide.is-active{display:block}
+    .article-carousel .carousel-nav{position:absolute;top:50%;transform:translateY(-50%);z-index:3;width:42px;height:42px;border:none;background:rgba(0,0,0,.33);color:#fff;font-size:2rem;line-height:1;cursor:pointer}
+    .article-carousel .carousel-nav.prev{left:0.65rem}
+    .article-carousel .carousel-nav.next{right:0.65rem}
+    .article-carousel.is-single .carousel-nav{display:none}
+    .article-carousel-thumbs{display:flex;gap:2px;overflow-x:auto;margin-top:.55rem;padding-bottom:2px}
+    .article-carousel .carousel-thumb{border:none;padding:0;background:transparent;opacity:.52;cursor:pointer;flex:0 0 auto}
+    .article-carousel .carousel-thumb.is-active{opacity:1}
+    .article-carousel .carousel-thumb img{width:58px;height:40px;object-fit:cover;border-radius:0}
+    @media(max-width:600px){
+      .article-media--float-right,.article-media--float-left{float:none;width:100%;margin:1rem 0}
+      .article-carousel .carousel-nav{width:36px;height:36px;font-size:1.65rem}
+    }
   </style>
 </head>
 <body>
@@ -48,16 +69,34 @@
       <div class="meta">Album Release &middot; Review &middot; Live Music &middot; Feats. &middot; 2023-04-01</div>
       <h1>You Me At Six: Debut their 7th Studio Album Truth Decay, fill Iconic Alexandra Palace with mosh pits and bring everyone to tears all during one set.</h1>
       <p>You Me at Six have proved time and time again that they can do it all and with a 7th studio album in their pocket and 19 years in the game, there's no surprise that they put on an absolute show.</p>
+<figure class="article-media article-media--full">
+  <img src="https://feats-api.fpvgate-analytics.workers.dev/images/articles/DSC01303_2.jpg" alt="" loading="lazy">
+  <figcaption>Tom Ellis (TJEphotos/FEATS)</figcaption>
+</figure>
 <p>The Bill was filled with London's favourite upcoming band Bears in Trees, followed by American Rock Band The Maine who lit up the stage and brought on Charlotte Sands for a special appearance of ‘Loved You A Little’. Followed by the band that's similar to marmite, you either love or loathe them, Waterparks. The set bought all fan favourites to the UK playing ‘i miss having sex but at least i don’t want to die” a song that ensures everyone to be singing it’s catchy chorus (even if you’re not a fan) and Blackbear collab ‘FUCK ABOUT IT’. It almost felt like a mini warped tour topped off by YMAS at the end of the evening.</p>
+<figure class="article-media article-media--full">
+  <img src="https://feats-api.fpvgate-analytics.workers.dev/images/articles/DSC01117_1.jpg" alt="" loading="lazy">
+  <figcaption>Tom Ellis (TJEphotos/FEATS)</figcaption>
+</figure>
 <p>You Me at Six then graced the stage with their single ‘Deep Cuts’ from their latest album ‘Truth Decay’. With this being the second headline appearance at Ally Pally, this time YMAS have come back much harder. With an insane production and multiple stage levels, they were there to show exactly why they have been doing this for almost two decades. Followed up by fan favourite ‘Fresh Start Fever’ coming off of their 5th studio album, Cavalier - the crowd were in awe and went crazy as pits opened up all over the iconic venue. Classics were played all night, ‘Liquid Confidence’ off of their 2010 album “Hold Me Down” had everyone screaming back at frontman Josh Franceschi. Highlighting their newest songs like ‘HeartLESS’, ‘Mixed Emotions’ and the less popular ‘God Bless the 90’s Kids’ lyrically different from their usual sound, and generally not my thing however the crowd still shouted right back at the band.</p>
+<figure class="article-media article-media--full">
+  <img src="https://feats-api.fpvgate-analytics.workers.dev/images/articles/DSC01240_1.jpg" alt="" loading="lazy">
+  <figcaption>Tom Ellis (TJEphotos/FEATS)</figcaption>
+</figure>
 <p>Mid-set Josh Franchesci announced that the set was headed into its ‘heavier part’ with the crowd riled up, circle pits everywhere ‘BITE MY TONGUE’ blares over, a personal favourite of mine, this studio track features bring me the horizon’s, Oli Sykes while we were not graced with his presence Rou Reynolds from Enter Shikari surprised the crowd during ‘No Future, Yeah Right’ and it was what everybody needed, a skyrocket in energy surged throughout Alexandra Palace as both Francheschi and Reynolds went mental on stage.</p><p>The set then took an emotional turn, slowed down with legendary single ‘Take On the World’ which hot number 1 on the Uk rock charts, the 5th for You Me at Six, iphone flashlights lit the venue up while everyone sang word for word, followed by heart-string tug rendition of ‘No One Does It Better’ from Francheschi and Guitarist Chris Miller.</p>
+<figure class="article-media article-media--full">
+  <img src="https://feats-api.fpvgate-analytics.workers.dev/images/articles/DSC01394_1.jpg" alt="" loading="lazy">
+  <figcaption>Tom Ellis (TJEphotos/FEATS)</figcaption>
+</figure>
 <p>The night ended on four last tracks, ‘SUCKAPUNCH’ and iconic ‘Underdog’ was the highlight at the end of the night, one last push of energy as everyone bounced back and forth before stooping off at the bars for water at the end of the show. Although their was moments during the set where the energy dropped overall You Me At Six never fail to disappoint, their set had something for everyone, and Alexandra Palace was filled to the brim. You Me At Six are a band that have you to see at least once in your lifetime, if they're coming to a city near you then you should definitely pay them a visit.</p>
+<figure class="article-media article-media--full">
+  <img src="https://feats-api.fpvgate-analytics.workers.dev/images/articles/DSC01473.jpg" alt="" loading="lazy">
+  <figcaption>Tom Ellis (TJEphotos/FEATS)</figcaption>
+</figure>
 <p>Check out Truth Decay below.</p>
-<img src="https://feats-api.fpvgate-analytics.workers.dev/images/articles/DSC01303_2.jpg" alt="" style="width:100%;height:auto;display:block;margin:1.5rem 0;border-radius:4px" loading="lazy">
-<img src="https://feats-api.fpvgate-analytics.workers.dev/images/articles/DSC01117_1.jpg" alt="" style="width:100%;height:auto;display:block;margin:1.5rem 0;border-radius:4px" loading="lazy">
-<img src="https://feats-api.fpvgate-analytics.workers.dev/images/articles/DSC01240_1.jpg" alt="" style="width:100%;height:auto;display:block;margin:1.5rem 0;border-radius:4px" loading="lazy">
-<img src="https://feats-api.fpvgate-analytics.workers.dev/images/articles/DSC01394_1.jpg" alt="" style="width:100%;height:auto;display:block;margin:1.5rem 0;border-radius:4px" loading="lazy">
-<img src="https://feats-api.fpvgate-analytics.workers.dev/images/articles/DSC01473.jpg" alt="" style="width:100%;height:auto;display:block;margin:1.5rem 0;border-radius:4px" loading="lazy">
+<div>
+<iframe allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" allowfullscreen="" frameborder="0" height="352" loading="lazy" src="https://open.spotify.com/embed/album/1InYWNQZhu7U98emMWUdgW?utm_source=generator&amp;theme=0" width="100%"></iframe>
+</div>
     </article>
   </main>
 <footer class="site-footer">
@@ -77,6 +116,42 @@
     document.getElementById('navToggle').addEventListener('click', function(){
       document.getElementById('navLinks').classList.toggle('open');
     });
+
+    (function(){
+      var carousels = document.querySelectorAll('[data-article-carousel]');
+      carousels.forEach(function(carousel){
+        var slides = carousel.querySelectorAll('.carousel-slide');
+        var thumbs = carousel.querySelectorAll('.carousel-thumb');
+        if (!slides.length) return;
+
+        var currentIndex = 0;
+        function setSlide(nextIndex){
+          if (nextIndex < 0) nextIndex = slides.length - 1;
+          if (nextIndex >= slides.length) nextIndex = 0;
+          currentIndex = nextIndex;
+          slides.forEach(function(slide, index){
+            slide.classList.toggle('is-active', index === currentIndex);
+          });
+          thumbs.forEach(function(thumb, index){
+            thumb.classList.toggle('is-active', index === currentIndex);
+          });
+        }
+
+        var prevButton = carousel.querySelector('.carousel-nav.prev');
+        var nextButton = carousel.querySelector('.carousel-nav.next');
+        if (prevButton) {
+          prevButton.addEventListener('click', function(){ setSlide(currentIndex - 1); });
+        }
+        if (nextButton) {
+          nextButton.addEventListener('click', function(){ setSlide(currentIndex + 1); });
+        }
+
+        thumbs.forEach(function(button, index){
+          button.addEventListener('click', function(){ setSlide(index); });
+        });
+        setSlide(0);
+      });
+    })();
   </script>
 </body>
 </html>

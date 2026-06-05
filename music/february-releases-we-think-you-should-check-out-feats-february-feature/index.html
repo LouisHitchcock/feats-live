@@ -12,16 +12,37 @@
   <link rel="icon" type="image/x-icon" href="/favicon.ico">
   <style>
     .article-body{max-width:750px;margin:0 auto;padding:3rem 2rem}
+    .article-body::after{content:'';display:block;clear:both}
     .article-body .featured-img{width:100%;height:auto;margin-bottom:2rem}
     .article-body h1{font-size:2.2rem;margin-bottom:.5rem;line-height:1.2}
     .article-body .meta{font-size:.8rem;opacity:.5;text-transform:uppercase;letter-spacing:1px;margin-bottom:2rem}
     .article-body p{font-size:1.05rem;opacity:.85;margin-bottom:1.5rem;line-height:1.8}
-    .article-body img{max-width:100%;height:auto;border-radius:4px}
     .article-body a{text-decoration:underline;opacity:.8}
     .article-body a:hover{opacity:1}
-    .img-wrap-right{float:right;width:45%;margin:0.5rem 0 0.5rem 1.5rem}
-    .img-wrap-left{float:left;width:45%;margin:0.5rem 1.5rem 0.5rem 0}
-    @media(max-width:600px){.img-wrap-right,.img-wrap-left{float:none;width:100%;margin:1rem 0}}
+    .article-media{margin:1.5rem 0}
+    .article-media--full{width:100%;clear:both}
+    .article-media--float-right{float:right;width:45%;margin:0.5rem 0 1.2rem 1.5rem}
+    .article-media--float-left{float:left;width:45%;margin:0.5rem 1.5rem 1.2rem 0}
+    .article-media img{width:100%;height:auto;display:block;border-radius:4px}
+    .article-media figcaption{font-size:.82rem;opacity:.62;line-height:1.45;margin-top:.5rem}
+    .article-rule{margin:2.3rem 0;border:none;border-top:1px solid rgba(0,0,0,.18);clear:both}
+    .article-carousel{position:relative}
+    .article-carousel-main{position:relative;background:#0a0a0a;overflow:hidden}
+    .article-carousel-slides{position:relative}
+    .article-carousel .carousel-slide{display:none}
+    .article-carousel .carousel-slide.is-active{display:block}
+    .article-carousel .carousel-nav{position:absolute;top:50%;transform:translateY(-50%);z-index:3;width:42px;height:42px;border:none;background:rgba(0,0,0,.33);color:#fff;font-size:2rem;line-height:1;cursor:pointer}
+    .article-carousel .carousel-nav.prev{left:0.65rem}
+    .article-carousel .carousel-nav.next{right:0.65rem}
+    .article-carousel.is-single .carousel-nav{display:none}
+    .article-carousel-thumbs{display:flex;gap:2px;overflow-x:auto;margin-top:.55rem;padding-bottom:2px}
+    .article-carousel .carousel-thumb{border:none;padding:0;background:transparent;opacity:.52;cursor:pointer;flex:0 0 auto}
+    .article-carousel .carousel-thumb.is-active{opacity:1}
+    .article-carousel .carousel-thumb img{width:58px;height:40px;object-fit:cover;border-radius:0}
+    @media(max-width:600px){
+      .article-media--float-right,.article-media--float-left{float:none;width:100%;margin:1rem 0}
+      .article-carousel .carousel-nav{width:36px;height:36px;font-size:1.65rem}
+    }
   </style>
 </head>
 <body>
@@ -48,25 +69,54 @@
       <div class="meta">Release Radar &middot; Feats Feature &middot; Review &middot; Feats. &middot; 2023-03-06</div>
       <h1>February Releases We Think You Should Check Out - FEATS FEBRUARY FEATURE</h1>
       <p><strong><em>Lost - Linkin park (Single) 10th </em>Feb</strong></p>
-<p>Linkin park released their first fully mixed and mastered single since the bands <em>One More Light </em>release in 2017. Lost is a track re-discovered from the archives of their second album, Meteora during the preparation for its re-release in April.&nbsp;This single sonically sits with songs such as “Breaking the Habit” and “Numb” whilst dealing with lyrical themes of feeling lost in memories of trauma to the point of feeling smaller and belittled by them. All performed with Chester Bennington’s Powerful yet Venerable Vocals on top of a simple but heartfelt instrumental.</p><p>More to come on Feats about the bands journey through rediscovery and what the future holds for Linkin Park </p><p></p><p><strong>Let Her Burn - Rebecca Black (Debut Album) 9th Feb</strong></p>
-<p>Rebecca Black is truly an Icon, covering her show at Brighton’s The Great Escape festival, she proved she is more than a youtube one hit wonder. Releasing her debut album exactly 12 years after, The viral sensation that was “Friday”. If you were expecting a hyper-pop album from her then you may be disappointed. There are hints of hyper-pop but <em>Let Her Burn</em> is definitely a pop album through and through. This album sounds more refined than her previous work, her musicianship is strong and many of the tracks are truly impressive.</p><p><em>‘Misery loves company’ </em>takes a slower beat explaining how loneliness can manifest within while ‘<em>Crumbs’ </em>is definitely more of a good girl gone wild track, for those slightly more seductive moments it's perfect, it feels intimate and produced beautifully!</p><p></p><p><strong><em>Call Me What You Like - Lovejoy (Single) 10th </em>Feb</strong></p>
-<p>After the Popular release of their sophomore EP ‘<em>PebbleBrain’, </em>Lovejoy have released their newest single,<em> Call Me What You Like, </em>is<em> </em>more explosive than their usual work. This track takes you on a journey, with a chorus that will slap you in the face and production that will blow your mind. It's exciting to see this band develop and evolve. Hinting at a release of an album, we’re left to wonder if Call Me What You Like will make an appearance, and what direction the album is headed in. Nothing has been confirmed as of yet so we’re all left to see what this band has in store!</p><p></p><p><strong>Cassyette - BOOM(Single) 22nd Feb</strong></p>
-<p>Cassyette has jumped back into the scene with her most recent release, BOOM, after being debuted on her uk tour back in September we have all been patiently waiting for this powerful track to come out, blurring the lines between pop and nu metal, this is a single that she said she wrote ‘while in manic episode, experiencing all the highs and lows’. BOOM replicates this feeling perfectly as this is the perfect song to listen to while in a frenzy.</p><p></p><p><strong><em>This is Why - Paramore (Album) 10th </em>Feb</strong></p>
-<p>Paramore released their first full album since <em>Hard Times </em>in 2017. The 10 track collection sees the band sonically more mature and mellowed out from their original pop punk roots but still retaining their attitude and passive aggressiveness.&nbsp;</p><p>An album full of bangers, it shows old timers that Paramore are more relevant than ever before and still know how to make great catchy bangers. This album, however, is definitely headed in a more pop direction than before, this is far from a criticism but it will surprise those who are expecting something akin to an old Paramore album. That's exactly the point though, they have matured and their music has too.</p><p></p><p><strong><em>Be On Your Way - Daughter (Single) 8th </em>Feb</strong></p>
-<p>Daughter returned with their first independent release in 7 years. Be On Your away is a beautiful atmospheric ballad about letting go of a relationship that isn’t working out, despite how hard it is. The layering of lead singer Elena Tonras' vocals intertwined with delicate violins and powerful drums on the backbeat. This track is sure to make you retrospect on your life at the back of the bus </p><p><br><strong><em>Truth Decay - YMAS (Album) 10th </em>Feb</strong></p>
-<p>You Me at Six follow up their massive 7 album catalogue with the new release, Truth Decay. A band like You Me At Six have proved time and time again that they can do it all. Truth Decay is an Excellent example of why this band is so well loved, From the nostalgic pop punk anthem “God bless the 90’s Kids” to the Heavier “No future? Yeah right!” featuring Enter Shikari’s Rou Reynolds with a massive chorus. This release is full of tracks for the playlist! ‘Deep cuts’ especially is a staple for me, a prominent drum beat, catchy lyrics focusing more on their heavier music with hints of metal screams here and there! </p><p>We had the pleasure of covering their show at Alexandra Palace, stay tuned for a full album review soon</p><p></p><p><strong><em>It Hurts - Enter Shikari (Single) 9th </em>Feb</strong></p>
-<p><em>It Hurts</em> is Enter Shikari’s newest single for their April 21st Release, A Kiss for the Whole World. Following from their critically acclaimed concept album “Nothing is True and Everything is Possible” the band have a lot to follow up to.&nbsp;</p><p>With Its hurts being popular with fans and rightfully so, heavy guitar tones and crazy synth production bring to life Shikari's Signature sound in a refreshing new way. We couldn’t be looking forward to their new release later this year.</p><p></p><p><strong><em>Ashnikko - You Make Me Sick (Single)/10th </em>Feb</strong></p>
-<p>Ashnikko released <em>You Make Me Sick</em>, a single that is unashamedly Ashnikko. If you like their other music then we would really recommend this track. Filled with their rash vocals, a dirty backbeat and lyrics that will make you hate the world, this would be a perfect song for any fans of her previous work. It ramps her style that we all know her for to 150%.&nbsp;</p><p>Personally, I feel that this track fails to go anywhere and doesn’t show much depth. The sound is great and the instrumental is beautifully harsh but it just gets repetitive as the song progresses. So if you love her discography, this is perfect for you. However, if their usual work isn't for you, I would give this one a miss. </p><p></p><p><strong>Check out the playlist here!</strong></p>
-<p><br></p>
-<img src="https://feats-api.fpvgate-analytics.workers.dev/images/articles/3GrX4W7b%5B35%5D.jpeg" alt="" style="width:100%;height:auto;display:block;margin:1.5rem 0;border-radius:4px" loading="lazy">
-<img src="https://feats-api.fpvgate-analytics.workers.dev/images/articles/DSC05844.jpg" alt="" style="width:100%;height:auto;display:block;margin:1.5rem 0;border-radius:4px" loading="lazy">
-<img src="https://feats-api.fpvgate-analytics.workers.dev/images/articles/LoveJoy+%2815+of+35%29.jpg" alt="" style="width:100%;height:auto;display:block;margin:1.5rem 0;border-radius:4px" loading="lazy">
-<img src="https://feats-api.fpvgate-analytics.workers.dev/images/articles/DSC00093.jpg" alt="" style="width:100%;height:auto;display:block;margin:1.5rem 0;border-radius:4px" loading="lazy">
-<img src="https://feats-api.fpvgate-analytics.workers.dev/images/articles/PARAMORE_PRESS_11.jpg" alt="" style="width:100%;height:auto;display:block;margin:1.5rem 0;border-radius:4px" loading="lazy">
-<img src="https://feats-api.fpvgate-analytics.workers.dev/images/articles/daughter-960x540.jpeg" alt="" style="width:100%;height:auto;display:block;margin:1.5rem 0;border-radius:4px" loading="lazy">
-<img src="https://feats-api.fpvgate-analytics.workers.dev/images/articles/DSC01240_1.jpg" alt="" style="width:100%;height:auto;display:block;margin:1.5rem 0;border-radius:4px" loading="lazy">
-<img src="https://feats-api.fpvgate-analytics.workers.dev/images/articles/Enter-Shikari_Jamie-Waters_Jan2023_1-small_2023-01-11-161449.png" alt="" style="width:100%;height:auto;display:block;margin:1.5rem 0;border-radius:4px" loading="lazy">
-<img src="https://feats-api.fpvgate-analytics.workers.dev/images/articles/MECHA+PRESS_0.jpg" alt="" style="width:100%;height:auto;display:block;margin:1.5rem 0;border-radius:4px" loading="lazy">
+<figure class="article-media article-media--full">
+  <img src="https://feats-api.fpvgate-analytics.workers.dev/images/articles/3GrX4W7b%5B35%5D.jpeg" alt="" loading="lazy">
+  <figcaption>James Minchin (Official Press Shot)</figcaption>
+</figure>
+<p>Linkin park released their first fully mixed and mastered single since the bands <em>One More Light </em>release in 2017. Lost is a track re-discovered from the archives of their second album, Meteora during the preparation for its re-release in April. This single sonically sits with songs such as “Breaking the Habit” and “Numb” whilst dealing with lyrical themes of feeling lost in memories of trauma to the point of feeling smaller and belittled by them. All performed with Chester Bennington’s Powerful yet Venerable Vocals on top of a simple but heartfelt instrumental.</p><p>More to come on Feats about the bands journey through rediscovery and what the future holds for Linkin Park </p><p><strong>Let Her Burn - Rebecca Black (Debut Album) 9th Feb</strong></p>
+<figure class="article-media article-media--full">
+  <img src="https://feats-api.fpvgate-analytics.workers.dev/images/articles/DSC05844.jpg" alt="" loading="lazy">
+  <figcaption>Tom Ellis (TJEphotos/FEATS)</figcaption>
+</figure>
+<p>Rebecca Black is truly an Icon, covering her show at Brighton’s The Great Escape festival, she proved she is more than a youtube one hit wonder. Releasing her debut album exactly 12 years after, The viral sensation that was “Friday”. If you were expecting a hyper-pop album from her then you may be disappointed. There are hints of hyper-pop but <em>Let Her Burn</em> is definitely a pop album through and through. This album sounds more refined than her previous work, her musicianship is strong and many of the tracks are truly impressive.</p><p><em>‘Misery loves company’ </em>takes a slower beat explaining how loneliness can manifest within while ‘<em>Crumbs’ </em>is definitely more of a good girl gone wild track, for those slightly more seductive moments it's perfect, it feels intimate and produced beautifully!</p><p><strong><em>Call Me What You Like - Lovejoy (Single) 10th </em>Feb</strong></p>
+<figure class="article-media article-media--full">
+  <img src="https://feats-api.fpvgate-analytics.workers.dev/images/articles/LoveJoy+%2815+of+35%29.jpg" alt="" loading="lazy">
+  <figcaption>Louis Hitchcock (Louishitchphotos/FEATS)</figcaption>
+</figure>
+<p>After the Popular release of their sophomore EP ‘<em>PebbleBrain’, </em>Lovejoy have released their newest single,<em> Call Me What You Like, </em>is<em> </em>more explosive than their usual work. This track takes you on a journey, with a chorus that will slap you in the face and production that will blow your mind. It's exciting to see this band develop and evolve. Hinting at a release of an album, we’re left to wonder if Call Me What You Like will make an appearance, and what direction the album is headed in. Nothing has been confirmed as of yet so we’re all left to see what this band has in store!</p><p><strong>Cassyette - BOOM(Single) 22nd Feb</strong></p>
+<figure class="article-media article-media--full">
+  <img src="https://feats-api.fpvgate-analytics.workers.dev/images/articles/DSC00093.jpg" alt="" loading="lazy">
+  <figcaption>Tom Ellis (TJEphotos/FEATS)</figcaption>
+</figure>
+<p>Cassyette has jumped back into the scene with her most recent release, BOOM, after being debuted on her uk tour back in September we have all been patiently waiting for this powerful track to come out, blurring the lines between pop and nu metal, this is a single that she said she wrote ‘while in manic episode, experiencing all the highs and lows’. BOOM replicates this feeling perfectly as this is the perfect song to listen to while in a frenzy.</p><p><strong><em>This is Why - Paramore (Album) 10th </em>Feb</strong></p>
+<figure class="article-media article-media--full">
+  <img src="https://feats-api.fpvgate-analytics.workers.dev/images/articles/PARAMORE_PRESS_11.jpg" alt="" loading="lazy">
+  <figcaption>Atlantic Records (Official Press Shot)</figcaption>
+</figure>
+<p>Paramore released their first full album since <em>Hard Times </em>in 2017. The 10 track collection sees the band sonically more mature and mellowed out from their original pop punk roots but still retaining their attitude and passive aggressiveness. </p><p>An album full of bangers, it shows old timers that Paramore are more relevant than ever before and still know how to make great catchy bangers. This album, however, is definitely headed in a more pop direction than before, this is far from a criticism but it will surprise those who are expecting something akin to an old Paramore album. That's exactly the point though, they have matured and their music has too.</p><p><strong><em>Be On Your Way - Daughter (Single) 8th </em>Feb</strong></p>
+<figure class="article-media article-media--full">
+  <img src="https://feats-api.fpvgate-analytics.workers.dev/images/articles/daughter-960x540.jpeg" alt="" loading="lazy">
+  <figcaption>4AD ltd (Official Press Shot)</figcaption>
+</figure>
+<p>Daughter returned with their first independent release in 7 years. Be On Your away is a beautiful atmospheric ballad about letting go of a relationship that isn’t working out, despite how hard it is. The layering of lead singer Elena Tonras' vocals intertwined with delicate violins and powerful drums on the backbeat. This track is sure to make you retrospect on your life at the back of the bus </p><p><br/><strong><em>Truth Decay - YMAS (Album) 10th </em>Feb</strong></p>
+<figure class="article-media article-media--full">
+  <img src="https://feats-api.fpvgate-analytics.workers.dev/images/articles/DSC01240_1.jpg" alt="" loading="lazy">
+  <figcaption>Tom Ellis (TJEphotos/FEATS)</figcaption>
+</figure>
+<p>You Me at Six follow up their massive 7 album catalogue with the new release, Truth Decay. A band like You Me At Six have proved time and time again that they can do it all. Truth Decay is an Excellent example of why this band is so well loved, From the nostalgic pop punk anthem “God bless the 90’s Kids” to the Heavier “No future? Yeah right!” featuring Enter Shikari’s Rou Reynolds with a massive chorus. This release is full of tracks for the playlist! ‘Deep cuts’ especially is a staple for me, a prominent drum beat, catchy lyrics focusing more on their heavier music with hints of metal screams here and there! </p><p>We had the pleasure of covering their show at Alexandra Palace, stay tuned for a full album review soon</p><p><strong><em>It Hurts - Enter Shikari (Single) 9th </em>Feb</strong></p>
+<figure class="article-media article-media--full">
+  <img src="https://feats-api.fpvgate-analytics.workers.dev/images/articles/Enter-Shikari_Jamie-Waters_Jan2023_1-small_2023-01-11-161449.png" alt="" loading="lazy">
+  <figcaption>Jamie Waters (JAW/Official Press Shot)</figcaption>
+</figure>
+<p><em>It Hurts</em> is Enter Shikari’s newest single for their April 21st Release, A Kiss for the Whole World. Following from their critically acclaimed concept album “Nothing is True and Everything is Possible” the band have a lot to follow up to. </p><p>With Its hurts being popular with fans and rightfully so, heavy guitar tones and crazy synth production bring to life Shikari's Signature sound in a refreshing new way. We couldn’t be looking forward to their new release later this year.</p><p><strong><em>Ashnikko - You Make Me Sick (Single)/10th </em>Feb</strong></p>
+<figure class="article-media article-media--full">
+  <img src="https://feats-api.fpvgate-analytics.workers.dev/images/articles/MECHA+PRESS_0.jpg" alt="" loading="lazy">
+  <figcaption>Vasso Vu (Official Press Shot)</figcaption>
+</figure>
+<p>Ashnikko released <em>You Make Me Sick</em>, a single that is unashamedly Ashnikko. If you like their other music then we would really recommend this track. Filled with their rash vocals, a dirty backbeat and lyrics that will make you hate the world, this would be a perfect song for any fans of her previous work. It ramps her style that we all know her for to 150%. </p><p>Personally, I feel that this track fails to go anywhere and doesn’t show much depth. The sound is great and the instrumental is beautifully harsh but it just gets repetitive as the song progresses. So if you love her discography, this is perfect for you. However, if their usual work isn't for you, I would give this one a miss. </p><p><strong>Check out the playlist here!</strong></p>
+<div>
+<iframe allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" allowfullscreen="" frameborder="0" height="352" loading="lazy" src="https://open.spotify.com/embed/playlist/6unMscKPuuVf73PNQohnpr?utm_source=generator&amp;theme=0" width="100%"></iframe>
+</div>
     </article>
   </main>
 <footer class="site-footer">
@@ -86,6 +136,42 @@
     document.getElementById('navToggle').addEventListener('click', function(){
       document.getElementById('navLinks').classList.toggle('open');
     });
+
+    (function(){
+      var carousels = document.querySelectorAll('[data-article-carousel]');
+      carousels.forEach(function(carousel){
+        var slides = carousel.querySelectorAll('.carousel-slide');
+        var thumbs = carousel.querySelectorAll('.carousel-thumb');
+        if (!slides.length) return;
+
+        var currentIndex = 0;
+        function setSlide(nextIndex){
+          if (nextIndex < 0) nextIndex = slides.length - 1;
+          if (nextIndex >= slides.length) nextIndex = 0;
+          currentIndex = nextIndex;
+          slides.forEach(function(slide, index){
+            slide.classList.toggle('is-active', index === currentIndex);
+          });
+          thumbs.forEach(function(thumb, index){
+            thumb.classList.toggle('is-active', index === currentIndex);
+          });
+        }
+
+        var prevButton = carousel.querySelector('.carousel-nav.prev');
+        var nextButton = carousel.querySelector('.carousel-nav.next');
+        if (prevButton) {
+          prevButton.addEventListener('click', function(){ setSlide(currentIndex - 1); });
+        }
+        if (nextButton) {
+          nextButton.addEventListener('click', function(){ setSlide(currentIndex + 1); });
+        }
+
+        thumbs.forEach(function(button, index){
+          button.addEventListener('click', function(){ setSlide(index); });
+        });
+        setSlide(0);
+      });
+    })();
   </script>
 </body>
 </html>

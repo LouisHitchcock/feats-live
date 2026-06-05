@@ -12,16 +12,37 @@
   <link rel="icon" type="image/x-icon" href="/favicon.ico">
   <style>
     .article-body{max-width:750px;margin:0 auto;padding:3rem 2rem}
+    .article-body::after{content:'';display:block;clear:both}
     .article-body .featured-img{width:100%;height:auto;margin-bottom:2rem}
     .article-body h1{font-size:2.2rem;margin-bottom:.5rem;line-height:1.2}
     .article-body .meta{font-size:.8rem;opacity:.5;text-transform:uppercase;letter-spacing:1px;margin-bottom:2rem}
     .article-body p{font-size:1.05rem;opacity:.85;margin-bottom:1.5rem;line-height:1.8}
-    .article-body img{max-width:100%;height:auto;border-radius:4px}
     .article-body a{text-decoration:underline;opacity:.8}
     .article-body a:hover{opacity:1}
-    .img-wrap-right{float:right;width:45%;margin:0.5rem 0 0.5rem 1.5rem}
-    .img-wrap-left{float:left;width:45%;margin:0.5rem 1.5rem 0.5rem 0}
-    @media(max-width:600px){.img-wrap-right,.img-wrap-left{float:none;width:100%;margin:1rem 0}}
+    .article-media{margin:1.5rem 0}
+    .article-media--full{width:100%;clear:both}
+    .article-media--float-right{float:right;width:45%;margin:0.5rem 0 1.2rem 1.5rem}
+    .article-media--float-left{float:left;width:45%;margin:0.5rem 1.5rem 1.2rem 0}
+    .article-media img{width:100%;height:auto;display:block;border-radius:4px}
+    .article-media figcaption{font-size:.82rem;opacity:.62;line-height:1.45;margin-top:.5rem}
+    .article-rule{margin:2.3rem 0;border:none;border-top:1px solid rgba(0,0,0,.18);clear:both}
+    .article-carousel{position:relative}
+    .article-carousel-main{position:relative;background:#0a0a0a;overflow:hidden}
+    .article-carousel-slides{position:relative}
+    .article-carousel .carousel-slide{display:none}
+    .article-carousel .carousel-slide.is-active{display:block}
+    .article-carousel .carousel-nav{position:absolute;top:50%;transform:translateY(-50%);z-index:3;width:42px;height:42px;border:none;background:rgba(0,0,0,.33);color:#fff;font-size:2rem;line-height:1;cursor:pointer}
+    .article-carousel .carousel-nav.prev{left:0.65rem}
+    .article-carousel .carousel-nav.next{right:0.65rem}
+    .article-carousel.is-single .carousel-nav{display:none}
+    .article-carousel-thumbs{display:flex;gap:2px;overflow-x:auto;margin-top:.55rem;padding-bottom:2px}
+    .article-carousel .carousel-thumb{border:none;padding:0;background:transparent;opacity:.52;cursor:pointer;flex:0 0 auto}
+    .article-carousel .carousel-thumb.is-active{opacity:1}
+    .article-carousel .carousel-thumb img{width:58px;height:40px;object-fit:cover;border-radius:0}
+    @media(max-width:600px){
+      .article-media--float-right,.article-media--float-left{float:none;width:100%;margin:1rem 0}
+      .article-carousel .carousel-nav{width:36px;height:36px;font-size:1.65rem}
+    }
   </style>
 </head>
 <body>
@@ -47,10 +68,117 @@
       <img class="featured-img" src="https://feats-api.fpvgate-analytics.workers.dev/images/articles/Kids+in+Glass+Houses+-+Shepards+Bush+Empire+-+%40LouisHitchPhotos+%2821+of+26%29.jpg" alt="Kids in Glass Houses Live @ Shepherd’s Bush 18.12.2025" loading="lazy">
       <div class="meta">Live Music &middot; Gig Review &middot; Feats. &middot; 2026-01-03</div>
       <h1>Kids in Glass Houses Live @ Shepherd’s Bush 18.12.2025</h1>
-      <p>When <a href="https://open.spotify.com/artist/0d630stEgFcD3GTKZPZFzY?si=fxs3uToAQU2VfMMHX7wYjg"><span><strong>Kids in Glass Houses</strong></span></a> hit the stage in London in mid-December celebrating 15 years of <a href="https://open.spotify.com/album/5iDzAlSZKZm6QUGrh1JHri?si=mG3fArnXSVaqJ0wuIK7FtA" target="_blank"><em>Dirt</em></a>, it didn’t feel like a nostalgic echo, it felt like a record being lived anew. The <em>Dirt</em> anniversary tour brought a room full of fans together to revisit a defining chapter in the band’s story, and Shepherd’s Bush Empire provided a warm, energetic setting for it.</p><p>Support came from <a href="https://open.spotify.com/artist/3lGO6uBIzoFyU6OoGMER1B?si=ojjoFs_PQ62m6EX3Dcylug"><span><strong>Dead Pony</strong></span></a>, and they delivered a sharp, high-energy opening set that quickly got the crowd locked in. Their songs were punchy and vigorous, and the band moved with a confidence that made for a clean and exciting warm-up to the main act.</p><p>Earlier in the evening, <a href="https://open.spotify.com/artist/3QSwq9CQMjqe01RtbKqz0F?si=njvLw-wGQJ2ieN_oD-QT6A"><span><strong>Girl Band</strong></span></a> were unfortunately unable to perform due to illness. While the cancellation was a shame for those who had been looking forward to it, it didn’t noticeably dampen the buzz around the room once things got underway.</p>
+      <figure class="article-media article-media--float-right">
+  <img src="https://feats-api.fpvgate-analytics.workers.dev/images/articles/Kids+in+Glass+Houses+-+Shepards+Bush+Empire+-+%40LouisHitchPhotos+%2821+of+26%29.jpg" alt="" loading="lazy">
+</figure>
+<p>When <a href="https://open.spotify.com/artist/0d630stEgFcD3GTKZPZFzY?si=fxs3uToAQU2VfMMHX7wYjg"><span><strong>Kids in Glass Houses</strong></span></a> hit the stage in London in mid-December celebrating 15 years of <a href="https://open.spotify.com/album/5iDzAlSZKZm6QUGrh1JHri?si=mG3fArnXSVaqJ0wuIK7FtA" target="_blank"><em>Dirt</em></a>, it didn’t feel like a nostalgic echo, it felt like a record being lived anew. The <em>Dirt</em> anniversary tour brought a room full of fans together to revisit a defining chapter in the band’s story, and Shepherd’s Bush Empire provided a warm, energetic setting for it.</p><p>Support came from <a href="https://open.spotify.com/artist/3lGO6uBIzoFyU6OoGMER1B?si=ojjoFs_PQ62m6EX3Dcylug"><span><strong>Dead Pony</strong></span></a>, and they delivered a sharp, high-energy opening set that quickly got the crowd locked in. Their songs were punchy and vigorous, and the band moved with a confidence that made for a clean and exciting warm-up to the main act.</p><p>Earlier in the evening, <a href="https://open.spotify.com/artist/3QSwq9CQMjqe01RtbKqz0F?si=njvLw-wGQJ2ieN_oD-QT6A"><span><strong>Girl Band</strong></span></a> were unfortunately unable to perform due to illness. While the cancellation was a shame for those who had been looking forward to it, it didn’t noticeably dampen the buzz around the room once things got underway.</p>
+<hr class="article-rule">
+<div class="article-carousel article-media article-media--float-left" data-article-carousel="carousel-1">
+  <div class="article-carousel-main">
+    <button type="button" class="carousel-nav prev" aria-label="Previous image">&#10094;</button>
+    <div class="article-carousel-slides">
+      <img class="carousel-slide is-active" src="https://feats-api.fpvgate-analytics.workers.dev/images/articles/Kids+in+Glass+Houses+-+Shepards+Bush+Empire+-+%40LouisHitchPhotos+%282+of+26%29.jpg" alt="Kids in Glass Houses - Shepards Bush Empire - @LouisHitchPhotos (2 of 26).jpg" loading="lazy">
+      <img class="carousel-slide" src="https://feats-api.fpvgate-analytics.workers.dev/images/articles/Kids+in+Glass+Houses+-+Shepards+Bush+Empire+-+%40LouisHitchPhotos+%285+of+26%29.jpg" alt="Kids in Glass Houses - Shepards Bush Empire - @LouisHitchPhotos (5 of 26).jpg" loading="lazy">
+      <img class="carousel-slide" src="https://feats-api.fpvgate-analytics.workers.dev/images/articles/Kids+in+Glass+Houses+-+Shepards+Bush+Empire+-+%40LouisHitchPhotos+%2810+of+26%29.jpg" alt="Kids in Glass Houses - Shepards Bush Empire - @LouisHitchPhotos (10 of 26).jpg" loading="lazy">
+      <img class="carousel-slide" src="https://feats-api.fpvgate-analytics.workers.dev/images/articles/Kids+in+Glass+Houses+-+Shepards+Bush+Empire+-+%40LouisHitchPhotos+%283+of+26%29.jpg" alt="Kids in Glass Houses - Shepards Bush Empire - @LouisHitchPhotos (3 of 26).jpg" loading="lazy">
+      <img class="carousel-slide" src="https://feats-api.fpvgate-analytics.workers.dev/images/articles/Kids+in+Glass+Houses+-+Shepards+Bush+Empire+-+%40LouisHitchPhotos+%281+of+26%29.jpg" alt="Kids in Glass Houses - Shepards Bush Empire - @LouisHitchPhotos (1 of 26).jpg" loading="lazy">
+      <img class="carousel-slide" src="https://feats-api.fpvgate-analytics.workers.dev/images/articles/Kids+in+Glass+Houses+-+Shepards+Bush+Empire+-+%40LouisHitchPhotos+%284+of+26%29.jpg" alt="Kids in Glass Houses - Shepards Bush Empire - @LouisHitchPhotos (4 of 26).jpg" loading="lazy">
+      <img class="carousel-slide" src="https://feats-api.fpvgate-analytics.workers.dev/images/articles/Kids+in+Glass+Houses+-+Shepards+Bush+Empire+-+%40LouisHitchPhotos+%287+of+26%29.jpg" alt="Kids in Glass Houses - Shepards Bush Empire - @LouisHitchPhotos (7 of 26).jpg" loading="lazy">
+      <img class="carousel-slide" src="https://feats-api.fpvgate-analytics.workers.dev/images/articles/Kids+in+Glass+Houses+-+Shepards+Bush+Empire+-+%40LouisHitchPhotos+%2811+of+26%29.jpg" alt="Kids in Glass Houses - Shepards Bush Empire - @LouisHitchPhotos (11 of 26).jpg" loading="lazy">
+      <img class="carousel-slide" src="https://feats-api.fpvgate-analytics.workers.dev/images/articles/Kids+in+Glass+Houses+-+Shepards+Bush+Empire+-+%40LouisHitchPhotos+%2812+of+26%29.jpg" alt="Kids in Glass Houses - Shepards Bush Empire - @LouisHitchPhotos (12 of 26).jpg" loading="lazy">
+    </div>
+    <button type="button" class="carousel-nav next" aria-label="Next image">&#10095;</button>
+  </div>
+  <div class="article-carousel-thumbs">
+    <button type="button" class="carousel-thumb is-active" data-slide-index="0" aria-label="View image 1">
+      <img src="https://feats-api.fpvgate-analytics.workers.dev/images/articles/Kids+in+Glass+Houses+-+Shepards+Bush+Empire+-+%40LouisHitchPhotos+%282+of+26%29.jpg" alt="" loading="lazy">
+    </button>
+    <button type="button" class="carousel-thumb" data-slide-index="1" aria-label="View image 2">
+      <img src="https://feats-api.fpvgate-analytics.workers.dev/images/articles/Kids+in+Glass+Houses+-+Shepards+Bush+Empire+-+%40LouisHitchPhotos+%285+of+26%29.jpg" alt="" loading="lazy">
+    </button>
+    <button type="button" class="carousel-thumb" data-slide-index="2" aria-label="View image 3">
+      <img src="https://feats-api.fpvgate-analytics.workers.dev/images/articles/Kids+in+Glass+Houses+-+Shepards+Bush+Empire+-+%40LouisHitchPhotos+%2810+of+26%29.jpg" alt="" loading="lazy">
+    </button>
+    <button type="button" class="carousel-thumb" data-slide-index="3" aria-label="View image 4">
+      <img src="https://feats-api.fpvgate-analytics.workers.dev/images/articles/Kids+in+Glass+Houses+-+Shepards+Bush+Empire+-+%40LouisHitchPhotos+%283+of+26%29.jpg" alt="" loading="lazy">
+    </button>
+    <button type="button" class="carousel-thumb" data-slide-index="4" aria-label="View image 5">
+      <img src="https://feats-api.fpvgate-analytics.workers.dev/images/articles/Kids+in+Glass+Houses+-+Shepards+Bush+Empire+-+%40LouisHitchPhotos+%281+of+26%29.jpg" alt="" loading="lazy">
+    </button>
+    <button type="button" class="carousel-thumb" data-slide-index="5" aria-label="View image 6">
+      <img src="https://feats-api.fpvgate-analytics.workers.dev/images/articles/Kids+in+Glass+Houses+-+Shepards+Bush+Empire+-+%40LouisHitchPhotos+%284+of+26%29.jpg" alt="" loading="lazy">
+    </button>
+    <button type="button" class="carousel-thumb" data-slide-index="6" aria-label="View image 7">
+      <img src="https://feats-api.fpvgate-analytics.workers.dev/images/articles/Kids+in+Glass+Houses+-+Shepards+Bush+Empire+-+%40LouisHitchPhotos+%287+of+26%29.jpg" alt="" loading="lazy">
+    </button>
+    <button type="button" class="carousel-thumb" data-slide-index="7" aria-label="View image 8">
+      <img src="https://feats-api.fpvgate-analytics.workers.dev/images/articles/Kids+in+Glass+Houses+-+Shepards+Bush+Empire+-+%40LouisHitchPhotos+%2811+of+26%29.jpg" alt="" loading="lazy">
+    </button>
+    <button type="button" class="carousel-thumb" data-slide-index="8" aria-label="View image 9">
+      <img src="https://feats-api.fpvgate-analytics.workers.dev/images/articles/Kids+in+Glass+Houses+-+Shepards+Bush+Empire+-+%40LouisHitchPhotos+%2812+of+26%29.jpg" alt="" loading="lazy">
+    </button>
+  </div>
+</div>
 <p>Shepherd’s Bush Empire itself felt fitting for a night like this. Its tiered layout kept the crowd feeling close and involved, and the sound throughout was full without ever feeling overwhelming, important for an album-focused show where clarity matters as much as atmosphere. It’s the kind of London room where you’re aware of every shout and singalong, and that made the night feel like a shared experience rather than a standard gig.</p>
-<p>The band delivered <a href="https://open.spotify.com/album/5iDzAlSZKZm6QUGrh1JHri?si=mG3fArnXSVaqJ0wuIK7FtA" target="_blank"><em>Dirt</em> </a>with pride and energy, playing the record front to back as part of this anniversary run.<a href="https://www.livenation.co.uk/event/kids-in-glass-houses-dirt-15th-anniversary-tour-birmingham-tickets-edp1603361?utm_source=chatgpt.com"> </a>Songs that once felt restless and young now carried a living-with-them weight, and moments of intense guitar and vocal energy sat neatly alongside the louder sing-back choruses. For fans who grew up with the record, it was a chance to relive those songs in the place where a lot of those memories first took shape.</p><p>After the album run through, Kids in Glass Houses rounded out the night with a punchy encore drawn from across their wider catalogue, leaving the crowd with a sense of both completeness and excitement. There was no theatrics, just true live connection,&nbsp; guitars ringing, voices raised, and that sense of a crowd singing together as one.</p><p>Kids in Glass Houses delivered an outstanding night filled with nostalgia, good vibes and rock-solid songs that still stand tall 15 years on. With Shepherd’s Bush Empire marking the penultimate date of the <em>Dirt</em> anniversary run, the show felt both celebratory and reflective, capturing exactly why this record, and this band, continue to matter. If this tour proved anything, it’s that Kids in Glass Houses remain a compelling live force, and if you’re a fan, making it to the next tour should be an easy recommendation.</p>
-<img src="https://feats-api.fpvgate-analytics.workers.dev/images/articles/Kids+in+Glass+Houses+-+Shepards+Bush+Empire+-+%40LouisHitchPhotos+%2821+of+26%29.jpg" alt="" style="width:100%;height:auto;display:block;margin:1.5rem 0;border-radius:4px" loading="lazy">
+<div class="article-carousel article-media article-media--float-right" data-article-carousel="carousel-2">
+  <div class="article-carousel-main">
+    <button type="button" class="carousel-nav prev" aria-label="Previous image">&#10094;</button>
+    <div class="article-carousel-slides">
+      <img class="carousel-slide is-active" src="https://feats-api.fpvgate-analytics.workers.dev/images/articles/Kids+in+Glass+Houses+-+Shepards+Bush+Empire+-+%40LouisHitchPhotos+%2817+of+26%29.jpg" alt="Kids in Glass Houses - Shepards Bush Empire - @LouisHitchPhotos (17 of 26).jpg" loading="lazy">
+      <img class="carousel-slide" src="https://feats-api.fpvgate-analytics.workers.dev/images/articles/Kids+in+Glass+Houses+-+Shepards+Bush+Empire+-+%40LouisHitchPhotos+%2825+of+26%29.jpg" alt="Kids in Glass Houses - Shepards Bush Empire - @LouisHitchPhotos (25 of 26).jpg" loading="lazy">
+      <img class="carousel-slide" src="https://feats-api.fpvgate-analytics.workers.dev/images/articles/Kids+in+Glass+Houses+-+Shepards+Bush+Empire+-+%40LouisHitchPhotos+%2822+of+26%29.jpg" alt="Kids in Glass Houses - Shepards Bush Empire - @LouisHitchPhotos (22 of 26).jpg" loading="lazy">
+      <img class="carousel-slide" src="https://feats-api.fpvgate-analytics.workers.dev/images/articles/Kids+in+Glass+Houses+-+Shepards+Bush+Empire+-+%40LouisHitchPhotos+%2824+of+26%29.jpg" alt="Kids in Glass Houses - Shepards Bush Empire - @LouisHitchPhotos (24 of 26).jpg" loading="lazy">
+      <img class="carousel-slide" src="https://feats-api.fpvgate-analytics.workers.dev/images/articles/Kids+in+Glass+Houses+-+Shepards+Bush+Empire+-+%40LouisHitchPhotos+%2815+of+26%29.jpg" alt="Kids in Glass Houses - Shepards Bush Empire - @LouisHitchPhotos (15 of 26).jpg" loading="lazy">
+      <img class="carousel-slide" src="https://feats-api.fpvgate-analytics.workers.dev/images/articles/Kids+in+Glass+Houses+-+Shepards+Bush+Empire+-+%40LouisHitchPhotos+%2818+of+26%29.jpg" alt="Kids in Glass Houses - Shepards Bush Empire - @LouisHitchPhotos (18 of 26).jpg" loading="lazy">
+      <img class="carousel-slide" src="https://feats-api.fpvgate-analytics.workers.dev/images/articles/Kids+in+Glass+Houses+-+Shepards+Bush+Empire+-+%40LouisHitchPhotos+%2816+of+26%29.jpg" alt="Kids in Glass Houses - Shepards Bush Empire - @LouisHitchPhotos (16 of 26).jpg" loading="lazy">
+      <img class="carousel-slide" src="https://feats-api.fpvgate-analytics.workers.dev/images/articles/Kids+in+Glass+Houses+-+Shepards+Bush+Empire+-+%40LouisHitchPhotos+%2819+of+26%29.jpg" alt="Kids in Glass Houses - Shepards Bush Empire - @LouisHitchPhotos (19 of 26).jpg" loading="lazy">
+      <img class="carousel-slide" src="https://feats-api.fpvgate-analytics.workers.dev/images/articles/Kids+in+Glass+Houses+-+Shepards+Bush+Empire+-+%40LouisHitchPhotos+%2820+of+26%29.jpg" alt="Kids in Glass Houses - Shepards Bush Empire - @LouisHitchPhotos (20 of 26).jpg" loading="lazy">
+      <img class="carousel-slide" src="https://feats-api.fpvgate-analytics.workers.dev/images/articles/Kids+in+Glass+Houses+-+Shepards+Bush+Empire+-+%40LouisHitchPhotos+%2823+of+26%29.jpg" alt="Kids in Glass Houses - Shepards Bush Empire - @LouisHitchPhotos (23 of 26).jpg" loading="lazy">
+      <img class="carousel-slide" src="https://feats-api.fpvgate-analytics.workers.dev/images/articles/Kids+in+Glass+Houses+-+Shepards+Bush+Empire+-+%40LouisHitchPhotos+%2814+of+26%29.jpg" alt="Kids in Glass Houses - Shepards Bush Empire - @LouisHitchPhotos (14 of 26).jpg" loading="lazy">
+      <img class="carousel-slide" src="https://feats-api.fpvgate-analytics.workers.dev/images/articles/Kids+in+Glass+Houses+-+Shepards+Bush+Empire+-+%40LouisHitchPhotos+%2826+of+26%29.jpg" alt="Kids in Glass Houses - Shepards Bush Empire - @LouisHitchPhotos (26 of 26).jpg" loading="lazy">
+    </div>
+    <button type="button" class="carousel-nav next" aria-label="Next image">&#10095;</button>
+  </div>
+  <div class="article-carousel-thumbs">
+    <button type="button" class="carousel-thumb is-active" data-slide-index="0" aria-label="View image 1">
+      <img src="https://feats-api.fpvgate-analytics.workers.dev/images/articles/Kids+in+Glass+Houses+-+Shepards+Bush+Empire+-+%40LouisHitchPhotos+%2817+of+26%29.jpg" alt="" loading="lazy">
+    </button>
+    <button type="button" class="carousel-thumb" data-slide-index="1" aria-label="View image 2">
+      <img src="https://feats-api.fpvgate-analytics.workers.dev/images/articles/Kids+in+Glass+Houses+-+Shepards+Bush+Empire+-+%40LouisHitchPhotos+%2825+of+26%29.jpg" alt="" loading="lazy">
+    </button>
+    <button type="button" class="carousel-thumb" data-slide-index="2" aria-label="View image 3">
+      <img src="https://feats-api.fpvgate-analytics.workers.dev/images/articles/Kids+in+Glass+Houses+-+Shepards+Bush+Empire+-+%40LouisHitchPhotos+%2822+of+26%29.jpg" alt="" loading="lazy">
+    </button>
+    <button type="button" class="carousel-thumb" data-slide-index="3" aria-label="View image 4">
+      <img src="https://feats-api.fpvgate-analytics.workers.dev/images/articles/Kids+in+Glass+Houses+-+Shepards+Bush+Empire+-+%40LouisHitchPhotos+%2824+of+26%29.jpg" alt="" loading="lazy">
+    </button>
+    <button type="button" class="carousel-thumb" data-slide-index="4" aria-label="View image 5">
+      <img src="https://feats-api.fpvgate-analytics.workers.dev/images/articles/Kids+in+Glass+Houses+-+Shepards+Bush+Empire+-+%40LouisHitchPhotos+%2815+of+26%29.jpg" alt="" loading="lazy">
+    </button>
+    <button type="button" class="carousel-thumb" data-slide-index="5" aria-label="View image 6">
+      <img src="https://feats-api.fpvgate-analytics.workers.dev/images/articles/Kids+in+Glass+Houses+-+Shepards+Bush+Empire+-+%40LouisHitchPhotos+%2818+of+26%29.jpg" alt="" loading="lazy">
+    </button>
+    <button type="button" class="carousel-thumb" data-slide-index="6" aria-label="View image 7">
+      <img src="https://feats-api.fpvgate-analytics.workers.dev/images/articles/Kids+in+Glass+Houses+-+Shepards+Bush+Empire+-+%40LouisHitchPhotos+%2816+of+26%29.jpg" alt="" loading="lazy">
+    </button>
+    <button type="button" class="carousel-thumb" data-slide-index="7" aria-label="View image 8">
+      <img src="https://feats-api.fpvgate-analytics.workers.dev/images/articles/Kids+in+Glass+Houses+-+Shepards+Bush+Empire+-+%40LouisHitchPhotos+%2819+of+26%29.jpg" alt="" loading="lazy">
+    </button>
+    <button type="button" class="carousel-thumb" data-slide-index="8" aria-label="View image 9">
+      <img src="https://feats-api.fpvgate-analytics.workers.dev/images/articles/Kids+in+Glass+Houses+-+Shepards+Bush+Empire+-+%40LouisHitchPhotos+%2820+of+26%29.jpg" alt="" loading="lazy">
+    </button>
+    <button type="button" class="carousel-thumb" data-slide-index="9" aria-label="View image 10">
+      <img src="https://feats-api.fpvgate-analytics.workers.dev/images/articles/Kids+in+Glass+Houses+-+Shepards+Bush+Empire+-+%40LouisHitchPhotos+%2823+of+26%29.jpg" alt="" loading="lazy">
+    </button>
+    <button type="button" class="carousel-thumb" data-slide-index="10" aria-label="View image 11">
+      <img src="https://feats-api.fpvgate-analytics.workers.dev/images/articles/Kids+in+Glass+Houses+-+Shepards+Bush+Empire+-+%40LouisHitchPhotos+%2814+of+26%29.jpg" alt="" loading="lazy">
+    </button>
+    <button type="button" class="carousel-thumb" data-slide-index="11" aria-label="View image 12">
+      <img src="https://feats-api.fpvgate-analytics.workers.dev/images/articles/Kids+in+Glass+Houses+-+Shepards+Bush+Empire+-+%40LouisHitchPhotos+%2826+of+26%29.jpg" alt="" loading="lazy">
+    </button>
+  </div>
+</div>
+<p>The band delivered <a href="https://open.spotify.com/album/5iDzAlSZKZm6QUGrh1JHri?si=mG3fArnXSVaqJ0wuIK7FtA" target="_blank"><em>Dirt</em> </a>with pride and energy, playing the record front to back as part of this anniversary run.Songs that once felt restless and young now carried a living-with-them weight, and moments of intense guitar and vocal energy sat neatly alongside the louder sing-back choruses. For fans who grew up with the record, it was a chance to relive those songs in the place where a lot of those memories first took shape.</p><p>After the album run through, Kids in Glass Houses rounded out the night with a punchy encore drawn from across their wider catalogue, leaving the crowd with a sense of both completeness and excitement. There was no theatrics, just true live connection,  guitars ringing, voices raised, and that sense of a crowd singing together as one.</p><p>Kids in Glass Houses delivered an outstanding night filled with nostalgia, good vibes and rock-solid songs that still stand tall 15 years on. With Shepherd’s Bush Empire marking the penultimate date of the <em>Dirt</em> anniversary run, the show felt both celebratory and reflective, capturing exactly why this record, and this band, continue to matter. If this tour proved anything, it’s that Kids in Glass Houses remain a compelling live force, and if you’re a fan, making it to the next tour should be an easy recommendation.</p>
     </article>
   </main>
 <footer class="site-footer">
@@ -70,6 +198,42 @@
     document.getElementById('navToggle').addEventListener('click', function(){
       document.getElementById('navLinks').classList.toggle('open');
     });
+
+    (function(){
+      var carousels = document.querySelectorAll('[data-article-carousel]');
+      carousels.forEach(function(carousel){
+        var slides = carousel.querySelectorAll('.carousel-slide');
+        var thumbs = carousel.querySelectorAll('.carousel-thumb');
+        if (!slides.length) return;
+
+        var currentIndex = 0;
+        function setSlide(nextIndex){
+          if (nextIndex < 0) nextIndex = slides.length - 1;
+          if (nextIndex >= slides.length) nextIndex = 0;
+          currentIndex = nextIndex;
+          slides.forEach(function(slide, index){
+            slide.classList.toggle('is-active', index === currentIndex);
+          });
+          thumbs.forEach(function(thumb, index){
+            thumb.classList.toggle('is-active', index === currentIndex);
+          });
+        }
+
+        var prevButton = carousel.querySelector('.carousel-nav.prev');
+        var nextButton = carousel.querySelector('.carousel-nav.next');
+        if (prevButton) {
+          prevButton.addEventListener('click', function(){ setSlide(currentIndex - 1); });
+        }
+        if (nextButton) {
+          nextButton.addEventListener('click', function(){ setSlide(currentIndex + 1); });
+        }
+
+        thumbs.forEach(function(button, index){
+          button.addEventListener('click', function(){ setSlide(index); });
+        });
+        setSlide(0);
+      });
+    })();
   </script>
 </body>
 </html>

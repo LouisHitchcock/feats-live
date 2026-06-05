@@ -12,16 +12,37 @@
   <link rel="icon" type="image/x-icon" href="/favicon.ico">
   <style>
     .article-body{max-width:750px;margin:0 auto;padding:3rem 2rem}
+    .article-body::after{content:'';display:block;clear:both}
     .article-body .featured-img{width:100%;height:auto;margin-bottom:2rem}
     .article-body h1{font-size:2.2rem;margin-bottom:.5rem;line-height:1.2}
     .article-body .meta{font-size:.8rem;opacity:.5;text-transform:uppercase;letter-spacing:1px;margin-bottom:2rem}
     .article-body p{font-size:1.05rem;opacity:.85;margin-bottom:1.5rem;line-height:1.8}
-    .article-body img{max-width:100%;height:auto;border-radius:4px}
     .article-body a{text-decoration:underline;opacity:.8}
     .article-body a:hover{opacity:1}
-    .img-wrap-right{float:right;width:45%;margin:0.5rem 0 0.5rem 1.5rem}
-    .img-wrap-left{float:left;width:45%;margin:0.5rem 1.5rem 0.5rem 0}
-    @media(max-width:600px){.img-wrap-right,.img-wrap-left{float:none;width:100%;margin:1rem 0}}
+    .article-media{margin:1.5rem 0}
+    .article-media--full{width:100%;clear:both}
+    .article-media--float-right{float:right;width:45%;margin:0.5rem 0 1.2rem 1.5rem}
+    .article-media--float-left{float:left;width:45%;margin:0.5rem 1.5rem 1.2rem 0}
+    .article-media img{width:100%;height:auto;display:block;border-radius:4px}
+    .article-media figcaption{font-size:.82rem;opacity:.62;line-height:1.45;margin-top:.5rem}
+    .article-rule{margin:2.3rem 0;border:none;border-top:1px solid rgba(0,0,0,.18);clear:both}
+    .article-carousel{position:relative}
+    .article-carousel-main{position:relative;background:#0a0a0a;overflow:hidden}
+    .article-carousel-slides{position:relative}
+    .article-carousel .carousel-slide{display:none}
+    .article-carousel .carousel-slide.is-active{display:block}
+    .article-carousel .carousel-nav{position:absolute;top:50%;transform:translateY(-50%);z-index:3;width:42px;height:42px;border:none;background:rgba(0,0,0,.33);color:#fff;font-size:2rem;line-height:1;cursor:pointer}
+    .article-carousel .carousel-nav.prev{left:0.65rem}
+    .article-carousel .carousel-nav.next{right:0.65rem}
+    .article-carousel.is-single .carousel-nav{display:none}
+    .article-carousel-thumbs{display:flex;gap:2px;overflow-x:auto;margin-top:.55rem;padding-bottom:2px}
+    .article-carousel .carousel-thumb{border:none;padding:0;background:transparent;opacity:.52;cursor:pointer;flex:0 0 auto}
+    .article-carousel .carousel-thumb.is-active{opacity:1}
+    .article-carousel .carousel-thumb img{width:58px;height:40px;object-fit:cover;border-radius:0}
+    @media(max-width:600px){
+      .article-media--float-right,.article-media--float-left{float:none;width:100%;margin:1rem 0}
+      .article-carousel .carousel-nav{width:36px;height:36px;font-size:1.65rem}
+    }
   </style>
 </head>
 <body>
@@ -48,12 +69,19 @@
       <div class="meta">Editorial &middot; Wellbeing &middot; Feats. &middot; 2025-07-25</div>
       <h1>The Importance of Balance Over Burnout</h1>
       <p>“<em>If you love what you do, you’ll never work a day in your life</em>” is the same phrase that leads every creative into the depths of mental exhaustion. </p>
+<hr class="article-rule">
+<figure class="article-media article-media--float-right">
+  <img src="https://feats-api.fpvgate-analytics.workers.dev/images/articles/Edited+%2824+of+137%29.jpg" alt="" loading="lazy">
+</figure>
 <p>I would like to say that I have always been aware of this, but six years into a career as a creative freelancer. Only now, have I finally managed a summer with a work life balance, that has promoted my well – being as the top priority. </p><p>It’s easy to say well balance is easy – “<em>define your working hours</em>”, “<em>eat well</em>”, “get your 8 hours” and “take regular breaks”. But when one doesn’t unpack the economic, social and personal factors that lead budding creatives into burnout. There is a lack of awareness, and therefore the problem persists.</p><p>I’ve watched plenty of podcasts where guests talk about the importance of “saying no.” Although there is truth to this, where the matter falls short is where it fails to acknowledge working class creatives who are scared to say ‘no’ in fear of not seeing another pay check. Or those who are working for lower/ or no fee to build their skills. For these reasons, the 8 hour sleep “routine” becomes impossible, eating well even harder when on the go and taking regular breaks becomes a myth.</p>
+<hr class="article-rule">
 <p><strong>So, what does help?</strong></p><p>For me it has been about making small changes where I can. The moment I realised that loving what I do, was leading me into exhaustion therefore, feelings of un motivation, procrastination and poor well – being. Was the moment that I realised I was living by an unhealthy schedule. </p><p>Acknowledging the signs is essential. These are not limited to, but include; struggles with basic work, procrastination, constant exhaustion, unhealthy comparisons, self-doubt and dread. </p>
+<hr class="article-rule">
 <p>Although overcoming creative burnout can be challenging, it is not impossible. </p><p>If it feels comfortable speaking to a professional can be a highly effective way to begin to overcome the feeling. <a href="https://www.musicmindsmatter.org.uk/" target="_blank">Music Minds Matter</a> and <a href="https://www.musicsupport.org/" target="_blank">Music Support</a> are just two examples of incredible organisations providing support for those in or employed by the UK Music Industry. Other services like the Employee Assistance Programme or <a href="https://www.samaritans.org/how-we-can-help/contact-samaritan/talk-us-phone/" target="_blank">The Samaritans</a> also offer free confidential advice if you just need a friendly voice over the phone.</p><p>Set boundaries and prioritise tasks where possible. Being a freelancer it feels like anyone can contact you at any point in the day. And for me, I have always hated the fact I am always on my phone. If you can, setting a cut off time is extremely effective if the messages aren’t urgent a longer response time won’t hurt anyone! Prioritizing tasks is also essential. I’ve always been one to over pack my days and only allow myself rest when every one is ticked off. However, acknowledging this as unrealistic and living by a more flexible schedule has really graced me with peace of mind.</p>
-<p>Whilst it was annoying to hear from others on loop. Genuinely understanding the “importance of the journey” was something I have begun to engrain. Therefore, being more accepting of the lows and living further in the highs of the process has been a real turning point and reset the pace completely. As they say, slow and steady always wins the race. </p><p>Collaboration is innovation. In an industry where it’s easy to feel alone, it’s always important to remember you never are. Only in the past few months have I really discovered the benefits of collaboration, being able to learn with others not only relieves pressure but allows the opportunity to fail and grow together. As creative people we are all just working it out, so it’s important not to forget that most will be happy to help where they can. </p><p>As much as you may love what you do, engaging in non-creative activities is as effective as switching off after a 9-5. Whilst I am fortunate enough to have friends in the creative circle, I have many who work outside of it which always gives me a nice bit of room to escape the constant chats about “what I have coming up next”. The gym is another core part of my routine, I am no JasmineFitUK but exercise provides me a complete mental reset. Sometimes my best ideas have come from me panting on a treadmill for 30 minutes. As someone who works most weekends, I have tried to make Mondays my self-care sanctuary and have spent some of the last few; Quad Biking, Boating, Biking and Bobsledding (I know quirky). So if it’s a day, or even a few hours if you can don’t underestimate the importance of a walk or quick catch up as a means of releasing serotonin. </p><p><br></p><p>Burnout isn’t permanent, it’s a temporary. And whilst it may feel impossible and long winded it is possible to get to the point of balance over burnout. Creativity is powerful, but being kind to yourself is essential. </p>
-<img src="https://feats-api.fpvgate-analytics.workers.dev/images/articles/Edited+%2824+of+137%29.jpg" alt="" style="width:100%;height:auto;display:block;margin:1.5rem 0;border-radius:4px" loading="lazy">
-<img src="https://feats-api.fpvgate-analytics.workers.dev/images/articles/Gig+On+The+Green+%28124+of+184%29.jpg" alt="" style="width:100%;height:auto;display:block;margin:1.5rem 0;border-radius:4px" loading="lazy">
+<figure class="article-media article-media--float-left">
+  <img src="https://feats-api.fpvgate-analytics.workers.dev/images/articles/Gig+On+The+Green+%28124+of+184%29.jpg" alt="" loading="lazy">
+</figure>
+<p>Whilst it was annoying to hear from others on loop. Genuinely understanding the “importance of the journey” was something I have begun to engrain. Therefore, being more accepting of the lows and living further in the highs of the process has been a real turning point and reset the pace completely. As they say, slow and steady always wins the race. </p><p>Collaboration is innovation. In an industry where it’s easy to feel alone, it’s always important to remember you never are. Only in the past few months have I really discovered the benefits of collaboration, being able to learn with others not only relieves pressure but allows the opportunity to fail and grow together. As creative people we are all just working it out, so it’s important not to forget that most will be happy to help where they can. </p><p>As much as you may love what you do, engaging in non-creative activities is as effective as switching off after a 9-5. Whilst I am fortunate enough to have friends in the creative circle, I have many who work outside of it which always gives me a nice bit of room to escape the constant chats about “what I have coming up next”. The gym is another core part of my routine, I am no JasmineFitUK but exercise provides me a complete mental reset. Sometimes my best ideas have come from me panting on a treadmill for 30 minutes. As someone who works most weekends, I have tried to make Mondays my self-care sanctuary and have spent some of the last few; Quad Biking, Boating, Biking and Bobsledding (I know quirky). So if it’s a day, or even a few hours if you can don’t underestimate the importance of a walk or quick catch up as a means of releasing serotonin. </p><p>Burnout isn’t permanent, it’s a temporary. And whilst it may feel impossible and long winded it is possible to get to the point of balance over burnout. Creativity is powerful, but being kind to yourself is essential. </p>
     </article>
   </main>
 <footer class="site-footer">
@@ -73,6 +101,42 @@
     document.getElementById('navToggle').addEventListener('click', function(){
       document.getElementById('navLinks').classList.toggle('open');
     });
+
+    (function(){
+      var carousels = document.querySelectorAll('[data-article-carousel]');
+      carousels.forEach(function(carousel){
+        var slides = carousel.querySelectorAll('.carousel-slide');
+        var thumbs = carousel.querySelectorAll('.carousel-thumb');
+        if (!slides.length) return;
+
+        var currentIndex = 0;
+        function setSlide(nextIndex){
+          if (nextIndex < 0) nextIndex = slides.length - 1;
+          if (nextIndex >= slides.length) nextIndex = 0;
+          currentIndex = nextIndex;
+          slides.forEach(function(slide, index){
+            slide.classList.toggle('is-active', index === currentIndex);
+          });
+          thumbs.forEach(function(thumb, index){
+            thumb.classList.toggle('is-active', index === currentIndex);
+          });
+        }
+
+        var prevButton = carousel.querySelector('.carousel-nav.prev');
+        var nextButton = carousel.querySelector('.carousel-nav.next');
+        if (prevButton) {
+          prevButton.addEventListener('click', function(){ setSlide(currentIndex - 1); });
+        }
+        if (nextButton) {
+          nextButton.addEventListener('click', function(){ setSlide(currentIndex + 1); });
+        }
+
+        thumbs.forEach(function(button, index){
+          button.addEventListener('click', function(){ setSlide(index); });
+        });
+        setSlide(0);
+      });
+    })();
   </script>
 </body>
 </html>

@@ -12,16 +12,37 @@
   <link rel="icon" type="image/x-icon" href="/favicon.ico">
   <style>
     .article-body{max-width:750px;margin:0 auto;padding:3rem 2rem}
+    .article-body::after{content:'';display:block;clear:both}
     .article-body .featured-img{width:100%;height:auto;margin-bottom:2rem}
     .article-body h1{font-size:2.2rem;margin-bottom:.5rem;line-height:1.2}
     .article-body .meta{font-size:.8rem;opacity:.5;text-transform:uppercase;letter-spacing:1px;margin-bottom:2rem}
     .article-body p{font-size:1.05rem;opacity:.85;margin-bottom:1.5rem;line-height:1.8}
-    .article-body img{max-width:100%;height:auto;border-radius:4px}
     .article-body a{text-decoration:underline;opacity:.8}
     .article-body a:hover{opacity:1}
-    .img-wrap-right{float:right;width:45%;margin:0.5rem 0 0.5rem 1.5rem}
-    .img-wrap-left{float:left;width:45%;margin:0.5rem 1.5rem 0.5rem 0}
-    @media(max-width:600px){.img-wrap-right,.img-wrap-left{float:none;width:100%;margin:1rem 0}}
+    .article-media{margin:1.5rem 0}
+    .article-media--full{width:100%;clear:both}
+    .article-media--float-right{float:right;width:45%;margin:0.5rem 0 1.2rem 1.5rem}
+    .article-media--float-left{float:left;width:45%;margin:0.5rem 1.5rem 1.2rem 0}
+    .article-media img{width:100%;height:auto;display:block;border-radius:4px}
+    .article-media figcaption{font-size:.82rem;opacity:.62;line-height:1.45;margin-top:.5rem}
+    .article-rule{margin:2.3rem 0;border:none;border-top:1px solid rgba(0,0,0,.18);clear:both}
+    .article-carousel{position:relative}
+    .article-carousel-main{position:relative;background:#0a0a0a;overflow:hidden}
+    .article-carousel-slides{position:relative}
+    .article-carousel .carousel-slide{display:none}
+    .article-carousel .carousel-slide.is-active{display:block}
+    .article-carousel .carousel-nav{position:absolute;top:50%;transform:translateY(-50%);z-index:3;width:42px;height:42px;border:none;background:rgba(0,0,0,.33);color:#fff;font-size:2rem;line-height:1;cursor:pointer}
+    .article-carousel .carousel-nav.prev{left:0.65rem}
+    .article-carousel .carousel-nav.next{right:0.65rem}
+    .article-carousel.is-single .carousel-nav{display:none}
+    .article-carousel-thumbs{display:flex;gap:2px;overflow-x:auto;margin-top:.55rem;padding-bottom:2px}
+    .article-carousel .carousel-thumb{border:none;padding:0;background:transparent;opacity:.52;cursor:pointer;flex:0 0 auto}
+    .article-carousel .carousel-thumb.is-active{opacity:1}
+    .article-carousel .carousel-thumb img{width:58px;height:40px;object-fit:cover;border-radius:0}
+    @media(max-width:600px){
+      .article-media--float-right,.article-media--float-left{float:none;width:100%;margin:1rem 0}
+      .article-carousel .carousel-nav{width:36px;height:36px;font-size:1.65rem}
+    }
   </style>
 </head>
 <body>
@@ -47,15 +68,62 @@
       <img class="featured-img" src="https://feats-api.fpvgate-analytics.workers.dev/images/articles/DSC01988-3.jpg" alt="Hot Milk took over legendary KOKO, and debuted their newest single!" loading="lazy">
       <div class="meta">Live Music &middot; Feats. &middot; 2023-02-07</div>
       <h1>Hot Milk took over legendary KOKO, and debuted their newest single!</h1>
-      <p>As the January slump comes to an end, and February approaches there was no better way than to spend the night at London's legendary KOKO. Hot Milk, the pop-punk stars from Manchester put on two exclusive headline shows: “England's screaming”. I can't comment on the whole of England, but the noise inside KOKO was definitely proof enough that Hot Milk has some of the best energy in the scene.&nbsp;</p>
-<p><br>The bill was lined heavily, with London band <em>Clarence &amp; The Modern Life</em> opening up the night, jumping into the barrier, in the crowds faces, frontman Louis Matlock was screaming catchy pop lyrics infused with post punk elements creating a dystopian-doomsday sound that caught my attention almost immediately.</p><p></p><p>JOOLS then graced us in their presence dressed to the nines, with gritty, distorted guitars and incredibly powerful lyrics. I was pulled in by their song “97%”. A beautifully angry song that captures the current climate of how difficult it can be to exist as a woman in a world where oppression is just so common. Their mix of spoken word lit a fire under the post-punk scene taking influence from bands like IDLES &amp; Shame.</p>
-<p><em>Sophie Bingham (DisplacedImages, Feats.live)</em></p><p></p><p>As December Falls then absolutely stole the show, forming in 2014 their name has been buzzing around the scene for a while, I couldn't wait to finally see them live. Their emo anthems and Bethany Hunter’s powerful voice echoed through the old theater! Selling out their last shows with a loyal fan base following them to London and Manchester, this band are on my list for ones to watch in 2023!</p><p>Their set was curated with their latest single "Carousel", an infectious song that explores a toxic relationship, in an interview with Kerrang Hunter explained that the song is about “falling in love with hating each other just so you can fall in love all over again. You end up in a bad cycle that leaves you feeling dizzy and like you are on a carousel going round and round”</p><p>Their energy onstage had the crowd bouncing, many of them already knowing the words and singing along. As December Falls primed up the crowd perfectly for the&nbsp;Fiery Manchester band to come put on a show!&nbsp;&nbsp;</p>
-<p>Hot Milk took the stage fronted by Han Mee &amp; Jim Shaw, joined on the bass by Tom Paton and Harry Deller on drums. I am definitely no stranger to this band, since 2019 they have been soaring through the scene,&nbsp; coming off the recent release of their latest EP ‘The King and Queen of Gasoline” and a series of sold out shows in 2022, 2023 could be their biggest year yet. </p><p><br></p><p>Headlining KOKO is the best way to kick off the year with a bang. When “England's Screaming” shows were originally announced Han said that this was an “end to an era of the trilogy EPs”, And a start to celebrating what's to come next; with hints of an album on the table it's impossible to know where they’re going next, its unlimitless.&nbsp;</p>
-<p><br>With an eighteen song setlist, the crowd was in for something special; they played fan favourites like “Candy Coated Lies”,&nbsp; “Wide Awake” and debuted “Horror Show”. A catchy melody and eerie chord progression that powered through the walls.</p><p><br>Playing a setlist of *almost* every Hot Milk song to date, these two shows were something that won't be replicated, Hot milk said that it would be special and they kept their promise!&nbsp;</p>
-<img src="https://feats-api.fpvgate-analytics.workers.dev/images/articles/DSC01988-3.jpg" alt="" style="width:100%;height:auto;display:block;margin:1.5rem 0;border-radius:4px" loading="lazy">
-<img src="https://feats-api.fpvgate-analytics.workers.dev/images/articles/DSC02000-2.jpg" alt="" style="width:100%;height:auto;display:block;margin:1.5rem 0;border-radius:4px" loading="lazy">
-<img src="https://feats-api.fpvgate-analytics.workers.dev/images/articles/DSC02034-3.jpg" alt="" style="width:100%;height:auto;display:block;margin:1.5rem 0;border-radius:4px" loading="lazy">
-<img src="https://feats-api.fpvgate-analytics.workers.dev/images/articles/DSC02046.jpg" alt="" style="width:100%;height:auto;display:block;margin:1.5rem 0;border-radius:4px" loading="lazy">
+      <p>As the January slump comes to an end, and February approaches there was no better way than to spend the night at London's legendary KOKO. Hot Milk, the pop-punk stars from Manchester put on two exclusive headline shows: “England's screaming”. I can't comment on the whole of England, but the noise inside KOKO was definitely proof enough that Hot Milk has some of the best energy in the scene. </p>
+<figure class="article-media article-media--full">
+  <img src="https://feats-api.fpvgate-analytics.workers.dev/images/articles/DSC01988-3.jpg" alt="" loading="lazy">
+  <figcaption>Sophie Bingham (DisplacedImages, Feats.live)</figcaption>
+</figure>
+<p><br/>The bill was lined heavily, with London band <em>Clarence &amp; The Modern Life</em> opening up the night, jumping into the barrier, in the crowds faces, frontman Louis Matlock was screaming catchy pop lyrics infused with post punk elements creating a dystopian-doomsday sound that caught my attention almost immediately.</p><p>JOOLS then graced us in their presence dressed to the nines, with gritty, distorted guitars and incredibly powerful lyrics. I was pulled in by their song “97%”. A beautifully angry song that captures the current climate of how difficult it can be to exist as a woman in a world where oppression is just so common. Their mix of spoken word lit a fire under the post-punk scene taking influence from bands like IDLES &amp; Shame.</p>
+<div class="article-carousel article-media article-media--full" data-article-carousel="carousel-1">
+  <div class="article-carousel-main">
+    <button type="button" class="carousel-nav prev" aria-label="Previous image">&#10094;</button>
+    <div class="article-carousel-slides">
+      <img class="carousel-slide is-active" src="https://feats-api.fpvgate-analytics.workers.dev/images/articles/DSC01749.jpg" alt="DSC01749.jpg" loading="lazy">
+      <img class="carousel-slide" src="https://feats-api.fpvgate-analytics.workers.dev/images/articles/DSC01735-2.jpg" alt="DSC01735-2.jpg" loading="lazy">
+      <img class="carousel-slide" src="https://feats-api.fpvgate-analytics.workers.dev/images/articles/DSC01712.jpg" alt="DSC01712.jpg" loading="lazy">
+      <img class="carousel-slide" src="https://feats-api.fpvgate-analytics.workers.dev/images/articles/DSC01829.jpg" alt="DSC01829.jpg" loading="lazy">
+      <img class="carousel-slide" src="https://feats-api.fpvgate-analytics.workers.dev/images/articles/DSC01787.jpg" alt="DSC01787.jpg" loading="lazy">
+      <img class="carousel-slide" src="https://feats-api.fpvgate-analytics.workers.dev/images/articles/DSC01735.jpg" alt="DSC01735.jpg" loading="lazy">
+    </div>
+    <button type="button" class="carousel-nav next" aria-label="Next image">&#10095;</button>
+  </div>
+  <div class="article-carousel-thumbs">
+    <button type="button" class="carousel-thumb is-active" data-slide-index="0" aria-label="View image 1">
+      <img src="https://feats-api.fpvgate-analytics.workers.dev/images/articles/DSC01749.jpg" alt="" loading="lazy">
+    </button>
+    <button type="button" class="carousel-thumb" data-slide-index="1" aria-label="View image 2">
+      <img src="https://feats-api.fpvgate-analytics.workers.dev/images/articles/DSC01735-2.jpg" alt="" loading="lazy">
+    </button>
+    <button type="button" class="carousel-thumb" data-slide-index="2" aria-label="View image 3">
+      <img src="https://feats-api.fpvgate-analytics.workers.dev/images/articles/DSC01712.jpg" alt="" loading="lazy">
+    </button>
+    <button type="button" class="carousel-thumb" data-slide-index="3" aria-label="View image 4">
+      <img src="https://feats-api.fpvgate-analytics.workers.dev/images/articles/DSC01829.jpg" alt="" loading="lazy">
+    </button>
+    <button type="button" class="carousel-thumb" data-slide-index="4" aria-label="View image 5">
+      <img src="https://feats-api.fpvgate-analytics.workers.dev/images/articles/DSC01787.jpg" alt="" loading="lazy">
+    </button>
+    <button type="button" class="carousel-thumb" data-slide-index="5" aria-label="View image 6">
+      <img src="https://feats-api.fpvgate-analytics.workers.dev/images/articles/DSC01735.jpg" alt="" loading="lazy">
+    </button>
+  </div>
+</div>
+<p><em>Sophie Bingham (DisplacedImages, Feats.live)</em></p><p>As December Falls then absolutely stole the show, forming in 2014 their name has been buzzing around the scene for a while, I couldn't wait to finally see them live. Their emo anthems and Bethany Hunter’s powerful voice echoed through the old theater! Selling out their last shows with a loyal fan base following them to London and Manchester, this band are on my list for ones to watch in 2023!</p><p>Their set was curated with their latest single "Carousel", an infectious song that explores a toxic relationship, in an interview with Kerrang Hunter explained that the song is about “falling in love with hating each other just so you can fall in love all over again. You end up in a bad cycle that leaves you feeling dizzy and like you are on a carousel going round and round”</p><p>Their energy onstage had the crowd bouncing, many of them already knowing the words and singing along. As December Falls primed up the crowd perfectly for the Fiery Manchester band to come put on a show!  </p>
+<figure class="article-media article-media--full">
+  <img src="https://feats-api.fpvgate-analytics.workers.dev/images/articles/DSC02000-2.jpg" alt="" loading="lazy">
+  <figcaption>Sophie Bingham (DisplacedImages, Feats.live)</figcaption>
+</figure>
+<p>Hot Milk took the stage fronted by Han Mee &amp; Jim Shaw, joined on the bass by Tom Paton and Harry Deller on drums. I am definitely no stranger to this band, since 2019 they have been soaring through the scene,  coming off the recent release of their latest EP ‘The King and Queen of Gasoline” and a series of sold out shows in 2022, 2023 could be their biggest year yet. </p><p>Headlining KOKO is the best way to kick off the year with a bang. When “England's Screaming” shows were originally announced Han said that this was an “end to an era of the trilogy EPs”, And a start to celebrating what's to come next; with hints of an album on the table it's impossible to know where they’re going next, its unlimitless. </p>
+<figure class="article-media article-media--full">
+  <img src="https://feats-api.fpvgate-analytics.workers.dev/images/articles/DSC02034-3.jpg" alt="" loading="lazy">
+  <figcaption>Sophie Bingham (DisplacedImages, Feats.live)</figcaption>
+</figure>
+<p><br/>With an eighteen song setlist, the crowd was in for something special; they played fan favourites like “Candy Coated Lies”,  “Wide Awake” and debuted “Horror Show”. A catchy melody and eerie chord progression that powered through the walls.</p><p><br/>Playing a setlist of *almost* every Hot Milk song to date, these two shows were something that won't be replicated, Hot milk said that it would be special and they kept their promise! </p>
+<figure class="article-media article-media--full">
+  <img src="https://feats-api.fpvgate-analytics.workers.dev/images/articles/DSC02046.jpg" alt="" loading="lazy">
+  <figcaption>Sophie Bingham (DisplacedImages, Feats.live)</figcaption>
+</figure>
+The Tour Dates Block is rendered by Handlebars.
     </article>
   </main>
 <footer class="site-footer">
@@ -75,6 +143,42 @@
     document.getElementById('navToggle').addEventListener('click', function(){
       document.getElementById('navLinks').classList.toggle('open');
     });
+
+    (function(){
+      var carousels = document.querySelectorAll('[data-article-carousel]');
+      carousels.forEach(function(carousel){
+        var slides = carousel.querySelectorAll('.carousel-slide');
+        var thumbs = carousel.querySelectorAll('.carousel-thumb');
+        if (!slides.length) return;
+
+        var currentIndex = 0;
+        function setSlide(nextIndex){
+          if (nextIndex < 0) nextIndex = slides.length - 1;
+          if (nextIndex >= slides.length) nextIndex = 0;
+          currentIndex = nextIndex;
+          slides.forEach(function(slide, index){
+            slide.classList.toggle('is-active', index === currentIndex);
+          });
+          thumbs.forEach(function(thumb, index){
+            thumb.classList.toggle('is-active', index === currentIndex);
+          });
+        }
+
+        var prevButton = carousel.querySelector('.carousel-nav.prev');
+        var nextButton = carousel.querySelector('.carousel-nav.next');
+        if (prevButton) {
+          prevButton.addEventListener('click', function(){ setSlide(currentIndex - 1); });
+        }
+        if (nextButton) {
+          nextButton.addEventListener('click', function(){ setSlide(currentIndex + 1); });
+        }
+
+        thumbs.forEach(function(button, index){
+          button.addEventListener('click', function(){ setSlide(index); });
+        });
+        setSlide(0);
+      });
+    })();
   </script>
 </body>
 </html>

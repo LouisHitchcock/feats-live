@@ -12,16 +12,37 @@
   <link rel="icon" type="image/x-icon" href="/favicon.ico">
   <style>
     .article-body{max-width:750px;margin:0 auto;padding:3rem 2rem}
+    .article-body::after{content:'';display:block;clear:both}
     .article-body .featured-img{width:100%;height:auto;margin-bottom:2rem}
     .article-body h1{font-size:2.2rem;margin-bottom:.5rem;line-height:1.2}
     .article-body .meta{font-size:.8rem;opacity:.5;text-transform:uppercase;letter-spacing:1px;margin-bottom:2rem}
     .article-body p{font-size:1.05rem;opacity:.85;margin-bottom:1.5rem;line-height:1.8}
-    .article-body img{max-width:100%;height:auto;border-radius:4px}
     .article-body a{text-decoration:underline;opacity:.8}
     .article-body a:hover{opacity:1}
-    .img-wrap-right{float:right;width:45%;margin:0.5rem 0 0.5rem 1.5rem}
-    .img-wrap-left{float:left;width:45%;margin:0.5rem 1.5rem 0.5rem 0}
-    @media(max-width:600px){.img-wrap-right,.img-wrap-left{float:none;width:100%;margin:1rem 0}}
+    .article-media{margin:1.5rem 0}
+    .article-media--full{width:100%;clear:both}
+    .article-media--float-right{float:right;width:45%;margin:0.5rem 0 1.2rem 1.5rem}
+    .article-media--float-left{float:left;width:45%;margin:0.5rem 1.5rem 1.2rem 0}
+    .article-media img{width:100%;height:auto;display:block;border-radius:4px}
+    .article-media figcaption{font-size:.82rem;opacity:.62;line-height:1.45;margin-top:.5rem}
+    .article-rule{margin:2.3rem 0;border:none;border-top:1px solid rgba(0,0,0,.18);clear:both}
+    .article-carousel{position:relative}
+    .article-carousel-main{position:relative;background:#0a0a0a;overflow:hidden}
+    .article-carousel-slides{position:relative}
+    .article-carousel .carousel-slide{display:none}
+    .article-carousel .carousel-slide.is-active{display:block}
+    .article-carousel .carousel-nav{position:absolute;top:50%;transform:translateY(-50%);z-index:3;width:42px;height:42px;border:none;background:rgba(0,0,0,.33);color:#fff;font-size:2rem;line-height:1;cursor:pointer}
+    .article-carousel .carousel-nav.prev{left:0.65rem}
+    .article-carousel .carousel-nav.next{right:0.65rem}
+    .article-carousel.is-single .carousel-nav{display:none}
+    .article-carousel-thumbs{display:flex;gap:2px;overflow-x:auto;margin-top:.55rem;padding-bottom:2px}
+    .article-carousel .carousel-thumb{border:none;padding:0;background:transparent;opacity:.52;cursor:pointer;flex:0 0 auto}
+    .article-carousel .carousel-thumb.is-active{opacity:1}
+    .article-carousel .carousel-thumb img{width:58px;height:40px;object-fit:cover;border-radius:0}
+    @media(max-width:600px){
+      .article-media--float-right,.article-media--float-left{float:none;width:100%;margin:1rem 0}
+      .article-carousel .carousel-nav{width:36px;height:36px;font-size:1.65rem}
+    }
   </style>
 </head>
 <body>
@@ -47,8 +68,13 @@
       <img class="featured-img" src="https://feats-api.fpvgate-analytics.workers.dev/images/articles/480227114_1166097371544839_6881514108013743355_n.jpg" alt="Bloodstock 2025: Heavy Hitters and Hidden Gems" loading="lazy">
       <div class="meta">Festival &middot; Line Up Review &middot; Feats. &middot; 2025-04-25</div>
       <h1>Bloodstock 2025: Heavy Hitters and Hidden Gems</h1>
-      <p>Yet, Bloodstock’s true charm lies in its passionate promotion of emerging talent, with many promising bands appearing on its stages. On the Ronnie James Dio Stage, the British 4-piece band <a href="https://open.spotify.com/artist/49O77SKrEk1b9sNjhI0kM4?si=LXUptjsMRvmHJe_OOxHU7Q"><span><strong>Heriot</strong> </span></a>are unquestionably ones to watch. Their fusion of hardcore, death metal, and experimental influences ensures they'll leave a lasting impression. <a href="https://open.spotify.com/artist/35GpJabAKuETXnWsWQbTjr?si=cFLiqEv-RV-Jf3VeTWoj3Q"><span><strong>Cage Fight</strong></span></a> are equally compelling, delivering a fierce brand of crossover thrash that's rapidly gaining traction. Brighton-based "doom rockers" <a href="https://open.spotify.com/artist/72ThxubT9T0hqFUi1gU89d?si=gKvgGKkSTxqG_JybEFy3hw"><span><strong>Famyne</strong></span></a> also grace the Ronnie James Dio Stage, offering richly atmospheric sets that promise to captivate those looking for a deeper, darker sound.</p><p>The Sophie Lancaster Stage once again highlights groundbreaking and diverse acts. <a href="https://open.spotify.com/artist/7F8CwvvwIi7GJvZ7qD2ybR?si=aGzzaB0RTzi-r_WWVgC7fw"><span><strong>Pengshui</strong> </span></a>are poised to become festival favourites, merging grime, punk, and metal into an electrifying live experience. Another standout on this stage is <a href="https://open.spotify.com/artist/5sW5eR9g4kNibasfrlw4EN?si=27H8vvUIRj-B2M1FqkoyPA"><span><strong>Spirit Adrift</strong></span></a>, whose powerful melodies and classic metal influences have already earned them considerable acclaim, positioning them perfectly for broader recognition.</p><p>Over on the Hopical Storm New Blood Stage, the spotlight is on bands destined for bigger things. <a href="https://open.spotify.com/artist/7j9mTouPi4nUYPj5Y95Pu0?si=sFMtsN5XQTqniq53pagR9Q"><span><strong>The Machinist</strong></span></a> bring a sophisticated yet brutal approach to modern metalcore, positioning them as a future powerhouse. Meanwhile, <a href="https://open.spotify.com/artist/3ZLJM8TArYs7ux3l9TFRkn?si=oe8sVa3dSmaZGzNnN0Q11w"><span><strong>Fortune Teller</strong></span></a> delivers gritty riffs and authentic charisma, exactly the type of talent that Bloodstock champions year after year.</p><p>Away from the stages, Bloodstock offers an immersive festival experience complete with the <a href="https://www.bloodstock.uk.com/events/boa-2023/venues/intro"><span>Metal 2 The Masses competition</span></a>, a critical stepping stone for emerging talent. Local events, such as the East Anglia final at Norwich’s The Brickmakers, demonstrate Bloodstock's commitment to grassroots growth and community.</p><p>With its dynamic mix of legendary headliners and burgeoning underground artists, alongside dedicated initiatives and a welcoming atmosphere, Bloodstock Open Air 2025 is set to be an essential event for anyone passionate about discovering the future of heavy music.</p><p>Don't miss out—grab your tickets now from the <a href="https://bloodstock.seetickets.com/event/bloodstock/catton-park/3131566#op1"><span>official Bloodstock website</span></a>, or dive into our specially curated 'Ones to Watch' playlist to discover your new favourite bands.</p>
-<img src="https://feats-api.fpvgate-analytics.workers.dev/images/articles/480227114_1166097371544839_6881514108013743355_n.jpg" alt="" style="width:100%;height:auto;display:block;margin:1.5rem 0;border-radius:4px" loading="lazy">
+      <figure class="article-media article-media--full">
+  <img src="https://feats-api.fpvgate-analytics.workers.dev/images/articles/480227114_1166097371544839_6881514108013743355_n.jpg" alt="" loading="lazy">
+</figure>
+<p>Yet, Bloodstock’s true charm lies in its passionate promotion of emerging talent, with many promising bands appearing on its stages. On the Ronnie James Dio Stage, the British 4-piece band <a href="https://open.spotify.com/artist/49O77SKrEk1b9sNjhI0kM4?si=LXUptjsMRvmHJe_OOxHU7Q"><span><strong>Heriot</strong> </span></a>are unquestionably ones to watch. Their fusion of hardcore, death metal, and experimental influences ensures they'll leave a lasting impression. <a href="https://open.spotify.com/artist/35GpJabAKuETXnWsWQbTjr?si=cFLiqEv-RV-Jf3VeTWoj3Q"><span><strong>Cage Fight</strong></span></a> are equally compelling, delivering a fierce brand of crossover thrash that's rapidly gaining traction. Brighton-based "doom rockers" <a href="https://open.spotify.com/artist/72ThxubT9T0hqFUi1gU89d?si=gKvgGKkSTxqG_JybEFy3hw"><span><strong>Famyne</strong></span></a> also grace the Ronnie James Dio Stage, offering richly atmospheric sets that promise to captivate those looking for a deeper, darker sound.</p><p>The Sophie Lancaster Stage once again highlights groundbreaking and diverse acts. <a href="https://open.spotify.com/artist/7F8CwvvwIi7GJvZ7qD2ybR?si=aGzzaB0RTzi-r_WWVgC7fw"><span><strong>Pengshui</strong> </span></a>are poised to become festival favourites, merging grime, punk, and metal into an electrifying live experience. Another standout on this stage is <a href="https://open.spotify.com/artist/5sW5eR9g4kNibasfrlw4EN?si=27H8vvUIRj-B2M1FqkoyPA"><span><strong>Spirit Adrift</strong></span></a>, whose powerful melodies and classic metal influences have already earned them considerable acclaim, positioning them perfectly for broader recognition.</p><p>Over on the Hopical Storm New Blood Stage, the spotlight is on bands destined for bigger things. <a href="https://open.spotify.com/artist/7j9mTouPi4nUYPj5Y95Pu0?si=sFMtsN5XQTqniq53pagR9Q"><span><strong>The Machinist</strong></span></a> bring a sophisticated yet brutal approach to modern metalcore, positioning them as a future powerhouse. Meanwhile, <a href="https://open.spotify.com/artist/3ZLJM8TArYs7ux3l9TFRkn?si=oe8sVa3dSmaZGzNnN0Q11w"><span><strong>Fortune Teller</strong></span></a> delivers gritty riffs and authentic charisma, exactly the type of talent that Bloodstock champions year after year.</p><p>Away from the stages, Bloodstock offers an immersive festival experience complete with the <a href="https://www.bloodstock.uk.com/events/boa-2023/venues/intro"><span>Metal 2 The Masses competition</span></a>, a critical stepping stone for emerging talent. Local events, such as the East Anglia final at Norwich’s The Brickmakers, demonstrate Bloodstock's commitment to grassroots growth and community.</p><p>With its dynamic mix of legendary headliners and burgeoning underground artists, alongside dedicated initiatives and a welcoming atmosphere, Bloodstock Open Air 2025 is set to be an essential event for anyone passionate about discovering the future of heavy music.</p><p>Don't miss out—grab your tickets now from the <a href="https://bloodstock.seetickets.com/event/bloodstock/catton-park/3131566#op1"><span>official Bloodstock website</span></a>, or dive into our specially curated 'Ones to Watch' playlist to discover your new favourite bands.</p>
+<div>
+<iframe allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" allowfullscreen="" frameborder="0" height="352" loading="lazy" src="https://open.spotify.com/embed/playlist/28Zj8kFDYnHLQc144GiPT0?utm_source=generator" width="100%"></iframe>
+</div>
     </article>
   </main>
 <footer class="site-footer">
@@ -68,6 +94,42 @@
     document.getElementById('navToggle').addEventListener('click', function(){
       document.getElementById('navLinks').classList.toggle('open');
     });
+
+    (function(){
+      var carousels = document.querySelectorAll('[data-article-carousel]');
+      carousels.forEach(function(carousel){
+        var slides = carousel.querySelectorAll('.carousel-slide');
+        var thumbs = carousel.querySelectorAll('.carousel-thumb');
+        if (!slides.length) return;
+
+        var currentIndex = 0;
+        function setSlide(nextIndex){
+          if (nextIndex < 0) nextIndex = slides.length - 1;
+          if (nextIndex >= slides.length) nextIndex = 0;
+          currentIndex = nextIndex;
+          slides.forEach(function(slide, index){
+            slide.classList.toggle('is-active', index === currentIndex);
+          });
+          thumbs.forEach(function(thumb, index){
+            thumb.classList.toggle('is-active', index === currentIndex);
+          });
+        }
+
+        var prevButton = carousel.querySelector('.carousel-nav.prev');
+        var nextButton = carousel.querySelector('.carousel-nav.next');
+        if (prevButton) {
+          prevButton.addEventListener('click', function(){ setSlide(currentIndex - 1); });
+        }
+        if (nextButton) {
+          nextButton.addEventListener('click', function(){ setSlide(currentIndex + 1); });
+        }
+
+        thumbs.forEach(function(button, index){
+          button.addEventListener('click', function(){ setSlide(index); });
+        });
+        setSlide(0);
+      });
+    })();
   </script>
 </body>
 </html>

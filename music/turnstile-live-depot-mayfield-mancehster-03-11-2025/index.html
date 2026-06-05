@@ -12,16 +12,37 @@
   <link rel="icon" type="image/x-icon" href="/favicon.ico">
   <style>
     .article-body{max-width:750px;margin:0 auto;padding:3rem 2rem}
+    .article-body::after{content:'';display:block;clear:both}
     .article-body .featured-img{width:100%;height:auto;margin-bottom:2rem}
     .article-body h1{font-size:2.2rem;margin-bottom:.5rem;line-height:1.2}
     .article-body .meta{font-size:.8rem;opacity:.5;text-transform:uppercase;letter-spacing:1px;margin-bottom:2rem}
     .article-body p{font-size:1.05rem;opacity:.85;margin-bottom:1.5rem;line-height:1.8}
-    .article-body img{max-width:100%;height:auto;border-radius:4px}
     .article-body a{text-decoration:underline;opacity:.8}
     .article-body a:hover{opacity:1}
-    .img-wrap-right{float:right;width:45%;margin:0.5rem 0 0.5rem 1.5rem}
-    .img-wrap-left{float:left;width:45%;margin:0.5rem 1.5rem 0.5rem 0}
-    @media(max-width:600px){.img-wrap-right,.img-wrap-left{float:none;width:100%;margin:1rem 0}}
+    .article-media{margin:1.5rem 0}
+    .article-media--full{width:100%;clear:both}
+    .article-media--float-right{float:right;width:45%;margin:0.5rem 0 1.2rem 1.5rem}
+    .article-media--float-left{float:left;width:45%;margin:0.5rem 1.5rem 1.2rem 0}
+    .article-media img{width:100%;height:auto;display:block;border-radius:4px}
+    .article-media figcaption{font-size:.82rem;opacity:.62;line-height:1.45;margin-top:.5rem}
+    .article-rule{margin:2.3rem 0;border:none;border-top:1px solid rgba(0,0,0,.18);clear:both}
+    .article-carousel{position:relative}
+    .article-carousel-main{position:relative;background:#0a0a0a;overflow:hidden}
+    .article-carousel-slides{position:relative}
+    .article-carousel .carousel-slide{display:none}
+    .article-carousel .carousel-slide.is-active{display:block}
+    .article-carousel .carousel-nav{position:absolute;top:50%;transform:translateY(-50%);z-index:3;width:42px;height:42px;border:none;background:rgba(0,0,0,.33);color:#fff;font-size:2rem;line-height:1;cursor:pointer}
+    .article-carousel .carousel-nav.prev{left:0.65rem}
+    .article-carousel .carousel-nav.next{right:0.65rem}
+    .article-carousel.is-single .carousel-nav{display:none}
+    .article-carousel-thumbs{display:flex;gap:2px;overflow-x:auto;margin-top:.55rem;padding-bottom:2px}
+    .article-carousel .carousel-thumb{border:none;padding:0;background:transparent;opacity:.52;cursor:pointer;flex:0 0 auto}
+    .article-carousel .carousel-thumb.is-active{opacity:1}
+    .article-carousel .carousel-thumb img{width:58px;height:40px;object-fit:cover;border-radius:0}
+    @media(max-width:600px){
+      .article-media--float-right,.article-media--float-left{float:none;width:100%;margin:1rem 0}
+      .article-carousel .carousel-nav{width:36px;height:36px;font-size:1.65rem}
+    }
   </style>
 </head>
 <body>
@@ -47,12 +68,21 @@
       <img class="featured-img" src="https://feats-api.fpvgate-analytics.workers.dev/images/articles/TurnstileSoldout+tour+with+a+stacked+line-up+of+supports%2C+Grammy+nominations+across+three+differ.jpg" alt="Turnstile Live @ Depot Mayfield Manchester- 03.11.2025" loading="lazy">
       <div class="meta">Live Music &middot; Gig Review &middot; editorial &middot; Feats. &middot; 2025-11-24</div>
       <h1>Turnstile Live @ Depot Mayfield Manchester- 03.11.2025</h1>
-      <p>The hardcore takeover of Depot Mayfield in Manchester was one of the most exciting things to happen this year. The venue opened their doors to 10,000 Turnstile fans on their Never Enough Tour. There was a huge buzz from the crowd before they had even made it into the venue, and you could really feel the excitement.</p><p>First up were High Vis, a rising band from London. One drum hit in, and the crowd were already pushing forward eager to watch their set. They had the crowd bobbing their heads and dancing, while playing favourites like ‘Walking Wires,’ ‘Trauma Bonds,’ ‘Drop Me Out,’ and ‘Minds Lie.’ The band had so much energy while on stage and reminded everyone why they are quickly becoming one of the UK’s most exciting punk bands — raw, tight, and bursting with confidence. They didn’t just warm up the room; they set the venue on fire, which continued through the whole night. </p>
-<p>Next up, California’s experimental punk-rock duo The Garden brought their signature unpredictability. The heavy thumping bass went right through you during their set,&nbsp; They delivered a chaotic, and super energetic set, that was thoroughly enjoyed by the audience. Their tracks landed with full force, songs such as ‘Filthy Rabbit Hole’ and ‘ The Nightmare’ had the crowd going wild at the front of the venue. They kept the crowd entertained and everyone seemed to really enjoy their set. </p><p>By the time Turnstile took the stage, Depot Mayfield felt electrified. The band launched into ‘NEVER ENOUGH’ instantly igniting the massive room. Despite performing to a packed 10,000-cap audience, Turnstile’s raw, intimate energy made the show feel like an intimate gig at a dive bar. </p><p>The setlist was a great blend of older hardcore songs and some newer ones. Bursts of energy came from ‘T.L.C,’ ‘BIRDS,’ ‘SEEIN’ STARS,’ ‘Real Thing,’ ‘Fazed Out,’ and ‘ALIEN LOVE CALL.’ The singer jumping around the stage, paired with the band’s explosive playing and heavy drum solos, kept the crowd locked in from start to finish.</p>
-<p>One of the night’s most memorable moments arrived during ‘SEEIN’ STARS’ when a disco ball was projecting all these flickering lights across the ceiling of the venue. The combination of the melody, and floaty guitar chords created a euphoric wave across the venue, chilling everyone out after the sweaty mosh of the rest of the gig —perfectly capturing Turnstile’s uncanny ability to make every person in the room feel connected to the music and to each other no matter what the song they are playing is. Turnstile proved exactly why they stand out in today’s melodic hardcore landscape. Every element—sound, light, energy—worked together to make this Monday night feel like one of the most unforgettable Hardcore shows Manchester has witnessed in years.</p><p>&nbsp;</p>
-<img src="https://feats-api.fpvgate-analytics.workers.dev/images/articles/TurnstileSoldout+tour+with+a+stacked+line-up+of+supports%2C+Grammy+nominations+across+three+differ.jpg" alt="" style="width:100%;height:auto;display:block;margin:1.5rem 0;border-radius:4px" loading="lazy">
-<img src="https://feats-api.fpvgate-analytics.workers.dev/images/articles/TurnstileSoldout+tour+with+a+stacked+line-up+of+supports%2C+Grammy+nominations+across+three+differ%282%29.jpg" alt="" style="width:100%;height:auto;display:block;margin:1.5rem 0;border-radius:4px" loading="lazy">
-<img src="https://feats-api.fpvgate-analytics.workers.dev/images/articles/TurnstileSoldout+tour+with+a+stacked+line-up+of+supports%2C+Grammy+nominations+across+three+differ%283%29.jpg" alt="" style="width:100%;height:auto;display:block;margin:1.5rem 0;border-radius:4px" loading="lazy">
+      <figure class="article-media article-media--float-right">
+  <img src="https://feats-api.fpvgate-analytics.workers.dev/images/articles/TurnstileSoldout+tour+with+a+stacked+line-up+of+supports%2C+Grammy+nominations+across+three+differ.jpg" alt="" loading="lazy">
+  <figcaption>Image Credit: @markybymarc on instagram</figcaption>
+</figure>
+<p>The hardcore takeover of Depot Mayfield in Manchester was one of the most exciting things to happen this year. The venue opened their doors to 10,000 Turnstile fans on their Never Enough Tour. There was a huge buzz from the crowd before they had even made it into the venue, and you could really feel the excitement.</p><p>First up were High Vis, a rising band from London. One drum hit in, and the crowd were already pushing forward eager to watch their set. They had the crowd bobbing their heads and dancing, while playing favourites like ‘Walking Wires,’ ‘Trauma Bonds,’ ‘Drop Me Out,’ and ‘Minds Lie.’ The band had so much energy while on stage and reminded everyone why they are quickly becoming one of the UK’s most exciting punk bands — raw, tight, and bursting with confidence. They didn’t just warm up the room; they set the venue on fire, which continued through the whole night. </p>
+<figure class="article-media article-media--float-left">
+  <img src="https://feats-api.fpvgate-analytics.workers.dev/images/articles/TurnstileSoldout+tour+with+a+stacked+line-up+of+supports%2C+Grammy+nominations+across+three+differ%282%29.jpg" alt="" loading="lazy">
+  <figcaption>Image Credit: @markybymarc on instagram</figcaption>
+</figure>
+<p>Next up, California’s experimental punk-rock duo The Garden brought their signature unpredictability. The heavy thumping bass went right through you during their set,  They delivered a chaotic, and super energetic set, that was thoroughly enjoyed by the audience. Their tracks landed with full force, songs such as ‘Filthy Rabbit Hole’ and ‘ The Nightmare’ had the crowd going wild at the front of the venue. They kept the crowd entertained and everyone seemed to really enjoy their set. </p><p>By the time Turnstile took the stage, Depot Mayfield felt electrified. The band launched into ‘NEVER ENOUGH’ instantly igniting the massive room. Despite performing to a packed 10,000-cap audience, Turnstile’s raw, intimate energy made the show feel like an intimate gig at a dive bar. </p><p>The setlist was a great blend of older hardcore songs and some newer ones. Bursts of energy came from ‘T.L.C,’ ‘BIRDS,’ ‘SEEIN’ STARS,’ ‘Real Thing,’ ‘Fazed Out,’ and ‘ALIEN LOVE CALL.’ The singer jumping around the stage, paired with the band’s explosive playing and heavy drum solos, kept the crowd locked in from start to finish.</p>
+<figure class="article-media article-media--float-right">
+  <img src="https://feats-api.fpvgate-analytics.workers.dev/images/articles/TurnstileSoldout+tour+with+a+stacked+line-up+of+supports%2C+Grammy+nominations+across+three+differ%283%29.jpg" alt="" loading="lazy">
+  <figcaption>Image Credit: @markybymarc on instagram</figcaption>
+</figure>
+<p>One of the night’s most memorable moments arrived during ‘SEEIN’ STARS’ when a disco ball was projecting all these flickering lights across the ceiling of the venue. The combination of the melody, and floaty guitar chords created a euphoric wave across the venue, chilling everyone out after the sweaty mosh of the rest of the gig —perfectly capturing Turnstile’s uncanny ability to make every person in the room feel connected to the music and to each other no matter what the song they are playing is. Turnstile proved exactly why they stand out in today’s melodic hardcore landscape. Every element—sound, light, energy—worked together to make this Monday night feel like one of the most unforgettable Hardcore shows Manchester has witnessed in years.</p>
     </article>
   </main>
 <footer class="site-footer">
@@ -72,6 +102,42 @@
     document.getElementById('navToggle').addEventListener('click', function(){
       document.getElementById('navLinks').classList.toggle('open');
     });
+
+    (function(){
+      var carousels = document.querySelectorAll('[data-article-carousel]');
+      carousels.forEach(function(carousel){
+        var slides = carousel.querySelectorAll('.carousel-slide');
+        var thumbs = carousel.querySelectorAll('.carousel-thumb');
+        if (!slides.length) return;
+
+        var currentIndex = 0;
+        function setSlide(nextIndex){
+          if (nextIndex < 0) nextIndex = slides.length - 1;
+          if (nextIndex >= slides.length) nextIndex = 0;
+          currentIndex = nextIndex;
+          slides.forEach(function(slide, index){
+            slide.classList.toggle('is-active', index === currentIndex);
+          });
+          thumbs.forEach(function(thumb, index){
+            thumb.classList.toggle('is-active', index === currentIndex);
+          });
+        }
+
+        var prevButton = carousel.querySelector('.carousel-nav.prev');
+        var nextButton = carousel.querySelector('.carousel-nav.next');
+        if (prevButton) {
+          prevButton.addEventListener('click', function(){ setSlide(currentIndex - 1); });
+        }
+        if (nextButton) {
+          nextButton.addEventListener('click', function(){ setSlide(currentIndex + 1); });
+        }
+
+        thumbs.forEach(function(button, index){
+          button.addEventListener('click', function(){ setSlide(index); });
+        });
+        setSlide(0);
+      });
+    })();
   </script>
 </body>
 </html>

@@ -12,16 +12,37 @@
   <link rel="icon" type="image/x-icon" href="/favicon.ico">
   <style>
     .article-body{max-width:750px;margin:0 auto;padding:3rem 2rem}
+    .article-body::after{content:'';display:block;clear:both}
     .article-body .featured-img{width:100%;height:auto;margin-bottom:2rem}
     .article-body h1{font-size:2.2rem;margin-bottom:.5rem;line-height:1.2}
     .article-body .meta{font-size:.8rem;opacity:.5;text-transform:uppercase;letter-spacing:1px;margin-bottom:2rem}
     .article-body p{font-size:1.05rem;opacity:.85;margin-bottom:1.5rem;line-height:1.8}
-    .article-body img{max-width:100%;height:auto;border-radius:4px}
     .article-body a{text-decoration:underline;opacity:.8}
     .article-body a:hover{opacity:1}
-    .img-wrap-right{float:right;width:45%;margin:0.5rem 0 0.5rem 1.5rem}
-    .img-wrap-left{float:left;width:45%;margin:0.5rem 1.5rem 0.5rem 0}
-    @media(max-width:600px){.img-wrap-right,.img-wrap-left{float:none;width:100%;margin:1rem 0}}
+    .article-media{margin:1.5rem 0}
+    .article-media--full{width:100%;clear:both}
+    .article-media--float-right{float:right;width:45%;margin:0.5rem 0 1.2rem 1.5rem}
+    .article-media--float-left{float:left;width:45%;margin:0.5rem 1.5rem 1.2rem 0}
+    .article-media img{width:100%;height:auto;display:block;border-radius:4px}
+    .article-media figcaption{font-size:.82rem;opacity:.62;line-height:1.45;margin-top:.5rem}
+    .article-rule{margin:2.3rem 0;border:none;border-top:1px solid rgba(0,0,0,.18);clear:both}
+    .article-carousel{position:relative}
+    .article-carousel-main{position:relative;background:#0a0a0a;overflow:hidden}
+    .article-carousel-slides{position:relative}
+    .article-carousel .carousel-slide{display:none}
+    .article-carousel .carousel-slide.is-active{display:block}
+    .article-carousel .carousel-nav{position:absolute;top:50%;transform:translateY(-50%);z-index:3;width:42px;height:42px;border:none;background:rgba(0,0,0,.33);color:#fff;font-size:2rem;line-height:1;cursor:pointer}
+    .article-carousel .carousel-nav.prev{left:0.65rem}
+    .article-carousel .carousel-nav.next{right:0.65rem}
+    .article-carousel.is-single .carousel-nav{display:none}
+    .article-carousel-thumbs{display:flex;gap:2px;overflow-x:auto;margin-top:.55rem;padding-bottom:2px}
+    .article-carousel .carousel-thumb{border:none;padding:0;background:transparent;opacity:.52;cursor:pointer;flex:0 0 auto}
+    .article-carousel .carousel-thumb.is-active{opacity:1}
+    .article-carousel .carousel-thumb img{width:58px;height:40px;object-fit:cover;border-radius:0}
+    @media(max-width:600px){
+      .article-media--float-right,.article-media--float-left{float:none;width:100%;margin:1rem 0}
+      .article-carousel .carousel-nav{width:36px;height:36px;font-size:1.65rem}
+    }
   </style>
 </head>
 <body>
@@ -48,11 +69,613 @@
       <div class="meta">Tour &middot; Artist Showcase &middot; Live Music &middot; Gig Review &middot; Feats. &middot; 2025-05-05</div>
       <h1>Bulgarelli At New Cross Inn 28.04.2025</h1>
       <p>There aren’t many venues left in London like the <strong>New Cross Inn</strong>. A cornerstone of the grassroots circuit, it’s known for loud nights, affordable drinks, and a stage that’s launched more than a few careers. On Monday 28 April, it played host to five bands covering a wide spectrum of alternative sounds — from punk to post-hardcore to melodic indie — in a stacked and well-paced evening that felt like a proper showcase of where UK DIY music is at.</p>
-<p><a href="https://open.spotify.com/artist/4kn6OXcs3RVTYeJh15pMmw?si=iuCLmwkpQ_uwZD_jO6pe-A" target="_blank"><strong>RiotWeekend</strong> </a>kicked things off with a tight, high-energy set. The Guildford-based four-piece, fronted by a commanding lead vocalist, wasted no time getting the crowd moving. Their originals were punchy and well-rehearsed, and the inclusion of a <em>“American Idiot”</em> cover landed well with early punters. All four members contributed vocals, which gave the set a full, dynamic sound. Some sharp crowd work and a lot of chemistry between bandmates made them one of the most confident openers of the night.</p><p></p>
-<p></p><p><a href="https://open.spotify.com/artist/6SrZNK0y69ecgDHshinRJ9?si=1PWF3IYES9qIlN-Pz_1hOw" target="_blank"><strong>Cheap Bleach</strong></a> followed with a heavier and moodier tone. Drawing on post-hardcore and emo influences, their set leaned into fuzzed-out guitars and pounding drums, with tracks like <em>“Swear”</em> and <em>“Tusks”</em> showing off a darker, introspective edge. They were slightly more reserved onstage but made an effort to introduce the rest of the lineup — a nice touch. With a new album expected soon, this set felt like a preview of something with a lot of potential.<br><br></p>
-<p><a href="https://open.spotify.com/artist/3u3ahaV33JSAvIjMoFxS4n?si=47jWYoHaR0KmHYsdMqzScw" target="_blank"><strong>Mountain Peaks</strong></a> brought noise, atmosphere, and intensity in equal measure. The Norwich trio opened with screaming vocals over a backing track and didn’t let up for the next half hour. Their sound — a mix of screamo, emo, and shoegaze — hit hardest on songs like <em>“Stargazers”</em>, which featured a standout drum intro, and <em>“I’m Not Happy”</em>, which they dedicated to rock bands everywhere. The set was heavy but not without charm — there was dry humour between members, and the Furby moment at the end somehow made sense in context.</p><p><br></p>
-<p><a href="https://open.spotify.com/artist/7EO7fbNcE00PlD59wZIZSY?si=v7Fk24cWTrGVOyv18TkC1g" target="_blank"><strong>Spank Hair</strong></a> switched things up with a looser, more melodic approach. Formed out of Oxford’s DIY scene, they played through a warm, scrappy set of emo-leaning indie rock. <em>“Claws”</em> and <em>“See You in the Morning”</em> set the tone early, and the short, catchy <em>“Tony Hawk”</em> — dedicated to Bulgarelli — got a good laugh. The highlight might’ve been <em>“Cowboy Scene”</em>, led by the drummer on vocals, which brought a moment of sincerity to an otherwise playful set. A couple of tech issues aside, they handled things well and finished strong with <em>“Many Phones Ago”</em>.</p><p><br></p>
-<p>Headliners <a href="https://open.spotify.com/artist/66hNnhwIh8EOyOvI1HTtuC?si=2DM5A2cuTDCX9pPKzBq8CQ" target="_blank"><strong>Bulgarelli</strong> </a>closed the night with a well-rounded and thoughtful performance. Blending melodic indie with emo-tinged songwriting, their set moved between slow-builders and more technical, energetic moments. <em>“Sonic Days”</em> and <em>“Crocodile”</em> eased the crowd in, while <em>“Moving”</em> stood out with its shifting rhythms and detailed guitar work. <em>“Santander”</em> and <em>“Club 33”</em> brought some weight to the back end of the set, with the band locking in tightly as things wrapped up. They weren’t flashy, but they were focused — and their sound suited the late-night New Cross atmosphere perfectly.</p><p></p><p><strong>To Conclude: <br></strong>The New Cross Inn did what it does best — crammed five different bands into a single night and let them go for it. It was loud, sweaty, varied, and full of character. For anyone interested in where UK underground music is heading, nights like this still matter.</p>
+<div class="article-carousel article-media article-media--float-right" data-article-carousel="carousel-1">
+  <div class="article-carousel-main">
+    <button type="button" class="carousel-nav prev" aria-label="Previous image">&#10094;</button>
+    <div class="article-carousel-slides">
+      <img class="carousel-slide is-active" src="https://feats-api.fpvgate-analytics.workers.dev/images/articles/%40LouisHitchPhotos+-+RiotWeekend+-+28.04.2025-20.jpg" alt="@LouisHitchPhotos - RiotWeekend - 28.04.2025-20.jpg" loading="lazy">
+      <img class="carousel-slide" src="https://feats-api.fpvgate-analytics.workers.dev/images/articles/%40LouisHitchPhotos+-+RiotWeekend+-+28.04.2025-21.jpg" alt="@LouisHitchPhotos - RiotWeekend - 28.04.2025-21.jpg" loading="lazy">
+      <img class="carousel-slide" src="https://feats-api.fpvgate-analytics.workers.dev/images/articles/%40LouisHitchPhotos+-+RiotWeekend+-+28.04.2025-22.jpg" alt="@LouisHitchPhotos - RiotWeekend - 28.04.2025-22.jpg" loading="lazy">
+      <img class="carousel-slide" src="https://feats-api.fpvgate-analytics.workers.dev/images/articles/%40LouisHitchPhotos+-+RiotWeekend+-+28.04.2025-23.jpg" alt="@LouisHitchPhotos - RiotWeekend - 28.04.2025-23.jpg" loading="lazy">
+      <img class="carousel-slide" src="https://feats-api.fpvgate-analytics.workers.dev/images/articles/%40LouisHitchPhotos+-+RiotWeekend+-+28.04.2025-24.jpg" alt="@LouisHitchPhotos - RiotWeekend - 28.04.2025-24.jpg" loading="lazy">
+      <img class="carousel-slide" src="https://feats-api.fpvgate-analytics.workers.dev/images/articles/%40LouisHitchPhotos+-+RiotWeekend+-+28.04.2025-25.jpg" alt="@LouisHitchPhotos - RiotWeekend - 28.04.2025-25.jpg" loading="lazy">
+      <img class="carousel-slide" src="https://feats-api.fpvgate-analytics.workers.dev/images/articles/%40LouisHitchPhotos+-+RiotWeekend+-+28.04.2025-26.jpg" alt="@LouisHitchPhotos - RiotWeekend - 28.04.2025-26.jpg" loading="lazy">
+      <img class="carousel-slide" src="https://feats-api.fpvgate-analytics.workers.dev/images/articles/%40LouisHitchPhotos+-+RiotWeekend+-+28.04.2025-27.jpg" alt="@LouisHitchPhotos - RiotWeekend - 28.04.2025-27.jpg" loading="lazy">
+      <img class="carousel-slide" src="https://feats-api.fpvgate-analytics.workers.dev/images/articles/%40LouisHitchPhotos+-+RiotWeekend+-+28.04.2025-28.jpg" alt="@LouisHitchPhotos - RiotWeekend - 28.04.2025-28.jpg" loading="lazy">
+      <img class="carousel-slide" src="https://feats-api.fpvgate-analytics.workers.dev/images/articles/%40LouisHitchPhotos+-+RiotWeekend+-+28.04.2025-29.jpg" alt="@LouisHitchPhotos - RiotWeekend - 28.04.2025-29.jpg" loading="lazy">
+      <img class="carousel-slide" src="https://feats-api.fpvgate-analytics.workers.dev/images/articles/%40LouisHitchPhotos+-+RiotWeekend+-+28.04.2025-30.jpg" alt="@LouisHitchPhotos - RiotWeekend - 28.04.2025-30.jpg" loading="lazy">
+      <img class="carousel-slide" src="https://feats-api.fpvgate-analytics.workers.dev/images/articles/%40LouisHitchPhotos+-+RiotWeekend+-+28.04.2025-31.jpg" alt="@LouisHitchPhotos - RiotWeekend - 28.04.2025-31.jpg" loading="lazy">
+      <img class="carousel-slide" src="https://feats-api.fpvgate-analytics.workers.dev/images/articles/%40LouisHitchPhotos+-+RiotWeekend+-+28.04.2025-32.jpg" alt="@LouisHitchPhotos - RiotWeekend - 28.04.2025-32.jpg" loading="lazy">
+      <img class="carousel-slide" src="https://feats-api.fpvgate-analytics.workers.dev/images/articles/%40LouisHitchPhotos+-+RiotWeekend+-+28.04.2025-33.jpg" alt="@LouisHitchPhotos - RiotWeekend - 28.04.2025-33.jpg" loading="lazy">
+      <img class="carousel-slide" src="https://feats-api.fpvgate-analytics.workers.dev/images/articles/%40LouisHitchPhotos+-+RiotWeekend+-+28.04.2025-34.jpg" alt="@LouisHitchPhotos - RiotWeekend - 28.04.2025-34.jpg" loading="lazy">
+      <img class="carousel-slide" src="https://feats-api.fpvgate-analytics.workers.dev/images/articles/%40LouisHitchPhotos+-+RiotWeekend+-+28.04.2025-35.jpg" alt="@LouisHitchPhotos - RiotWeekend - 28.04.2025-35.jpg" loading="lazy">
+      <img class="carousel-slide" src="https://feats-api.fpvgate-analytics.workers.dev/images/articles/%40LouisHitchPhotos+-+RiotWeekend+-+28.04.2025-36.jpg" alt="@LouisHitchPhotos - RiotWeekend - 28.04.2025-36.jpg" loading="lazy">
+      <img class="carousel-slide" src="https://feats-api.fpvgate-analytics.workers.dev/images/articles/%40LouisHitchPhotos+-+RiotWeekend+-+28.04.2025-37.jpg" alt="@LouisHitchPhotos - RiotWeekend - 28.04.2025-37.jpg" loading="lazy">
+      <img class="carousel-slide" src="https://feats-api.fpvgate-analytics.workers.dev/images/articles/%40LouisHitchPhotos+-+RiotWeekend+-+28.04.2025-38.jpg" alt="@LouisHitchPhotos - RiotWeekend - 28.04.2025-38.jpg" loading="lazy">
+      <img class="carousel-slide" src="https://feats-api.fpvgate-analytics.workers.dev/images/articles/%40LouisHitchPhotos+-+RiotWeekend+-+28.04.2025-39.jpg" alt="@LouisHitchPhotos - RiotWeekend - 28.04.2025-39.jpg" loading="lazy">
+      <img class="carousel-slide" src="https://feats-api.fpvgate-analytics.workers.dev/images/articles/%40LouisHitchPhotos+-+RiotWeekend+-+28.04.2025-40.jpg" alt="@LouisHitchPhotos - RiotWeekend - 28.04.2025-40.jpg" loading="lazy">
+      <img class="carousel-slide" src="https://feats-api.fpvgate-analytics.workers.dev/images/articles/%40LouisHitchPhotos+-+RiotWeekend+-+28.04.2025-41.jpg" alt="@LouisHitchPhotos - RiotWeekend - 28.04.2025-41.jpg" loading="lazy">
+      <img class="carousel-slide" src="https://feats-api.fpvgate-analytics.workers.dev/images/articles/%40LouisHitchPhotos+-+RiotWeekend+-+28.04.2025-42.jpg" alt="@LouisHitchPhotos - RiotWeekend - 28.04.2025-42.jpg" loading="lazy">
+      <img class="carousel-slide" src="https://feats-api.fpvgate-analytics.workers.dev/images/articles/%40LouisHitchPhotos+-+RiotWeekend+-+28.04.2025-43.jpg" alt="@LouisHitchPhotos - RiotWeekend - 28.04.2025-43.jpg" loading="lazy">
+      <img class="carousel-slide" src="https://feats-api.fpvgate-analytics.workers.dev/images/articles/%40LouisHitchPhotos+-+RiotWeekend+-+28.04.2025-44.jpg" alt="@LouisHitchPhotos - RiotWeekend - 28.04.2025-44.jpg" loading="lazy">
+      <img class="carousel-slide" src="https://feats-api.fpvgate-analytics.workers.dev/images/articles/%40LouisHitchPhotos+-+RiotWeekend+-+28.04.2025-45.jpg" alt="@LouisHitchPhotos - RiotWeekend - 28.04.2025-45.jpg" loading="lazy">
+      <img class="carousel-slide" src="https://feats-api.fpvgate-analytics.workers.dev/images/articles/%40LouisHitchPhotos+-+RiotWeekend+-+28.04.2025.jpg" alt="@LouisHitchPhotos - RiotWeekend - 28.04.2025.jpg" loading="lazy">
+      <img class="carousel-slide" src="https://feats-api.fpvgate-analytics.workers.dev/images/articles/%40LouisHitchPhotos+-+RiotWeekend+-+28.04.2025-2.jpg" alt="@LouisHitchPhotos - RiotWeekend - 28.04.2025-2.jpg" loading="lazy">
+      <img class="carousel-slide" src="https://feats-api.fpvgate-analytics.workers.dev/images/articles/%40LouisHitchPhotos+-+RiotWeekend+-+28.04.2025-3.jpg" alt="@LouisHitchPhotos - RiotWeekend - 28.04.2025-3.jpg" loading="lazy">
+      <img class="carousel-slide" src="https://feats-api.fpvgate-analytics.workers.dev/images/articles/%40LouisHitchPhotos+-+RiotWeekend+-+28.04.2025-4.jpg" alt="@LouisHitchPhotos - RiotWeekend - 28.04.2025-4.jpg" loading="lazy">
+      <img class="carousel-slide" src="https://feats-api.fpvgate-analytics.workers.dev/images/articles/%40LouisHitchPhotos+-+RiotWeekend+-+28.04.2025-5.jpg" alt="@LouisHitchPhotos - RiotWeekend - 28.04.2025-5.jpg" loading="lazy">
+      <img class="carousel-slide" src="https://feats-api.fpvgate-analytics.workers.dev/images/articles/%40LouisHitchPhotos+-+RiotWeekend+-+28.04.2025-6.jpg" alt="@LouisHitchPhotos - RiotWeekend - 28.04.2025-6.jpg" loading="lazy">
+      <img class="carousel-slide" src="https://feats-api.fpvgate-analytics.workers.dev/images/articles/%40LouisHitchPhotos+-+RiotWeekend+-+28.04.2025-7.jpg" alt="@LouisHitchPhotos - RiotWeekend - 28.04.2025-7.jpg" loading="lazy">
+      <img class="carousel-slide" src="https://feats-api.fpvgate-analytics.workers.dev/images/articles/%40LouisHitchPhotos+-+RiotWeekend+-+28.04.2025-8.jpg" alt="@LouisHitchPhotos - RiotWeekend - 28.04.2025-8.jpg" loading="lazy">
+      <img class="carousel-slide" src="https://feats-api.fpvgate-analytics.workers.dev/images/articles/%40LouisHitchPhotos+-+RiotWeekend+-+28.04.2025-9.jpg" alt="@LouisHitchPhotos - RiotWeekend - 28.04.2025-9.jpg" loading="lazy">
+      <img class="carousel-slide" src="https://feats-api.fpvgate-analytics.workers.dev/images/articles/%40LouisHitchPhotos+-+RiotWeekend+-+28.04.2025-10.jpg" alt="@LouisHitchPhotos - RiotWeekend - 28.04.2025-10.jpg" loading="lazy">
+      <img class="carousel-slide" src="https://feats-api.fpvgate-analytics.workers.dev/images/articles/%40LouisHitchPhotos+-+RiotWeekend+-+28.04.2025-11.jpg" alt="@LouisHitchPhotos - RiotWeekend - 28.04.2025-11.jpg" loading="lazy">
+      <img class="carousel-slide" src="https://feats-api.fpvgate-analytics.workers.dev/images/articles/%40LouisHitchPhotos+-+RiotWeekend+-+28.04.2025-12.jpg" alt="@LouisHitchPhotos - RiotWeekend - 28.04.2025-12.jpg" loading="lazy">
+      <img class="carousel-slide" src="https://feats-api.fpvgate-analytics.workers.dev/images/articles/%40LouisHitchPhotos+-+RiotWeekend+-+28.04.2025-13.jpg" alt="@LouisHitchPhotos - RiotWeekend - 28.04.2025-13.jpg" loading="lazy">
+      <img class="carousel-slide" src="https://feats-api.fpvgate-analytics.workers.dev/images/articles/%40LouisHitchPhotos+-+RiotWeekend+-+28.04.2025-14.jpg" alt="@LouisHitchPhotos - RiotWeekend - 28.04.2025-14.jpg" loading="lazy">
+      <img class="carousel-slide" src="https://feats-api.fpvgate-analytics.workers.dev/images/articles/%40LouisHitchPhotos+-+RiotWeekend+-+28.04.2025-15.jpg" alt="@LouisHitchPhotos - RiotWeekend - 28.04.2025-15.jpg" loading="lazy">
+      <img class="carousel-slide" src="https://feats-api.fpvgate-analytics.workers.dev/images/articles/%40LouisHitchPhotos+-+RiotWeekend+-+28.04.2025-16.jpg" alt="@LouisHitchPhotos - RiotWeekend - 28.04.2025-16.jpg" loading="lazy">
+      <img class="carousel-slide" src="https://feats-api.fpvgate-analytics.workers.dev/images/articles/%40LouisHitchPhotos+-+RiotWeekend+-+28.04.2025-17.jpg" alt="@LouisHitchPhotos - RiotWeekend - 28.04.2025-17.jpg" loading="lazy">
+      <img class="carousel-slide" src="https://feats-api.fpvgate-analytics.workers.dev/images/articles/%40LouisHitchPhotos+-+RiotWeekend+-+28.04.2025-18.jpg" alt="@LouisHitchPhotos - RiotWeekend - 28.04.2025-18.jpg" loading="lazy">
+      <img class="carousel-slide" src="https://feats-api.fpvgate-analytics.workers.dev/images/articles/%40LouisHitchPhotos+-+RiotWeekend+-+28.04.2025-19.jpg" alt="@LouisHitchPhotos - RiotWeekend - 28.04.2025-19.jpg" loading="lazy">
+    </div>
+    <button type="button" class="carousel-nav next" aria-label="Next image">&#10095;</button>
+  </div>
+  <div class="article-carousel-thumbs">
+    <button type="button" class="carousel-thumb is-active" data-slide-index="0" aria-label="View image 1">
+      <img src="https://feats-api.fpvgate-analytics.workers.dev/images/articles/%40LouisHitchPhotos+-+RiotWeekend+-+28.04.2025-20.jpg" alt="" loading="lazy">
+    </button>
+    <button type="button" class="carousel-thumb" data-slide-index="1" aria-label="View image 2">
+      <img src="https://feats-api.fpvgate-analytics.workers.dev/images/articles/%40LouisHitchPhotos+-+RiotWeekend+-+28.04.2025-21.jpg" alt="" loading="lazy">
+    </button>
+    <button type="button" class="carousel-thumb" data-slide-index="2" aria-label="View image 3">
+      <img src="https://feats-api.fpvgate-analytics.workers.dev/images/articles/%40LouisHitchPhotos+-+RiotWeekend+-+28.04.2025-22.jpg" alt="" loading="lazy">
+    </button>
+    <button type="button" class="carousel-thumb" data-slide-index="3" aria-label="View image 4">
+      <img src="https://feats-api.fpvgate-analytics.workers.dev/images/articles/%40LouisHitchPhotos+-+RiotWeekend+-+28.04.2025-23.jpg" alt="" loading="lazy">
+    </button>
+    <button type="button" class="carousel-thumb" data-slide-index="4" aria-label="View image 5">
+      <img src="https://feats-api.fpvgate-analytics.workers.dev/images/articles/%40LouisHitchPhotos+-+RiotWeekend+-+28.04.2025-24.jpg" alt="" loading="lazy">
+    </button>
+    <button type="button" class="carousel-thumb" data-slide-index="5" aria-label="View image 6">
+      <img src="https://feats-api.fpvgate-analytics.workers.dev/images/articles/%40LouisHitchPhotos+-+RiotWeekend+-+28.04.2025-25.jpg" alt="" loading="lazy">
+    </button>
+    <button type="button" class="carousel-thumb" data-slide-index="6" aria-label="View image 7">
+      <img src="https://feats-api.fpvgate-analytics.workers.dev/images/articles/%40LouisHitchPhotos+-+RiotWeekend+-+28.04.2025-26.jpg" alt="" loading="lazy">
+    </button>
+    <button type="button" class="carousel-thumb" data-slide-index="7" aria-label="View image 8">
+      <img src="https://feats-api.fpvgate-analytics.workers.dev/images/articles/%40LouisHitchPhotos+-+RiotWeekend+-+28.04.2025-27.jpg" alt="" loading="lazy">
+    </button>
+    <button type="button" class="carousel-thumb" data-slide-index="8" aria-label="View image 9">
+      <img src="https://feats-api.fpvgate-analytics.workers.dev/images/articles/%40LouisHitchPhotos+-+RiotWeekend+-+28.04.2025-28.jpg" alt="" loading="lazy">
+    </button>
+    <button type="button" class="carousel-thumb" data-slide-index="9" aria-label="View image 10">
+      <img src="https://feats-api.fpvgate-analytics.workers.dev/images/articles/%40LouisHitchPhotos+-+RiotWeekend+-+28.04.2025-29.jpg" alt="" loading="lazy">
+    </button>
+    <button type="button" class="carousel-thumb" data-slide-index="10" aria-label="View image 11">
+      <img src="https://feats-api.fpvgate-analytics.workers.dev/images/articles/%40LouisHitchPhotos+-+RiotWeekend+-+28.04.2025-30.jpg" alt="" loading="lazy">
+    </button>
+    <button type="button" class="carousel-thumb" data-slide-index="11" aria-label="View image 12">
+      <img src="https://feats-api.fpvgate-analytics.workers.dev/images/articles/%40LouisHitchPhotos+-+RiotWeekend+-+28.04.2025-31.jpg" alt="" loading="lazy">
+    </button>
+    <button type="button" class="carousel-thumb" data-slide-index="12" aria-label="View image 13">
+      <img src="https://feats-api.fpvgate-analytics.workers.dev/images/articles/%40LouisHitchPhotos+-+RiotWeekend+-+28.04.2025-32.jpg" alt="" loading="lazy">
+    </button>
+    <button type="button" class="carousel-thumb" data-slide-index="13" aria-label="View image 14">
+      <img src="https://feats-api.fpvgate-analytics.workers.dev/images/articles/%40LouisHitchPhotos+-+RiotWeekend+-+28.04.2025-33.jpg" alt="" loading="lazy">
+    </button>
+    <button type="button" class="carousel-thumb" data-slide-index="14" aria-label="View image 15">
+      <img src="https://feats-api.fpvgate-analytics.workers.dev/images/articles/%40LouisHitchPhotos+-+RiotWeekend+-+28.04.2025-34.jpg" alt="" loading="lazy">
+    </button>
+    <button type="button" class="carousel-thumb" data-slide-index="15" aria-label="View image 16">
+      <img src="https://feats-api.fpvgate-analytics.workers.dev/images/articles/%40LouisHitchPhotos+-+RiotWeekend+-+28.04.2025-35.jpg" alt="" loading="lazy">
+    </button>
+    <button type="button" class="carousel-thumb" data-slide-index="16" aria-label="View image 17">
+      <img src="https://feats-api.fpvgate-analytics.workers.dev/images/articles/%40LouisHitchPhotos+-+RiotWeekend+-+28.04.2025-36.jpg" alt="" loading="lazy">
+    </button>
+    <button type="button" class="carousel-thumb" data-slide-index="17" aria-label="View image 18">
+      <img src="https://feats-api.fpvgate-analytics.workers.dev/images/articles/%40LouisHitchPhotos+-+RiotWeekend+-+28.04.2025-37.jpg" alt="" loading="lazy">
+    </button>
+    <button type="button" class="carousel-thumb" data-slide-index="18" aria-label="View image 19">
+      <img src="https://feats-api.fpvgate-analytics.workers.dev/images/articles/%40LouisHitchPhotos+-+RiotWeekend+-+28.04.2025-38.jpg" alt="" loading="lazy">
+    </button>
+    <button type="button" class="carousel-thumb" data-slide-index="19" aria-label="View image 20">
+      <img src="https://feats-api.fpvgate-analytics.workers.dev/images/articles/%40LouisHitchPhotos+-+RiotWeekend+-+28.04.2025-39.jpg" alt="" loading="lazy">
+    </button>
+    <button type="button" class="carousel-thumb" data-slide-index="20" aria-label="View image 21">
+      <img src="https://feats-api.fpvgate-analytics.workers.dev/images/articles/%40LouisHitchPhotos+-+RiotWeekend+-+28.04.2025-40.jpg" alt="" loading="lazy">
+    </button>
+    <button type="button" class="carousel-thumb" data-slide-index="21" aria-label="View image 22">
+      <img src="https://feats-api.fpvgate-analytics.workers.dev/images/articles/%40LouisHitchPhotos+-+RiotWeekend+-+28.04.2025-41.jpg" alt="" loading="lazy">
+    </button>
+    <button type="button" class="carousel-thumb" data-slide-index="22" aria-label="View image 23">
+      <img src="https://feats-api.fpvgate-analytics.workers.dev/images/articles/%40LouisHitchPhotos+-+RiotWeekend+-+28.04.2025-42.jpg" alt="" loading="lazy">
+    </button>
+    <button type="button" class="carousel-thumb" data-slide-index="23" aria-label="View image 24">
+      <img src="https://feats-api.fpvgate-analytics.workers.dev/images/articles/%40LouisHitchPhotos+-+RiotWeekend+-+28.04.2025-43.jpg" alt="" loading="lazy">
+    </button>
+    <button type="button" class="carousel-thumb" data-slide-index="24" aria-label="View image 25">
+      <img src="https://feats-api.fpvgate-analytics.workers.dev/images/articles/%40LouisHitchPhotos+-+RiotWeekend+-+28.04.2025-44.jpg" alt="" loading="lazy">
+    </button>
+    <button type="button" class="carousel-thumb" data-slide-index="25" aria-label="View image 26">
+      <img src="https://feats-api.fpvgate-analytics.workers.dev/images/articles/%40LouisHitchPhotos+-+RiotWeekend+-+28.04.2025-45.jpg" alt="" loading="lazy">
+    </button>
+    <button type="button" class="carousel-thumb" data-slide-index="26" aria-label="View image 27">
+      <img src="https://feats-api.fpvgate-analytics.workers.dev/images/articles/%40LouisHitchPhotos+-+RiotWeekend+-+28.04.2025.jpg" alt="" loading="lazy">
+    </button>
+    <button type="button" class="carousel-thumb" data-slide-index="27" aria-label="View image 28">
+      <img src="https://feats-api.fpvgate-analytics.workers.dev/images/articles/%40LouisHitchPhotos+-+RiotWeekend+-+28.04.2025-2.jpg" alt="" loading="lazy">
+    </button>
+    <button type="button" class="carousel-thumb" data-slide-index="28" aria-label="View image 29">
+      <img src="https://feats-api.fpvgate-analytics.workers.dev/images/articles/%40LouisHitchPhotos+-+RiotWeekend+-+28.04.2025-3.jpg" alt="" loading="lazy">
+    </button>
+    <button type="button" class="carousel-thumb" data-slide-index="29" aria-label="View image 30">
+      <img src="https://feats-api.fpvgate-analytics.workers.dev/images/articles/%40LouisHitchPhotos+-+RiotWeekend+-+28.04.2025-4.jpg" alt="" loading="lazy">
+    </button>
+    <button type="button" class="carousel-thumb" data-slide-index="30" aria-label="View image 31">
+      <img src="https://feats-api.fpvgate-analytics.workers.dev/images/articles/%40LouisHitchPhotos+-+RiotWeekend+-+28.04.2025-5.jpg" alt="" loading="lazy">
+    </button>
+    <button type="button" class="carousel-thumb" data-slide-index="31" aria-label="View image 32">
+      <img src="https://feats-api.fpvgate-analytics.workers.dev/images/articles/%40LouisHitchPhotos+-+RiotWeekend+-+28.04.2025-6.jpg" alt="" loading="lazy">
+    </button>
+    <button type="button" class="carousel-thumb" data-slide-index="32" aria-label="View image 33">
+      <img src="https://feats-api.fpvgate-analytics.workers.dev/images/articles/%40LouisHitchPhotos+-+RiotWeekend+-+28.04.2025-7.jpg" alt="" loading="lazy">
+    </button>
+    <button type="button" class="carousel-thumb" data-slide-index="33" aria-label="View image 34">
+      <img src="https://feats-api.fpvgate-analytics.workers.dev/images/articles/%40LouisHitchPhotos+-+RiotWeekend+-+28.04.2025-8.jpg" alt="" loading="lazy">
+    </button>
+    <button type="button" class="carousel-thumb" data-slide-index="34" aria-label="View image 35">
+      <img src="https://feats-api.fpvgate-analytics.workers.dev/images/articles/%40LouisHitchPhotos+-+RiotWeekend+-+28.04.2025-9.jpg" alt="" loading="lazy">
+    </button>
+    <button type="button" class="carousel-thumb" data-slide-index="35" aria-label="View image 36">
+      <img src="https://feats-api.fpvgate-analytics.workers.dev/images/articles/%40LouisHitchPhotos+-+RiotWeekend+-+28.04.2025-10.jpg" alt="" loading="lazy">
+    </button>
+    <button type="button" class="carousel-thumb" data-slide-index="36" aria-label="View image 37">
+      <img src="https://feats-api.fpvgate-analytics.workers.dev/images/articles/%40LouisHitchPhotos+-+RiotWeekend+-+28.04.2025-11.jpg" alt="" loading="lazy">
+    </button>
+    <button type="button" class="carousel-thumb" data-slide-index="37" aria-label="View image 38">
+      <img src="https://feats-api.fpvgate-analytics.workers.dev/images/articles/%40LouisHitchPhotos+-+RiotWeekend+-+28.04.2025-12.jpg" alt="" loading="lazy">
+    </button>
+    <button type="button" class="carousel-thumb" data-slide-index="38" aria-label="View image 39">
+      <img src="https://feats-api.fpvgate-analytics.workers.dev/images/articles/%40LouisHitchPhotos+-+RiotWeekend+-+28.04.2025-13.jpg" alt="" loading="lazy">
+    </button>
+    <button type="button" class="carousel-thumb" data-slide-index="39" aria-label="View image 40">
+      <img src="https://feats-api.fpvgate-analytics.workers.dev/images/articles/%40LouisHitchPhotos+-+RiotWeekend+-+28.04.2025-14.jpg" alt="" loading="lazy">
+    </button>
+    <button type="button" class="carousel-thumb" data-slide-index="40" aria-label="View image 41">
+      <img src="https://feats-api.fpvgate-analytics.workers.dev/images/articles/%40LouisHitchPhotos+-+RiotWeekend+-+28.04.2025-15.jpg" alt="" loading="lazy">
+    </button>
+    <button type="button" class="carousel-thumb" data-slide-index="41" aria-label="View image 42">
+      <img src="https://feats-api.fpvgate-analytics.workers.dev/images/articles/%40LouisHitchPhotos+-+RiotWeekend+-+28.04.2025-16.jpg" alt="" loading="lazy">
+    </button>
+    <button type="button" class="carousel-thumb" data-slide-index="42" aria-label="View image 43">
+      <img src="https://feats-api.fpvgate-analytics.workers.dev/images/articles/%40LouisHitchPhotos+-+RiotWeekend+-+28.04.2025-17.jpg" alt="" loading="lazy">
+    </button>
+    <button type="button" class="carousel-thumb" data-slide-index="43" aria-label="View image 44">
+      <img src="https://feats-api.fpvgate-analytics.workers.dev/images/articles/%40LouisHitchPhotos+-+RiotWeekend+-+28.04.2025-18.jpg" alt="" loading="lazy">
+    </button>
+    <button type="button" class="carousel-thumb" data-slide-index="44" aria-label="View image 45">
+      <img src="https://feats-api.fpvgate-analytics.workers.dev/images/articles/%40LouisHitchPhotos+-+RiotWeekend+-+28.04.2025-19.jpg" alt="" loading="lazy">
+    </button>
+  </div>
+</div>
+<p><a href="https://open.spotify.com/artist/4kn6OXcs3RVTYeJh15pMmw?si=iuCLmwkpQ_uwZD_jO6pe-A" target="_blank"><strong>RiotWeekend</strong> </a>kicked things off with a tight, high-energy set. The Guildford-based four-piece, fronted by a commanding lead vocalist, wasted no time getting the crowd moving. Their originals were punchy and well-rehearsed, and the inclusion of a <em>“American Idiot”</em> cover landed well with early punters. All four members contributed vocals, which gave the set a full, dynamic sound. Some sharp crowd work and a lot of chemistry between bandmates made them one of the most confident openers of the night.</p>
+<div class="article-carousel article-media article-media--float-left" data-article-carousel="carousel-2">
+  <div class="article-carousel-main">
+    <button type="button" class="carousel-nav prev" aria-label="Previous image">&#10094;</button>
+    <div class="article-carousel-slides">
+      <img class="carousel-slide is-active" src="https://feats-api.fpvgate-analytics.workers.dev/images/articles/%40LouisHitchPhotos+-+Cheap+Bleach+-+28.04.2025.jpg" alt="@LouisHitchPhotos - Cheap Bleach - 28.04.2025.jpg" loading="lazy">
+      <img class="carousel-slide" src="https://feats-api.fpvgate-analytics.workers.dev/images/articles/%40LouisHitchPhotos+-+Cheap+Bleach+-+28.04.2025-2.jpg" alt="@LouisHitchPhotos - Cheap Bleach - 28.04.2025-2.jpg" loading="lazy">
+      <img class="carousel-slide" src="https://feats-api.fpvgate-analytics.workers.dev/images/articles/%40LouisHitchPhotos+-+Cheap+Bleach+-+28.04.2025-3.jpg" alt="@LouisHitchPhotos - Cheap Bleach - 28.04.2025-3.jpg" loading="lazy">
+      <img class="carousel-slide" src="https://feats-api.fpvgate-analytics.workers.dev/images/articles/%40LouisHitchPhotos+-+Cheap+Bleach+-+28.04.2025-4.jpg" alt="@LouisHitchPhotos - Cheap Bleach - 28.04.2025-4.jpg" loading="lazy">
+      <img class="carousel-slide" src="https://feats-api.fpvgate-analytics.workers.dev/images/articles/%40LouisHitchPhotos+-+Cheap+Bleach+-+28.04.2025-5.jpg" alt="@LouisHitchPhotos - Cheap Bleach - 28.04.2025-5.jpg" loading="lazy">
+      <img class="carousel-slide" src="https://feats-api.fpvgate-analytics.workers.dev/images/articles/%40LouisHitchPhotos+-+Cheap+Bleach+-+28.04.2025-6.jpg" alt="@LouisHitchPhotos - Cheap Bleach - 28.04.2025-6.jpg" loading="lazy">
+      <img class="carousel-slide" src="https://feats-api.fpvgate-analytics.workers.dev/images/articles/%40LouisHitchPhotos+-+Cheap+Bleach+-+28.04.2025-7.jpg" alt="@LouisHitchPhotos - Cheap Bleach - 28.04.2025-7.jpg" loading="lazy">
+      <img class="carousel-slide" src="https://feats-api.fpvgate-analytics.workers.dev/images/articles/%40LouisHitchPhotos+-+Cheap+Bleach+-+28.04.2025-8.jpg" alt="@LouisHitchPhotos - Cheap Bleach - 28.04.2025-8.jpg" loading="lazy">
+      <img class="carousel-slide" src="https://feats-api.fpvgate-analytics.workers.dev/images/articles/%40LouisHitchPhotos+-+Cheap+Bleach+-+28.04.2025-9.jpg" alt="@LouisHitchPhotos - Cheap Bleach - 28.04.2025-9.jpg" loading="lazy">
+      <img class="carousel-slide" src="https://feats-api.fpvgate-analytics.workers.dev/images/articles/%40LouisHitchPhotos+-+Cheap+Bleach+-+28.04.2025-10.jpg" alt="@LouisHitchPhotos - Cheap Bleach - 28.04.2025-10.jpg" loading="lazy">
+      <img class="carousel-slide" src="https://feats-api.fpvgate-analytics.workers.dev/images/articles/%40LouisHitchPhotos+-+Cheap+Bleach+-+28.04.2025-11.jpg" alt="@LouisHitchPhotos - Cheap Bleach - 28.04.2025-11.jpg" loading="lazy">
+      <img class="carousel-slide" src="https://feats-api.fpvgate-analytics.workers.dev/images/articles/%40LouisHitchPhotos+-+Cheap+Bleach+-+28.04.2025-12.jpg" alt="@LouisHitchPhotos - Cheap Bleach - 28.04.2025-12.jpg" loading="lazy">
+      <img class="carousel-slide" src="https://feats-api.fpvgate-analytics.workers.dev/images/articles/%40LouisHitchPhotos+-+Cheap+Bleach+-+28.04.2025-13.jpg" alt="@LouisHitchPhotos - Cheap Bleach - 28.04.2025-13.jpg" loading="lazy">
+      <img class="carousel-slide" src="https://feats-api.fpvgate-analytics.workers.dev/images/articles/%40LouisHitchPhotos+-+Cheap+Bleach+-+28.04.2025-14.jpg" alt="@LouisHitchPhotos - Cheap Bleach - 28.04.2025-14.jpg" loading="lazy">
+      <img class="carousel-slide" src="https://feats-api.fpvgate-analytics.workers.dev/images/articles/%40LouisHitchPhotos+-+Cheap+Bleach+-+28.04.2025-15.jpg" alt="@LouisHitchPhotos - Cheap Bleach - 28.04.2025-15.jpg" loading="lazy">
+      <img class="carousel-slide" src="https://feats-api.fpvgate-analytics.workers.dev/images/articles/%40LouisHitchPhotos+-+Cheap+Bleach+-+28.04.2025-16.jpg" alt="@LouisHitchPhotos - Cheap Bleach - 28.04.2025-16.jpg" loading="lazy">
+      <img class="carousel-slide" src="https://feats-api.fpvgate-analytics.workers.dev/images/articles/%40LouisHitchPhotos+-+Cheap+Bleach+-+28.04.2025-17.jpg" alt="@LouisHitchPhotos - Cheap Bleach - 28.04.2025-17.jpg" loading="lazy">
+      <img class="carousel-slide" src="https://feats-api.fpvgate-analytics.workers.dev/images/articles/%40LouisHitchPhotos+-+Cheap+Bleach+-+28.04.2025-18.jpg" alt="@LouisHitchPhotos - Cheap Bleach - 28.04.2025-18.jpg" loading="lazy">
+      <img class="carousel-slide" src="https://feats-api.fpvgate-analytics.workers.dev/images/articles/%40LouisHitchPhotos+-+Cheap+Bleach+-+28.04.2025-19.jpg" alt="@LouisHitchPhotos - Cheap Bleach - 28.04.2025-19.jpg" loading="lazy">
+      <img class="carousel-slide" src="https://feats-api.fpvgate-analytics.workers.dev/images/articles/%40LouisHitchPhotos+-+Cheap+Bleach+-+28.04.2025-20.jpg" alt="@LouisHitchPhotos - Cheap Bleach - 28.04.2025-20.jpg" loading="lazy">
+      <img class="carousel-slide" src="https://feats-api.fpvgate-analytics.workers.dev/images/articles/%40LouisHitchPhotos+-+Cheap+Bleach+-+28.04.2025-21.jpg" alt="@LouisHitchPhotos - Cheap Bleach - 28.04.2025-21.jpg" loading="lazy">
+      <img class="carousel-slide" src="https://feats-api.fpvgate-analytics.workers.dev/images/articles/%40LouisHitchPhotos+-+Cheap+Bleach+-+28.04.2025-22.jpg" alt="@LouisHitchPhotos - Cheap Bleach - 28.04.2025-22.jpg" loading="lazy">
+      <img class="carousel-slide" src="https://feats-api.fpvgate-analytics.workers.dev/images/articles/%40LouisHitchPhotos+-+Cheap+Bleach+-+28.04.2025-23.jpg" alt="@LouisHitchPhotos - Cheap Bleach - 28.04.2025-23.jpg" loading="lazy">
+      <img class="carousel-slide" src="https://feats-api.fpvgate-analytics.workers.dev/images/articles/%40LouisHitchPhotos+-+Cheap+Bleach+-+28.04.2025-24.jpg" alt="@LouisHitchPhotos - Cheap Bleach - 28.04.2025-24.jpg" loading="lazy">
+      <img class="carousel-slide" src="https://feats-api.fpvgate-analytics.workers.dev/images/articles/%40LouisHitchPhotos+-+Cheap+Bleach+-+28.04.2025-25.jpg" alt="@LouisHitchPhotos - Cheap Bleach - 28.04.2025-25.jpg" loading="lazy">
+      <img class="carousel-slide" src="https://feats-api.fpvgate-analytics.workers.dev/images/articles/%40LouisHitchPhotos+-+Cheap+Bleach+-+28.04.2025-26.jpg" alt="@LouisHitchPhotos - Cheap Bleach - 28.04.2025-26.jpg" loading="lazy">
+      <img class="carousel-slide" src="https://feats-api.fpvgate-analytics.workers.dev/images/articles/%40LouisHitchPhotos+-+Cheap+Bleach+-+28.04.2025-27.jpg" alt="@LouisHitchPhotos - Cheap Bleach - 28.04.2025-27.jpg" loading="lazy">
+      <img class="carousel-slide" src="https://feats-api.fpvgate-analytics.workers.dev/images/articles/%40LouisHitchPhotos+-+Cheap+Bleach+-+28.04.2025-28.jpg" alt="@LouisHitchPhotos - Cheap Bleach - 28.04.2025-28.jpg" loading="lazy">
+      <img class="carousel-slide" src="https://feats-api.fpvgate-analytics.workers.dev/images/articles/%40LouisHitchPhotos+-+Cheap+Bleach+-+28.04.2025-29.jpg" alt="@LouisHitchPhotos - Cheap Bleach - 28.04.2025-29.jpg" loading="lazy">
+      <img class="carousel-slide" src="https://feats-api.fpvgate-analytics.workers.dev/images/articles/%40LouisHitchPhotos+-+Cheap+Bleach+-+28.04.2025-30.jpg" alt="@LouisHitchPhotos - Cheap Bleach - 28.04.2025-30.jpg" loading="lazy">
+      <img class="carousel-slide" src="https://feats-api.fpvgate-analytics.workers.dev/images/articles/%40LouisHitchPhotos+-+Cheap+Bleach+-+28.04.2025-31.jpg" alt="@LouisHitchPhotos - Cheap Bleach - 28.04.2025-31.jpg" loading="lazy">
+    </div>
+    <button type="button" class="carousel-nav next" aria-label="Next image">&#10095;</button>
+  </div>
+  <div class="article-carousel-thumbs">
+    <button type="button" class="carousel-thumb is-active" data-slide-index="0" aria-label="View image 1">
+      <img src="https://feats-api.fpvgate-analytics.workers.dev/images/articles/%40LouisHitchPhotos+-+Cheap+Bleach+-+28.04.2025.jpg" alt="" loading="lazy">
+    </button>
+    <button type="button" class="carousel-thumb" data-slide-index="1" aria-label="View image 2">
+      <img src="https://feats-api.fpvgate-analytics.workers.dev/images/articles/%40LouisHitchPhotos+-+Cheap+Bleach+-+28.04.2025-2.jpg" alt="" loading="lazy">
+    </button>
+    <button type="button" class="carousel-thumb" data-slide-index="2" aria-label="View image 3">
+      <img src="https://feats-api.fpvgate-analytics.workers.dev/images/articles/%40LouisHitchPhotos+-+Cheap+Bleach+-+28.04.2025-3.jpg" alt="" loading="lazy">
+    </button>
+    <button type="button" class="carousel-thumb" data-slide-index="3" aria-label="View image 4">
+      <img src="https://feats-api.fpvgate-analytics.workers.dev/images/articles/%40LouisHitchPhotos+-+Cheap+Bleach+-+28.04.2025-4.jpg" alt="" loading="lazy">
+    </button>
+    <button type="button" class="carousel-thumb" data-slide-index="4" aria-label="View image 5">
+      <img src="https://feats-api.fpvgate-analytics.workers.dev/images/articles/%40LouisHitchPhotos+-+Cheap+Bleach+-+28.04.2025-5.jpg" alt="" loading="lazy">
+    </button>
+    <button type="button" class="carousel-thumb" data-slide-index="5" aria-label="View image 6">
+      <img src="https://feats-api.fpvgate-analytics.workers.dev/images/articles/%40LouisHitchPhotos+-+Cheap+Bleach+-+28.04.2025-6.jpg" alt="" loading="lazy">
+    </button>
+    <button type="button" class="carousel-thumb" data-slide-index="6" aria-label="View image 7">
+      <img src="https://feats-api.fpvgate-analytics.workers.dev/images/articles/%40LouisHitchPhotos+-+Cheap+Bleach+-+28.04.2025-7.jpg" alt="" loading="lazy">
+    </button>
+    <button type="button" class="carousel-thumb" data-slide-index="7" aria-label="View image 8">
+      <img src="https://feats-api.fpvgate-analytics.workers.dev/images/articles/%40LouisHitchPhotos+-+Cheap+Bleach+-+28.04.2025-8.jpg" alt="" loading="lazy">
+    </button>
+    <button type="button" class="carousel-thumb" data-slide-index="8" aria-label="View image 9">
+      <img src="https://feats-api.fpvgate-analytics.workers.dev/images/articles/%40LouisHitchPhotos+-+Cheap+Bleach+-+28.04.2025-9.jpg" alt="" loading="lazy">
+    </button>
+    <button type="button" class="carousel-thumb" data-slide-index="9" aria-label="View image 10">
+      <img src="https://feats-api.fpvgate-analytics.workers.dev/images/articles/%40LouisHitchPhotos+-+Cheap+Bleach+-+28.04.2025-10.jpg" alt="" loading="lazy">
+    </button>
+    <button type="button" class="carousel-thumb" data-slide-index="10" aria-label="View image 11">
+      <img src="https://feats-api.fpvgate-analytics.workers.dev/images/articles/%40LouisHitchPhotos+-+Cheap+Bleach+-+28.04.2025-11.jpg" alt="" loading="lazy">
+    </button>
+    <button type="button" class="carousel-thumb" data-slide-index="11" aria-label="View image 12">
+      <img src="https://feats-api.fpvgate-analytics.workers.dev/images/articles/%40LouisHitchPhotos+-+Cheap+Bleach+-+28.04.2025-12.jpg" alt="" loading="lazy">
+    </button>
+    <button type="button" class="carousel-thumb" data-slide-index="12" aria-label="View image 13">
+      <img src="https://feats-api.fpvgate-analytics.workers.dev/images/articles/%40LouisHitchPhotos+-+Cheap+Bleach+-+28.04.2025-13.jpg" alt="" loading="lazy">
+    </button>
+    <button type="button" class="carousel-thumb" data-slide-index="13" aria-label="View image 14">
+      <img src="https://feats-api.fpvgate-analytics.workers.dev/images/articles/%40LouisHitchPhotos+-+Cheap+Bleach+-+28.04.2025-14.jpg" alt="" loading="lazy">
+    </button>
+    <button type="button" class="carousel-thumb" data-slide-index="14" aria-label="View image 15">
+      <img src="https://feats-api.fpvgate-analytics.workers.dev/images/articles/%40LouisHitchPhotos+-+Cheap+Bleach+-+28.04.2025-15.jpg" alt="" loading="lazy">
+    </button>
+    <button type="button" class="carousel-thumb" data-slide-index="15" aria-label="View image 16">
+      <img src="https://feats-api.fpvgate-analytics.workers.dev/images/articles/%40LouisHitchPhotos+-+Cheap+Bleach+-+28.04.2025-16.jpg" alt="" loading="lazy">
+    </button>
+    <button type="button" class="carousel-thumb" data-slide-index="16" aria-label="View image 17">
+      <img src="https://feats-api.fpvgate-analytics.workers.dev/images/articles/%40LouisHitchPhotos+-+Cheap+Bleach+-+28.04.2025-17.jpg" alt="" loading="lazy">
+    </button>
+    <button type="button" class="carousel-thumb" data-slide-index="17" aria-label="View image 18">
+      <img src="https://feats-api.fpvgate-analytics.workers.dev/images/articles/%40LouisHitchPhotos+-+Cheap+Bleach+-+28.04.2025-18.jpg" alt="" loading="lazy">
+    </button>
+    <button type="button" class="carousel-thumb" data-slide-index="18" aria-label="View image 19">
+      <img src="https://feats-api.fpvgate-analytics.workers.dev/images/articles/%40LouisHitchPhotos+-+Cheap+Bleach+-+28.04.2025-19.jpg" alt="" loading="lazy">
+    </button>
+    <button type="button" class="carousel-thumb" data-slide-index="19" aria-label="View image 20">
+      <img src="https://feats-api.fpvgate-analytics.workers.dev/images/articles/%40LouisHitchPhotos+-+Cheap+Bleach+-+28.04.2025-20.jpg" alt="" loading="lazy">
+    </button>
+    <button type="button" class="carousel-thumb" data-slide-index="20" aria-label="View image 21">
+      <img src="https://feats-api.fpvgate-analytics.workers.dev/images/articles/%40LouisHitchPhotos+-+Cheap+Bleach+-+28.04.2025-21.jpg" alt="" loading="lazy">
+    </button>
+    <button type="button" class="carousel-thumb" data-slide-index="21" aria-label="View image 22">
+      <img src="https://feats-api.fpvgate-analytics.workers.dev/images/articles/%40LouisHitchPhotos+-+Cheap+Bleach+-+28.04.2025-22.jpg" alt="" loading="lazy">
+    </button>
+    <button type="button" class="carousel-thumb" data-slide-index="22" aria-label="View image 23">
+      <img src="https://feats-api.fpvgate-analytics.workers.dev/images/articles/%40LouisHitchPhotos+-+Cheap+Bleach+-+28.04.2025-23.jpg" alt="" loading="lazy">
+    </button>
+    <button type="button" class="carousel-thumb" data-slide-index="23" aria-label="View image 24">
+      <img src="https://feats-api.fpvgate-analytics.workers.dev/images/articles/%40LouisHitchPhotos+-+Cheap+Bleach+-+28.04.2025-24.jpg" alt="" loading="lazy">
+    </button>
+    <button type="button" class="carousel-thumb" data-slide-index="24" aria-label="View image 25">
+      <img src="https://feats-api.fpvgate-analytics.workers.dev/images/articles/%40LouisHitchPhotos+-+Cheap+Bleach+-+28.04.2025-25.jpg" alt="" loading="lazy">
+    </button>
+    <button type="button" class="carousel-thumb" data-slide-index="25" aria-label="View image 26">
+      <img src="https://feats-api.fpvgate-analytics.workers.dev/images/articles/%40LouisHitchPhotos+-+Cheap+Bleach+-+28.04.2025-26.jpg" alt="" loading="lazy">
+    </button>
+    <button type="button" class="carousel-thumb" data-slide-index="26" aria-label="View image 27">
+      <img src="https://feats-api.fpvgate-analytics.workers.dev/images/articles/%40LouisHitchPhotos+-+Cheap+Bleach+-+28.04.2025-27.jpg" alt="" loading="lazy">
+    </button>
+    <button type="button" class="carousel-thumb" data-slide-index="27" aria-label="View image 28">
+      <img src="https://feats-api.fpvgate-analytics.workers.dev/images/articles/%40LouisHitchPhotos+-+Cheap+Bleach+-+28.04.2025-28.jpg" alt="" loading="lazy">
+    </button>
+    <button type="button" class="carousel-thumb" data-slide-index="28" aria-label="View image 29">
+      <img src="https://feats-api.fpvgate-analytics.workers.dev/images/articles/%40LouisHitchPhotos+-+Cheap+Bleach+-+28.04.2025-29.jpg" alt="" loading="lazy">
+    </button>
+    <button type="button" class="carousel-thumb" data-slide-index="29" aria-label="View image 30">
+      <img src="https://feats-api.fpvgate-analytics.workers.dev/images/articles/%40LouisHitchPhotos+-+Cheap+Bleach+-+28.04.2025-30.jpg" alt="" loading="lazy">
+    </button>
+    <button type="button" class="carousel-thumb" data-slide-index="30" aria-label="View image 31">
+      <img src="https://feats-api.fpvgate-analytics.workers.dev/images/articles/%40LouisHitchPhotos+-+Cheap+Bleach+-+28.04.2025-31.jpg" alt="" loading="lazy">
+    </button>
+  </div>
+</div>
+<p><a href="https://open.spotify.com/artist/6SrZNK0y69ecgDHshinRJ9?si=1PWF3IYES9qIlN-Pz_1hOw" target="_blank"><strong>Cheap Bleach</strong></a> followed with a heavier and moodier tone. Drawing on post-hardcore and emo influences, their set leaned into fuzzed-out guitars and pounding drums, with tracks like <em>“Swear”</em> and <em>“Tusks”</em> showing off a darker, introspective edge. They were slightly more reserved onstage but made an effort to introduce the rest of the lineup — a nice touch. With a new album expected soon, this set felt like a preview of something with a lot of potential.<br/><br/></p>
+<div class="article-carousel article-media article-media--float-right" data-article-carousel="carousel-3">
+  <div class="article-carousel-main">
+    <button type="button" class="carousel-nav prev" aria-label="Previous image">&#10094;</button>
+    <div class="article-carousel-slides">
+      <img class="carousel-slide is-active" src="https://feats-api.fpvgate-analytics.workers.dev/images/articles/%40LouisHitchPhotos+-+Mountain+Peaks+-+28.04.2025-2.jpg" alt="@LouisHitchPhotos - Mountain Peaks - 28.04.2025-2.jpg" loading="lazy">
+      <img class="carousel-slide" src="https://feats-api.fpvgate-analytics.workers.dev/images/articles/%40LouisHitchPhotos+-+Mountain+Peaks+-+28.04.2025-3.jpg" alt="@LouisHitchPhotos - Mountain Peaks - 28.04.2025-3.jpg" loading="lazy">
+      <img class="carousel-slide" src="https://feats-api.fpvgate-analytics.workers.dev/images/articles/%40LouisHitchPhotos+-+Mountain+Peaks+-+28.04.2025-4.jpg" alt="@LouisHitchPhotos - Mountain Peaks - 28.04.2025-4.jpg" loading="lazy">
+      <img class="carousel-slide" src="https://feats-api.fpvgate-analytics.workers.dev/images/articles/%40LouisHitchPhotos+-+Mountain+Peaks+-+28.04.2025-5.jpg" alt="@LouisHitchPhotos - Mountain Peaks - 28.04.2025-5.jpg" loading="lazy">
+      <img class="carousel-slide" src="https://feats-api.fpvgate-analytics.workers.dev/images/articles/%40LouisHitchPhotos+-+Mountain+Peaks+-+28.04.2025-6.jpg" alt="@LouisHitchPhotos - Mountain Peaks - 28.04.2025-6.jpg" loading="lazy">
+      <img class="carousel-slide" src="https://feats-api.fpvgate-analytics.workers.dev/images/articles/%40LouisHitchPhotos+-+Mountain+Peaks+-+28.04.2025-7.jpg" alt="@LouisHitchPhotos - Mountain Peaks - 28.04.2025-7.jpg" loading="lazy">
+      <img class="carousel-slide" src="https://feats-api.fpvgate-analytics.workers.dev/images/articles/%40LouisHitchPhotos+-+Mountain+Peaks+-+28.04.2025-8.jpg" alt="@LouisHitchPhotos - Mountain Peaks - 28.04.2025-8.jpg" loading="lazy">
+      <img class="carousel-slide" src="https://feats-api.fpvgate-analytics.workers.dev/images/articles/%40LouisHitchPhotos+-+Mountain+Peaks+-+28.04.2025-9.jpg" alt="@LouisHitchPhotos - Mountain Peaks - 28.04.2025-9.jpg" loading="lazy">
+      <img class="carousel-slide" src="https://feats-api.fpvgate-analytics.workers.dev/images/articles/%40LouisHitchPhotos+-+Mountain+Peaks+-+28.04.2025-10.jpg" alt="@LouisHitchPhotos - Mountain Peaks - 28.04.2025-10.jpg" loading="lazy">
+      <img class="carousel-slide" src="https://feats-api.fpvgate-analytics.workers.dev/images/articles/%40LouisHitchPhotos+-+Mountain+Peaks+-+28.04.2025-11.jpg" alt="@LouisHitchPhotos - Mountain Peaks - 28.04.2025-11.jpg" loading="lazy">
+      <img class="carousel-slide" src="https://feats-api.fpvgate-analytics.workers.dev/images/articles/%40LouisHitchPhotos+-+Mountain+Peaks+-+28.04.2025-12.jpg" alt="@LouisHitchPhotos - Mountain Peaks - 28.04.2025-12.jpg" loading="lazy">
+      <img class="carousel-slide" src="https://feats-api.fpvgate-analytics.workers.dev/images/articles/%40LouisHitchPhotos+-+Mountain+Peaks+-+28.04.2025-13.jpg" alt="@LouisHitchPhotos - Mountain Peaks - 28.04.2025-13.jpg" loading="lazy">
+      <img class="carousel-slide" src="https://feats-api.fpvgate-analytics.workers.dev/images/articles/%40LouisHitchPhotos+-+Mountain+Peaks+-+28.04.2025-14.jpg" alt="@LouisHitchPhotos - Mountain Peaks - 28.04.2025-14.jpg" loading="lazy">
+      <img class="carousel-slide" src="https://feats-api.fpvgate-analytics.workers.dev/images/articles/%40LouisHitchPhotos+-+Mountain+Peaks+-+28.04.2025-15.jpg" alt="@LouisHitchPhotos - Mountain Peaks - 28.04.2025-15.jpg" loading="lazy">
+      <img class="carousel-slide" src="https://feats-api.fpvgate-analytics.workers.dev/images/articles/%40LouisHitchPhotos+-+Mountain+Peaks+-+28.04.2025-16.jpg" alt="@LouisHitchPhotos - Mountain Peaks - 28.04.2025-16.jpg" loading="lazy">
+      <img class="carousel-slide" src="https://feats-api.fpvgate-analytics.workers.dev/images/articles/%40LouisHitchPhotos+-+Mountain+Peaks+-+28.04.2025-17.jpg" alt="@LouisHitchPhotos - Mountain Peaks - 28.04.2025-17.jpg" loading="lazy">
+      <img class="carousel-slide" src="https://feats-api.fpvgate-analytics.workers.dev/images/articles/%40LouisHitchPhotos+-+Mountain+Peaks+-+28.04.2025-18.jpg" alt="@LouisHitchPhotos - Mountain Peaks - 28.04.2025-18.jpg" loading="lazy">
+      <img class="carousel-slide" src="https://feats-api.fpvgate-analytics.workers.dev/images/articles/%40LouisHitchPhotos+-+Mountain+Peaks+-+28.04.2025-19.jpg" alt="@LouisHitchPhotos - Mountain Peaks - 28.04.2025-19.jpg" loading="lazy">
+      <img class="carousel-slide" src="https://feats-api.fpvgate-analytics.workers.dev/images/articles/%40LouisHitchPhotos+-+Mountain+Peaks+-+28.04.2025-20.jpg" alt="@LouisHitchPhotos - Mountain Peaks - 28.04.2025-20.jpg" loading="lazy">
+      <img class="carousel-slide" src="https://feats-api.fpvgate-analytics.workers.dev/images/articles/%40LouisHitchPhotos+-+Mountain+Peaks+-+28.04.2025-21.jpg" alt="@LouisHitchPhotos - Mountain Peaks - 28.04.2025-21.jpg" loading="lazy">
+      <img class="carousel-slide" src="https://feats-api.fpvgate-analytics.workers.dev/images/articles/%40LouisHitchPhotos+-+Mountain+Peaks+-+28.04.2025-22.jpg" alt="@LouisHitchPhotos - Mountain Peaks - 28.04.2025-22.jpg" loading="lazy">
+      <img class="carousel-slide" src="https://feats-api.fpvgate-analytics.workers.dev/images/articles/%40LouisHitchPhotos+-+Mountain+Peaks+-+28.04.2025-23.jpg" alt="@LouisHitchPhotos - Mountain Peaks - 28.04.2025-23.jpg" loading="lazy">
+      <img class="carousel-slide" src="https://feats-api.fpvgate-analytics.workers.dev/images/articles/%40LouisHitchPhotos+-+Mountain+Peaks+-+28.04.2025-24.jpg" alt="@LouisHitchPhotos - Mountain Peaks - 28.04.2025-24.jpg" loading="lazy">
+      <img class="carousel-slide" src="https://feats-api.fpvgate-analytics.workers.dev/images/articles/%40LouisHitchPhotos+-+Mountain+Peaks+-+28.04.2025-25.jpg" alt="@LouisHitchPhotos - Mountain Peaks - 28.04.2025-25.jpg" loading="lazy">
+      <img class="carousel-slide" src="https://feats-api.fpvgate-analytics.workers.dev/images/articles/%40LouisHitchPhotos+-+Mountain+Peaks+-+28.04.2025-26.jpg" alt="@LouisHitchPhotos - Mountain Peaks - 28.04.2025-26.jpg" loading="lazy">
+      <img class="carousel-slide" src="https://feats-api.fpvgate-analytics.workers.dev/images/articles/%40LouisHitchPhotos+-+Mountain+Peaks+-+28.04.2025.jpg" alt="@LouisHitchPhotos - Mountain Peaks - 28.04.2025.jpg" loading="lazy">
+    </div>
+    <button type="button" class="carousel-nav next" aria-label="Next image">&#10095;</button>
+  </div>
+  <div class="article-carousel-thumbs">
+    <button type="button" class="carousel-thumb is-active" data-slide-index="0" aria-label="View image 1">
+      <img src="https://feats-api.fpvgate-analytics.workers.dev/images/articles/%40LouisHitchPhotos+-+Mountain+Peaks+-+28.04.2025-2.jpg" alt="" loading="lazy">
+    </button>
+    <button type="button" class="carousel-thumb" data-slide-index="1" aria-label="View image 2">
+      <img src="https://feats-api.fpvgate-analytics.workers.dev/images/articles/%40LouisHitchPhotos+-+Mountain+Peaks+-+28.04.2025-3.jpg" alt="" loading="lazy">
+    </button>
+    <button type="button" class="carousel-thumb" data-slide-index="2" aria-label="View image 3">
+      <img src="https://feats-api.fpvgate-analytics.workers.dev/images/articles/%40LouisHitchPhotos+-+Mountain+Peaks+-+28.04.2025-4.jpg" alt="" loading="lazy">
+    </button>
+    <button type="button" class="carousel-thumb" data-slide-index="3" aria-label="View image 4">
+      <img src="https://feats-api.fpvgate-analytics.workers.dev/images/articles/%40LouisHitchPhotos+-+Mountain+Peaks+-+28.04.2025-5.jpg" alt="" loading="lazy">
+    </button>
+    <button type="button" class="carousel-thumb" data-slide-index="4" aria-label="View image 5">
+      <img src="https://feats-api.fpvgate-analytics.workers.dev/images/articles/%40LouisHitchPhotos+-+Mountain+Peaks+-+28.04.2025-6.jpg" alt="" loading="lazy">
+    </button>
+    <button type="button" class="carousel-thumb" data-slide-index="5" aria-label="View image 6">
+      <img src="https://feats-api.fpvgate-analytics.workers.dev/images/articles/%40LouisHitchPhotos+-+Mountain+Peaks+-+28.04.2025-7.jpg" alt="" loading="lazy">
+    </button>
+    <button type="button" class="carousel-thumb" data-slide-index="6" aria-label="View image 7">
+      <img src="https://feats-api.fpvgate-analytics.workers.dev/images/articles/%40LouisHitchPhotos+-+Mountain+Peaks+-+28.04.2025-8.jpg" alt="" loading="lazy">
+    </button>
+    <button type="button" class="carousel-thumb" data-slide-index="7" aria-label="View image 8">
+      <img src="https://feats-api.fpvgate-analytics.workers.dev/images/articles/%40LouisHitchPhotos+-+Mountain+Peaks+-+28.04.2025-9.jpg" alt="" loading="lazy">
+    </button>
+    <button type="button" class="carousel-thumb" data-slide-index="8" aria-label="View image 9">
+      <img src="https://feats-api.fpvgate-analytics.workers.dev/images/articles/%40LouisHitchPhotos+-+Mountain+Peaks+-+28.04.2025-10.jpg" alt="" loading="lazy">
+    </button>
+    <button type="button" class="carousel-thumb" data-slide-index="9" aria-label="View image 10">
+      <img src="https://feats-api.fpvgate-analytics.workers.dev/images/articles/%40LouisHitchPhotos+-+Mountain+Peaks+-+28.04.2025-11.jpg" alt="" loading="lazy">
+    </button>
+    <button type="button" class="carousel-thumb" data-slide-index="10" aria-label="View image 11">
+      <img src="https://feats-api.fpvgate-analytics.workers.dev/images/articles/%40LouisHitchPhotos+-+Mountain+Peaks+-+28.04.2025-12.jpg" alt="" loading="lazy">
+    </button>
+    <button type="button" class="carousel-thumb" data-slide-index="11" aria-label="View image 12">
+      <img src="https://feats-api.fpvgate-analytics.workers.dev/images/articles/%40LouisHitchPhotos+-+Mountain+Peaks+-+28.04.2025-13.jpg" alt="" loading="lazy">
+    </button>
+    <button type="button" class="carousel-thumb" data-slide-index="12" aria-label="View image 13">
+      <img src="https://feats-api.fpvgate-analytics.workers.dev/images/articles/%40LouisHitchPhotos+-+Mountain+Peaks+-+28.04.2025-14.jpg" alt="" loading="lazy">
+    </button>
+    <button type="button" class="carousel-thumb" data-slide-index="13" aria-label="View image 14">
+      <img src="https://feats-api.fpvgate-analytics.workers.dev/images/articles/%40LouisHitchPhotos+-+Mountain+Peaks+-+28.04.2025-15.jpg" alt="" loading="lazy">
+    </button>
+    <button type="button" class="carousel-thumb" data-slide-index="14" aria-label="View image 15">
+      <img src="https://feats-api.fpvgate-analytics.workers.dev/images/articles/%40LouisHitchPhotos+-+Mountain+Peaks+-+28.04.2025-16.jpg" alt="" loading="lazy">
+    </button>
+    <button type="button" class="carousel-thumb" data-slide-index="15" aria-label="View image 16">
+      <img src="https://feats-api.fpvgate-analytics.workers.dev/images/articles/%40LouisHitchPhotos+-+Mountain+Peaks+-+28.04.2025-17.jpg" alt="" loading="lazy">
+    </button>
+    <button type="button" class="carousel-thumb" data-slide-index="16" aria-label="View image 17">
+      <img src="https://feats-api.fpvgate-analytics.workers.dev/images/articles/%40LouisHitchPhotos+-+Mountain+Peaks+-+28.04.2025-18.jpg" alt="" loading="lazy">
+    </button>
+    <button type="button" class="carousel-thumb" data-slide-index="17" aria-label="View image 18">
+      <img src="https://feats-api.fpvgate-analytics.workers.dev/images/articles/%40LouisHitchPhotos+-+Mountain+Peaks+-+28.04.2025-19.jpg" alt="" loading="lazy">
+    </button>
+    <button type="button" class="carousel-thumb" data-slide-index="18" aria-label="View image 19">
+      <img src="https://feats-api.fpvgate-analytics.workers.dev/images/articles/%40LouisHitchPhotos+-+Mountain+Peaks+-+28.04.2025-20.jpg" alt="" loading="lazy">
+    </button>
+    <button type="button" class="carousel-thumb" data-slide-index="19" aria-label="View image 20">
+      <img src="https://feats-api.fpvgate-analytics.workers.dev/images/articles/%40LouisHitchPhotos+-+Mountain+Peaks+-+28.04.2025-21.jpg" alt="" loading="lazy">
+    </button>
+    <button type="button" class="carousel-thumb" data-slide-index="20" aria-label="View image 21">
+      <img src="https://feats-api.fpvgate-analytics.workers.dev/images/articles/%40LouisHitchPhotos+-+Mountain+Peaks+-+28.04.2025-22.jpg" alt="" loading="lazy">
+    </button>
+    <button type="button" class="carousel-thumb" data-slide-index="21" aria-label="View image 22">
+      <img src="https://feats-api.fpvgate-analytics.workers.dev/images/articles/%40LouisHitchPhotos+-+Mountain+Peaks+-+28.04.2025-23.jpg" alt="" loading="lazy">
+    </button>
+    <button type="button" class="carousel-thumb" data-slide-index="22" aria-label="View image 23">
+      <img src="https://feats-api.fpvgate-analytics.workers.dev/images/articles/%40LouisHitchPhotos+-+Mountain+Peaks+-+28.04.2025-24.jpg" alt="" loading="lazy">
+    </button>
+    <button type="button" class="carousel-thumb" data-slide-index="23" aria-label="View image 24">
+      <img src="https://feats-api.fpvgate-analytics.workers.dev/images/articles/%40LouisHitchPhotos+-+Mountain+Peaks+-+28.04.2025-25.jpg" alt="" loading="lazy">
+    </button>
+    <button type="button" class="carousel-thumb" data-slide-index="24" aria-label="View image 25">
+      <img src="https://feats-api.fpvgate-analytics.workers.dev/images/articles/%40LouisHitchPhotos+-+Mountain+Peaks+-+28.04.2025-26.jpg" alt="" loading="lazy">
+    </button>
+    <button type="button" class="carousel-thumb" data-slide-index="25" aria-label="View image 26">
+      <img src="https://feats-api.fpvgate-analytics.workers.dev/images/articles/%40LouisHitchPhotos+-+Mountain+Peaks+-+28.04.2025.jpg" alt="" loading="lazy">
+    </button>
+  </div>
+</div>
+<p><a href="https://open.spotify.com/artist/3u3ahaV33JSAvIjMoFxS4n?si=47jWYoHaR0KmHYsdMqzScw" target="_blank"><strong>Mountain Peaks</strong></a> brought noise, atmosphere, and intensity in equal measure. The Norwich trio opened with screaming vocals over a backing track and didn’t let up for the next half hour. Their sound — a mix of screamo, emo, and shoegaze — hit hardest on songs like <em>“Stargazers”</em>, which featured a standout drum intro, and <em>“I’m Not Happy”</em>, which they dedicated to rock bands everywhere. The set was heavy but not without charm — there was dry humour between members, and the Furby moment at the end somehow made sense in context.</p>
+<div class="article-carousel article-media article-media--float-left" data-article-carousel="carousel-4">
+  <div class="article-carousel-main">
+    <button type="button" class="carousel-nav prev" aria-label="Previous image">&#10094;</button>
+    <div class="article-carousel-slides">
+      <img class="carousel-slide is-active" src="https://feats-api.fpvgate-analytics.workers.dev/images/articles/%40LouisHitchPhotos+-+Spank+Hair+-+28.04.2025.jpg" alt="@LouisHitchPhotos - Spank Hair - 28.04.2025.jpg" loading="lazy">
+      <img class="carousel-slide" src="https://feats-api.fpvgate-analytics.workers.dev/images/articles/%40LouisHitchPhotos+-+Spank+Hair+-+28.04.2025-2.jpg" alt="@LouisHitchPhotos - Spank Hair - 28.04.2025-2.jpg" loading="lazy">
+      <img class="carousel-slide" src="https://feats-api.fpvgate-analytics.workers.dev/images/articles/%40LouisHitchPhotos+-+Spank+Hair+-+28.04.2025-3.jpg" alt="@LouisHitchPhotos - Spank Hair - 28.04.2025-3.jpg" loading="lazy">
+      <img class="carousel-slide" src="https://feats-api.fpvgate-analytics.workers.dev/images/articles/%40LouisHitchPhotos+-+Spank+Hair+-+28.04.2025-4.jpg" alt="@LouisHitchPhotos - Spank Hair - 28.04.2025-4.jpg" loading="lazy">
+      <img class="carousel-slide" src="https://feats-api.fpvgate-analytics.workers.dev/images/articles/%40LouisHitchPhotos+-+Spank+Hair+-+28.04.2025-5.jpg" alt="@LouisHitchPhotos - Spank Hair - 28.04.2025-5.jpg" loading="lazy">
+      <img class="carousel-slide" src="https://feats-api.fpvgate-analytics.workers.dev/images/articles/%40LouisHitchPhotos+-+Spank+Hair+-+28.04.2025-6.jpg" alt="@LouisHitchPhotos - Spank Hair - 28.04.2025-6.jpg" loading="lazy">
+      <img class="carousel-slide" src="https://feats-api.fpvgate-analytics.workers.dev/images/articles/%40LouisHitchPhotos+-+Spank+Hair+-+28.04.2025-7.jpg" alt="@LouisHitchPhotos - Spank Hair - 28.04.2025-7.jpg" loading="lazy">
+      <img class="carousel-slide" src="https://feats-api.fpvgate-analytics.workers.dev/images/articles/%40LouisHitchPhotos+-+Spank+Hair+-+28.04.2025-8.jpg" alt="@LouisHitchPhotos - Spank Hair - 28.04.2025-8.jpg" loading="lazy">
+      <img class="carousel-slide" src="https://feats-api.fpvgate-analytics.workers.dev/images/articles/%40LouisHitchPhotos+-+Spank+Hair+-+28.04.2025-9.jpg" alt="@LouisHitchPhotos - Spank Hair - 28.04.2025-9.jpg" loading="lazy">
+      <img class="carousel-slide" src="https://feats-api.fpvgate-analytics.workers.dev/images/articles/%40LouisHitchPhotos+-+Spank+Hair+-+28.04.2025-10.jpg" alt="@LouisHitchPhotos - Spank Hair - 28.04.2025-10.jpg" loading="lazy">
+      <img class="carousel-slide" src="https://feats-api.fpvgate-analytics.workers.dev/images/articles/%40LouisHitchPhotos+-+Spank+Hair+-+28.04.2025-11.jpg" alt="@LouisHitchPhotos - Spank Hair - 28.04.2025-11.jpg" loading="lazy">
+      <img class="carousel-slide" src="https://feats-api.fpvgate-analytics.workers.dev/images/articles/%40LouisHitchPhotos+-+Spank+Hair+-+28.04.2025-12.jpg" alt="@LouisHitchPhotos - Spank Hair - 28.04.2025-12.jpg" loading="lazy">
+      <img class="carousel-slide" src="https://feats-api.fpvgate-analytics.workers.dev/images/articles/%40LouisHitchPhotos+-+Spank+Hair+-+28.04.2025-13.jpg" alt="@LouisHitchPhotos - Spank Hair - 28.04.2025-13.jpg" loading="lazy">
+      <img class="carousel-slide" src="https://feats-api.fpvgate-analytics.workers.dev/images/articles/%40LouisHitchPhotos+-+Spank+Hair+-+28.04.2025-14.jpg" alt="@LouisHitchPhotos - Spank Hair - 28.04.2025-14.jpg" loading="lazy">
+      <img class="carousel-slide" src="https://feats-api.fpvgate-analytics.workers.dev/images/articles/%40LouisHitchPhotos+-+Spank+Hair+-+28.04.2025-15.jpg" alt="@LouisHitchPhotos - Spank Hair - 28.04.2025-15.jpg" loading="lazy">
+      <img class="carousel-slide" src="https://feats-api.fpvgate-analytics.workers.dev/images/articles/%40LouisHitchPhotos+-+Spank+Hair+-+28.04.2025-16.jpg" alt="@LouisHitchPhotos - Spank Hair - 28.04.2025-16.jpg" loading="lazy">
+    </div>
+    <button type="button" class="carousel-nav next" aria-label="Next image">&#10095;</button>
+  </div>
+  <div class="article-carousel-thumbs">
+    <button type="button" class="carousel-thumb is-active" data-slide-index="0" aria-label="View image 1">
+      <img src="https://feats-api.fpvgate-analytics.workers.dev/images/articles/%40LouisHitchPhotos+-+Spank+Hair+-+28.04.2025.jpg" alt="" loading="lazy">
+    </button>
+    <button type="button" class="carousel-thumb" data-slide-index="1" aria-label="View image 2">
+      <img src="https://feats-api.fpvgate-analytics.workers.dev/images/articles/%40LouisHitchPhotos+-+Spank+Hair+-+28.04.2025-2.jpg" alt="" loading="lazy">
+    </button>
+    <button type="button" class="carousel-thumb" data-slide-index="2" aria-label="View image 3">
+      <img src="https://feats-api.fpvgate-analytics.workers.dev/images/articles/%40LouisHitchPhotos+-+Spank+Hair+-+28.04.2025-3.jpg" alt="" loading="lazy">
+    </button>
+    <button type="button" class="carousel-thumb" data-slide-index="3" aria-label="View image 4">
+      <img src="https://feats-api.fpvgate-analytics.workers.dev/images/articles/%40LouisHitchPhotos+-+Spank+Hair+-+28.04.2025-4.jpg" alt="" loading="lazy">
+    </button>
+    <button type="button" class="carousel-thumb" data-slide-index="4" aria-label="View image 5">
+      <img src="https://feats-api.fpvgate-analytics.workers.dev/images/articles/%40LouisHitchPhotos+-+Spank+Hair+-+28.04.2025-5.jpg" alt="" loading="lazy">
+    </button>
+    <button type="button" class="carousel-thumb" data-slide-index="5" aria-label="View image 6">
+      <img src="https://feats-api.fpvgate-analytics.workers.dev/images/articles/%40LouisHitchPhotos+-+Spank+Hair+-+28.04.2025-6.jpg" alt="" loading="lazy">
+    </button>
+    <button type="button" class="carousel-thumb" data-slide-index="6" aria-label="View image 7">
+      <img src="https://feats-api.fpvgate-analytics.workers.dev/images/articles/%40LouisHitchPhotos+-+Spank+Hair+-+28.04.2025-7.jpg" alt="" loading="lazy">
+    </button>
+    <button type="button" class="carousel-thumb" data-slide-index="7" aria-label="View image 8">
+      <img src="https://feats-api.fpvgate-analytics.workers.dev/images/articles/%40LouisHitchPhotos+-+Spank+Hair+-+28.04.2025-8.jpg" alt="" loading="lazy">
+    </button>
+    <button type="button" class="carousel-thumb" data-slide-index="8" aria-label="View image 9">
+      <img src="https://feats-api.fpvgate-analytics.workers.dev/images/articles/%40LouisHitchPhotos+-+Spank+Hair+-+28.04.2025-9.jpg" alt="" loading="lazy">
+    </button>
+    <button type="button" class="carousel-thumb" data-slide-index="9" aria-label="View image 10">
+      <img src="https://feats-api.fpvgate-analytics.workers.dev/images/articles/%40LouisHitchPhotos+-+Spank+Hair+-+28.04.2025-10.jpg" alt="" loading="lazy">
+    </button>
+    <button type="button" class="carousel-thumb" data-slide-index="10" aria-label="View image 11">
+      <img src="https://feats-api.fpvgate-analytics.workers.dev/images/articles/%40LouisHitchPhotos+-+Spank+Hair+-+28.04.2025-11.jpg" alt="" loading="lazy">
+    </button>
+    <button type="button" class="carousel-thumb" data-slide-index="11" aria-label="View image 12">
+      <img src="https://feats-api.fpvgate-analytics.workers.dev/images/articles/%40LouisHitchPhotos+-+Spank+Hair+-+28.04.2025-12.jpg" alt="" loading="lazy">
+    </button>
+    <button type="button" class="carousel-thumb" data-slide-index="12" aria-label="View image 13">
+      <img src="https://feats-api.fpvgate-analytics.workers.dev/images/articles/%40LouisHitchPhotos+-+Spank+Hair+-+28.04.2025-13.jpg" alt="" loading="lazy">
+    </button>
+    <button type="button" class="carousel-thumb" data-slide-index="13" aria-label="View image 14">
+      <img src="https://feats-api.fpvgate-analytics.workers.dev/images/articles/%40LouisHitchPhotos+-+Spank+Hair+-+28.04.2025-14.jpg" alt="" loading="lazy">
+    </button>
+    <button type="button" class="carousel-thumb" data-slide-index="14" aria-label="View image 15">
+      <img src="https://feats-api.fpvgate-analytics.workers.dev/images/articles/%40LouisHitchPhotos+-+Spank+Hair+-+28.04.2025-15.jpg" alt="" loading="lazy">
+    </button>
+    <button type="button" class="carousel-thumb" data-slide-index="15" aria-label="View image 16">
+      <img src="https://feats-api.fpvgate-analytics.workers.dev/images/articles/%40LouisHitchPhotos+-+Spank+Hair+-+28.04.2025-16.jpg" alt="" loading="lazy">
+    </button>
+  </div>
+</div>
+<p><a href="https://open.spotify.com/artist/7EO7fbNcE00PlD59wZIZSY?si=v7Fk24cWTrGVOyv18TkC1g" target="_blank"><strong>Spank Hair</strong></a> switched things up with a looser, more melodic approach. Formed out of Oxford’s DIY scene, they played through a warm, scrappy set of emo-leaning indie rock. <em>“Claws”</em> and <em>“See You in the Morning”</em> set the tone early, and the short, catchy <em>“Tony Hawk”</em> — dedicated to Bulgarelli — got a good laugh. The highlight might’ve been <em>“Cowboy Scene”</em>, led by the drummer on vocals, which brought a moment of sincerity to an otherwise playful set. A couple of tech issues aside, they handled things well and finished strong with <em>“Many Phones Ago”</em>.</p>
+<div class="article-carousel article-media article-media--float-right" data-article-carousel="carousel-5">
+  <div class="article-carousel-main">
+    <button type="button" class="carousel-nav prev" aria-label="Previous image">&#10094;</button>
+    <div class="article-carousel-slides">
+      <img class="carousel-slide is-active" src="https://feats-api.fpvgate-analytics.workers.dev/images/articles/%40LouisHitchPhotos+-+Bulgarelli+-+28.04.2025.jpg" alt="@LouisHitchPhotos - Bulgarelli - 28.04.2025.jpg" loading="lazy">
+      <img class="carousel-slide" src="https://feats-api.fpvgate-analytics.workers.dev/images/articles/%40LouisHitchPhotos+-+Bulgarelli+-+28.04.2025-2.jpg" alt="@LouisHitchPhotos - Bulgarelli - 28.04.2025-2.jpg" loading="lazy">
+      <img class="carousel-slide" src="https://feats-api.fpvgate-analytics.workers.dev/images/articles/%40LouisHitchPhotos+-+Bulgarelli+-+28.04.2025-3.jpg" alt="@LouisHitchPhotos - Bulgarelli - 28.04.2025-3.jpg" loading="lazy">
+      <img class="carousel-slide" src="https://feats-api.fpvgate-analytics.workers.dev/images/articles/%40LouisHitchPhotos+-+Bulgarelli+-+28.04.2025-4.jpg" alt="@LouisHitchPhotos - Bulgarelli - 28.04.2025-4.jpg" loading="lazy">
+      <img class="carousel-slide" src="https://feats-api.fpvgate-analytics.workers.dev/images/articles/%40LouisHitchPhotos+-+Bulgarelli+-+28.04.2025-5.jpg" alt="@LouisHitchPhotos - Bulgarelli - 28.04.2025-5.jpg" loading="lazy">
+      <img class="carousel-slide" src="https://feats-api.fpvgate-analytics.workers.dev/images/articles/%40LouisHitchPhotos+-+Bulgarelli+-+28.04.2025-6.jpg" alt="@LouisHitchPhotos - Bulgarelli - 28.04.2025-6.jpg" loading="lazy">
+      <img class="carousel-slide" src="https://feats-api.fpvgate-analytics.workers.dev/images/articles/%40LouisHitchPhotos+-+Bulgarelli+-+28.04.2025-7.jpg" alt="@LouisHitchPhotos - Bulgarelli - 28.04.2025-7.jpg" loading="lazy">
+      <img class="carousel-slide" src="https://feats-api.fpvgate-analytics.workers.dev/images/articles/%40LouisHitchPhotos+-+Bulgarelli+-+28.04.2025-8.jpg" alt="@LouisHitchPhotos - Bulgarelli - 28.04.2025-8.jpg" loading="lazy">
+      <img class="carousel-slide" src="https://feats-api.fpvgate-analytics.workers.dev/images/articles/%40LouisHitchPhotos+-+Bulgarelli+-+28.04.2025-9.jpg" alt="@LouisHitchPhotos - Bulgarelli - 28.04.2025-9.jpg" loading="lazy">
+      <img class="carousel-slide" src="https://feats-api.fpvgate-analytics.workers.dev/images/articles/%40LouisHitchPhotos+-+Bulgarelli+-+28.04.2025-10.jpg" alt="@LouisHitchPhotos - Bulgarelli - 28.04.2025-10.jpg" loading="lazy">
+      <img class="carousel-slide" src="https://feats-api.fpvgate-analytics.workers.dev/images/articles/%40LouisHitchPhotos+-+Bulgarelli+-+28.04.2025-11.jpg" alt="@LouisHitchPhotos - Bulgarelli - 28.04.2025-11.jpg" loading="lazy">
+      <img class="carousel-slide" src="https://feats-api.fpvgate-analytics.workers.dev/images/articles/%40LouisHitchPhotos+-+Bulgarelli+-+28.04.2025-12.jpg" alt="@LouisHitchPhotos - Bulgarelli - 28.04.2025-12.jpg" loading="lazy">
+      <img class="carousel-slide" src="https://feats-api.fpvgate-analytics.workers.dev/images/articles/%40LouisHitchPhotos+-+Bulgarelli+-+28.04.2025-13.jpg" alt="@LouisHitchPhotos - Bulgarelli - 28.04.2025-13.jpg" loading="lazy">
+      <img class="carousel-slide" src="https://feats-api.fpvgate-analytics.workers.dev/images/articles/%40LouisHitchPhotos+-+Bulgarelli+-+28.04.2025-14.jpg" alt="@LouisHitchPhotos - Bulgarelli - 28.04.2025-14.jpg" loading="lazy">
+      <img class="carousel-slide" src="https://feats-api.fpvgate-analytics.workers.dev/images/articles/%40LouisHitchPhotos+-+Bulgarelli+-+28.04.2025-15.jpg" alt="@LouisHitchPhotos - Bulgarelli - 28.04.2025-15.jpg" loading="lazy">
+      <img class="carousel-slide" src="https://feats-api.fpvgate-analytics.workers.dev/images/articles/%40LouisHitchPhotos+-+Bulgarelli+-+28.04.2025-16.jpg" alt="@LouisHitchPhotos - Bulgarelli - 28.04.2025-16.jpg" loading="lazy">
+      <img class="carousel-slide" src="https://feats-api.fpvgate-analytics.workers.dev/images/articles/%40LouisHitchPhotos+-+Bulgarelli+-+28.04.2025-17.jpg" alt="@LouisHitchPhotos - Bulgarelli - 28.04.2025-17.jpg" loading="lazy">
+      <img class="carousel-slide" src="https://feats-api.fpvgate-analytics.workers.dev/images/articles/%40LouisHitchPhotos+-+Bulgarelli+-+28.04.2025-18.jpg" alt="@LouisHitchPhotos - Bulgarelli - 28.04.2025-18.jpg" loading="lazy">
+      <img class="carousel-slide" src="https://feats-api.fpvgate-analytics.workers.dev/images/articles/%40LouisHitchPhotos+-+Bulgarelli+-+28.04.2025-19.jpg" alt="@LouisHitchPhotos - Bulgarelli - 28.04.2025-19.jpg" loading="lazy">
+      <img class="carousel-slide" src="https://feats-api.fpvgate-analytics.workers.dev/images/articles/Header+Image+1.png" alt="Header Image 1.png" loading="lazy">
+    </div>
+    <button type="button" class="carousel-nav next" aria-label="Next image">&#10095;</button>
+  </div>
+  <div class="article-carousel-thumbs">
+    <button type="button" class="carousel-thumb is-active" data-slide-index="0" aria-label="View image 1">
+      <img src="https://feats-api.fpvgate-analytics.workers.dev/images/articles/%40LouisHitchPhotos+-+Bulgarelli+-+28.04.2025.jpg" alt="" loading="lazy">
+    </button>
+    <button type="button" class="carousel-thumb" data-slide-index="1" aria-label="View image 2">
+      <img src="https://feats-api.fpvgate-analytics.workers.dev/images/articles/%40LouisHitchPhotos+-+Bulgarelli+-+28.04.2025-2.jpg" alt="" loading="lazy">
+    </button>
+    <button type="button" class="carousel-thumb" data-slide-index="2" aria-label="View image 3">
+      <img src="https://feats-api.fpvgate-analytics.workers.dev/images/articles/%40LouisHitchPhotos+-+Bulgarelli+-+28.04.2025-3.jpg" alt="" loading="lazy">
+    </button>
+    <button type="button" class="carousel-thumb" data-slide-index="3" aria-label="View image 4">
+      <img src="https://feats-api.fpvgate-analytics.workers.dev/images/articles/%40LouisHitchPhotos+-+Bulgarelli+-+28.04.2025-4.jpg" alt="" loading="lazy">
+    </button>
+    <button type="button" class="carousel-thumb" data-slide-index="4" aria-label="View image 5">
+      <img src="https://feats-api.fpvgate-analytics.workers.dev/images/articles/%40LouisHitchPhotos+-+Bulgarelli+-+28.04.2025-5.jpg" alt="" loading="lazy">
+    </button>
+    <button type="button" class="carousel-thumb" data-slide-index="5" aria-label="View image 6">
+      <img src="https://feats-api.fpvgate-analytics.workers.dev/images/articles/%40LouisHitchPhotos+-+Bulgarelli+-+28.04.2025-6.jpg" alt="" loading="lazy">
+    </button>
+    <button type="button" class="carousel-thumb" data-slide-index="6" aria-label="View image 7">
+      <img src="https://feats-api.fpvgate-analytics.workers.dev/images/articles/%40LouisHitchPhotos+-+Bulgarelli+-+28.04.2025-7.jpg" alt="" loading="lazy">
+    </button>
+    <button type="button" class="carousel-thumb" data-slide-index="7" aria-label="View image 8">
+      <img src="https://feats-api.fpvgate-analytics.workers.dev/images/articles/%40LouisHitchPhotos+-+Bulgarelli+-+28.04.2025-8.jpg" alt="" loading="lazy">
+    </button>
+    <button type="button" class="carousel-thumb" data-slide-index="8" aria-label="View image 9">
+      <img src="https://feats-api.fpvgate-analytics.workers.dev/images/articles/%40LouisHitchPhotos+-+Bulgarelli+-+28.04.2025-9.jpg" alt="" loading="lazy">
+    </button>
+    <button type="button" class="carousel-thumb" data-slide-index="9" aria-label="View image 10">
+      <img src="https://feats-api.fpvgate-analytics.workers.dev/images/articles/%40LouisHitchPhotos+-+Bulgarelli+-+28.04.2025-10.jpg" alt="" loading="lazy">
+    </button>
+    <button type="button" class="carousel-thumb" data-slide-index="10" aria-label="View image 11">
+      <img src="https://feats-api.fpvgate-analytics.workers.dev/images/articles/%40LouisHitchPhotos+-+Bulgarelli+-+28.04.2025-11.jpg" alt="" loading="lazy">
+    </button>
+    <button type="button" class="carousel-thumb" data-slide-index="11" aria-label="View image 12">
+      <img src="https://feats-api.fpvgate-analytics.workers.dev/images/articles/%40LouisHitchPhotos+-+Bulgarelli+-+28.04.2025-12.jpg" alt="" loading="lazy">
+    </button>
+    <button type="button" class="carousel-thumb" data-slide-index="12" aria-label="View image 13">
+      <img src="https://feats-api.fpvgate-analytics.workers.dev/images/articles/%40LouisHitchPhotos+-+Bulgarelli+-+28.04.2025-13.jpg" alt="" loading="lazy">
+    </button>
+    <button type="button" class="carousel-thumb" data-slide-index="13" aria-label="View image 14">
+      <img src="https://feats-api.fpvgate-analytics.workers.dev/images/articles/%40LouisHitchPhotos+-+Bulgarelli+-+28.04.2025-14.jpg" alt="" loading="lazy">
+    </button>
+    <button type="button" class="carousel-thumb" data-slide-index="14" aria-label="View image 15">
+      <img src="https://feats-api.fpvgate-analytics.workers.dev/images/articles/%40LouisHitchPhotos+-+Bulgarelli+-+28.04.2025-15.jpg" alt="" loading="lazy">
+    </button>
+    <button type="button" class="carousel-thumb" data-slide-index="15" aria-label="View image 16">
+      <img src="https://feats-api.fpvgate-analytics.workers.dev/images/articles/%40LouisHitchPhotos+-+Bulgarelli+-+28.04.2025-16.jpg" alt="" loading="lazy">
+    </button>
+    <button type="button" class="carousel-thumb" data-slide-index="16" aria-label="View image 17">
+      <img src="https://feats-api.fpvgate-analytics.workers.dev/images/articles/%40LouisHitchPhotos+-+Bulgarelli+-+28.04.2025-17.jpg" alt="" loading="lazy">
+    </button>
+    <button type="button" class="carousel-thumb" data-slide-index="17" aria-label="View image 18">
+      <img src="https://feats-api.fpvgate-analytics.workers.dev/images/articles/%40LouisHitchPhotos+-+Bulgarelli+-+28.04.2025-18.jpg" alt="" loading="lazy">
+    </button>
+    <button type="button" class="carousel-thumb" data-slide-index="18" aria-label="View image 19">
+      <img src="https://feats-api.fpvgate-analytics.workers.dev/images/articles/%40LouisHitchPhotos+-+Bulgarelli+-+28.04.2025-19.jpg" alt="" loading="lazy">
+    </button>
+    <button type="button" class="carousel-thumb" data-slide-index="19" aria-label="View image 20">
+      <img src="https://feats-api.fpvgate-analytics.workers.dev/images/articles/Header+Image+1.png" alt="" loading="lazy">
+    </button>
+  </div>
+</div>
+<p>Headliners <a href="https://open.spotify.com/artist/66hNnhwIh8EOyOvI1HTtuC?si=2DM5A2cuTDCX9pPKzBq8CQ" target="_blank"><strong>Bulgarelli</strong> </a>closed the night with a well-rounded and thoughtful performance. Blending melodic indie with emo-tinged songwriting, their set moved between slow-builders and more technical, energetic moments. <em>“Sonic Days”</em> and <em>“Crocodile”</em> eased the crowd in, while <em>“Moving”</em> stood out with its shifting rhythms and detailed guitar work. <em>“Santander”</em> and <em>“Club 33”</em> brought some weight to the back end of the set, with the band locking in tightly as things wrapped up. They weren’t flashy, but they were focused — and their sound suited the late-night New Cross atmosphere perfectly.</p><p><strong>To Conclude: <br/></strong>The New Cross Inn did what it does best — crammed five different bands into a single night and let them go for it. It was loud, sweaty, varied, and full of character. For anyone interested in where UK underground music is heading, nights like this still matter.</p>
     </article>
   </main>
 <footer class="site-footer">
@@ -72,6 +695,42 @@
     document.getElementById('navToggle').addEventListener('click', function(){
       document.getElementById('navLinks').classList.toggle('open');
     });
+
+    (function(){
+      var carousels = document.querySelectorAll('[data-article-carousel]');
+      carousels.forEach(function(carousel){
+        var slides = carousel.querySelectorAll('.carousel-slide');
+        var thumbs = carousel.querySelectorAll('.carousel-thumb');
+        if (!slides.length) return;
+
+        var currentIndex = 0;
+        function setSlide(nextIndex){
+          if (nextIndex < 0) nextIndex = slides.length - 1;
+          if (nextIndex >= slides.length) nextIndex = 0;
+          currentIndex = nextIndex;
+          slides.forEach(function(slide, index){
+            slide.classList.toggle('is-active', index === currentIndex);
+          });
+          thumbs.forEach(function(thumb, index){
+            thumb.classList.toggle('is-active', index === currentIndex);
+          });
+        }
+
+        var prevButton = carousel.querySelector('.carousel-nav.prev');
+        var nextButton = carousel.querySelector('.carousel-nav.next');
+        if (prevButton) {
+          prevButton.addEventListener('click', function(){ setSlide(currentIndex - 1); });
+        }
+        if (nextButton) {
+          nextButton.addEventListener('click', function(){ setSlide(currentIndex + 1); });
+        }
+
+        thumbs.forEach(function(button, index){
+          button.addEventListener('click', function(){ setSlide(index); });
+        });
+        setSlide(0);
+      });
+    })();
   </script>
 </body>
 </html>

@@ -12,16 +12,37 @@
   <link rel="icon" type="image/x-icon" href="/favicon.ico">
   <style>
     .article-body{max-width:750px;margin:0 auto;padding:3rem 2rem}
+    .article-body::after{content:'';display:block;clear:both}
     .article-body .featured-img{width:100%;height:auto;margin-bottom:2rem}
     .article-body h1{font-size:2.2rem;margin-bottom:.5rem;line-height:1.2}
     .article-body .meta{font-size:.8rem;opacity:.5;text-transform:uppercase;letter-spacing:1px;margin-bottom:2rem}
     .article-body p{font-size:1.05rem;opacity:.85;margin-bottom:1.5rem;line-height:1.8}
-    .article-body img{max-width:100%;height:auto;border-radius:4px}
     .article-body a{text-decoration:underline;opacity:.8}
     .article-body a:hover{opacity:1}
-    .img-wrap-right{float:right;width:45%;margin:0.5rem 0 0.5rem 1.5rem}
-    .img-wrap-left{float:left;width:45%;margin:0.5rem 1.5rem 0.5rem 0}
-    @media(max-width:600px){.img-wrap-right,.img-wrap-left{float:none;width:100%;margin:1rem 0}}
+    .article-media{margin:1.5rem 0}
+    .article-media--full{width:100%;clear:both}
+    .article-media--float-right{float:right;width:45%;margin:0.5rem 0 1.2rem 1.5rem}
+    .article-media--float-left{float:left;width:45%;margin:0.5rem 1.5rem 1.2rem 0}
+    .article-media img{width:100%;height:auto;display:block;border-radius:4px}
+    .article-media figcaption{font-size:.82rem;opacity:.62;line-height:1.45;margin-top:.5rem}
+    .article-rule{margin:2.3rem 0;border:none;border-top:1px solid rgba(0,0,0,.18);clear:both}
+    .article-carousel{position:relative}
+    .article-carousel-main{position:relative;background:#0a0a0a;overflow:hidden}
+    .article-carousel-slides{position:relative}
+    .article-carousel .carousel-slide{display:none}
+    .article-carousel .carousel-slide.is-active{display:block}
+    .article-carousel .carousel-nav{position:absolute;top:50%;transform:translateY(-50%);z-index:3;width:42px;height:42px;border:none;background:rgba(0,0,0,.33);color:#fff;font-size:2rem;line-height:1;cursor:pointer}
+    .article-carousel .carousel-nav.prev{left:0.65rem}
+    .article-carousel .carousel-nav.next{right:0.65rem}
+    .article-carousel.is-single .carousel-nav{display:none}
+    .article-carousel-thumbs{display:flex;gap:2px;overflow-x:auto;margin-top:.55rem;padding-bottom:2px}
+    .article-carousel .carousel-thumb{border:none;padding:0;background:transparent;opacity:.52;cursor:pointer;flex:0 0 auto}
+    .article-carousel .carousel-thumb.is-active{opacity:1}
+    .article-carousel .carousel-thumb img{width:58px;height:40px;object-fit:cover;border-radius:0}
+    @media(max-width:600px){
+      .article-media--float-right,.article-media--float-left{float:none;width:100%;margin:1rem 0}
+      .article-carousel .carousel-nav{width:36px;height:36px;font-size:1.65rem}
+    }
   </style>
 </head>
 <body>
@@ -48,22 +69,42 @@
       <div class="meta">ONES TO WATCH &middot; Festival &middot; Round Up &middot; Editoral &middot; Feats. &middot; 2025-09-01</div>
       <h1>Feats. Ones-to-Watch 2025 Festival Round Up</h1>
       <p>Every year, a handful of artists break through the festival season with sets that spark conversations long after the fields empty. Some are already on the rise, others are just getting started, but all have shown why they deserve a spot on your radar. Here are five acts that caught attention across the UK this summer - and where you can see them next.</p>
+<hr class="article-rule">
 <h3>HotWax - Latitude and Victorious</h3>
+<figure class="article-media article-media--float-right">
+  <img src="https://feats-api.fpvgate-analytics.workers.dev/images/articles/DSC08890.jpg" alt="" loading="lazy">
+  <figcaption>Tom Ellis (TJEphotos/FEATS)</figcaption>
+</figure>
 <p><a href="https://open.spotify.com/artist/237mvWGlQNJJhc9b8pSawZ?si=79fqh78MS5SdeOSPZO7R-Q"><span><strong>HotWax </strong></span></a>continue to establish themselves as one of the most exciting new guitar bands in the UK. Their mix of grunge, punk and sharp hooks was on full display this summer, with appearances at <a href="https://www.latitudefestival.com/"><span><strong>Latitude</strong> </span></a>and <a href="https://www.victoriousfestival.co.uk/"><span><strong>Victorious</strong> </span></a>pulling in strong reactions from crowds. Songs like <a href="https://open.spotify.com/track/7vcgqskkBA3n2aykT0AjUJ?si=a73815afb8eb4f20"><span><em>Treasure</em> </span></a>and <a href="https://open.spotify.com/track/0jRFTDwXR7FygEqRHyju8P?si=05f92e6fa38243de"><span><em>Rip It Out</em> </span></a>proved popular talking points, with fans highlighting the energy and urgency of their live shows.</p><p>We caught up with HotWax ahead of their Latitude performance to talk about their debut album and life on tour with Nova Twins - <a href="https://feats.live/music/hotwax-talk-debut-album-amp-nova-twins-tour-before-their-latitude-2025-set"><span>you can read the full interview here.</span></a></p><p><a href="https://www.bandsintown.com/a/935183-hotwax"><span><strong>Next up:</strong> <strong>O2 Forum Kentish Town, London, Sat 18 Oct</strong>.</span></a></p>
+<hr class="article-rule">
 <h3>Lola Young - Glastonbury</h3>
+<figure class="article-media article-media--float-right">
+  <img src="https://feats-api.fpvgate-analytics.workers.dev/images/articles/Lola+Young.webp" alt="" loading="lazy">
+</figure>
 <p>Blending confessional songwriting with alt-pop polish, <a href="https://open.spotify.com/artist/67FB4n52MgexGQIG8s0yUH?si=F_t2smqXRPmyrQJ7mjXCvg"><span><strong>Lola Young </strong></span></a>brought her distinctive voice to the <strong>Park Stage at </strong><a href="https://www.glastonburyfestivals.co.uk/"><span><strong>Glastonbury</strong> </span></a>this summer. Fans said her set stood out for its openness, with tracks like <a href="https://open.spotify.com/track/35ISBknsCeZQtq66xABI9g?si=c15e06dc4a194d83"><span><em>Messy</em> </span></a>resonating strongly and being shared widely online afterwards. It was another step in a growing career that balances vulnerability with power.</p><p><a href="https://www.bandsintown.com/a/13596053-lola-young"><span><strong>On tour:</strong> <strong>15 Sept – The Level, Nottingham</strong>, <strong>17 Sept – Pryzm, Kingston</strong>, with more UK dates through October.</span></a></p>
+<hr class="article-rule">
 <h3>VLURE - Reading and Leeds</h3>
+<figure class="article-media article-media--float-right">
+  <img src="https://feats-api.fpvgate-analytics.workers.dev/images/articles/VLure.jpeg" alt="" loading="lazy">
+</figure>
 <p>Glasgow’s <a href="https://open.spotify.com/artist/0Ev1tqYsfzq2eF5qqXhkYm?si=yNch4r8BSSeX5WKvUQg67w"><span><strong>VLURE</strong> </span></a>have been on our radar for a while. Back in 2023, we followed them through the release of <a href="https://open.spotify.com/album/0KO5XrMKrkHGyAhjJknWP4?si=pYe64vz_RRCAmujuaFSK9Q"><span><em>Cut It</em> </span></a>and spoke about their ability to merge the emotion of post-punk with the physicality of club music (<a href="https://feats.live/music/vlure-set-us-free-as-we-follow-them-through-the-release-of-their-new-single-cut-itnbsp"><span>Read Our Original Article Here</span></a>). That same mix has only grown stronger.</p><p>This summer they brought their electronic-punk energy to <a href="https://www.readingfestival.com/"><span><strong>Reading</strong> </span></a>and <a href="https://www.leedsfestival.com/"><span><strong>Leeds</strong></span></a>, with crowds responding to the intensity of tracks that move between raw vulnerability and euphoric release. Fans described the shows as moments of catharsis - heavy, emotional, but built to move.</p><p><a href="https://www.bandsintown.com/a/15488327-vlure"><span><strong>Upcoming dates:</strong> Rough Trade in-stores across the UK in late September, followed by a run of shows in October and November including London’s Fabric, Newcastle’s The Grove and European stops in Paris, Milan, Berlin and Brussels.</span></a></p>
+<hr class="article-rule">
 <h3>Nxdia - Reading and Leeds</h3>
+<figure class="article-media article-media--float-right">
+  <img src="https://feats-api.fpvgate-analytics.workers.dev/images/articles/Nxdia.jpeg" alt="" loading="lazy">
+</figure>
 <p>Manchester’s <a href="https://open.spotify.com/artist/0Dkj3iE06TJGxGIrGCmwVf?si=Vqplt1clQQ6XgKwuMY2ZJA"><span><strong>Nxdia</strong> </span></a>combined alt-pop melodies with punk spirit at both <a href="https://www.readingfestival.com/"><span><strong>Reading</strong> </span></a>and <a href="https://www.leedsfestival.com/"><span><strong>Leeds</strong></span></a>, drawing strong reactions across the weekend. Songs like <a href="https://open.spotify.com/track/7nuCxvFvVT5YEAjSDd6Glr?si=794f309b121a4c7f"><span><em>Boy Clothes</em> </span></a>and <a href="https://open.spotify.com/track/062xVECDI7YZqOgdEtWlVs?si=003077780c704704"><span><em>She Likes a Boy</em> </span></a>became instant singalongs, with fans praising the sense of inclusivity and openness that shaped the sets. For many, it was a first introduction that quickly turned into a highlight.</p><p><a href="https://www.bandsintown.com/a/15556752-nxdia"><span><strong>Tour dates:</strong> <strong>5 Oct – The Lodge, Manchester</strong>, <strong>6 Oct – King Tuts, Glasgow</strong>.</span></a></p>
-<h3>Flowerovlove -&nbsp; Latitude, Tramlines, Standon Calling, Camp Bestival</h3>
+<hr class="article-rule">
+<h3>Flowerovlove -  Latitude, Tramlines, Standon Calling, Camp Bestival</h3>
+<figure class="article-media article-media--float-right">
+  <img src="https://feats-api.fpvgate-analytics.workers.dev/images/articles/Flowerovlove.webp" alt="" loading="lazy">
+</figure>
 <p><a href="https://open.spotify.com/artist/1JspXUvEv3D9ddMeLNqYWj?si=AwwCkIUFS0uEJPQeNG6_Gw"><span><strong>Flowerovlove</strong> </span></a>(Joyce Cissé) brought bright, melodic indie-pop to a busy festival summer with appearances at <a href="https://www.latitudefestival.com/"><span><strong>Latitude</strong></span></a>, <a href="https://tramlines.org.uk/"><span><strong>Tramlines</strong></span></a>, <a href="https://www.facebook.com/standoncalling/?locale=en_GB"><span><strong>Standon Calling</strong></span></a> and <a href="https://dorset.campbestival.net/"><span><strong>Camp Bestival</strong></span></a>. Her shows leaned on warmth and accessibility, with songs like <a href="https://open.spotify.com/track/7lTWrTbrL3BFcc2UZRMSzy?si=a2f098b87c244b0c"><span><em>Love You</em></span></a> and <a href="https://open.spotify.com/track/40tZTQ47XEMg7KT61xAEOI?si=a6a33cab2e9b4788"><span><em>Coffee Shop</em></span></a> drawing positive reactions from fans online and on site. That balance of energy and calm has made her one of the most talked-about young names on the circuit.</p><p><strong>What’s next:</strong> More UK live shows are expected following her summer run.</p>
+<hr class="article-rule">
+<div>
+<iframe allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" allowfullscreen="" frameborder="0" height="352" loading="lazy" src="https://open.spotify.com/embed/playlist/1Vwj87K1JJ3r93f43h1yD4?utm_source=generator" width="100%"></iframe>
+</div>
 <p>HotWax, Lola Young, VLURE, Nxdia and Flowerovlove all picked up momentum this summer, with performances that stood out across the UK festival season. Their upcoming dates are the next chance to catch them before they move onto bigger stages.</p>
-<img src="https://feats-api.fpvgate-analytics.workers.dev/images/articles/DSC08890.jpg" alt="" style="width:100%;height:auto;display:block;margin:1.5rem 0;border-radius:4px" loading="lazy">
-<img src="https://feats-api.fpvgate-analytics.workers.dev/images/articles/Lola+Young.webp" alt="" style="width:100%;height:auto;display:block;margin:1.5rem 0;border-radius:4px" loading="lazy">
-<img src="https://feats-api.fpvgate-analytics.workers.dev/images/articles/VLure.jpeg" alt="" style="width:100%;height:auto;display:block;margin:1.5rem 0;border-radius:4px" loading="lazy">
-<img src="https://feats-api.fpvgate-analytics.workers.dev/images/articles/Nxdia.jpeg" alt="" style="width:100%;height:auto;display:block;margin:1.5rem 0;border-radius:4px" loading="lazy">
-<img src="https://feats-api.fpvgate-analytics.workers.dev/images/articles/Flowerovlove.webp" alt="" style="width:100%;height:auto;display:block;margin:1.5rem 0;border-radius:4px" loading="lazy">
     </article>
   </main>
 <footer class="site-footer">
@@ -83,6 +124,42 @@
     document.getElementById('navToggle').addEventListener('click', function(){
       document.getElementById('navLinks').classList.toggle('open');
     });
+
+    (function(){
+      var carousels = document.querySelectorAll('[data-article-carousel]');
+      carousels.forEach(function(carousel){
+        var slides = carousel.querySelectorAll('.carousel-slide');
+        var thumbs = carousel.querySelectorAll('.carousel-thumb');
+        if (!slides.length) return;
+
+        var currentIndex = 0;
+        function setSlide(nextIndex){
+          if (nextIndex < 0) nextIndex = slides.length - 1;
+          if (nextIndex >= slides.length) nextIndex = 0;
+          currentIndex = nextIndex;
+          slides.forEach(function(slide, index){
+            slide.classList.toggle('is-active', index === currentIndex);
+          });
+          thumbs.forEach(function(thumb, index){
+            thumb.classList.toggle('is-active', index === currentIndex);
+          });
+        }
+
+        var prevButton = carousel.querySelector('.carousel-nav.prev');
+        var nextButton = carousel.querySelector('.carousel-nav.next');
+        if (prevButton) {
+          prevButton.addEventListener('click', function(){ setSlide(currentIndex - 1); });
+        }
+        if (nextButton) {
+          nextButton.addEventListener('click', function(){ setSlide(currentIndex + 1); });
+        }
+
+        thumbs.forEach(function(button, index){
+          button.addEventListener('click', function(){ setSlide(index); });
+        });
+        setSlide(0);
+      });
+    })();
   </script>
 </body>
 </html>

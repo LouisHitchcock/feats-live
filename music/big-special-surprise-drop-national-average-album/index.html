@@ -12,16 +12,37 @@
   <link rel="icon" type="image/x-icon" href="/favicon.ico">
   <style>
     .article-body{max-width:750px;margin:0 auto;padding:3rem 2rem}
+    .article-body::after{content:'';display:block;clear:both}
     .article-body .featured-img{width:100%;height:auto;margin-bottom:2rem}
     .article-body h1{font-size:2.2rem;margin-bottom:.5rem;line-height:1.2}
     .article-body .meta{font-size:.8rem;opacity:.5;text-transform:uppercase;letter-spacing:1px;margin-bottom:2rem}
     .article-body p{font-size:1.05rem;opacity:.85;margin-bottom:1.5rem;line-height:1.8}
-    .article-body img{max-width:100%;height:auto;border-radius:4px}
     .article-body a{text-decoration:underline;opacity:.8}
     .article-body a:hover{opacity:1}
-    .img-wrap-right{float:right;width:45%;margin:0.5rem 0 0.5rem 1.5rem}
-    .img-wrap-left{float:left;width:45%;margin:0.5rem 1.5rem 0.5rem 0}
-    @media(max-width:600px){.img-wrap-right,.img-wrap-left{float:none;width:100%;margin:1rem 0}}
+    .article-media{margin:1.5rem 0}
+    .article-media--full{width:100%;clear:both}
+    .article-media--float-right{float:right;width:45%;margin:0.5rem 0 1.2rem 1.5rem}
+    .article-media--float-left{float:left;width:45%;margin:0.5rem 1.5rem 1.2rem 0}
+    .article-media img{width:100%;height:auto;display:block;border-radius:4px}
+    .article-media figcaption{font-size:.82rem;opacity:.62;line-height:1.45;margin-top:.5rem}
+    .article-rule{margin:2.3rem 0;border:none;border-top:1px solid rgba(0,0,0,.18);clear:both}
+    .article-carousel{position:relative}
+    .article-carousel-main{position:relative;background:#0a0a0a;overflow:hidden}
+    .article-carousel-slides{position:relative}
+    .article-carousel .carousel-slide{display:none}
+    .article-carousel .carousel-slide.is-active{display:block}
+    .article-carousel .carousel-nav{position:absolute;top:50%;transform:translateY(-50%);z-index:3;width:42px;height:42px;border:none;background:rgba(0,0,0,.33);color:#fff;font-size:2rem;line-height:1;cursor:pointer}
+    .article-carousel .carousel-nav.prev{left:0.65rem}
+    .article-carousel .carousel-nav.next{right:0.65rem}
+    .article-carousel.is-single .carousel-nav{display:none}
+    .article-carousel-thumbs{display:flex;gap:2px;overflow-x:auto;margin-top:.55rem;padding-bottom:2px}
+    .article-carousel .carousel-thumb{border:none;padding:0;background:transparent;opacity:.52;cursor:pointer;flex:0 0 auto}
+    .article-carousel .carousel-thumb.is-active{opacity:1}
+    .article-carousel .carousel-thumb img{width:58px;height:40px;object-fit:cover;border-radius:0}
+    @media(max-width:600px){
+      .article-media--float-right,.article-media--float-left{float:none;width:100%;margin:1rem 0}
+      .article-carousel .carousel-nav{width:36px;height:36px;font-size:1.65rem}
+    }
   </style>
 </head>
 <body>
@@ -47,9 +68,14 @@
       <img class="featured-img" src="https://feats-api.fpvgate-analytics.workers.dev/images/articles/515497036_1112074770744554_406797124511873189_n.jpg" alt="Big Special Surprise Drop “National Average” Album" loading="lazy">
       <div class="meta">Album Release &middot; New Music &middot; up and coming &middot; ONES TO WATCH &middot; Feats. &middot; 2025-07-07</div>
       <h1>Big Special Surprise Drop “National Average” Album</h1>
-      <p>Big Special made a splash last week (4th July 2025), unexpectedly releasing “<a href="https://open.spotify.com/album/2wHHIEXgiVxTRS2EjFzMmo?si=hCX7AfduScGxPxRHu_pTRQ"><span><strong>National Average</strong></span></a>”, their highly-anticipated follow-up to the acclaimed 2024 album, “Postindustrial Hometown Blues.” In classic Big Special style, the album arrived without fanfare or prior announcement, instantly creating buzz among fans and music critics alike.</p><p>“National Average” retains the gritty authenticity and lyrical punch Big Special fans have come to adore, while also showcasing the band's evolving sound, blending sharp commentary with raw musical energy. Early standout tracks include the provocative opener "<a href="https://open.spotify.com/track/5H0U1YTRxfzoycXUb2nlUl?si=8c01a205214b46b2"><span><strong>THE MESS</strong></span></a>" and the punchy anthem "<a href="https://open.spotify.com/track/64J1EYisViSUN0LydKHenz?si=7cd273f78a564fef"><span><strong>SHOP MUSIC</strong></span></a>" both capturing the band's distinctive knack for channelling the pulse of contemporary life.</p><p>The surprise release strategy, reminiscent of Big Special’s energetic live sets and their well-known affinity for spontaneity, has fans eagerly streaming the new tracks. Critics are already praising the record’s candid reflection on everyday struggles and societal discontent, marking it as another significant milestone for the band.</p><p>You can stream <strong>“</strong><a href="https://open.spotify.com/album/2wHHIEXgiVxTRS2EjFzMmo?si=hCX7AfduScGxPxRHu_pTRQ"><span><strong>National Average</strong></span></a><strong>”</strong> now—experience Big Special’s newest offering below:</p>
+      <figure class="article-media article-media--float-right">
+  <img src="https://feats-api.fpvgate-analytics.workers.dev/images/articles/515497036_1112074770744554_406797124511873189_n.jpg" alt="" loading="lazy">
+</figure>
+<p>Big Special made a splash last week (4th July 2025), unexpectedly releasing “<a href="https://open.spotify.com/album/2wHHIEXgiVxTRS2EjFzMmo?si=hCX7AfduScGxPxRHu_pTRQ"><span><strong>National Average</strong></span></a>”, their highly-anticipated follow-up to the acclaimed 2024 album, “Postindustrial Hometown Blues.” In classic Big Special style, the album arrived without fanfare or prior announcement, instantly creating buzz among fans and music critics alike.</p><p>“National Average” retains the gritty authenticity and lyrical punch Big Special fans have come to adore, while also showcasing the band's evolving sound, blending sharp commentary with raw musical energy. Early standout tracks include the provocative opener "<a href="https://open.spotify.com/track/5H0U1YTRxfzoycXUb2nlUl?si=8c01a205214b46b2"><span><strong>THE MESS</strong></span></a>" and the punchy anthem "<a href="https://open.spotify.com/track/64J1EYisViSUN0LydKHenz?si=7cd273f78a564fef"><span><strong>SHOP MUSIC</strong></span></a>" both capturing the band's distinctive knack for channelling the pulse of contemporary life.</p><p>The surprise release strategy, reminiscent of Big Special’s energetic live sets and their well-known affinity for spontaneity, has fans eagerly streaming the new tracks. Critics are already praising the record’s candid reflection on everyday struggles and societal discontent, marking it as another significant milestone for the band.</p><p>You can stream <strong>“</strong><a href="https://open.spotify.com/album/2wHHIEXgiVxTRS2EjFzMmo?si=hCX7AfduScGxPxRHu_pTRQ"><span><strong>National Average</strong></span></a><strong>”</strong> now—experience Big Special’s newest offering below:</p>
+<div>
+<iframe allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" allowfullscreen="" frameborder="0" height="352" loading="lazy" src="https://open.spotify.com/embed/album/2wHHIEXgiVxTRS2EjFzMmo?utm_source=generator" width="100%"></iframe>
+</div>
 <p>Don’t miss Big Special performing these fresh tracks live—check their website for upcoming tour dates, and grab tickets fast as their gigs are known to sell out quickly.</p>
-<img src="https://feats-api.fpvgate-analytics.workers.dev/images/articles/515497036_1112074770744554_406797124511873189_n.jpg" alt="" style="width:100%;height:auto;display:block;margin:1.5rem 0;border-radius:4px" loading="lazy">
     </article>
   </main>
 <footer class="site-footer">
@@ -69,6 +95,42 @@
     document.getElementById('navToggle').addEventListener('click', function(){
       document.getElementById('navLinks').classList.toggle('open');
     });
+
+    (function(){
+      var carousels = document.querySelectorAll('[data-article-carousel]');
+      carousels.forEach(function(carousel){
+        var slides = carousel.querySelectorAll('.carousel-slide');
+        var thumbs = carousel.querySelectorAll('.carousel-thumb');
+        if (!slides.length) return;
+
+        var currentIndex = 0;
+        function setSlide(nextIndex){
+          if (nextIndex < 0) nextIndex = slides.length - 1;
+          if (nextIndex >= slides.length) nextIndex = 0;
+          currentIndex = nextIndex;
+          slides.forEach(function(slide, index){
+            slide.classList.toggle('is-active', index === currentIndex);
+          });
+          thumbs.forEach(function(thumb, index){
+            thumb.classList.toggle('is-active', index === currentIndex);
+          });
+        }
+
+        var prevButton = carousel.querySelector('.carousel-nav.prev');
+        var nextButton = carousel.querySelector('.carousel-nav.next');
+        if (prevButton) {
+          prevButton.addEventListener('click', function(){ setSlide(currentIndex - 1); });
+        }
+        if (nextButton) {
+          nextButton.addEventListener('click', function(){ setSlide(currentIndex + 1); });
+        }
+
+        thumbs.forEach(function(button, index){
+          button.addEventListener('click', function(){ setSlide(index); });
+        });
+        setSlide(0);
+      });
+    })();
   </script>
 </body>
 </html>

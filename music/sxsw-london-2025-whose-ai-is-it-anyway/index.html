@@ -12,16 +12,37 @@
   <link rel="icon" type="image/x-icon" href="/favicon.ico">
   <style>
     .article-body{max-width:750px;margin:0 auto;padding:3rem 2rem}
+    .article-body::after{content:'';display:block;clear:both}
     .article-body .featured-img{width:100%;height:auto;margin-bottom:2rem}
     .article-body h1{font-size:2.2rem;margin-bottom:.5rem;line-height:1.2}
     .article-body .meta{font-size:.8rem;opacity:.5;text-transform:uppercase;letter-spacing:1px;margin-bottom:2rem}
     .article-body p{font-size:1.05rem;opacity:.85;margin-bottom:1.5rem;line-height:1.8}
-    .article-body img{max-width:100%;height:auto;border-radius:4px}
     .article-body a{text-decoration:underline;opacity:.8}
     .article-body a:hover{opacity:1}
-    .img-wrap-right{float:right;width:45%;margin:0.5rem 0 0.5rem 1.5rem}
-    .img-wrap-left{float:left;width:45%;margin:0.5rem 1.5rem 0.5rem 0}
-    @media(max-width:600px){.img-wrap-right,.img-wrap-left{float:none;width:100%;margin:1rem 0}}
+    .article-media{margin:1.5rem 0}
+    .article-media--full{width:100%;clear:both}
+    .article-media--float-right{float:right;width:45%;margin:0.5rem 0 1.2rem 1.5rem}
+    .article-media--float-left{float:left;width:45%;margin:0.5rem 1.5rem 1.2rem 0}
+    .article-media img{width:100%;height:auto;display:block;border-radius:4px}
+    .article-media figcaption{font-size:.82rem;opacity:.62;line-height:1.45;margin-top:.5rem}
+    .article-rule{margin:2.3rem 0;border:none;border-top:1px solid rgba(0,0,0,.18);clear:both}
+    .article-carousel{position:relative}
+    .article-carousel-main{position:relative;background:#0a0a0a;overflow:hidden}
+    .article-carousel-slides{position:relative}
+    .article-carousel .carousel-slide{display:none}
+    .article-carousel .carousel-slide.is-active{display:block}
+    .article-carousel .carousel-nav{position:absolute;top:50%;transform:translateY(-50%);z-index:3;width:42px;height:42px;border:none;background:rgba(0,0,0,.33);color:#fff;font-size:2rem;line-height:1;cursor:pointer}
+    .article-carousel .carousel-nav.prev{left:0.65rem}
+    .article-carousel .carousel-nav.next{right:0.65rem}
+    .article-carousel.is-single .carousel-nav{display:none}
+    .article-carousel-thumbs{display:flex;gap:2px;overflow-x:auto;margin-top:.55rem;padding-bottom:2px}
+    .article-carousel .carousel-thumb{border:none;padding:0;background:transparent;opacity:.52;cursor:pointer;flex:0 0 auto}
+    .article-carousel .carousel-thumb.is-active{opacity:1}
+    .article-carousel .carousel-thumb img{width:58px;height:40px;object-fit:cover;border-radius:0}
+    @media(max-width:600px){
+      .article-media--float-right,.article-media--float-left{float:none;width:100%;margin:1rem 0}
+      .article-carousel .carousel-nav{width:36px;height:36px;font-size:1.65rem}
+    }
   </style>
 </head>
 <body>
@@ -48,14 +69,22 @@
       <div class="meta">SXSW London &middot; Conference &middot; Talk &middot; Feats. &middot; 2025-06-13</div>
       <h1>SXSW London: Whose AI is it Anyway?</h1>
       <p>Day 4 of SXSW London started with a fascinating talk chaired by Rob Levine (Editor At Large for Billboard), with Tobias Holzmüller (CEO of GEMA) &amp; Jessica Richard (SVP for Public Policy for RIAA).</p>
+<figure class="article-media article-media--full">
+  <img src="https://feats-api.fpvgate-analytics.workers.dev/images/articles/%40LouisHitchPhotos+-+Whos+AI+is+it+Anyway+-++05-05-2025+-+SXSW+London+2025-3.jpg" alt="" loading="lazy">
+</figure>
 <p>Following a short introduction from Rob, Tobias played two short samples, one from the the 1984 song “Forever Young” by Alphaville, and one by Suno AI created last year- he highlighted the fact that not only did the Suno AI clip sound almost identical both in lyrics but also in composition, Rob commented “that wasn't a technical issue, are those two separate tracks”, followed by “what happened to innovation?”.</p>
+<figure class="article-media article-media--float-left">
+  <img src="https://feats-api.fpvgate-analytics.workers.dev/images/articles/%40LouisHitchPhotos+-+Whos+AI+is+it+Anyway+-++05-05-2025+-+SXSW+London+2025.jpg" alt="" loading="lazy">
+</figure>
 <p>Tobias explained that this was the premise that his publishing organisation GEMA it using to take Suno AI to court, later explaining, “(the company has) 2 cases, one against Suno AI, and one against Open AI for the use of lyrics, both cases will be heard by a German court”, Tobias reported that he believes “both cases will go to the a European court”, with first oral hearing in Munich in late Sept 2025.</p><p>Jessica Richards went on to explain the differences between the EU/UK regulation vs the US courts, she spoke about the US “Fair Use” and how that is being abused by AI companies to train their models off of stolen content, effectively, “permissionless” use of content.</p>
-<p>Tobias jumped in to say that even in the EU/UK courts there is a similar issue, in which the definition of fair use is unclear, explaining “the only way to prove that your content is stolen is by duplicating the content”, referring back to the original introductory audio clips. He went on to talk about the EU’s “Opt-out” laws in which content producers can already ‘opt-in/out’ to use within reasonable fair use cases, but went on to talk about the fact that very few AI companies actually comply, in part due to the sheer quantity of data required to train a model of this nature.<br><br>Rob added that companies are effectively lobbying governments &amp; policy makers saying “we should be allowed to train our models on copyrighted materials”, followed by talking about the fact that AI companies are taking the ‘ask for forgiveness not permission approach’ to training their models- he said that “the goal is not to stop AI or its development”- to which Jessica responded with a firm "absolutely not”.</p><p>She went on to explain that there are AI developers that “want to work with the music industry”, but with a free market, you can’t compete with companies like Open AI or Sumo AI when their costs are nothing.&nbsp;</p><p>The Conference ended with a short discussion from Tobias about the ‘best’ and ‘worst’ case scenarios;&nbsp; Tobias first said that his “worst case” would be “Training is legal and permitted in EU or US or other parts of the world, under a super permissive legal regime-&nbsp; and it floods the market”, going on to say that his “best case” would be “a sustainable world where AI sound can exist and human creatively can exists, where every one gets paid.”</p>
+<figure class="article-media article-media--float-right">
+  <img src="https://feats-api.fpvgate-analytics.workers.dev/images/articles/%40LouisHitchPhotos+-+Whos+AI+is+it+Anyway+-++05-05-2025+-+SXSW+London+2025-4.jpg" alt="" loading="lazy">
+</figure>
+<p>Tobias jumped in to say that even in the EU/UK courts there is a similar issue, in which the definition of fair use is unclear, explaining “the only way to prove that your content is stolen is by duplicating the content”, referring back to the original introductory audio clips. He went on to talk about the EU’s “Opt-out” laws in which content producers can already ‘opt-in/out’ to use within reasonable fair use cases, but went on to talk about the fact that very few AI companies actually comply, in part due to the sheer quantity of data required to train a model of this nature.<br/><br/>Rob added that companies are effectively lobbying governments &amp; policy makers saying “we should be allowed to train our models on copyrighted materials”, followed by talking about the fact that AI companies are taking the ‘ask for forgiveness not permission approach’ to training their models- he said that “the goal is not to stop AI or its development”- to which Jessica responded with a firm "absolutely not”.</p><p>She went on to explain that there are AI developers that “want to work with the music industry”, but with a free market, you can’t compete with companies like Open AI or Sumo AI when their costs are nothing. </p><p>The Conference ended with a short discussion from Tobias about the ‘best’ and ‘worst’ case scenarios;  Tobias first said that his “worst case” would be “Training is legal and permitted in EU or US or other parts of the world, under a super permissive legal regime-  and it floods the market”, going on to say that his “best case” would be “a sustainable world where AI sound can exist and human creatively can exists, where every one gets paid.”</p>
+<figure class="article-media article-media--full">
+  <img src="https://feats-api.fpvgate-analytics.workers.dev/images/articles/%40LouisHitchPhotos+-+Whos+AI+is+it+Anyway+-++05-05-2025+-+SXSW+London+2025-5.jpg" alt="" loading="lazy">
+</figure>
 <p>I left the conference with mixed feelings, the use of AI in tools that help humans create music seems to be a positive thing, collectively improving accessibility &amp; production quality of creators, but on the other side generative AI tools such as Sumo AI feels like a different thing, one purposeful theft and a clear lack of transparency. It leaves me curious though, over where licensing for tools &amp; generative AI will be in 5 years down the road.</p>
-<img src="https://feats-api.fpvgate-analytics.workers.dev/images/articles/%40LouisHitchPhotos+-+Whos+AI+is+it+Anyway+-++05-05-2025+-+SXSW+London+2025-3.jpg" alt="" style="width:100%;height:auto;display:block;margin:1.5rem 0;border-radius:4px" loading="lazy">
-<img src="https://feats-api.fpvgate-analytics.workers.dev/images/articles/%40LouisHitchPhotos+-+Whos+AI+is+it+Anyway+-++05-05-2025+-+SXSW+London+2025.jpg" alt="" style="width:100%;height:auto;display:block;margin:1.5rem 0;border-radius:4px" loading="lazy">
-<img src="https://feats-api.fpvgate-analytics.workers.dev/images/articles/%40LouisHitchPhotos+-+Whos+AI+is+it+Anyway+-++05-05-2025+-+SXSW+London+2025-4.jpg" alt="" style="width:100%;height:auto;display:block;margin:1.5rem 0;border-radius:4px" loading="lazy">
-<img src="https://feats-api.fpvgate-analytics.workers.dev/images/articles/%40LouisHitchPhotos+-+Whos+AI+is+it+Anyway+-++05-05-2025+-+SXSW+London+2025-5.jpg" alt="" style="width:100%;height:auto;display:block;margin:1.5rem 0;border-radius:4px" loading="lazy">
     </article>
   </main>
 <footer class="site-footer">
@@ -75,6 +104,42 @@
     document.getElementById('navToggle').addEventListener('click', function(){
       document.getElementById('navLinks').classList.toggle('open');
     });
+
+    (function(){
+      var carousels = document.querySelectorAll('[data-article-carousel]');
+      carousels.forEach(function(carousel){
+        var slides = carousel.querySelectorAll('.carousel-slide');
+        var thumbs = carousel.querySelectorAll('.carousel-thumb');
+        if (!slides.length) return;
+
+        var currentIndex = 0;
+        function setSlide(nextIndex){
+          if (nextIndex < 0) nextIndex = slides.length - 1;
+          if (nextIndex >= slides.length) nextIndex = 0;
+          currentIndex = nextIndex;
+          slides.forEach(function(slide, index){
+            slide.classList.toggle('is-active', index === currentIndex);
+          });
+          thumbs.forEach(function(thumb, index){
+            thumb.classList.toggle('is-active', index === currentIndex);
+          });
+        }
+
+        var prevButton = carousel.querySelector('.carousel-nav.prev');
+        var nextButton = carousel.querySelector('.carousel-nav.next');
+        if (prevButton) {
+          prevButton.addEventListener('click', function(){ setSlide(currentIndex - 1); });
+        }
+        if (nextButton) {
+          nextButton.addEventListener('click', function(){ setSlide(currentIndex + 1); });
+        }
+
+        thumbs.forEach(function(button, index){
+          button.addEventListener('click', function(){ setSlide(index); });
+        });
+        setSlide(0);
+      });
+    })();
   </script>
 </body>
 </html>

@@ -12,16 +12,37 @@
   <link rel="icon" type="image/x-icon" href="/favicon.ico">
   <style>
     .article-body{max-width:750px;margin:0 auto;padding:3rem 2rem}
+    .article-body::after{content:'';display:block;clear:both}
     .article-body .featured-img{width:100%;height:auto;margin-bottom:2rem}
     .article-body h1{font-size:2.2rem;margin-bottom:.5rem;line-height:1.2}
     .article-body .meta{font-size:.8rem;opacity:.5;text-transform:uppercase;letter-spacing:1px;margin-bottom:2rem}
     .article-body p{font-size:1.05rem;opacity:.85;margin-bottom:1.5rem;line-height:1.8}
-    .article-body img{max-width:100%;height:auto;border-radius:4px}
     .article-body a{text-decoration:underline;opacity:.8}
     .article-body a:hover{opacity:1}
-    .img-wrap-right{float:right;width:45%;margin:0.5rem 0 0.5rem 1.5rem}
-    .img-wrap-left{float:left;width:45%;margin:0.5rem 1.5rem 0.5rem 0}
-    @media(max-width:600px){.img-wrap-right,.img-wrap-left{float:none;width:100%;margin:1rem 0}}
+    .article-media{margin:1.5rem 0}
+    .article-media--full{width:100%;clear:both}
+    .article-media--float-right{float:right;width:45%;margin:0.5rem 0 1.2rem 1.5rem}
+    .article-media--float-left{float:left;width:45%;margin:0.5rem 1.5rem 1.2rem 0}
+    .article-media img{width:100%;height:auto;display:block;border-radius:4px}
+    .article-media figcaption{font-size:.82rem;opacity:.62;line-height:1.45;margin-top:.5rem}
+    .article-rule{margin:2.3rem 0;border:none;border-top:1px solid rgba(0,0,0,.18);clear:both}
+    .article-carousel{position:relative}
+    .article-carousel-main{position:relative;background:#0a0a0a;overflow:hidden}
+    .article-carousel-slides{position:relative}
+    .article-carousel .carousel-slide{display:none}
+    .article-carousel .carousel-slide.is-active{display:block}
+    .article-carousel .carousel-nav{position:absolute;top:50%;transform:translateY(-50%);z-index:3;width:42px;height:42px;border:none;background:rgba(0,0,0,.33);color:#fff;font-size:2rem;line-height:1;cursor:pointer}
+    .article-carousel .carousel-nav.prev{left:0.65rem}
+    .article-carousel .carousel-nav.next{right:0.65rem}
+    .article-carousel.is-single .carousel-nav{display:none}
+    .article-carousel-thumbs{display:flex;gap:2px;overflow-x:auto;margin-top:.55rem;padding-bottom:2px}
+    .article-carousel .carousel-thumb{border:none;padding:0;background:transparent;opacity:.52;cursor:pointer;flex:0 0 auto}
+    .article-carousel .carousel-thumb.is-active{opacity:1}
+    .article-carousel .carousel-thumb img{width:58px;height:40px;object-fit:cover;border-radius:0}
+    @media(max-width:600px){
+      .article-media--float-right,.article-media--float-left{float:none;width:100%;margin:1rem 0}
+      .article-carousel .carousel-nav{width:36px;height:36px;font-size:1.65rem}
+    }
   </style>
 </head>
 <body>
@@ -47,8 +68,14 @@
       <img class="featured-img" src="https://feats-api.fpvgate-analytics.workers.dev/images/articles/DSC01803_1.jpg" alt="Latitude 2025 - Ones to Watch" loading="lazy">
       <div class="meta">Festival &middot; ONES TO WATCH &middot; Lattitude &middot; Feats. &middot; 2025-03-28</div>
       <h1>Latitude 2025 - Ones to Watch</h1>
-      <p>Latitude 2025 is back this July, taking over Henham Park once again with a line-up that’s looking genuinely exciting. Whether you’re here for the iconic headliners or to discover something new, this year’s bill has a real mix to shout about.</p><p>Top of the poster you’ll find names like <strong>Sting</strong>,<strong> Snow Patrol</strong>, and <strong>Fatboy Slim</strong>—all bringing serious crowd-pleasers to the fields. Imagine singing along to ‘Chasing Cars’ as the sun goes down, or dancing with your mates while Fatboy Slim deliver hit after hit. It’s the kind of Latitude moment that stays with you.</p><p>But what keeps Latitude feeling fresh is how well it balances the big names with rising talent—and 2025’s line-up is packed with artists on the up. Manchester’s<strong> Freak Slug</strong> is one of them, bringing an off-kilter, alternative sound with her new release “I Blow Out Big Candles”. It’s experimental, heartfelt and unlike anything else on the line-up.</p><p><strong>The Wytches </strong>are another one to keep an eye on—gritty, loud, and full of energy. Expect a chaotic live show that hits hard. Over on the more melodic side, <strong>Somebody’s Child</strong> are set to play tracks from their upcoming album “When Youth Fades Away”, landing just before the festival. If you're into well-crafted indie with a bit of emotional depth, you’ll want to catch their set.</p><h2><strong>Ones to Watch</strong></h2><p>Among the emerging artists on the bill, a few names really stand out:</p><ul><li><p><strong>TTSSFU </strong>– Bold, brash and full of punk energy. Unpolished in all the right ways.</p></li><li><p><strong>Young Athena</strong> – A fresh blend of R&amp;B and rap, delivered with real confidence and style.</p></li><li><p><strong>Mandrake Handshake</strong> – Psychedelic pop that’s colourful, layered, and seriously hypnotic.</p></li><li><p><strong>Ellur </strong>– Retro-tinged indie-pop with big choruses and a lot of heart</p></li></ul><p>They might be playing earlier in the day, but they’re the sort of acts people end up talking about all weekend.</p><p>Whether you’re front and centre for the headliners or wandering the woods discovering your next favourite band, Latitude 2025 is shaping up to be one of the summer’s real highlights. Grab your ticket, bring your wellies, and get ready—this one’s going to be special.<br></p>
-<img src="https://feats-api.fpvgate-analytics.workers.dev/images/articles/DSC01803_1.jpg" alt="" style="width:100%;height:auto;display:block;margin:1.5rem 0;border-radius:4px" loading="lazy">
+      <figure class="article-media article-media--full">
+  <img src="https://feats-api.fpvgate-analytics.workers.dev/images/articles/DSC01803_1.jpg" alt="" loading="lazy">
+  <figcaption>Tom Ellis (TJEphotos/FEATS)</figcaption>
+</figure>
+<p>Latitude 2025 is back this July, taking over Henham Park once again with a line-up that’s looking genuinely exciting. Whether you’re here for the iconic headliners or to discover something new, this year’s bill has a real mix to shout about.</p><p>Top of the poster you’ll find names like <strong>Sting</strong>,<strong> Snow Patrol</strong>, and <strong>Fatboy Slim</strong>—all bringing serious crowd-pleasers to the fields. Imagine singing along to ‘Chasing Cars’ as the sun goes down, or dancing with your mates while Fatboy Slim deliver hit after hit. It’s the kind of Latitude moment that stays with you.</p><p>But what keeps Latitude feeling fresh is how well it balances the big names with rising talent—and 2025’s line-up is packed with artists on the up. Manchester’s<strong> Freak Slug</strong> is one of them, bringing an off-kilter, alternative sound with her new release “I Blow Out Big Candles”. It’s experimental, heartfelt and unlike anything else on the line-up.</p><p><strong>The Wytches </strong>are another one to keep an eye on—gritty, loud, and full of energy. Expect a chaotic live show that hits hard. Over on the more melodic side, <strong>Somebody’s Child</strong> are set to play tracks from their upcoming album “When Youth Fades Away”, landing just before the festival. If you're into well-crafted indie with a bit of emotional depth, you’ll want to catch their set.</p><h2><strong>Ones to Watch</strong></h2><p>Among the emerging artists on the bill, a few names really stand out:</p><ul><li><p><strong>TTSSFU </strong>– Bold, brash and full of punk energy. Unpolished in all the right ways.</p></li><li><p><strong>Young Athena</strong> – A fresh blend of R&amp;B and rap, delivered with real confidence and style.</p></li><li><p><strong>Mandrake Handshake</strong> – Psychedelic pop that’s colourful, layered, and seriously hypnotic.</p></li><li><p><strong>Ellur </strong>– Retro-tinged indie-pop with big choruses and a lot of heart</p></li></ul><p>They might be playing earlier in the day, but they’re the sort of acts people end up talking about all weekend.</p><p>Whether you’re front and centre for the headliners or wandering the woods discovering your next favourite band, Latitude 2025 is shaping up to be one of the summer’s real highlights. Grab your ticket, bring your wellies, and get ready—this one’s going to be special.<br/></p>
+<div>
+<iframe allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" allowfullscreen="" frameborder="0" height="352" loading="lazy" src="https://open.spotify.com/embed/playlist/1ijFRI4jwr8odS1gofWbJa?utm_source=generator" width="100%"></iframe>
+</div>
     </article>
   </main>
 <footer class="site-footer">
@@ -68,6 +95,42 @@
     document.getElementById('navToggle').addEventListener('click', function(){
       document.getElementById('navLinks').classList.toggle('open');
     });
+
+    (function(){
+      var carousels = document.querySelectorAll('[data-article-carousel]');
+      carousels.forEach(function(carousel){
+        var slides = carousel.querySelectorAll('.carousel-slide');
+        var thumbs = carousel.querySelectorAll('.carousel-thumb');
+        if (!slides.length) return;
+
+        var currentIndex = 0;
+        function setSlide(nextIndex){
+          if (nextIndex < 0) nextIndex = slides.length - 1;
+          if (nextIndex >= slides.length) nextIndex = 0;
+          currentIndex = nextIndex;
+          slides.forEach(function(slide, index){
+            slide.classList.toggle('is-active', index === currentIndex);
+          });
+          thumbs.forEach(function(thumb, index){
+            thumb.classList.toggle('is-active', index === currentIndex);
+          });
+        }
+
+        var prevButton = carousel.querySelector('.carousel-nav.prev');
+        var nextButton = carousel.querySelector('.carousel-nav.next');
+        if (prevButton) {
+          prevButton.addEventListener('click', function(){ setSlide(currentIndex - 1); });
+        }
+        if (nextButton) {
+          nextButton.addEventListener('click', function(){ setSlide(currentIndex + 1); });
+        }
+
+        thumbs.forEach(function(button, index){
+          button.addEventListener('click', function(){ setSlide(index); });
+        });
+        setSlide(0);
+      });
+    })();
   </script>
 </body>
 </html>

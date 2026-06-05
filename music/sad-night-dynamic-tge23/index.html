@@ -12,16 +12,37 @@
   <link rel="icon" type="image/x-icon" href="/favicon.ico">
   <style>
     .article-body{max-width:750px;margin:0 auto;padding:3rem 2rem}
+    .article-body::after{content:'';display:block;clear:both}
     .article-body .featured-img{width:100%;height:auto;margin-bottom:2rem}
     .article-body h1{font-size:2.2rem;margin-bottom:.5rem;line-height:1.2}
     .article-body .meta{font-size:.8rem;opacity:.5;text-transform:uppercase;letter-spacing:1px;margin-bottom:2rem}
     .article-body p{font-size:1.05rem;opacity:.85;margin-bottom:1.5rem;line-height:1.8}
-    .article-body img{max-width:100%;height:auto;border-radius:4px}
     .article-body a{text-decoration:underline;opacity:.8}
     .article-body a:hover{opacity:1}
-    .img-wrap-right{float:right;width:45%;margin:0.5rem 0 0.5rem 1.5rem}
-    .img-wrap-left{float:left;width:45%;margin:0.5rem 1.5rem 0.5rem 0}
-    @media(max-width:600px){.img-wrap-right,.img-wrap-left{float:none;width:100%;margin:1rem 0}}
+    .article-media{margin:1.5rem 0}
+    .article-media--full{width:100%;clear:both}
+    .article-media--float-right{float:right;width:45%;margin:0.5rem 0 1.2rem 1.5rem}
+    .article-media--float-left{float:left;width:45%;margin:0.5rem 1.5rem 1.2rem 0}
+    .article-media img{width:100%;height:auto;display:block;border-radius:4px}
+    .article-media figcaption{font-size:.82rem;opacity:.62;line-height:1.45;margin-top:.5rem}
+    .article-rule{margin:2.3rem 0;border:none;border-top:1px solid rgba(0,0,0,.18);clear:both}
+    .article-carousel{position:relative}
+    .article-carousel-main{position:relative;background:#0a0a0a;overflow:hidden}
+    .article-carousel-slides{position:relative}
+    .article-carousel .carousel-slide{display:none}
+    .article-carousel .carousel-slide.is-active{display:block}
+    .article-carousel .carousel-nav{position:absolute;top:50%;transform:translateY(-50%);z-index:3;width:42px;height:42px;border:none;background:rgba(0,0,0,.33);color:#fff;font-size:2rem;line-height:1;cursor:pointer}
+    .article-carousel .carousel-nav.prev{left:0.65rem}
+    .article-carousel .carousel-nav.next{right:0.65rem}
+    .article-carousel.is-single .carousel-nav{display:none}
+    .article-carousel-thumbs{display:flex;gap:2px;overflow-x:auto;margin-top:.55rem;padding-bottom:2px}
+    .article-carousel .carousel-thumb{border:none;padding:0;background:transparent;opacity:.52;cursor:pointer;flex:0 0 auto}
+    .article-carousel .carousel-thumb.is-active{opacity:1}
+    .article-carousel .carousel-thumb img{width:58px;height:40px;object-fit:cover;border-radius:0}
+    @media(max-width:600px){
+      .article-media--float-right,.article-media--float-left{float:none;width:100%;margin:1rem 0}
+      .article-carousel .carousel-nav{width:36px;height:36px;font-size:1.65rem}
+    }
   </style>
 </head>
 <body>
@@ -47,15 +68,27 @@
       <img class="featured-img" src="https://feats-api.fpvgate-analytics.workers.dev/images/articles/SND_CREDIT_Angus-Steele_0.jpeg" alt="Sad Night Dynamic played their most intimate shows to Date." loading="lazy">
       <div class="meta">THE GREAT ESCAPE &middot; Gig Review &middot; Live Music &middot; Interview &middot; Feats. &middot; 2023-05-18</div>
       <h1>Sad Night Dynamic played their most intimate shows to Date.</h1>
-      <p>Following the release of their new single <a href="https://open.spotify.com/album/7xUfvvjZ4xx2GjLymbVz1V?si=CwUNo05XR4qWu8yJch7bcA"><strong>Sick of Your Sound</strong></a> the duo took over the beloved East London venue, the George Tavern for two consecutive Nights. The secondary school best friends hailing from Somerset -Archie and Josh- have already made their stamp on the hip-hop/ alternative scene. With tracks such as <strong>Krunk</strong> and <strong>Demon</strong> accumulating over 12M streams on spotify.&nbsp;</p>
-<p>The duo’s unique sound and character combined with their bold lyricism makes them a band that lingers in the far corners of your brain; in the most satisfying way possible.&nbsp;</p><p></p><p>Supporting <em>Sad Night Dynamite</em> for the two nights was the amazing <em>Cajm</em> with their DJ set that got the crowd pumped and ready for the main event.&nbsp;</p><p></p><p>The set started off with one of their most known tracks <strong>Demon</strong>, the song’s Dancehall like vibe got the crowds jumping from minute go, maintaining the brilliance <em>Sad Night Dynamite</em> performed a new song titled Wake Up.</p><p>The yet unavailable song perfectly highlights the endless talent that Josh and Archie have to offer.&nbsp;</p>
-<p>Smoothly transitioning into one of their more known tracks the band performed some fan favourites such as <strong>SmokeHole</strong>, <strong>Black&amp;White</strong>, <strong>Killshot</strong> and <strong>Psychedelic Views</strong>.&nbsp;</p><p><br>My personal favourite from the set was their showcase of one of their most streamed tracks, <strong>Icy Violence</strong>. Preparing for the gig I was a little bit unsure on what to expect from this track live. In my head I couldn’t picture the crowds moshing or going wild to such a track, but I was pleasantly proved wrong.&nbsp;</p>
-<p>Ending their set with <strong>Sick Of Your Sound</strong> followed by their most popular track <strong>Krunk</strong>. The newly released <strong>SOYS</strong> was originally written for a kids show tells us Josh from the band “our only instruction was not to swear on the track” following with “we sent them the track that you hear, but never heard back from them” commenting on the matter Archie added “we thought the lyrics are soft for us”.</p><p><br>The song with its bold lyrics and catchy hook may have not made it to soundtrack anyone’s childhood and upbringing but it sure as hell will be the soundtrack to many of our memories this summer.&nbsp;</p><p></p><p>When asked if the band were planning on releasing an album and weather <strong>SOYS</strong> was a track on it they confirmed with “we are currently putting together that album, we’re not happy with it yet” they also added “we like to do everything, we like to write it, produce it and that takes up a long time” “we’re just making it sound like us”. We’re impatient to see what this charming duo have in store for us.&nbsp;</p>
-<p>With megaphones raised and smiles painted, Sad Night Dynamite delivered a set to be talked about for months.&nbsp;<br></p><p>If you haven’t yet listened to Sad Night Dynamite make sure to check out Sick Of Your Sound out on all streaming services. </p>
-<img src="https://feats-api.fpvgate-analytics.workers.dev/images/articles/SND_CREDIT_Angus-Steele_0.jpeg" alt="" style="width:100%;height:auto;display:block;margin:1.5rem 0;border-radius:4px" loading="lazy">
-<img src="https://feats-api.fpvgate-analytics.workers.dev/images/articles/Sad-Night-Dynamite.jpeg" alt="" style="width:100%;height:auto;display:block;margin:1.5rem 0;border-radius:4px" loading="lazy">
-<img src="https://feats-api.fpvgate-analytics.workers.dev/images/articles/Sad-Night-Dynamite-by-Sirus-F.jpeg" alt="" style="width:100%;height:auto;display:block;margin:1.5rem 0;border-radius:4px" loading="lazy">
-<img src="https://feats-api.fpvgate-analytics.workers.dev/images/articles/SAD.jpeg" alt="" style="width:100%;height:auto;display:block;margin:1.5rem 0;border-radius:4px" loading="lazy">
+      <p>Following the release of their new single <a href="https://open.spotify.com/album/7xUfvvjZ4xx2GjLymbVz1V?si=CwUNo05XR4qWu8yJch7bcA"><strong>Sick of Your Sound</strong></a> the duo took over the beloved East London venue, the George Tavern for two consecutive Nights. The secondary school best friends hailing from Somerset -Archie and Josh- have already made their stamp on the hip-hop/ alternative scene. With tracks such as <strong>Krunk</strong> and <strong>Demon</strong> accumulating over 12M streams on spotify. </p>
+<figure class="article-media article-media--full">
+  <img src="https://feats-api.fpvgate-analytics.workers.dev/images/articles/SND_CREDIT_Angus-Steele_0.jpeg" alt="" loading="lazy">
+  <figcaption>Photo Credit: Press</figcaption>
+</figure>
+<p>The duo’s unique sound and character combined with their bold lyricism makes them a band that lingers in the far corners of your brain; in the most satisfying way possible. </p><p>Supporting <em>Sad Night Dynamite</em> for the two nights was the amazing <em>Cajm</em> with their DJ set that got the crowd pumped and ready for the main event. </p><p>The set started off with one of their most known tracks <strong>Demon</strong>, the song’s Dancehall like vibe got the crowds jumping from minute go, maintaining the brilliance <em>Sad Night Dynamite</em> performed a new song titled Wake Up.</p><p>The yet unavailable song perfectly highlights the endless talent that Josh and Archie have to offer. </p>
+<figure class="article-media article-media--full">
+  <img src="https://feats-api.fpvgate-analytics.workers.dev/images/articles/Sad-Night-Dynamite.jpeg" alt="" loading="lazy">
+  <figcaption>Photo Credit: Press</figcaption>
+</figure>
+<p>Smoothly transitioning into one of their more known tracks the band performed some fan favourites such as <strong>SmokeHole</strong>, <strong>Black&amp;White</strong>, <strong>Killshot</strong> and <strong>Psychedelic Views</strong>. </p><p><br/>My personal favourite from the set was their showcase of one of their most streamed tracks, <strong>Icy Violence</strong>. Preparing for the gig I was a little bit unsure on what to expect from this track live. In my head I couldn’t picture the crowds moshing or going wild to such a track, but I was pleasantly proved wrong. </p>
+<figure class="article-media article-media--full">
+  <img src="https://feats-api.fpvgate-analytics.workers.dev/images/articles/Sad-Night-Dynamite-by-Sirus-F.jpeg" alt="" loading="lazy">
+  <figcaption>Photo Credit: Press</figcaption>
+</figure>
+<p>Ending their set with <strong>Sick Of Your Sound</strong> followed by their most popular track <strong>Krunk</strong>. The newly released <strong>SOYS</strong> was originally written for a kids show tells us Josh from the band “our only instruction was not to swear on the track” following with “we sent them the track that you hear, but never heard back from them” commenting on the matter Archie added “we thought the lyrics are soft for us”.</p><p><br/>The song with its bold lyrics and catchy hook may have not made it to soundtrack anyone’s childhood and upbringing but it sure as hell will be the soundtrack to many of our memories this summer. </p><p>When asked if the band were planning on releasing an album and weather <strong>SOYS</strong> was a track on it they confirmed with “we are currently putting together that album, we’re not happy with it yet” they also added “we like to do everything, we like to write it, produce it and that takes up a long time” “we’re just making it sound like us”. We’re impatient to see what this charming duo have in store for us. </p>
+<figure class="article-media article-media--full">
+  <img src="https://feats-api.fpvgate-analytics.workers.dev/images/articles/SAD.jpeg" alt="" loading="lazy">
+  <figcaption>Photo Credit: Press</figcaption>
+</figure>
+<p>With megaphones raised and smiles painted, Sad Night Dynamite delivered a set to be talked about for months. <br/></p><p>If you haven’t yet listened to Sad Night Dynamite make sure to check out Sick Of Your Sound out on all streaming services. </p>
     </article>
   </main>
 <footer class="site-footer">
@@ -75,6 +108,42 @@
     document.getElementById('navToggle').addEventListener('click', function(){
       document.getElementById('navLinks').classList.toggle('open');
     });
+
+    (function(){
+      var carousels = document.querySelectorAll('[data-article-carousel]');
+      carousels.forEach(function(carousel){
+        var slides = carousel.querySelectorAll('.carousel-slide');
+        var thumbs = carousel.querySelectorAll('.carousel-thumb');
+        if (!slides.length) return;
+
+        var currentIndex = 0;
+        function setSlide(nextIndex){
+          if (nextIndex < 0) nextIndex = slides.length - 1;
+          if (nextIndex >= slides.length) nextIndex = 0;
+          currentIndex = nextIndex;
+          slides.forEach(function(slide, index){
+            slide.classList.toggle('is-active', index === currentIndex);
+          });
+          thumbs.forEach(function(thumb, index){
+            thumb.classList.toggle('is-active', index === currentIndex);
+          });
+        }
+
+        var prevButton = carousel.querySelector('.carousel-nav.prev');
+        var nextButton = carousel.querySelector('.carousel-nav.next');
+        if (prevButton) {
+          prevButton.addEventListener('click', function(){ setSlide(currentIndex - 1); });
+        }
+        if (nextButton) {
+          nextButton.addEventListener('click', function(){ setSlide(currentIndex + 1); });
+        }
+
+        thumbs.forEach(function(button, index){
+          button.addEventListener('click', function(){ setSlide(index); });
+        });
+        setSlide(0);
+      });
+    })();
   </script>
 </body>
 </html>

@@ -12,16 +12,37 @@
   <link rel="icon" type="image/x-icon" href="/favicon.ico">
   <style>
     .article-body{max-width:750px;margin:0 auto;padding:3rem 2rem}
+    .article-body::after{content:'';display:block;clear:both}
     .article-body .featured-img{width:100%;height:auto;margin-bottom:2rem}
     .article-body h1{font-size:2.2rem;margin-bottom:.5rem;line-height:1.2}
     .article-body .meta{font-size:.8rem;opacity:.5;text-transform:uppercase;letter-spacing:1px;margin-bottom:2rem}
     .article-body p{font-size:1.05rem;opacity:.85;margin-bottom:1.5rem;line-height:1.8}
-    .article-body img{max-width:100%;height:auto;border-radius:4px}
     .article-body a{text-decoration:underline;opacity:.8}
     .article-body a:hover{opacity:1}
-    .img-wrap-right{float:right;width:45%;margin:0.5rem 0 0.5rem 1.5rem}
-    .img-wrap-left{float:left;width:45%;margin:0.5rem 1.5rem 0.5rem 0}
-    @media(max-width:600px){.img-wrap-right,.img-wrap-left{float:none;width:100%;margin:1rem 0}}
+    .article-media{margin:1.5rem 0}
+    .article-media--full{width:100%;clear:both}
+    .article-media--float-right{float:right;width:45%;margin:0.5rem 0 1.2rem 1.5rem}
+    .article-media--float-left{float:left;width:45%;margin:0.5rem 1.5rem 1.2rem 0}
+    .article-media img{width:100%;height:auto;display:block;border-radius:4px}
+    .article-media figcaption{font-size:.82rem;opacity:.62;line-height:1.45;margin-top:.5rem}
+    .article-rule{margin:2.3rem 0;border:none;border-top:1px solid rgba(0,0,0,.18);clear:both}
+    .article-carousel{position:relative}
+    .article-carousel-main{position:relative;background:#0a0a0a;overflow:hidden}
+    .article-carousel-slides{position:relative}
+    .article-carousel .carousel-slide{display:none}
+    .article-carousel .carousel-slide.is-active{display:block}
+    .article-carousel .carousel-nav{position:absolute;top:50%;transform:translateY(-50%);z-index:3;width:42px;height:42px;border:none;background:rgba(0,0,0,.33);color:#fff;font-size:2rem;line-height:1;cursor:pointer}
+    .article-carousel .carousel-nav.prev{left:0.65rem}
+    .article-carousel .carousel-nav.next{right:0.65rem}
+    .article-carousel.is-single .carousel-nav{display:none}
+    .article-carousel-thumbs{display:flex;gap:2px;overflow-x:auto;margin-top:.55rem;padding-bottom:2px}
+    .article-carousel .carousel-thumb{border:none;padding:0;background:transparent;opacity:.52;cursor:pointer;flex:0 0 auto}
+    .article-carousel .carousel-thumb.is-active{opacity:1}
+    .article-carousel .carousel-thumb img{width:58px;height:40px;object-fit:cover;border-radius:0}
+    @media(max-width:600px){
+      .article-media--float-right,.article-media--float-left{float:none;width:100%;margin:1rem 0}
+      .article-carousel .carousel-nav{width:36px;height:36px;font-size:1.65rem}
+    }
   </style>
 </head>
 <body>
@@ -48,11 +69,18 @@
       <div class="meta">Editorial &middot; News &middot; Memorial &middot; Feats. &middot; 2025-07-23</div>
       <h1>Ozzy Osbourne Dies at 76, Days After Final Birmingham Performance</h1>
       <p>Ozzy Osbourne, the pioneering figure behind Black Sabbath and one of the most influential voices in heavy music, has died at the age of 76. His passing comes less than a week after what would become his final public performance - a homecoming show in Birmingham that reunited the original Black Sabbath lineup on stage for the first time in decades.</p>
+<figure class="article-media article-media--full">
+  <img src="https://feats-api.fpvgate-analytics.workers.dev/images/articles/ozzy-osbourne-back-to-the-beginning-1.jpg" alt="" loading="lazy">
+  <figcaption>Photo Credit: Ross Halfin</figcaption>
+</figure>
 <p>The event, titled <a href="https://www.avfc.co.uk/concerts/back-to-the-beginning/"><span><em>Back to the Beginning</em>,</span></a> took place at <a href="https://www.avfc.co.uk/"><span>Villa Park </span></a>and drew tens of thousands of fans to witness a celebration of Ozzy’s towering legacy. Performing seated due to ongoing health challenges, he was joined by Tony Iommi, Geezer Butler and Bill Ward in a send-off that felt as much like a tribute as it did a concert. The bill featured a huge cast of artists spanning generations of heavy music, including <a href="https://open.spotify.com/artist/2ye2Wgw4gimLv2eAKyk1NB?si=Nz_3WxPBTX6dqBbQCODENA"><span>Metallica</span></a>, <a href="https://open.spotify.com/artist/2yEwvVSSSUkcLeSTNyHKh8?si=L2jOkG_ZTwudlfNT1sF04w"><span>Tool</span></a>, <a href="https://open.spotify.com/artist/14pVkFUHDL207LzLHtSA18?si=V9RSkkZbSt2cEbE1T-iYWg"><span>Pantera</span></a>, <a href="https://open.spotify.com/artist/3qm84nBOXUEQ2vnTfUTTFC?si=csBDEsdLT5W4IbDIAwp8GQ"><span>Guns N' Roses</span></a>, and a surprise appearance from <a href="https://open.spotify.com/artist/6Ad91Jof8Niiw0lGLLi3NW?si=xoiH9-OURcWgP4GbQqOOig"><span>Yungblud </span></a>- whose fiery performance brought a modern edge to the evening’s sense of occasion.</p>
+<div>
+<blockquote><div> <a href="p/DMa7gaKSb11/" target="_blank">  <div> <div> View this post on Instagram</div></div>  </a><p><a href="https://www.instagram.com/p/DMa7gaKSb11//" target="_blank">Shared post</a> on <time>Time</time></p></div></blockquote><div><a href="https://wwwxxxcom.net/video/xx-video-direct">xx video direct</a></div></div>
 <p>In the days since, tributes have poured in from across the music world. Artists from every corner of the industry have acknowledged the impact Ozzy had on shaping rock culture - not just through his records, but through the way he lived it. From chart-topping solo releases to reality television, festival curation and late-career collaborations, his presence extended well beyond metal.</p>
+<hr class="article-rule">
 <p>Rising to fame in the 1970s as the voice of <a href="https://open.spotify.com/artist/5M52tdBnJaKSvOpJGz8mfZ?si=70AvNO3YSi2LfVqkGowL5Q"><span>Black Sabbath</span></a>, Ozzy helped lay the groundwork for what heavy music would become. Albums like <a href="https://open.spotify.com/album/4kA2o0L3tz9vFKJetiFUJI?si=RDajUE0-QLijNkKkA76jaA"><span><em>Paranoid</em> </span></a>and <a href="https://open.spotify.com/album/24fNwoIq4NLDf4ARJYAFN9?si=dkHL9WjlTbqdRbQ7_KIwcQ"><span><em>Master of Reality</em></span></a> introduced a darker, heavier sound that shifted the landscape of rock music altogether. His solo career, beginning with <a href="https://open.spotify.com/album/4qUMByJ3Pk94BFnCmGaUPS?si=7NRfpSSaR1Ce5x6jtLfO0A"><span><em>Blizzard of Ozz</em></span></a> in 1980, brought a string of enduring tracks that would later define a generation of metal fans.</p><p>Throughout it all, he remained rooted in his origins - both musically and personally. That his final public appearance took place just a few miles from where it all began feels almost poetic. Even as his health declined, his commitment to performing never wavered.</p><p>Ozzy Osbourne’s contribution to music cannot be measured in albums sold or tours completed. His legacy lives in the sound and spirit of every band he inspired, every stage he lit up, and every artist who followed in his path. His passing marks the end of a monumental chapter, but the noise he made will echo for generations.</p>
+<hr class="article-rule">
 <p>Farewell, Ozzy - and thank you for everything.</p>
-<img src="https://feats-api.fpvgate-analytics.workers.dev/images/articles/ozzy-osbourne-back-to-the-beginning-1.jpg" alt="" style="width:100%;height:auto;display:block;margin:1.5rem 0;border-radius:4px" loading="lazy">
     </article>
   </main>
 <footer class="site-footer">
@@ -72,6 +100,42 @@
     document.getElementById('navToggle').addEventListener('click', function(){
       document.getElementById('navLinks').classList.toggle('open');
     });
+
+    (function(){
+      var carousels = document.querySelectorAll('[data-article-carousel]');
+      carousels.forEach(function(carousel){
+        var slides = carousel.querySelectorAll('.carousel-slide');
+        var thumbs = carousel.querySelectorAll('.carousel-thumb');
+        if (!slides.length) return;
+
+        var currentIndex = 0;
+        function setSlide(nextIndex){
+          if (nextIndex < 0) nextIndex = slides.length - 1;
+          if (nextIndex >= slides.length) nextIndex = 0;
+          currentIndex = nextIndex;
+          slides.forEach(function(slide, index){
+            slide.classList.toggle('is-active', index === currentIndex);
+          });
+          thumbs.forEach(function(thumb, index){
+            thumb.classList.toggle('is-active', index === currentIndex);
+          });
+        }
+
+        var prevButton = carousel.querySelector('.carousel-nav.prev');
+        var nextButton = carousel.querySelector('.carousel-nav.next');
+        if (prevButton) {
+          prevButton.addEventListener('click', function(){ setSlide(currentIndex - 1); });
+        }
+        if (nextButton) {
+          nextButton.addEventListener('click', function(){ setSlide(currentIndex + 1); });
+        }
+
+        thumbs.forEach(function(button, index){
+          button.addEventListener('click', function(){ setSlide(index); });
+        });
+        setSlide(0);
+      });
+    })();
   </script>
 </body>
 </html>

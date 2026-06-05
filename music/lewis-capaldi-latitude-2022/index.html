@@ -12,16 +12,37 @@
   <link rel="icon" type="image/x-icon" href="/favicon.ico">
   <style>
     .article-body{max-width:750px;margin:0 auto;padding:3rem 2rem}
+    .article-body::after{content:'';display:block;clear:both}
     .article-body .featured-img{width:100%;height:auto;margin-bottom:2rem}
     .article-body h1{font-size:2.2rem;margin-bottom:.5rem;line-height:1.2}
     .article-body .meta{font-size:.8rem;opacity:.5;text-transform:uppercase;letter-spacing:1px;margin-bottom:2rem}
     .article-body p{font-size:1.05rem;opacity:.85;margin-bottom:1.5rem;line-height:1.8}
-    .article-body img{max-width:100%;height:auto;border-radius:4px}
     .article-body a{text-decoration:underline;opacity:.8}
     .article-body a:hover{opacity:1}
-    .img-wrap-right{float:right;width:45%;margin:0.5rem 0 0.5rem 1.5rem}
-    .img-wrap-left{float:left;width:45%;margin:0.5rem 1.5rem 0.5rem 0}
-    @media(max-width:600px){.img-wrap-right,.img-wrap-left{float:none;width:100%;margin:1rem 0}}
+    .article-media{margin:1.5rem 0}
+    .article-media--full{width:100%;clear:both}
+    .article-media--float-right{float:right;width:45%;margin:0.5rem 0 1.2rem 1.5rem}
+    .article-media--float-left{float:left;width:45%;margin:0.5rem 1.5rem 1.2rem 0}
+    .article-media img{width:100%;height:auto;display:block;border-radius:4px}
+    .article-media figcaption{font-size:.82rem;opacity:.62;line-height:1.45;margin-top:.5rem}
+    .article-rule{margin:2.3rem 0;border:none;border-top:1px solid rgba(0,0,0,.18);clear:both}
+    .article-carousel{position:relative}
+    .article-carousel-main{position:relative;background:#0a0a0a;overflow:hidden}
+    .article-carousel-slides{position:relative}
+    .article-carousel .carousel-slide{display:none}
+    .article-carousel .carousel-slide.is-active{display:block}
+    .article-carousel .carousel-nav{position:absolute;top:50%;transform:translateY(-50%);z-index:3;width:42px;height:42px;border:none;background:rgba(0,0,0,.33);color:#fff;font-size:2rem;line-height:1;cursor:pointer}
+    .article-carousel .carousel-nav.prev{left:0.65rem}
+    .article-carousel .carousel-nav.next{right:0.65rem}
+    .article-carousel.is-single .carousel-nav{display:none}
+    .article-carousel-thumbs{display:flex;gap:2px;overflow-x:auto;margin-top:.55rem;padding-bottom:2px}
+    .article-carousel .carousel-thumb{border:none;padding:0;background:transparent;opacity:.52;cursor:pointer;flex:0 0 auto}
+    .article-carousel .carousel-thumb.is-active{opacity:1}
+    .article-carousel .carousel-thumb img{width:58px;height:40px;object-fit:cover;border-radius:0}
+    @media(max-width:600px){
+      .article-media--float-right,.article-media--float-left{float:none;width:100%;margin:1rem 0}
+      .article-carousel .carousel-nav{width:36px;height:36px;font-size:1.65rem}
+    }
   </style>
 </head>
 <body>
@@ -48,16 +69,30 @@
       <div class="meta">Live Music &middot; Festival &middot; Feats. &middot; 2022-07-23</div>
       <h1>After a two year wait, and a long hiatus, Lewis Capaldi debuts his extraordinary Headliner performance at Latitude Festival ‘22.</h1>
       <p><span>WRITTEN BY SOPHIE BINGHAM</span></p>
+<figure class="article-media article-media--full">
+  <img src="https://feats-api.fpvgate-analytics.workers.dev/images/articles/DSC09883.jpg" alt="" loading="lazy">
+  <figcaption>Tom Ellis (Feats./TJEphotos)©</figcaption>
+</figure>
 <p>Lewis Capaldi had his Latitude Festival Debut as he took to headlining the Obelisk stage at Latitude on Friday. 9:30pm, 10 minutes before Lewis was due to perform, the arena filled up swiftly, with everyone else flooding their way towards the stage. At 9:40 a remixed version of <em>Everybody</em> by the Backstreet boys blared over the speakers.</p>
-<p><br></p><blockquote><p> “Lewis is back tonight” -in the iconic tune. The anticipation built up.</p></blockquote><p>As he stepped out wearing a good-old black hoodie and beige trousers nothing could be more on brand for the Scottish national. Without missing a beat, Capaldi started with ‘Grace’, one his most popular songs. After his hiatus, it was no surprise that everyone in the crowd (including us) belted the lyrics back at him. There was not a quiet spot at Latitude while he was performing! Confetti exploded out of the canons, it was sure a sight to see!</p>
-<p>He joked with the audience that he had ‘no new music’ because he was ‘too lazy’, he explained that he was <em>supposed t</em>o have finished the album but instead they were going to ‘play the old stuff’. Henham Park erupted in huge cheers, happy to just have lewis’ presence&nbsp; and excited to hear his old songs again.&nbsp;</p><p>He continued on with everyone screaming the emotional lyrics to Hold Me While You Wait, feeling every emotion. He followed up by playing the first song he ever released, bruises, independently releasing back in 2017, five years later and everyone still remembers it word for word.&nbsp;</p><p><br></p><p><em>‘I've been told, I've been told to get you off my mind</em></p><p><em>But I hope I never lose the bruises that you left behind’</em></p>
-<p>He mentioned earlier in the set that he was worried that people had moved on.</p><blockquote><p> ‘I always worry that people had forgotten us’. </p></blockquote><p>There is no way that anyone could ever forget his name,&nbsp; his songs or his incredibly genuine performance that he put on at Latitude Festival, he was sure a perfect Headliner for Friday night.</p><p>He however teased that new music would be out “soon”, he corrected himself after saying that new music would out next year, so it is safe to say that we will have new songs from this mega-star before the year is done. Going by his track record, I'm sure that his new releases will be met with tons of support and success. And that's exactly what he deserves!</p><p>Sophie Bingham, Feats. ©</p>
-<p><br></p>
-<img src="https://feats-api.fpvgate-analytics.workers.dev/images/articles/DSC09883.jpg" alt="" style="width:100%;height:auto;display:block;margin:1.5rem 0;border-radius:4px" loading="lazy">
-<img src="https://feats-api.fpvgate-analytics.workers.dev/images/articles/DSC09647.jpg" alt="" style="width:100%;height:auto;display:block;margin:1.5rem 0;border-radius:4px" loading="lazy">
-<img src="https://feats-api.fpvgate-analytics.workers.dev/images/articles/DSC09681.jpg" alt="" style="width:100%;height:auto;display:block;margin:1.5rem 0;border-radius:4px" loading="lazy">
-<img src="https://feats-api.fpvgate-analytics.workers.dev/images/articles/DSC09751_1.jpg" alt="" style="width:100%;height:auto;display:block;margin:1.5rem 0;border-radius:4px" loading="lazy">
-<img src="https://feats-api.fpvgate-analytics.workers.dev/images/articles/DSC00152.jpg" alt="" style="width:100%;height:auto;display:block;margin:1.5rem 0;border-radius:4px" loading="lazy">
+<figure class="article-media article-media--full">
+  <img src="https://feats-api.fpvgate-analytics.workers.dev/images/articles/DSC09647.jpg" alt="" loading="lazy">
+  <figcaption>Tom Ellis (Feats./TJEphotos)©</figcaption>
+</figure>
+<blockquote><p> “Lewis is back tonight” -in the iconic tune. The anticipation built up.</p></blockquote><p>As he stepped out wearing a good-old black hoodie and beige trousers nothing could be more on brand for the Scottish national. Without missing a beat, Capaldi started with ‘Grace’, one his most popular songs. After his hiatus, it was no surprise that everyone in the crowd (including us) belted the lyrics back at him. There was not a quiet spot at Latitude while he was performing! Confetti exploded out of the canons, it was sure a sight to see!</p>
+<figure class="article-media article-media--full">
+  <img src="https://feats-api.fpvgate-analytics.workers.dev/images/articles/DSC09681.jpg" alt="" loading="lazy">
+  <figcaption>Tom Ellis (Feats./TJEphotos)©</figcaption>
+</figure>
+<p>He joked with the audience that he had ‘no new music’ because he was ‘too lazy’, he explained that he was <em>supposed t</em>o have finished the album but instead they were going to ‘play the old stuff’. Henham Park erupted in huge cheers, happy to just have lewis’ presence  and excited to hear his old songs again. </p><p>He continued on with everyone screaming the emotional lyrics to Hold Me While You Wait, feeling every emotion. He followed up by playing the first song he ever released, bruises, independently releasing back in 2017, five years later and everyone still remembers it word for word. </p><p><em>‘I've been told, I've been told to get you off my mind</em></p><p><em>But I hope I never lose the bruises that you left behind’</em></p>
+<figure class="article-media article-media--full">
+  <img src="https://feats-api.fpvgate-analytics.workers.dev/images/articles/DSC09751_1.jpg" alt="" loading="lazy">
+  <figcaption>Tom Ellis (Feats./TJEphotos)©</figcaption>
+</figure>
+<p>He mentioned earlier in the set that he was worried that people had moved on.</p><blockquote><p> ‘I always worry that people had forgotten us’. </p></blockquote><p>There is no way that anyone could ever forget his name,  his songs or his incredibly genuine performance that he put on at Latitude Festival, he was sure a perfect Headliner for Friday night.</p><p>He however teased that new music would be out “soon”, he corrected himself after saying that new music would out next year, so it is safe to say that we will have new songs from this mega-star before the year is done. Going by his track record, I'm sure that his new releases will be met with tons of support and success. And that's exactly what he deserves!</p><p>Sophie Bingham, Feats. ©</p>
+<figure class="article-media article-media--full">
+  <img src="https://feats-api.fpvgate-analytics.workers.dev/images/articles/DSC00152.jpg" alt="" loading="lazy">
+  <figcaption>Tom Ellis (Feats./TJEphotos)©</figcaption>
+</figure>
     </article>
   </main>
 <footer class="site-footer">
@@ -77,6 +112,42 @@
     document.getElementById('navToggle').addEventListener('click', function(){
       document.getElementById('navLinks').classList.toggle('open');
     });
+
+    (function(){
+      var carousels = document.querySelectorAll('[data-article-carousel]');
+      carousels.forEach(function(carousel){
+        var slides = carousel.querySelectorAll('.carousel-slide');
+        var thumbs = carousel.querySelectorAll('.carousel-thumb');
+        if (!slides.length) return;
+
+        var currentIndex = 0;
+        function setSlide(nextIndex){
+          if (nextIndex < 0) nextIndex = slides.length - 1;
+          if (nextIndex >= slides.length) nextIndex = 0;
+          currentIndex = nextIndex;
+          slides.forEach(function(slide, index){
+            slide.classList.toggle('is-active', index === currentIndex);
+          });
+          thumbs.forEach(function(thumb, index){
+            thumb.classList.toggle('is-active', index === currentIndex);
+          });
+        }
+
+        var prevButton = carousel.querySelector('.carousel-nav.prev');
+        var nextButton = carousel.querySelector('.carousel-nav.next');
+        if (prevButton) {
+          prevButton.addEventListener('click', function(){ setSlide(currentIndex - 1); });
+        }
+        if (nextButton) {
+          nextButton.addEventListener('click', function(){ setSlide(currentIndex + 1); });
+        }
+
+        thumbs.forEach(function(button, index){
+          button.addEventListener('click', function(){ setSlide(index); });
+        });
+        setSlide(0);
+      });
+    })();
   </script>
 </body>
 </html>

@@ -1,0 +1,822 @@
+from __future__ import annotations
+
+import argparse
+import html
+import json
+import re
+import shutil
+from datetime import datetime
+from pathlib import Path
+from urllib.parse import urlsplit
+
+import requests
+from bs4 import BeautifulSoup
+
+REPO_ROOT = Path(__file__).resolve().parents[1]
+MUSIC_DIR = REPO_ROOT / "music"
+INDEX_JSON_PATH = REPO_ROOT / "article_index.json"
+API_ARTICLES_PATH = REPO_ROOT / "api" / "articles_clean.json"
+DEFAULT_API_URL = "https://feats-api.fpvgate-analytics.workers.dev/api/articles"
+DEFAULT_COVER = "https://feats-api.fpvgate-analytics.workers.dev/images/hero-3.jpg"
+IMAGE_PROXY_BASE = "https://feats-api.fpvgate-analytics.workers.dev/images/articles/"
+LEGACY_LAYOUT_URL_TEMPLATE = "https://feats.live/music/{url_id}?format=json-pretty"
+
+EXCLUDED_URL_IDS = {
+    "about",
+    "contact",
+    "privacy-policy",
+    "youth-development",
+    "work-v2",
+    "member-site-homepage-1",
+    "membersite-home-page-1",
+}
+
+ARTICLE_STYLE = """  <style>
+    .article-body{max-width:750px;margin:0 auto;padding:3rem 2rem}
+    .article-body::after{content:'';display:block;clear:both}
+    .article-body .featured-img{width:100%;height:auto;margin-bottom:2rem}
+    .article-body h1{font-size:2.2rem;margin-bottom:.5rem;line-height:1.2}
+    .article-body .meta{font-size:.8rem;opacity:.5;text-transform:uppercase;letter-spacing:1px;margin-bottom:2rem}
+    .article-body p{font-size:1.05rem;opacity:.85;margin-bottom:1.5rem;line-height:1.8}
+    .article-body a{text-decoration:underline;opacity:.8}
+    .article-body a:hover{opacity:1}
+    .article-media{margin:1.5rem 0}
+    .article-media--full{width:100%;clear:both}
+    .article-media--float-right{float:right;width:45%;margin:0.5rem 0 1.2rem 1.5rem}
+    .article-media--float-left{float:left;width:45%;margin:0.5rem 1.5rem 1.2rem 0}
+    .article-media img{width:100%;height:auto;display:block;border-radius:4px}
+    .article-media figcaption{font-size:.82rem;opacity:.62;line-height:1.45;margin-top:.5rem}
+    .article-rule{margin:2.3rem 0;border:none;border-top:1px solid rgba(0,0,0,.18);clear:both}
+    .article-carousel{position:relative}
+    .article-carousel-main{position:relative;background:#0a0a0a;overflow:hidden}
+    .article-carousel-slides{position:relative}
+    .article-carousel .carousel-slide{display:none}
+    .article-carousel .carousel-slide.is-active{display:block}
+    .article-carousel .carousel-nav{position:absolute;top:50%;transform:translateY(-50%);z-index:3;width:42px;height:42px;border:none;background:rgba(0,0,0,.33);color:#fff;font-size:2rem;line-height:1;cursor:pointer}
+    .article-carousel .carousel-nav.prev{left:0.65rem}
+    .article-carousel .carousel-nav.next{right:0.65rem}
+    .article-carousel.is-single .carousel-nav{display:none}
+    .article-carousel-thumbs{display:flex;gap:2px;overflow-x:auto;margin-top:.55rem;padding-bottom:2px}
+    .article-carousel .carousel-thumb{border:none;padding:0;background:transparent;opacity:.52;cursor:pointer;flex:0 0 auto}
+    .article-carousel .carousel-thumb.is-active{opacity:1}
+    .article-carousel .carousel-thumb img{width:58px;height:40px;object-fit:cover;border-radius:0}
+    @media(max-width:600px){
+      .article-media--float-right,.article-media--float-left{float:none;width:100%;margin:1rem 0}
+      .article-carousel .carousel-nav{width:36px;height:36px;font-size:1.65rem}
+    }
+  </style>"""
+
+
+def render_header(music_active: bool) -> str:
+    music_link = '<a href="/music" class="active" aria-current="page">Music</a>' if music_active else '<a href="/music">Music</a>'
+    return f"""<header class="site-header">
+    <a href="/" class="site-logo">Feats.</a>
+    <button class="nav-toggle" id="navToggle" aria-label="Toggle menu">&#9776;</button>
+    <nav class="nav-links" id="navLinks">
+      {music_link}
+      <a href="/about">About</a>
+      <a href="/contact">Contact</a>
+      <div class="social-links">
+        <a href="https://www.instagram.com/feats.live/" target="_blank" rel="noopener" aria-label="Instagram">
+          <svg viewBox="0 0 24 24" width="18" height="18" fill="#0a0a0a"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg>
+        </a>
+        <a href="https://www.youtube.com/@FeatsLive" target="_blank" rel="noopener" aria-label="YouTube">
+          <svg viewBox="0 0 24 24" width="18" height="18" fill="#0a0a0a"><path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></svg>
+        </a>
+      </div>
+    </nav>
+  </header>"""
+
+
+FOOTER = """<footer class="site-footer">
+    <div class="brand">Feats.</div>
+    <div class="info"><a href="mailto:Info@Feats.Live">Info@Feats.Live</a> &nbsp;|&nbsp; <a href="https://www.instagram.com/feats.live/" target="_blank" rel="noopener">Instagram</a> &nbsp;|&nbsp; <a href="https://www.youtube.com/@FeatsLive" target="_blank" rel="noopener">YouTube</a></div>
+    <div class="info">Brighton and London Based</div>
+    <div class="info">&copy; 2026 FEATS LIVE CIC | Company Number: 16660624</div>
+    <div class="footer-links">
+      <a href="/youth-development">Youth Development Programme</a>
+      <a href="/s/Feats-Contributor-Code-of-Conduct-V3.pdf">Contributor Code of Conduct</a>
+      <a href="/privacy-policy">Privacy Policy</a>
+      <a href="/sitemap.xml">Sitemap</a>
+      <a href="/robots.txt">Robots.txt</a>
+    </div>
+  </footer>"""
+
+
+def parse_publish_date(raw_value: str) -> datetime:
+    value = str(raw_value or "").strip()
+    if not value:
+        return datetime.min
+    for fmt in ("%Y-%m-%d %H:%M:%S", "%Y-%m-%d"):
+        try:
+            return datetime.strptime(value[:19], fmt)
+        except ValueError:
+            continue
+    return datetime.min
+
+
+def normalize_publish_date(raw_value: str) -> str:
+    value = str(raw_value or "").strip()
+    if not value:
+        return "1970-01-01 00:00:00"
+    return value
+
+
+def clean_body(raw_body: str) -> str:
+    body = str(raw_body or "")
+    if not body:
+        return ""
+    body = re.sub(r'\sclass=""', "", body)
+    body = re.sub(r"\n{3,}", "\n\n", body)
+    return body.strip()
+
+
+def normalize_image_url(src: str) -> str:
+    value = str(src or "").strip()
+    if not value:
+        return value
+    if "squarespace-cdn.com" in value:
+        filename = urlsplit(value).path.rsplit("/", 1)[-1].split("?")[0]
+        if filename:
+            return IMAGE_PROXY_BASE + filename
+    return value
+
+
+def extract_float_direction(classes: set[str]) -> str | None:
+    if "float-left" in classes:
+        return "left"
+    if "float-right" in classes:
+        return "right"
+    return None
+
+
+def media_class(float_direction: str | None) -> str:
+    base = "article-media"
+    if float_direction == "left":
+        return base + " article-media--float-left"
+    if float_direction == "right":
+        return base + " article-media--float-right"
+    return base + " article-media--full"
+
+
+def sanitize_fragment_html(fragment: str) -> str:
+    soup = BeautifulSoup(fragment, "html.parser")
+
+    for invalid in soup.find_all(["script", "style"]):
+        invalid.decompose()
+
+    allowed_attrs = {
+        "href",
+        "target",
+        "rel",
+        "src",
+        "alt",
+        "title",
+        "loading",
+        "width",
+        "height",
+        "frameborder",
+        "allow",
+        "allowfullscreen",
+    }
+
+    for tag in soup.find_all(True):
+        cleaned_attrs = {}
+        for key, value in tag.attrs.items():
+            normalized_key = key.lower()
+            if normalized_key.startswith("data-"):
+                continue
+            if normalized_key in allowed_attrs:
+                cleaned_attrs[normalized_key] = value
+        tag.attrs = cleaned_attrs
+
+    for paragraph in soup.find_all("p"):
+        text = paragraph.get_text(" ", strip=True).replace("\xa0", "").strip()
+        if not text and not paragraph.find(["img", "iframe", "video"]):
+            paragraph.decompose()
+
+    for anchor in soup.find_all("a"):
+        href = str(anchor.get("href", "")).strip()
+        anchor_text = anchor.get_text(" ", strip=True)
+        has_media = bool(anchor.find(["img", "svg"]))
+        if href and (anchor_text or has_media):
+            continue
+        if href and not anchor_text and not has_media:
+            anchor.replace_with(" ")
+            continue
+        if anchor_text or has_media:
+            anchor.unwrap()
+        else:
+            anchor.decompose()
+
+    for wrapper in soup.find_all(["div", "span"]):
+        wrapper_text = wrapper.get_text(" ", strip=True)
+        if wrapper_text:
+            continue
+        if wrapper.find(["img", "iframe", "video", "hr", "br", "p", "figure", "ul", "ol", "blockquote"]):
+            continue
+        wrapper.decompose()
+
+    return str(soup).strip()
+
+
+def convert_html_block(block) -> str:
+    content = block.select_one(".sqs-html-content") or block.select_one(".sqs-block-content")
+    if not content:
+        return ""
+    fragment = "".join(str(child) for child in content.contents)
+    return sanitize_fragment_html(fragment)
+
+
+def convert_image_block(block) -> str:
+    classes = set(block.get("class", []))
+    float_direction = extract_float_direction(classes)
+
+    src = ""
+    alt = ""
+    for img in block.find_all("img"):
+        src = img.get("data-src") or img.get("data-image") or img.get("src") or ""
+        alt = img.get("alt", "") or ""
+        if src:
+            break
+    if not src:
+        return ""
+
+    src = normalize_image_url(src)
+    caption_node = block.select_one(".image-caption-wrapper p, .image-caption p, .image-caption")
+    caption = caption_node.get_text(" ", strip=True) if caption_node else ""
+
+    output = [
+        f'<figure class="{media_class(float_direction)}">',
+        f'  <img src="{html.escape(src, quote=True)}" alt="{html.escape(alt, quote=True)}" loading="lazy">',
+    ]
+    if caption:
+        output.append(f"  <figcaption>{html.escape(caption)}</figcaption>")
+    output.append("</figure>")
+    return "\n".join(output)
+
+
+def convert_gallery_block(block, carousel_id: str) -> str:
+    classes = set(block.get("class", []))
+    float_direction = extract_float_direction(classes)
+
+    slides = []
+    seen = set()
+    for slide in block.select(".slide"):
+        img = slide.find("img")
+        if img is None:
+            noscript = slide.find("noscript")
+            if noscript is not None:
+                noscript_soup = BeautifulSoup(noscript.decode_contents(), "html.parser")
+                img = noscript_soup.find("img")
+        if img is None:
+            continue
+        src = img.get("data-src") or img.get("data-image") or img.get("src") or ""
+        if not src:
+            continue
+        src = normalize_image_url(src)
+        if src in seen:
+            continue
+        seen.add(src)
+        slides.append(
+            {
+                "src": src,
+                "alt": img.get("alt", "") or "",
+            }
+        )
+
+    if not slides:
+        for img in block.find_all("img"):
+            src = img.get("data-src") or img.get("data-image") or img.get("src") or ""
+            if not src:
+                continue
+            src = normalize_image_url(src)
+            if src in seen:
+                continue
+            seen.add(src)
+            slides.append(
+                {
+                    "src": src,
+                    "alt": img.get("alt", "") or "",
+                }
+            )
+
+    if not slides:
+        return ""
+
+    wrapper_class = "article-carousel " + media_class(float_direction)
+    if len(slides) <= 1:
+        wrapper_class += " is-single"
+
+    output = [
+        f'<div class="{wrapper_class}" data-article-carousel="{carousel_id}">',
+        '  <div class="article-carousel-main">',
+        '    <button type="button" class="carousel-nav prev" aria-label="Previous image">&#10094;</button>',
+        '    <div class="article-carousel-slides">',
+    ]
+
+    for index, slide in enumerate(slides):
+        active = " is-active" if index == 0 else ""
+        output.append(
+            f'      <img class="carousel-slide{active}" src="{html.escape(slide["src"], quote=True)}" '
+            f'alt="{html.escape(slide["alt"], quote=True)}" loading="lazy">'
+        )
+
+    output.extend(
+        [
+            "    </div>",
+            '    <button type="button" class="carousel-nav next" aria-label="Next image">&#10095;</button>',
+            "  </div>",
+        ]
+    )
+
+    if len(slides) > 1:
+        output.append('  <div class="article-carousel-thumbs">')
+        for index, slide in enumerate(slides):
+            active = " is-active" if index == 0 else ""
+            output.extend(
+                [
+                    f'    <button type="button" class="carousel-thumb{active}" data-slide-index="{index}" aria-label="View image {index + 1}">',
+                    f'      <img src="{html.escape(slide["src"], quote=True)}" alt="" loading="lazy">',
+                    "    </button>",
+                ]
+            )
+        output.append("  </div>")
+
+    output.append("</div>")
+    return "\n".join(output)
+
+
+def convert_legacy_squarespace_body(body_html: str) -> str:
+    if "sqs-block" not in body_html:
+        return clean_body(body_html)
+
+    soup = BeautifulSoup(body_html, "html.parser")
+    blocks = soup.select("div.sqs-block")
+    if not blocks:
+        return clean_body(body_html)
+
+    converted_parts = []
+    gallery_counter = 0
+    for block in blocks:
+        classes = set(block.get("class", []))
+        converted = ""
+        if "gallery-block" in classes or "sqs-block-gallery" in classes:
+            gallery_counter += 1
+            converted = convert_gallery_block(block, f"carousel-{gallery_counter}")
+        elif "image-block" in classes or "sqs-block-image" in classes:
+            converted = convert_image_block(block)
+        elif "horizontalrule-block" in classes or "sqs-block-horizontalrule" in classes:
+            converted = '<hr class="article-rule">'
+        elif "html-block" in classes or "sqs-block-html" in classes:
+            converted = convert_html_block(block)
+        else:
+            converted = convert_html_block(block)
+
+        if converted:
+            converted_parts.append(converted)
+
+    if not converted_parts:
+        return clean_body(body_html)
+    return "\n".join(converted_parts).strip()
+
+
+def fetch_legacy_layout_body(url_id: str) -> str | None:
+    try:
+        response = requests.get(LEGACY_LAYOUT_URL_TEMPLATE.format(url_id=url_id), timeout=20)
+        if response.status_code != 200:
+            return None
+        payload = response.json()
+        body = payload.get("item", {}).get("body", "")
+        if isinstance(body, str) and body.strip():
+            return body
+    except Exception:
+        return None
+    return None
+
+
+def load_articles_from_local() -> list[dict]:
+    if not API_ARTICLES_PATH.exists():
+        raise FileNotFoundError(f"Missing local source file: {API_ARTICLES_PATH}")
+    with API_ARTICLES_PATH.open("r", encoding="utf-8") as handle:
+        return json.load(handle)
+
+
+def load_articles_from_api(api_url: str) -> list[dict]:
+    response = requests.get(api_url, timeout=30)
+    response.raise_for_status()
+    payload = response.json()
+    if not isinstance(payload, dict) or "articles" not in payload:
+        raise ValueError("API response did not include an 'articles' key")
+    return payload["articles"]
+
+
+def normalize_articles(raw_articles: list[dict]) -> list[dict]:
+    normalized = []
+    for article in raw_articles:
+        url_id = str(article.get("url_id", "")).strip().strip("/")
+        title = str(article.get("title", "")).strip()
+        if not url_id or not title or url_id in EXCLUDED_URL_IDS:
+            continue
+        normalized.append(
+            {
+                "url_id": url_id,
+                "title": title,
+                "excerpt": str(article.get("excerpt", "")).strip(),
+                "author": str(article.get("author", "Feats.")).strip() or "Feats.",
+                "publish_date": normalize_publish_date(article.get("publish_date", "")),
+                "categories": str(article.get("categories", "")).strip(),
+                "cover_url": str(article.get("cover_url", "")).strip() or DEFAULT_COVER,
+                "body": clean_body(article.get("body", "")),
+            }
+        )
+
+    normalized.sort(key=lambda item: parse_publish_date(item["publish_date"]), reverse=True)
+    deduped = []
+    seen = set()
+    for article in normalized:
+        if article["url_id"] in seen:
+            continue
+        seen.add(article["url_id"])
+        deduped.append(article)
+    return deduped
+
+
+def enrich_articles_with_legacy_layouts(articles: list[dict]) -> int:
+    updated = 0
+    for index, article in enumerate(articles, 1):
+        legacy_body = fetch_legacy_layout_body(article["url_id"])
+        if not legacy_body:
+            continue
+        converted = convert_legacy_squarespace_body(legacy_body)
+        if not converted:
+            continue
+        if converted != article.get("body", ""):
+            article["body"] = converted
+            updated += 1
+        if index % 20 == 0:
+            print(f"  scraped layouts {index}/{len(articles)} ({updated} updated)")
+    return updated
+
+
+def persist_scraped_layouts(raw_articles: list[dict], normalized_articles: list[dict]) -> int:
+    updated = 0
+    body_by_slug = {article["url_id"]: article.get("body", "") for article in normalized_articles if article.get("body")}
+
+    for raw in raw_articles:
+        slug = str(raw.get("url_id", "")).strip().strip("/")
+        if slug in body_by_slug and body_by_slug[slug]:
+            if raw.get("body", "") != body_by_slug[slug]:
+                raw["body"] = body_by_slug[slug]
+                updated += 1
+
+    API_ARTICLES_PATH.write_text(json.dumps(raw_articles, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
+    return updated
+
+
+def write_article_index(articles: list[dict]) -> None:
+    index_payload = [
+        {
+            "url_id": article["url_id"],
+            "title": article["title"],
+            "excerpt": article["excerpt"],
+            "author": article["author"],
+            "publish_date": article["publish_date"],
+            "categories": article["categories"],
+            "cover_url": article["cover_url"] or DEFAULT_COVER,
+        }
+        for article in articles
+    ]
+    INDEX_JSON_PATH.write_text(json.dumps(index_payload, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
+
+
+def render_article_page(article: dict) -> str:
+    title = html.escape(article["title"], quote=True)
+    excerpt = html.escape(article["excerpt"][:160], quote=True)
+    author = html.escape(article["author"], quote=True)
+    publish_day = html.escape(article["publish_date"][:10], quote=True)
+    cats_raw = [part.strip() for part in str(article["categories"]).split(",") if part.strip()]
+    cats = " &middot; ".join(html.escape(part, quote=True) for part in cats_raw[:5]) if cats_raw else "Article"
+    cover = html.escape(article["cover_url"] or DEFAULT_COVER, quote=True)
+    body = article["body"] or "<p></p>"
+
+    return f"""<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>{title} &mdash; Feats.</title>
+  <meta name="description" content="{excerpt}">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Work+Sans:ital,wght@0,500;0,700;1,500;1,700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/css/style.css">
+  <link rel="icon" type="image/x-icon" href="/favicon.ico">
+{ARTICLE_STYLE}
+</head>
+<body>
+{render_header(music_active=True)}
+  <main class="page-wrap">
+    <article class="article-body">
+      <img class="featured-img" src="{cover}" alt="{title}" loading="lazy">
+      <div class="meta">{cats} &middot; {author} &middot; {publish_day}</div>
+      <h1>{title}</h1>
+      {body}
+    </article>
+  </main>
+{FOOTER}
+  <script>
+    document.getElementById('navToggle').addEventListener('click', function(){{
+      document.getElementById('navLinks').classList.toggle('open');
+    }});
+
+    (function(){{
+      var carousels = document.querySelectorAll('[data-article-carousel]');
+      carousels.forEach(function(carousel){{
+        var slides = carousel.querySelectorAll('.carousel-slide');
+        var thumbs = carousel.querySelectorAll('.carousel-thumb');
+        if (!slides.length) return;
+
+        var currentIndex = 0;
+        function setSlide(nextIndex){{
+          if (nextIndex < 0) nextIndex = slides.length - 1;
+          if (nextIndex >= slides.length) nextIndex = 0;
+          currentIndex = nextIndex;
+          slides.forEach(function(slide, index){{
+            slide.classList.toggle('is-active', index === currentIndex);
+          }});
+          thumbs.forEach(function(thumb, index){{
+            thumb.classList.toggle('is-active', index === currentIndex);
+          }});
+        }}
+
+        var prevButton = carousel.querySelector('.carousel-nav.prev');
+        var nextButton = carousel.querySelector('.carousel-nav.next');
+        if (prevButton) {{
+          prevButton.addEventListener('click', function(){{ setSlide(currentIndex - 1); }});
+        }}
+        if (nextButton) {{
+          nextButton.addEventListener('click', function(){{ setSlide(currentIndex + 1); }});
+        }}
+
+        thumbs.forEach(function(button, index){{
+          button.addEventListener('click', function(){{ setSlide(index); }});
+        }});
+        setSlide(0);
+      }});
+    }})();
+  </script>
+</body>
+</html>
+"""
+
+
+def write_article_pages(articles: list[dict]) -> int:
+    generated = 0
+    MUSIC_DIR.mkdir(parents=True, exist_ok=True)
+    for article in articles:
+        if len(article["body"]) < 20:
+            continue
+        page_dir = MUSIC_DIR / article["url_id"]
+        page_dir.mkdir(parents=True, exist_ok=True)
+        (page_dir / "index.html").write_text(render_article_page(article), encoding="utf-8")
+        generated += 1
+    return generated
+
+
+def render_music_listing() -> str:
+    excluded_list = ", ".join(f'"{value}"' for value in sorted(EXCLUDED_URL_IDS))
+    return f"""<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Music | Discover Gig Highlights &mdash; Feats.</title>
+  <meta name="description" content="Browse Feats. music articles: live gig reviews, interviews, artist showcases, festival coverage, and editorial content.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Work+Sans:ital,wght@0,500;0,700;1,500;1,700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/css/style.css">
+  <link rel="icon" type="image/x-icon" href="/favicon.ico">
+</head>
+<body>
+{render_header(music_active=True)}
+  <main class="page-wrap">
+    <section class="section">
+      <h1 class="section-title">Music</h1>
+      <div class="music-grid" id="music-grid"></div>
+      <div id="load-more" style="text-align:center;margin-top:3rem;display:none">
+        <a href="#" class="btn" onclick="loadMore();return false">Older Posts</a>
+      </div>
+    </section>
+  </main>
+{FOOTER}
+  <script>
+    document.getElementById('navToggle').addEventListener('click', function(){{
+      document.getElementById('navLinks').classList.toggle('open');
+    }});
+  </script>
+  <script>
+    const EXCLUDED_URL_IDS = new Set([{excluded_list}]);
+    const PER_PAGE = 12;
+    let allArticles = [];
+    let currentPage = 0;
+
+    function escapeHtml(value) {{
+      return String(value || '')
+        .replace(/&/g, '&amp;')
+        .replace(/</g, '&lt;')
+        .replace(/>/g, '&gt;')
+        .replace(/"/g, '&quot;')
+        .replace(/'/g, '&#39;');
+    }}
+
+    function formatDate(raw) {{
+      const value = String(raw || '');
+      const pieces = value.split('-');
+      if (pieces.length < 3) return value;
+      const months = ['January','February','March','April','May','June','July','August','September','October','November','December'];
+      const monthIdx = parseInt(pieces[1], 10) - 1;
+      const day = parseInt(pieces[2], 10);
+      if (monthIdx < 0 || monthIdx > 11 || Number.isNaN(day)) return value;
+      return day + ' ' + months[monthIdx] + ' ' + pieces[0];
+    }}
+
+    function normalizeArticles(data) {{
+      if (!Array.isArray(data)) return [];
+      return data
+        .filter(a => a && typeof a === 'object')
+        .filter(a => typeof a.url_id === 'string' && a.url_id.trim().length > 0)
+        .filter(a => !EXCLUDED_URL_IDS.has(a.url_id.trim()));
+    }}
+
+    function renderArticles(articles) {{
+      const grid = document.getElementById('music-grid');
+      articles.forEach(function(a) {{
+        const card = document.createElement('div');
+        const slug = encodeURIComponent(String(a.url_id).trim());
+        const title = escapeHtml(a.title);
+        const author = escapeHtml(a.author || 'Feats.');
+        const categories = escapeHtml(a.categories || 'Article');
+        const description = escapeHtml((a.excerpt || '').substring(0, 200));
+        const cover = escapeHtml(a.cover_url || '{DEFAULT_COVER}');
+        const formattedDate = escapeHtml(formatDate(a.publish_date));
+        card.className = 'music-card';
+        card.innerHTML = '<a href="/music/' + slug + '">'
+          + '<img src="' + cover + '" alt="' + title + '" loading="lazy">'
+          + '<div class="meta"><span>' + categories + '</span><span>' + author + '</span><span>' + formattedDate + '</span></div>'
+          + '<h2>' + title + '</h2>'
+          + '<p>' + description + '</p>'
+          + '<span class="read-more">Read More</span></a>';
+        grid.appendChild(card);
+      }});
+    }}
+
+    function loadMore() {{
+      currentPage += 1;
+      const start = currentPage * PER_PAGE;
+      const end = start + PER_PAGE;
+      renderArticles(allArticles.slice(start, end));
+      if (end >= allArticles.length) {{
+        document.getElementById('load-more').style.display = 'none';
+      }}
+    }}
+
+    fetch('/article_index.json')
+      .then(function(response) {{ return response.json(); }})
+      .then(function(payload) {{
+        allArticles = normalizeArticles(payload);
+        renderArticles(allArticles.slice(0, PER_PAGE));
+        if (allArticles.length > PER_PAGE) {{
+          document.getElementById('load-more').style.display = 'block';
+        }}
+      }})
+      .catch(function(error) {{
+        console.error('Failed to load article_index.json', error);
+      }});
+  </script>
+</body>
+</html>
+"""
+
+
+def write_music_listing() -> None:
+    MUSIC_DIR.mkdir(parents=True, exist_ok=True)
+    (MUSIC_DIR / "index.html").write_text(render_music_listing(), encoding="utf-8")
+
+
+def normalize_legacy_paths() -> int:
+    updated_files = 0
+    for html_file in MUSIC_DIR.rglob("index.html"):
+        if not html_file.is_file():
+            continue
+        original = html_file.read_text(encoding="utf-8")
+        updated = original
+        updated = updated.replace("/feats-live/", "/")
+        updated = updated.replace('href="youth-development/"', 'href="/youth-development"')
+        updated = updated.replace('href="privacy-policy/"', 'href="/privacy-policy"')
+        updated = updated.replace('href="mailto:Info@Feats.Live?"', 'href="mailto:Info@Feats.Live"')
+        updated = re.sub(r'href="(?:\.\./)+sitemap\.xml"', 'href="/sitemap.xml"', updated)
+        updated = re.sub(r'href="(?:\.\./)+robots\.txt"', 'href="/robots.txt"', updated)
+        updated = re.sub(
+            r'href="(?:\.\./)+s/Feats-Contributor-Code-of-Conduct-V3\.pdf"',
+            'href="/s/Feats-Contributor-Code-of-Conduct-V3.pdf"',
+            updated,
+        )
+        if updated != original:
+            html_file.write_text(updated, encoding="utf-8")
+            updated_files += 1
+    return updated_files
+
+
+def stale_article_dirs(valid_slugs: set[str]) -> list[Path]:
+    if not MUSIC_DIR.exists():
+        return []
+    stale = []
+    for child in MUSIC_DIR.iterdir():
+        if not child.is_dir():
+            continue
+        if child.name in valid_slugs:
+            continue
+        stale.append(child)
+    return sorted(stale, key=lambda path: path.name)
+
+
+def main() -> int:
+    parser = argparse.ArgumentParser(description="Regenerate article pages and listing from a single canonical source.")
+    parser.add_argument(
+        "--source",
+        choices=["local", "api"],
+        default="local",
+        help="Load articles from local api/articles_clean.json (default) or from the API.",
+    )
+    parser.add_argument(
+        "--api-url",
+        default=DEFAULT_API_URL,
+        help="API endpoint used when --source api is selected.",
+    )
+    parser.add_argument(
+        "--scrape-layouts",
+        action="store_true",
+        help="Scrape legacy Squarespace body layouts and convert side image/gallery blocks.",
+    )
+    parser.add_argument(
+        "--persist-scraped-layouts",
+        action="store_true",
+        help="When using --source local with --scrape-layouts, write converted bodies back to api/articles_clean.json.",
+    )
+    parser.add_argument(
+        "--prune",
+        action="store_true",
+        help="Delete stale /music/<slug>/ directories that are no longer present in the canonical article set.",
+    )
+    args = parser.parse_args()
+
+    print(f"Repository root: {REPO_ROOT}")
+    if args.source == "local":
+        raw_articles = load_articles_from_local()
+        print(f"Loaded {len(raw_articles)} raw articles from {API_ARTICLES_PATH}")
+    else:
+        raw_articles = load_articles_from_api(args.api_url)
+        print(f"Loaded {len(raw_articles)} raw articles from {args.api_url}")
+
+    articles = normalize_articles(raw_articles)
+    print(f"Normalized to {len(articles)} published article records")
+
+    if args.scrape_layouts:
+        updated_layouts = enrich_articles_with_legacy_layouts(articles)
+        print(f"Applied scraped layouts to {updated_layouts} articles")
+        if args.persist_scraped_layouts and args.source == "local":
+            persisted = persist_scraped_layouts(raw_articles, articles)
+            print(f"Persisted converted bodies to {API_ARTICLES_PATH} for {persisted} records")
+
+    write_article_index(articles)
+    print(f"Wrote {INDEX_JSON_PATH}")
+
+    generated = write_article_pages(articles)
+    print(f"Generated {generated} article pages under {MUSIC_DIR}")
+
+    write_music_listing()
+    print(f"Wrote {MUSIC_DIR / 'index.html'}")
+
+    normalized = normalize_legacy_paths()
+    print(f"Normalized legacy routes in {normalized} existing music pages")
+
+    valid_slugs = {article["url_id"] for article in articles}
+    stale_dirs = stale_article_dirs(valid_slugs)
+    if stale_dirs and args.prune:
+        for path in stale_dirs:
+            shutil.rmtree(path)
+            print(f"Pruned stale directory: {path}")
+    elif stale_dirs:
+        print("Stale directories detected (not removed):")
+        for path in stale_dirs:
+            print(f"  - {path}")
+        print("Run with --prune to remove stale directories.")
+
+    print("Done.")
+    return 0
+
+
+if __name__ == "__main__":
+    raise SystemExit(main())

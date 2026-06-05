@@ -12,16 +12,37 @@
   <link rel="icon" type="image/x-icon" href="/favicon.ico">
   <style>
     .article-body{max-width:750px;margin:0 auto;padding:3rem 2rem}
+    .article-body::after{content:'';display:block;clear:both}
     .article-body .featured-img{width:100%;height:auto;margin-bottom:2rem}
     .article-body h1{font-size:2.2rem;margin-bottom:.5rem;line-height:1.2}
     .article-body .meta{font-size:.8rem;opacity:.5;text-transform:uppercase;letter-spacing:1px;margin-bottom:2rem}
     .article-body p{font-size:1.05rem;opacity:.85;margin-bottom:1.5rem;line-height:1.8}
-    .article-body img{max-width:100%;height:auto;border-radius:4px}
     .article-body a{text-decoration:underline;opacity:.8}
     .article-body a:hover{opacity:1}
-    .img-wrap-right{float:right;width:45%;margin:0.5rem 0 0.5rem 1.5rem}
-    .img-wrap-left{float:left;width:45%;margin:0.5rem 1.5rem 0.5rem 0}
-    @media(max-width:600px){.img-wrap-right,.img-wrap-left{float:none;width:100%;margin:1rem 0}}
+    .article-media{margin:1.5rem 0}
+    .article-media--full{width:100%;clear:both}
+    .article-media--float-right{float:right;width:45%;margin:0.5rem 0 1.2rem 1.5rem}
+    .article-media--float-left{float:left;width:45%;margin:0.5rem 1.5rem 1.2rem 0}
+    .article-media img{width:100%;height:auto;display:block;border-radius:4px}
+    .article-media figcaption{font-size:.82rem;opacity:.62;line-height:1.45;margin-top:.5rem}
+    .article-rule{margin:2.3rem 0;border:none;border-top:1px solid rgba(0,0,0,.18);clear:both}
+    .article-carousel{position:relative}
+    .article-carousel-main{position:relative;background:#0a0a0a;overflow:hidden}
+    .article-carousel-slides{position:relative}
+    .article-carousel .carousel-slide{display:none}
+    .article-carousel .carousel-slide.is-active{display:block}
+    .article-carousel .carousel-nav{position:absolute;top:50%;transform:translateY(-50%);z-index:3;width:42px;height:42px;border:none;background:rgba(0,0,0,.33);color:#fff;font-size:2rem;line-height:1;cursor:pointer}
+    .article-carousel .carousel-nav.prev{left:0.65rem}
+    .article-carousel .carousel-nav.next{right:0.65rem}
+    .article-carousel.is-single .carousel-nav{display:none}
+    .article-carousel-thumbs{display:flex;gap:2px;overflow-x:auto;margin-top:.55rem;padding-bottom:2px}
+    .article-carousel .carousel-thumb{border:none;padding:0;background:transparent;opacity:.52;cursor:pointer;flex:0 0 auto}
+    .article-carousel .carousel-thumb.is-active{opacity:1}
+    .article-carousel .carousel-thumb img{width:58px;height:40px;object-fit:cover;border-radius:0}
+    @media(max-width:600px){
+      .article-media--float-right,.article-media--float-left{float:none;width:100%;margin:1rem 0}
+      .article-carousel .carousel-nav{width:36px;height:36px;font-size:1.65rem}
+    }
   </style>
 </head>
 <body>
@@ -47,10 +68,19 @@
       <img class="featured-img" src="https://feats-api.fpvgate-analytics.workers.dev/images/articles/reading.jpeg" alt="Reading Festival 2025: Ones to Watch, Big Names &amp;amp; Bank Holiday Energy" loading="lazy">
       <div class="meta">Festival &middot; ONES TO WATCH &middot; Reading Fest &middot; Feats. &middot; 2025-03-30</div>
       <h1>Reading Festival 2025: Ones to Watch, Big Names &amp;amp; Bank Holiday Energy</h1>
-      <h3><strong>Ones to Watch</strong></h3><p><strong>Good Neighbours</strong></p><p>If you’ve somehow missed <em>Home </em>— the feel-good indie anthem that’s taken over TikTok and playlists alike — you’re in for a treat. Sunshine guitars, stadium-sized hooks and the kind of chorus that makes you want to text your ex or hug your best mate.</p><p><strong>Nell Mescal</strong></p><p>The Irish singer-songwriter’s debut EP had us in our feelings from the first play. Honest lyrics, warm vocals and melodies that somehow manage to feel nostalgic and brand new at the same time. One of those sets that’ll hit you right in the chest — in the loveliest way.</p><p><strong>Matilda Mann</strong></p><p>Gentle, sharp and quietly brilliant, Matilda’s debut album <em>Roxanne </em>(out this year) is full of soft indie-pop that doesn’t need to shout to make its point. Think Phoebe Bridgers, but with a London edge. You’ll want to lean in for this one.</p><p><strong>The Royston Club</strong></p><p>Big choruses. Fast guitars. Welsh charm. These lads have been quietly building a loyal following, and Reading could be the moment it all clicks into place. Expect bouncing crowds, messy singalongs and at least one person climbing on someone’s shoulders during <em>Mrs Narcissistic</em>.</p>
+      <figure class="article-media article-media--full">
+  <img src="https://feats-api.fpvgate-analytics.workers.dev/images/articles/reading.jpeg" alt="" loading="lazy">
+</figure>
+<hr class="article-rule">
+<h3><strong>Ones to Watch</strong></h3><p><strong>Good Neighbours</strong></p><p>If you’ve somehow missed <em>Home </em>— the feel-good indie anthem that’s taken over TikTok and playlists alike — you’re in for a treat. Sunshine guitars, stadium-sized hooks and the kind of chorus that makes you want to text your ex or hug your best mate.</p><p><strong>Nell Mescal</strong></p><p>The Irish singer-songwriter’s debut EP had us in our feelings from the first play. Honest lyrics, warm vocals and melodies that somehow manage to feel nostalgic and brand new at the same time. One of those sets that’ll hit you right in the chest — in the loveliest way.</p><p><strong>Matilda Mann</strong></p><p>Gentle, sharp and quietly brilliant, Matilda’s debut album <em>Roxanne </em>(out this year) is full of soft indie-pop that doesn’t need to shout to make its point. Think Phoebe Bridgers, but with a London edge. You’ll want to lean in for this one.</p><p><strong>The Royston Club</strong></p><p>Big choruses. Fast guitars. Welsh charm. These lads have been quietly building a loyal following, and Reading could be the moment it all clicks into place. Expect bouncing crowds, messy singalongs and at least one person climbing on someone’s shoulders during <em>Mrs Narcissistic</em>.</p>
+<figure class="article-media article-media--full">
+  <img src="https://feats-api.fpvgate-analytics.workers.dev/images/articles/Snapins.ai_347442686_638724187687501_2944297401004932375_n_1080.jpg" alt="" loading="lazy">
+</figure>
+<hr class="article-rule">
 <p>Get these ones in early — because the real Reading magic isn’t always at the top of the poster. It’s in the 2pm sets that catch you off guard and stay with you long after the weekend’s done.</p><p>See you down the front 🫡</p>
-<img src="https://feats-api.fpvgate-analytics.workers.dev/images/articles/reading.jpeg" alt="" style="width:100%;height:auto;display:block;margin:1.5rem 0;border-radius:4px" loading="lazy">
-<img src="https://feats-api.fpvgate-analytics.workers.dev/images/articles/Snapins.ai_347442686_638724187687501_2944297401004932375_n_1080.jpg" alt="" style="width:100%;height:auto;display:block;margin:1.5rem 0;border-radius:4px" loading="lazy">
+<div>
+<iframe allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" allowfullscreen="" frameborder="0" height="352" loading="lazy" src="https://open.spotify.com/embed/playlist/7GDaerY8EMcvp6ndQITle3?utm_source=generator" width="100%"></iframe>
+</div>
     </article>
   </main>
 <footer class="site-footer">
@@ -70,6 +100,42 @@
     document.getElementById('navToggle').addEventListener('click', function(){
       document.getElementById('navLinks').classList.toggle('open');
     });
+
+    (function(){
+      var carousels = document.querySelectorAll('[data-article-carousel]');
+      carousels.forEach(function(carousel){
+        var slides = carousel.querySelectorAll('.carousel-slide');
+        var thumbs = carousel.querySelectorAll('.carousel-thumb');
+        if (!slides.length) return;
+
+        var currentIndex = 0;
+        function setSlide(nextIndex){
+          if (nextIndex < 0) nextIndex = slides.length - 1;
+          if (nextIndex >= slides.length) nextIndex = 0;
+          currentIndex = nextIndex;
+          slides.forEach(function(slide, index){
+            slide.classList.toggle('is-active', index === currentIndex);
+          });
+          thumbs.forEach(function(thumb, index){
+            thumb.classList.toggle('is-active', index === currentIndex);
+          });
+        }
+
+        var prevButton = carousel.querySelector('.carousel-nav.prev');
+        var nextButton = carousel.querySelector('.carousel-nav.next');
+        if (prevButton) {
+          prevButton.addEventListener('click', function(){ setSlide(currentIndex - 1); });
+        }
+        if (nextButton) {
+          nextButton.addEventListener('click', function(){ setSlide(currentIndex + 1); });
+        }
+
+        thumbs.forEach(function(button, index){
+          button.addEventListener('click', function(){ setSlide(index); });
+        });
+        setSlide(0);
+      });
+    })();
   </script>
 </body>
 </html>

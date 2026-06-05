@@ -12,16 +12,37 @@
   <link rel="icon" type="image/x-icon" href="/favicon.ico">
   <style>
     .article-body{max-width:750px;margin:0 auto;padding:3rem 2rem}
+    .article-body::after{content:'';display:block;clear:both}
     .article-body .featured-img{width:100%;height:auto;margin-bottom:2rem}
     .article-body h1{font-size:2.2rem;margin-bottom:.5rem;line-height:1.2}
     .article-body .meta{font-size:.8rem;opacity:.5;text-transform:uppercase;letter-spacing:1px;margin-bottom:2rem}
     .article-body p{font-size:1.05rem;opacity:.85;margin-bottom:1.5rem;line-height:1.8}
-    .article-body img{max-width:100%;height:auto;border-radius:4px}
     .article-body a{text-decoration:underline;opacity:.8}
     .article-body a:hover{opacity:1}
-    .img-wrap-right{float:right;width:45%;margin:0.5rem 0 0.5rem 1.5rem}
-    .img-wrap-left{float:left;width:45%;margin:0.5rem 1.5rem 0.5rem 0}
-    @media(max-width:600px){.img-wrap-right,.img-wrap-left{float:none;width:100%;margin:1rem 0}}
+    .article-media{margin:1.5rem 0}
+    .article-media--full{width:100%;clear:both}
+    .article-media--float-right{float:right;width:45%;margin:0.5rem 0 1.2rem 1.5rem}
+    .article-media--float-left{float:left;width:45%;margin:0.5rem 1.5rem 1.2rem 0}
+    .article-media img{width:100%;height:auto;display:block;border-radius:4px}
+    .article-media figcaption{font-size:.82rem;opacity:.62;line-height:1.45;margin-top:.5rem}
+    .article-rule{margin:2.3rem 0;border:none;border-top:1px solid rgba(0,0,0,.18);clear:both}
+    .article-carousel{position:relative}
+    .article-carousel-main{position:relative;background:#0a0a0a;overflow:hidden}
+    .article-carousel-slides{position:relative}
+    .article-carousel .carousel-slide{display:none}
+    .article-carousel .carousel-slide.is-active{display:block}
+    .article-carousel .carousel-nav{position:absolute;top:50%;transform:translateY(-50%);z-index:3;width:42px;height:42px;border:none;background:rgba(0,0,0,.33);color:#fff;font-size:2rem;line-height:1;cursor:pointer}
+    .article-carousel .carousel-nav.prev{left:0.65rem}
+    .article-carousel .carousel-nav.next{right:0.65rem}
+    .article-carousel.is-single .carousel-nav{display:none}
+    .article-carousel-thumbs{display:flex;gap:2px;overflow-x:auto;margin-top:.55rem;padding-bottom:2px}
+    .article-carousel .carousel-thumb{border:none;padding:0;background:transparent;opacity:.52;cursor:pointer;flex:0 0 auto}
+    .article-carousel .carousel-thumb.is-active{opacity:1}
+    .article-carousel .carousel-thumb img{width:58px;height:40px;object-fit:cover;border-radius:0}
+    @media(max-width:600px){
+      .article-media--float-right,.article-media--float-left{float:none;width:100%;margin:1rem 0}
+      .article-carousel .carousel-nav{width:36px;height:36px;font-size:1.65rem}
+    }
   </style>
 </head>
 <body>
@@ -47,9 +68,12 @@
       <img class="featured-img" src="https://feats-api.fpvgate-analytics.workers.dev/images/articles/Logo.png" alt="The State of Grass Roots Venues 2025 - 3 Months Follow Up" loading="lazy">
       <div class="meta">Editorial &middot; Music Venue Trust &middot; Grass Roots &middot; Save Our Venues &middot; Follow up &middot; Feats. &middot; 2025-07-09</div>
       <h1>The State of Grass Roots Venues 2025 - 3 Months Follow Up</h1>
-      <p>At the beginning of April we released an Article called “<a href="https://feats.live/music/the-state-of-grassroots-venues-in-2025"><span>The State of Grassroot Venues in 2025</span></a>”, in which we discussed the real-world issues that Grassroots venues are facing across the country.<br><br>In the process of researching and writing that piece, we requested a comment from the Music Venue Trust (MVT), who are leading the charge on trying to “save the venues”, we asked them; “What Can We as Punters Do to Help?”, heres what they had to say:&nbsp;</p><ol><li><p>Take a punt on shows to discover new artists, get there early and watch the support.&nbsp;</p></li><li><p>Buy tickets in advance, there’s no better way to give venues the confidence needed to put on their programme.&nbsp;</p></li><li><p>Engage in local democracy: Learn who your ward councillors are and who your MP is. If you feel passionate about culture in your local area then you can contribute to its strategy: You can search online for your Local Authority’s cultural strategy or Local Plan and whether they’re in development and public consultation is open. Your opinions as a matter, and your local political stakeholders will want you to continue to work/live/spend money in their constituency. If you care about your local GMV and it provides you with culture, opportunities, social connection or employment, tell them.&nbsp;</p></li><li><p>If you want to protect your local venues then you can support them through advocacy, you can object to neighbouring residential builds if they are poorly conceived and would run the risk of noise complaints.&nbsp;&nbsp;</p></li><li><p>Become a member of <a href="https://save-our-venues.backstreetmerch.com/collections/membership"><span>MVT’s Supporters Circle</span></a>, it’s a vital and direct way to support our charity’s work and enable us to do what we do, for just £5 or £10 per month.&nbsp;</p></li></ol>
+      <figure class="article-media article-media--float-right">
+  <img src="https://feats-api.fpvgate-analytics.workers.dev/images/articles/Logo.png" alt="" loading="lazy">
+</figure>
+<p>At the beginning of April we released an Article called “<a href="https://feats.live/music/the-state-of-grassroots-venues-in-2025"><span>The State of Grassroot Venues in 2025</span></a>”, in which we discussed the real-world issues that Grassroots venues are facing across the country.<br/><br/>In the process of researching and writing that piece, we requested a comment from the Music Venue Trust (MVT), who are leading the charge on trying to “save the venues”, we asked them; “What Can We as Punters Do to Help?”, heres what they had to say: </p><ol><li><p>Take a punt on shows to discover new artists, get there early and watch the support. </p></li><li><p>Buy tickets in advance, there’s no better way to give venues the confidence needed to put on their programme. </p></li><li><p>Engage in local democracy: Learn who your ward councillors are and who your MP is. If you feel passionate about culture in your local area then you can contribute to its strategy: You can search online for your Local Authority’s cultural strategy or Local Plan and whether they’re in development and public consultation is open. Your opinions as a matter, and your local political stakeholders will want you to continue to work/live/spend money in their constituency. If you care about your local GMV and it provides you with culture, opportunities, social connection or employment, tell them. </p></li><li><p>If you want to protect your local venues then you can support them through advocacy, you can object to neighbouring residential builds if they are poorly conceived and would run the risk of noise complaints.  </p></li><li><p>Become a member of <a href="https://save-our-venues.backstreetmerch.com/collections/membership"><span>MVT’s Supporters Circle</span></a>, it’s a vital and direct way to support our charity’s work and enable us to do what we do, for just £5 or £10 per month. </p></li></ol>
+<hr class="article-rule">
 <p>Since writing our article in<a href="https://www.musicvenuetrust.com/2025/05/mvt-monthly-newsletter-may-2025/"><span> April MVT have had 24 new “emergency” cases</span></a> come under real trouble, and whilst there has been progress in UK political circles to try to highlight the issue, we aren’t in the clear just yet.</p>
-<img src="https://feats-api.fpvgate-analytics.workers.dev/images/articles/Logo.png" alt="" style="width:100%;height:auto;display:block;margin:1.5rem 0;border-radius:4px" loading="lazy">
     </article>
   </main>
 <footer class="site-footer">
@@ -69,6 +93,42 @@
     document.getElementById('navToggle').addEventListener('click', function(){
       document.getElementById('navLinks').classList.toggle('open');
     });
+
+    (function(){
+      var carousels = document.querySelectorAll('[data-article-carousel]');
+      carousels.forEach(function(carousel){
+        var slides = carousel.querySelectorAll('.carousel-slide');
+        var thumbs = carousel.querySelectorAll('.carousel-thumb');
+        if (!slides.length) return;
+
+        var currentIndex = 0;
+        function setSlide(nextIndex){
+          if (nextIndex < 0) nextIndex = slides.length - 1;
+          if (nextIndex >= slides.length) nextIndex = 0;
+          currentIndex = nextIndex;
+          slides.forEach(function(slide, index){
+            slide.classList.toggle('is-active', index === currentIndex);
+          });
+          thumbs.forEach(function(thumb, index){
+            thumb.classList.toggle('is-active', index === currentIndex);
+          });
+        }
+
+        var prevButton = carousel.querySelector('.carousel-nav.prev');
+        var nextButton = carousel.querySelector('.carousel-nav.next');
+        if (prevButton) {
+          prevButton.addEventListener('click', function(){ setSlide(currentIndex - 1); });
+        }
+        if (nextButton) {
+          nextButton.addEventListener('click', function(){ setSlide(currentIndex + 1); });
+        }
+
+        thumbs.forEach(function(button, index){
+          button.addEventListener('click', function(){ setSlide(index); });
+        });
+        setSlide(0);
+      });
+    })();
   </script>
 </body>
 </html>

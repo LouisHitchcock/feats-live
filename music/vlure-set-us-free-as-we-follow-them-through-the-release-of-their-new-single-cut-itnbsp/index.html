@@ -12,16 +12,37 @@
   <link rel="icon" type="image/x-icon" href="/favicon.ico">
   <style>
     .article-body{max-width:750px;margin:0 auto;padding:3rem 2rem}
+    .article-body::after{content:'';display:block;clear:both}
     .article-body .featured-img{width:100%;height:auto;margin-bottom:2rem}
     .article-body h1{font-size:2.2rem;margin-bottom:.5rem;line-height:1.2}
     .article-body .meta{font-size:.8rem;opacity:.5;text-transform:uppercase;letter-spacing:1px;margin-bottom:2rem}
     .article-body p{font-size:1.05rem;opacity:.85;margin-bottom:1.5rem;line-height:1.8}
-    .article-body img{max-width:100%;height:auto;border-radius:4px}
     .article-body a{text-decoration:underline;opacity:.8}
     .article-body a:hover{opacity:1}
-    .img-wrap-right{float:right;width:45%;margin:0.5rem 0 0.5rem 1.5rem}
-    .img-wrap-left{float:left;width:45%;margin:0.5rem 1.5rem 0.5rem 0}
-    @media(max-width:600px){.img-wrap-right,.img-wrap-left{float:none;width:100%;margin:1rem 0}}
+    .article-media{margin:1.5rem 0}
+    .article-media--full{width:100%;clear:both}
+    .article-media--float-right{float:right;width:45%;margin:0.5rem 0 1.2rem 1.5rem}
+    .article-media--float-left{float:left;width:45%;margin:0.5rem 1.5rem 1.2rem 0}
+    .article-media img{width:100%;height:auto;display:block;border-radius:4px}
+    .article-media figcaption{font-size:.82rem;opacity:.62;line-height:1.45;margin-top:.5rem}
+    .article-rule{margin:2.3rem 0;border:none;border-top:1px solid rgba(0,0,0,.18);clear:both}
+    .article-carousel{position:relative}
+    .article-carousel-main{position:relative;background:#0a0a0a;overflow:hidden}
+    .article-carousel-slides{position:relative}
+    .article-carousel .carousel-slide{display:none}
+    .article-carousel .carousel-slide.is-active{display:block}
+    .article-carousel .carousel-nav{position:absolute;top:50%;transform:translateY(-50%);z-index:3;width:42px;height:42px;border:none;background:rgba(0,0,0,.33);color:#fff;font-size:2rem;line-height:1;cursor:pointer}
+    .article-carousel .carousel-nav.prev{left:0.65rem}
+    .article-carousel .carousel-nav.next{right:0.65rem}
+    .article-carousel.is-single .carousel-nav{display:none}
+    .article-carousel-thumbs{display:flex;gap:2px;overflow-x:auto;margin-top:.55rem;padding-bottom:2px}
+    .article-carousel .carousel-thumb{border:none;padding:0;background:transparent;opacity:.52;cursor:pointer;flex:0 0 auto}
+    .article-carousel .carousel-thumb.is-active{opacity:1}
+    .article-carousel .carousel-thumb img{width:58px;height:40px;object-fit:cover;border-radius:0}
+    @media(max-width:600px){
+      .article-media--float-right,.article-media--float-left{float:none;width:100%;margin:1rem 0}
+      .article-carousel .carousel-nav{width:36px;height:36px;font-size:1.65rem}
+    }
   </style>
 </head>
 <body>
@@ -47,11 +68,17 @@
       <img class="featured-img" src="https://feats-api.fpvgate-analytics.workers.dev/images/articles/Vlure+10.01.2022+%2830+of+34%29.jpg" alt="VLURE set us free as we follow them through the release of their new single CUT IT.&amp;nbsp;" loading="lazy">
       <div class="meta">concert &middot; Live Music &middot; up and coming &middot; Feats. &middot; 2023-01-20</div>
       <h1>VLURE set us free as we follow them through the release of their new single CUT IT.&amp;nbsp;</h1>
-      <p>The five piece Glaswegian post punk band release a new single <strong><em>Cut It</em></strong><em> </em>which releases Friday the 20th.</p><p>In a true Vlure fashion the new single mixes their post punk sound with an electronic beat creating a sound that is unique to them.&nbsp;</p><p>Starting with a bang (literally), <strong><em>Cut it</em></strong><em> </em>takes you on a ride between the startling guitars and catchy chorus, not forgetting Hamish’s hard cutting vocals that will never fail to grab the listener’s attention.&nbsp;</p>
-<p>My personal favourite part of the song is the first verse where Vlure tells the audience to take their hand to the promised land, that the listener will be set free if they follow them. When hearing this for the first time it made me want to surrender to the song, it made me put my trust in the creation they have worked on and I was not disappointed.</p><p>After seeing <strong><em>Cut It</em></strong><em> </em>performed live for the first time at Vlure’s gig, at the Lexington on November the 3rd I instantly knew it was the start of something big and I still believe that.&nbsp;</p><p>Vlure are one of the most, if not THE most exciting new band on the scene and you should all be paying close attention to them!<br></p><p>Grab some tickets to see them live supporting LYNKX on their upcoming tour.</p><p>https://myticket.co.uk/artists/diy-now-and-next-tour-2023</p>
-<p>Stream <strong>Cut it</strong> here: https://open.spotify.com/artist/0Ev1tqYsfzq2eF5qqXhkYm?si=8hvO0ZugSjSst-mfc3Bv5w&nbsp;</p>
-<img src="https://feats-api.fpvgate-analytics.workers.dev/images/articles/Vlure+10.01.2022+%2830+of+34%29.jpg" alt="" style="width:100%;height:auto;display:block;margin:1.5rem 0;border-radius:4px" loading="lazy">
-<img src="https://feats-api.fpvgate-analytics.workers.dev/images/articles/Vlure+10.01.2022+%2832+of+34%29.jpg" alt="" style="width:100%;height:auto;display:block;margin:1.5rem 0;border-radius:4px" loading="lazy">
+      <p>The five piece Glaswegian post punk band release a new single <strong><em>Cut It</em></strong><em> </em>which releases Friday the 20th.</p><p>In a true Vlure fashion the new single mixes their post punk sound with an electronic beat creating a sound that is unique to them. </p><p>Starting with a bang (literally), <strong><em>Cut it</em></strong><em> </em>takes you on a ride between the startling guitars and catchy chorus, not forgetting Hamish’s hard cutting vocals that will never fail to grab the listener’s attention. </p>
+<figure class="article-media article-media--full">
+  <img src="https://feats-api.fpvgate-analytics.workers.dev/images/articles/Vlure+10.01.2022+%2830+of+34%29.jpg" alt="" loading="lazy">
+  <figcaption>Louis Hitchcock (LouisHitchPhotos, Feats.)</figcaption>
+</figure>
+<p>My personal favourite part of the song is the first verse where Vlure tells the audience to take their hand to the promised land, that the listener will be set free if they follow them. When hearing this for the first time it made me want to surrender to the song, it made me put my trust in the creation they have worked on and I was not disappointed.</p><p>After seeing <strong><em>Cut It</em></strong><em> </em>performed live for the first time at Vlure’s gig, at the Lexington on November the 3rd I instantly knew it was the start of something big and I still believe that. </p><p>Vlure are one of the most, if not THE most exciting new band on the scene and you should all be paying close attention to them!<br/></p><p>Grab some tickets to see them live supporting LYNKX on their upcoming tour.</p><p>https://myticket.co.uk/artists/diy-now-and-next-tour-2023</p>
+<figure class="article-media article-media--full">
+  <img src="https://feats-api.fpvgate-analytics.workers.dev/images/articles/Vlure+10.01.2022+%2832+of+34%29.jpg" alt="" loading="lazy">
+  <figcaption>Louis Hitchcock (LouisHitchPhotos, Feats.)</figcaption>
+</figure>
+<p>Stream <strong>Cut it</strong> here: https://open.spotify.com/artist/0Ev1tqYsfzq2eF5qqXhkYm?si=8hvO0ZugSjSst-mfc3Bv5w </p>
     </article>
   </main>
 <footer class="site-footer">
@@ -71,6 +98,42 @@
     document.getElementById('navToggle').addEventListener('click', function(){
       document.getElementById('navLinks').classList.toggle('open');
     });
+
+    (function(){
+      var carousels = document.querySelectorAll('[data-article-carousel]');
+      carousels.forEach(function(carousel){
+        var slides = carousel.querySelectorAll('.carousel-slide');
+        var thumbs = carousel.querySelectorAll('.carousel-thumb');
+        if (!slides.length) return;
+
+        var currentIndex = 0;
+        function setSlide(nextIndex){
+          if (nextIndex < 0) nextIndex = slides.length - 1;
+          if (nextIndex >= slides.length) nextIndex = 0;
+          currentIndex = nextIndex;
+          slides.forEach(function(slide, index){
+            slide.classList.toggle('is-active', index === currentIndex);
+          });
+          thumbs.forEach(function(thumb, index){
+            thumb.classList.toggle('is-active', index === currentIndex);
+          });
+        }
+
+        var prevButton = carousel.querySelector('.carousel-nav.prev');
+        var nextButton = carousel.querySelector('.carousel-nav.next');
+        if (prevButton) {
+          prevButton.addEventListener('click', function(){ setSlide(currentIndex - 1); });
+        }
+        if (nextButton) {
+          nextButton.addEventListener('click', function(){ setSlide(currentIndex + 1); });
+        }
+
+        thumbs.forEach(function(button, index){
+          button.addEventListener('click', function(){ setSlide(index); });
+        });
+        setSlide(0);
+      });
+    })();
   </script>
 </body>
 </html>

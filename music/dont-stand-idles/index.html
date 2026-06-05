@@ -12,16 +12,37 @@
   <link rel="icon" type="image/x-icon" href="/favicon.ico">
   <style>
     .article-body{max-width:750px;margin:0 auto;padding:3rem 2rem}
+    .article-body::after{content:'';display:block;clear:both}
     .article-body .featured-img{width:100%;height:auto;margin-bottom:2rem}
     .article-body h1{font-size:2.2rem;margin-bottom:.5rem;line-height:1.2}
     .article-body .meta{font-size:.8rem;opacity:.5;text-transform:uppercase;letter-spacing:1px;margin-bottom:2rem}
     .article-body p{font-size:1.05rem;opacity:.85;margin-bottom:1.5rem;line-height:1.8}
-    .article-body img{max-width:100%;height:auto;border-radius:4px}
     .article-body a{text-decoration:underline;opacity:.8}
     .article-body a:hover{opacity:1}
-    .img-wrap-right{float:right;width:45%;margin:0.5rem 0 0.5rem 1.5rem}
-    .img-wrap-left{float:left;width:45%;margin:0.5rem 1.5rem 0.5rem 0}
-    @media(max-width:600px){.img-wrap-right,.img-wrap-left{float:none;width:100%;margin:1rem 0}}
+    .article-media{margin:1.5rem 0}
+    .article-media--full{width:100%;clear:both}
+    .article-media--float-right{float:right;width:45%;margin:0.5rem 0 1.2rem 1.5rem}
+    .article-media--float-left{float:left;width:45%;margin:0.5rem 1.5rem 1.2rem 0}
+    .article-media img{width:100%;height:auto;display:block;border-radius:4px}
+    .article-media figcaption{font-size:.82rem;opacity:.62;line-height:1.45;margin-top:.5rem}
+    .article-rule{margin:2.3rem 0;border:none;border-top:1px solid rgba(0,0,0,.18);clear:both}
+    .article-carousel{position:relative}
+    .article-carousel-main{position:relative;background:#0a0a0a;overflow:hidden}
+    .article-carousel-slides{position:relative}
+    .article-carousel .carousel-slide{display:none}
+    .article-carousel .carousel-slide.is-active{display:block}
+    .article-carousel .carousel-nav{position:absolute;top:50%;transform:translateY(-50%);z-index:3;width:42px;height:42px;border:none;background:rgba(0,0,0,.33);color:#fff;font-size:2rem;line-height:1;cursor:pointer}
+    .article-carousel .carousel-nav.prev{left:0.65rem}
+    .article-carousel .carousel-nav.next{right:0.65rem}
+    .article-carousel.is-single .carousel-nav{display:none}
+    .article-carousel-thumbs{display:flex;gap:2px;overflow-x:auto;margin-top:.55rem;padding-bottom:2px}
+    .article-carousel .carousel-thumb{border:none;padding:0;background:transparent;opacity:.52;cursor:pointer;flex:0 0 auto}
+    .article-carousel .carousel-thumb.is-active{opacity:1}
+    .article-carousel .carousel-thumb img{width:58px;height:40px;object-fit:cover;border-radius:0}
+    @media(max-width:600px){
+      .article-media--float-right,.article-media--float-left{float:none;width:100%;margin:1rem 0}
+      .article-carousel .carousel-nav{width:36px;height:36px;font-size:1.65rem}
+    }
   </style>
 </head>
 <body>
@@ -47,13 +68,22 @@
       <img class="featured-img" src="https://images.squarespace-cdn.com/content/v1/627907a6b74722549de2ec0c/4f6bc1dc-e6e4-4730-b1a4-6c6ec3fde7c1/CROWD+TRUCK+STAGE?format=original" alt="Don’t Stand IDLE(S) - Ceasefire Now!" loading="lazy">
       <div class="meta">News &middot; Feats. &middot; 2024-07-26</div>
       <h1>Don’t Stand IDLE(S) - Ceasefire Now!</h1>
-      <p>After a long day of travelling and pitching up tents, <em>Truck</em> festival had officially started. It was time to get orientated. Though the sun had taken a short hiatus, <em>The Mysterines</em> warmed up the stage for a phenomenal night. The four piece band hailing from Liverpool worked the crowds with a well rounded performance.&nbsp;<br></p><p>Every single band member had a role to play in this production. From the enthusiastic bassist who couldn’t help but mouth along to the lyrics even though he didn’t have a microphone, to the guitarist who brought out a violin bow to gently drag along his strings.&nbsp;</p>
-<p>The band started the set with <em>Sink Ya Teeth, </em>from their latest album<em> Afraid of Tomorrows,</em> which was met with a huge excitement from the fans. The crowd, who seemed so unbothered by the intermittent rain, instead found it almost motivational to double down on their support for this worthwhile show.&nbsp;</p><p><br><em>The Mysterines</em> continued to showcase their talent for nine more songs, four of which were also from the new album, ending the set with fans favourite <em>Stray</em> further exhibiting their unique sound in which they blend elements of classic rock, grunge, and punk, creating a raw and gritty sonic experience.&nbsp;</p>
-<p>After a short break the main event took place. You could feel the energy shift in the air when <em>IDLES’</em> set started, the atmosphere became more aggressive and charged, both words that also describe the sound of the band itself. <em>IDLES’</em> socially aware lyrics made you feel a little less guilty for being at a music festival enjoying life while it can sometimes feel like the world is crumbling around us. Whether it was the self-serving feeling of shouting “Viva Palestina” in a field full of like minded people or the demand for a ceasefire at the end of the show, <em>IDLES</em> created the perfect space to allow people to let out their inner frustration. For the duration of the set, enjoying live music and being politically active became synonymous.&nbsp;&nbsp;</p><p></p><p>This is by no means <em>IDLES</em>’ first rodeo being very open about their political views, they are a band that isn’t scared to pick a side and are certainly not scared of shouting about it.&nbsp;</p><p><br>At Glastonbury festival, <em>IDLES’</em> set saw a performance art exhibit from Banksy where an inflatable refugee boat floated above the grounds as the band used their platform to stream “ ceasefire now '' on their show’s backdrop and the entire crowd sang the lyrics to their pro immigration song <em>Danny Nedelko</em>.&nbsp;</p><p></p><p>This in my opinion makes <em>IDLES</em> one of the few last remaining punk bands, because they know that punk isn’t just a music genre, it is a political movement.&nbsp;</p>
-<p><br>The band made sure to tell us that this was the best crowd they’ve had in a long while, which doesn’t necessarily mean it’s true, but from where I&nbsp; was standing I know that they meant it.&nbsp;</p><p></p><p>My favourite part about live music is the crowd's interactions, whether that be with the artist or amongst themselves I’ve always found it quite fascinating. In this case the crowd seemed mesmerised by their prince of punk, Joe Talbot,&nbsp; who’s taken on a mythic role as the unanimously appointed leader of the misunderstood. This particularly resonated through their song <em>Scumbag</em> as they dedicated the song to those who used to dismiss them as worthless (scumbag). Look at them now.&nbsp;</p><p><br>Overall, <em>IDLES’</em>&nbsp; raw punk energy, sharp social commentary, and intense, emotive performance makes a sense of urgency and defiance shine through their music. They have said it loud and they have said it clearly: Ceasefire now! Ceasefire now! Ceasefire now!</p>
-<img src="https://images.squarespace-cdn.com/content/v1/627907a6b74722549de2ec0c/4f6bc1dc-e6e4-4730-b1a4-6c6ec3fde7c1/CROWD+TRUCK+STAGE" alt="" style="width:100%;height:auto;display:block;margin:1.5rem 0;border-radius:4px" loading="lazy">
-<img src="https://feats-api.fpvgate-analytics.workers.dev/images/articles/Harris+Tomlinson-Spence_IDLES_TruckStage-13.jpg" alt="" style="width:100%;height:auto;display:block;margin:1.5rem 0;border-radius:4px" loading="lazy">
-<img src="https://feats-api.fpvgate-analytics.workers.dev/images/articles/Harris+Tomlinson-Spence_IDLES_TruckStage-12+%281%29.jpg" alt="" style="width:100%;height:auto;display:block;margin:1.5rem 0;border-radius:4px" loading="lazy">
+      <p>After a long day of travelling and pitching up tents, <em>Truck</em> festival had officially started. It was time to get orientated. Though the sun had taken a short hiatus, <em>The Mysterines</em> warmed up the stage for a phenomenal night. The four piece band hailing from Liverpool worked the crowds with a well rounded performance. <br/></p><p>Every single band member had a role to play in this production. From the enthusiastic bassist who couldn’t help but mouth along to the lyrics even though he didn’t have a microphone, to the guitarist who brought out a violin bow to gently drag along his strings. </p>
+<figure class="article-media article-media--full">
+  <img src="https://feats-api.fpvgate-analytics.workers.dev/images/articles/CROWD+TRUCK+STAGE" alt="" loading="lazy">
+  <figcaption>Credit: Josh Collins</figcaption>
+</figure>
+<p>The band started the set with <em>Sink Ya Teeth, </em>from their latest album<em> Afraid of Tomorrows,</em> which was met with a huge excitement from the fans. The crowd, who seemed so unbothered by the intermittent rain, instead found it almost motivational to double down on their support for this worthwhile show. </p><p><br/><em>The Mysterines</em> continued to showcase their talent for nine more songs, four of which were also from the new album, ending the set with fans favourite <em>Stray</em> further exhibiting their unique sound in which they blend elements of classic rock, grunge, and punk, creating a raw and gritty sonic experience. </p>
+<figure class="article-media article-media--full">
+  <img src="https://feats-api.fpvgate-analytics.workers.dev/images/articles/Harris+Tomlinson-Spence_IDLES_TruckStage-13.jpg" alt="" loading="lazy">
+  <figcaption>Credit: Harris Tomlinson-Spence</figcaption>
+</figure>
+<p>After a short break the main event took place. You could feel the energy shift in the air when <em>IDLES’</em> set started, the atmosphere became more aggressive and charged, both words that also describe the sound of the band itself. <em>IDLES’</em> socially aware lyrics made you feel a little less guilty for being at a music festival enjoying life while it can sometimes feel like the world is crumbling around us. Whether it was the self-serving feeling of shouting “Viva Palestina” in a field full of like minded people or the demand for a ceasefire at the end of the show, <em>IDLES</em> created the perfect space to allow people to let out their inner frustration. For the duration of the set, enjoying live music and being politically active became synonymous.  </p><p>This is by no means <em>IDLES</em>’ first rodeo being very open about their political views, they are a band that isn’t scared to pick a side and are certainly not scared of shouting about it. </p><p><br/>At Glastonbury festival, <em>IDLES’</em> set saw a performance art exhibit from Banksy where an inflatable refugee boat floated above the grounds as the band used their platform to stream “ ceasefire now '' on their show’s backdrop and the entire crowd sang the lyrics to their pro immigration song <em>Danny Nedelko</em>. </p><p>This in my opinion makes <em>IDLES</em> one of the few last remaining punk bands, because they know that punk isn’t just a music genre, it is a political movement. </p>
+<figure class="article-media article-media--full">
+  <img src="https://feats-api.fpvgate-analytics.workers.dev/images/articles/Harris+Tomlinson-Spence_IDLES_TruckStage-12+%281%29.jpg" alt="" loading="lazy">
+  <figcaption>Credit: Harris Tomlinson-Spence</figcaption>
+</figure>
+<p><br/>The band made sure to tell us that this was the best crowd they’ve had in a long while, which doesn’t necessarily mean it’s true, but from where I  was standing I know that they meant it. </p><p>My favourite part about live music is the crowd's interactions, whether that be with the artist or amongst themselves I’ve always found it quite fascinating. In this case the crowd seemed mesmerised by their prince of punk, Joe Talbot,  who’s taken on a mythic role as the unanimously appointed leader of the misunderstood. This particularly resonated through their song <em>Scumbag</em> as they dedicated the song to those who used to dismiss them as worthless (scumbag). Look at them now. </p><p><br/>Overall, <em>IDLES’</em>  raw punk energy, sharp social commentary, and intense, emotive performance makes a sense of urgency and defiance shine through their music. They have said it loud and they have said it clearly: Ceasefire now! Ceasefire now! Ceasefire now!</p>
     </article>
   </main>
 <footer class="site-footer">
@@ -73,6 +103,42 @@
     document.getElementById('navToggle').addEventListener('click', function(){
       document.getElementById('navLinks').classList.toggle('open');
     });
+
+    (function(){
+      var carousels = document.querySelectorAll('[data-article-carousel]');
+      carousels.forEach(function(carousel){
+        var slides = carousel.querySelectorAll('.carousel-slide');
+        var thumbs = carousel.querySelectorAll('.carousel-thumb');
+        if (!slides.length) return;
+
+        var currentIndex = 0;
+        function setSlide(nextIndex){
+          if (nextIndex < 0) nextIndex = slides.length - 1;
+          if (nextIndex >= slides.length) nextIndex = 0;
+          currentIndex = nextIndex;
+          slides.forEach(function(slide, index){
+            slide.classList.toggle('is-active', index === currentIndex);
+          });
+          thumbs.forEach(function(thumb, index){
+            thumb.classList.toggle('is-active', index === currentIndex);
+          });
+        }
+
+        var prevButton = carousel.querySelector('.carousel-nav.prev');
+        var nextButton = carousel.querySelector('.carousel-nav.next');
+        if (prevButton) {
+          prevButton.addEventListener('click', function(){ setSlide(currentIndex - 1); });
+        }
+        if (nextButton) {
+          nextButton.addEventListener('click', function(){ setSlide(currentIndex + 1); });
+        }
+
+        thumbs.forEach(function(button, index){
+          button.addEventListener('click', function(){ setSlide(index); });
+        });
+        setSlide(0);
+      });
+    })();
   </script>
 </body>
 </html>

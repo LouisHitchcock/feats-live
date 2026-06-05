@@ -12,16 +12,37 @@
   <link rel="icon" type="image/x-icon" href="/favicon.ico">
   <style>
     .article-body{max-width:750px;margin:0 auto;padding:3rem 2rem}
+    .article-body::after{content:'';display:block;clear:both}
     .article-body .featured-img{width:100%;height:auto;margin-bottom:2rem}
     .article-body h1{font-size:2.2rem;margin-bottom:.5rem;line-height:1.2}
     .article-body .meta{font-size:.8rem;opacity:.5;text-transform:uppercase;letter-spacing:1px;margin-bottom:2rem}
     .article-body p{font-size:1.05rem;opacity:.85;margin-bottom:1.5rem;line-height:1.8}
-    .article-body img{max-width:100%;height:auto;border-radius:4px}
     .article-body a{text-decoration:underline;opacity:.8}
     .article-body a:hover{opacity:1}
-    .img-wrap-right{float:right;width:45%;margin:0.5rem 0 0.5rem 1.5rem}
-    .img-wrap-left{float:left;width:45%;margin:0.5rem 1.5rem 0.5rem 0}
-    @media(max-width:600px){.img-wrap-right,.img-wrap-left{float:none;width:100%;margin:1rem 0}}
+    .article-media{margin:1.5rem 0}
+    .article-media--full{width:100%;clear:both}
+    .article-media--float-right{float:right;width:45%;margin:0.5rem 0 1.2rem 1.5rem}
+    .article-media--float-left{float:left;width:45%;margin:0.5rem 1.5rem 1.2rem 0}
+    .article-media img{width:100%;height:auto;display:block;border-radius:4px}
+    .article-media figcaption{font-size:.82rem;opacity:.62;line-height:1.45;margin-top:.5rem}
+    .article-rule{margin:2.3rem 0;border:none;border-top:1px solid rgba(0,0,0,.18);clear:both}
+    .article-carousel{position:relative}
+    .article-carousel-main{position:relative;background:#0a0a0a;overflow:hidden}
+    .article-carousel-slides{position:relative}
+    .article-carousel .carousel-slide{display:none}
+    .article-carousel .carousel-slide.is-active{display:block}
+    .article-carousel .carousel-nav{position:absolute;top:50%;transform:translateY(-50%);z-index:3;width:42px;height:42px;border:none;background:rgba(0,0,0,.33);color:#fff;font-size:2rem;line-height:1;cursor:pointer}
+    .article-carousel .carousel-nav.prev{left:0.65rem}
+    .article-carousel .carousel-nav.next{right:0.65rem}
+    .article-carousel.is-single .carousel-nav{display:none}
+    .article-carousel-thumbs{display:flex;gap:2px;overflow-x:auto;margin-top:.55rem;padding-bottom:2px}
+    .article-carousel .carousel-thumb{border:none;padding:0;background:transparent;opacity:.52;cursor:pointer;flex:0 0 auto}
+    .article-carousel .carousel-thumb.is-active{opacity:1}
+    .article-carousel .carousel-thumb img{width:58px;height:40px;object-fit:cover;border-radius:0}
+    @media(max-width:600px){
+      .article-media--float-right,.article-media--float-left{float:none;width:100%;margin:1rem 0}
+      .article-carousel .carousel-nav{width:36px;height:36px;font-size:1.65rem}
+    }
   </style>
 </head>
 <body>
@@ -48,17 +69,36 @@
       <div class="meta">Gig Review &middot; Album Review &middot; Tour &middot; Tour Review &middot; Artist Showcase &middot; Feats. &middot; 2025-05-23</div>
       <h1>Twenty One Pilots Clancy Tour Review &amp;amp; Recap</h1>
       <p><strong>Editorial Note:</strong></p><p>Since the writing of this article Twenty One Pilots have Announced their up-coming album “Breach” coming out in September, with the first song “Contract” releasing June 12th 2025.</p>
-<p>Twenty One Pilots’ Clancy World Tour has proven to be a triumph, spanning 22 Countries, across 4 continents, the tour was the band's biggest tour to-date. From August 2024, to May 2025 Tyler Joseph &amp; Josh Dun played a total of 73 shows in more than 60 cities - every show bridging a high energy, immersive concert to their fans!&nbsp; The tour kicked off in Denver, Colorado and would come to an end more than nine months later with a two-night epic finale at the renowned O2 Arena in London.&nbsp;</p>
-<p>Billed as a “<em>Massive Global Headliner tour”</em> - the band's Biggest tour ever - the Clancy Tour Lived up to its name. In Fall 2024 the duo started their run across North America, supported by Balu Brigada, packing arenas across the US &amp; Canada. Due to record high demand second nights were added in cities like; Denver, Dallas, Boston &amp; the bands hometown Columbus, Ohio, which saw an impressive three-night stand!<br><br>After a brief break they touched down in New Zealand and Australia in late 2024. Early 2025 Marked a milestone as the band launched its first-ever run through South America and Mexico, playing unbelievable sets night after night in Bogotá, Santiago, São Paulo, Buenos Aires, just to name a few.<br><br>The Final Leg of the tour was the Europe, which rolled around in Spring 2025, with sold out arenas spanning Germany, Poland, Czechia, Austria, Switzerland, Italy, Spain, France, Netherlands, Ireland, Scotland &amp; England - </p>
+<hr class="article-rule">
+<p>Twenty One Pilots’ Clancy World Tour has proven to be a triumph, spanning 22 Countries, across 4 continents, the tour was the band's biggest tour to-date. From August 2024, to May 2025 Tyler Joseph &amp; Josh Dun played a total of 73 shows in more than 60 cities - every show bridging a high energy, immersive concert to their fans!  The tour kicked off in Denver, Colorado and would come to an end more than nine months later with a two-night epic finale at the renowned O2 Arena in London. </p>
+<figure class="article-media article-media--full">
+  <img src="https://feats-api.fpvgate-analytics.workers.dev/images/articles/491440710_18045906593579740_3488338911094287523_n.jpg" alt="" loading="lazy">
+  <figcaption>Image Credit: Gracie Hall - @gracroc</figcaption>
+</figure>
+<p>Billed as a “<em>Massive Global Headliner tour”</em> - the band's Biggest tour ever - the Clancy Tour Lived up to its name. In Fall 2024 the duo started their run across North America, supported by Balu Brigada, packing arenas across the US &amp; Canada. Due to record high demand second nights were added in cities like; Denver, Dallas, Boston &amp; the bands hometown Columbus, Ohio, which saw an impressive three-night stand!<br/><br/>After a brief break they touched down in New Zealand and Australia in late 2024. Early 2025 Marked a milestone as the band launched its first-ever run through South America and Mexico, playing unbelievable sets night after night in Bogotá, Santiago, São Paulo, Buenos Aires, just to name a few.<br/><br/>The Final Leg of the tour was the Europe, which rolled around in Spring 2025, with sold out arenas spanning Germany, Poland, Czechia, Austria, Switzerland, Italy, Spain, France, Netherlands, Ireland, Scotland &amp; England - </p>
+<hr class="article-rule">
 <p><strong>Highlights</strong></p>
-<p>Beyond the record setting stats, the Clancy tour delivered plenty of unforgettable moments. Twenty One Pilots’ kicked off the very first show in Denver with an extensive 28-song setlist that Thrilled the Die-hard fans &amp; newcomers alike! Fans were treated to the live debut of four new songs (following the “An Evening with Twenty One Pilots” Mini Release tour just after the release of Clancy in May 2024), including “Vignette” and “Paladin Strait”. Through the tour the band struck a balance between their new releases and the existing fan favorites- ensuring the keep the punters on their toes with frequent changes to the setlists from gig to gig!</p><p>Throughout each show the duo made sure that no single person felt like they weren't included in the performance, this time they broke out two smaller “b-stages” platforms on either side of the arenas, here is where they would interact with fans, bring back old (or even some unreleased!) songs, and perform remixed versions of some classics!&nbsp; Early on in the tour they played “Old song Medley”, which was a remix of very early fan favorite songs such as “Addicted with a Pen“, “Forest” and “Slowtown”, which was a real nostalgic treat for the long-term listeners in the crowd!</p>
-<p>One standout favourite across the shows was when the duo performed “Ride”, inviting a young person onto the platform to sing with Tyler. Without fail, this melted the hearts of every single person in the arena &amp; will definitely be a core memory for the kids that got to choose!</p><p>The Twenty One Pilots fanbase is a defining element of the band! With thousands of fans donning the signature red/yellow stripes, with hundreds of custom bandito outfits, there really is no fan base that has the same kind of passion for a band! During the Sets despite the new songs being relatively new, the entire arena knew <em>all</em> the words! Even filling in fan-made gaps like quietly singing the lyrics to Trenches “Leave the City”, in the gap within “Paladin Straight”, and of course the fan favourite “<em>Here we Fucking Go”</em><strong><em> </em></strong>chant just before the epic finale of the Iconic “Trees”.</p><p><br>In the final three gigs of the tour there was an extraordinary event in which one overly devoted attendee stole one of the bands drums at the end of the show! Fans quickly mobilised to help track it down &amp; within less than 24 hours the drum was recovered without issue! The band the next day made light of the situation with quick jokes &amp; a comically large chain attached to the drums! Incidents like this, along with the deafening sing-alongs at every stop, underscored the passionate bond between Twenty One Pilots and their audience.</p>
-<p><strong>A Theatrical Cinematic Experience</strong><br>Critics and Fans alike have always praised the Pilots for their ambitious productions and showmanship, in that vein the Clancy tour was no different! Each concert was far more than a typical run-through of songs, as Tyler described in a reply to a <a href="https://x.com/tylerrjoseph/status/1804571290793034150"><span>tweet “The Show is a flashback. Like an Entire Life passing by. Reminding us why we fight right before we do.”</span></a> </p><p>The stage itself became a dystopian playground, with a mixture of nostalgic visuals &amp; conceptual lore telling- Tyler &amp; Josh built a story through the shows, each show dropping hits &amp; secrets, further building into the lore of Dema.</p>
-<p>In the third quarter of the set, the duo took a moment to feed into the on-going storyline, with Torch-bearer (Josh), wearing the classic Bandito yellow stripes, walking through the crowd over to Clancy (Tyler), at which point he is handed the Clancy Era Red-striped jacket. Each night the duo changed the performance slightly, eventually ending with Clancy ignoring Torch-bearer, massively fueling speculation &amp; rumours from the band's fan-base!<br><br>Whilst that was the most “Lore Heavy” element of the show, it wasn't the only theatrical element - during Car-Radio Tyler would vanish from the main stage only to as if by magic appear high in the rafters of the arena.</p><p>Each show closed with the band’s iconic stunt: both members pounding away on portable drums held by the crowd during the exhilarating finale “Trees,” amid confetti cannons and roaring cheers. It was a tear-inducing climax that highlighted the joyful communion between the band and their fans.</p><p></p><p><strong>A Triumphant Recap of the Era</strong></p><p>All in all, the Clancy World Tour has been an engaging, high-octane journey that solidified Twenty One Pilots’ reputation as one of music's most electrifying live acts. Endless reviews hailed the tour as a “<em>masterclass in immersive storytelling, electrifying visuals, and heartfelt connection”, </em>emphasizing that the band’s live show operates <em>“in a league entirely its own”.</em></p><p><br>Night after night, Tyler &amp; Josh gave everything, live vocals, incredible musical talent, all delivered with energy didnt leave a single dry eye in the house. With the explosive first notes in Denver to the final confetti fall in London, the Clancy Tour was both a celebration of the new album and a (deserved) victory lap of the band at the peak of its powers. Leaving the clique exhilarated, emotional, and excited to see what the band does next!</p>
-<img src="https://feats-api.fpvgate-analytics.workers.dev/images/articles/491440710_18045906593579740_3488338911094287523_n.jpg" alt="" style="width:100%;height:auto;display:block;margin:1.5rem 0;border-radius:4px" loading="lazy">
-<img src="https://feats-api.fpvgate-analytics.workers.dev/images/articles/497771614_18046622417579740_7251753305439959741_n.jpg" alt="" style="width:100%;height:auto;display:block;margin:1.5rem 0;border-radius:4px" loading="lazy">
-<img src="https://feats-api.fpvgate-analytics.workers.dev/images/articles/497387396_18046622507579740_3139456768425903272_n.jpg" alt="" style="width:100%;height:auto;display:block;margin:1.5rem 0;border-radius:4px" loading="lazy">
-<img src="https://feats-api.fpvgate-analytics.workers.dev/images/articles/497720585_18046540334579740_4416335569285117865_n.jpg" alt="" style="width:100%;height:auto;display:block;margin:1.5rem 0;border-radius:4px" loading="lazy">
+<figure class="article-media article-media--float-right">
+  <img src="https://feats-api.fpvgate-analytics.workers.dev/images/articles/497771614_18046622417579740_7251753305439959741_n.jpg" alt="" loading="lazy">
+  <figcaption>Image Credit: Gracie Hall - @gracroc</figcaption>
+</figure>
+<p>Beyond the record setting stats, the Clancy tour delivered plenty of unforgettable moments. Twenty One Pilots’ kicked off the very first show in Denver with an extensive 28-song setlist that Thrilled the Die-hard fans &amp; newcomers alike! Fans were treated to the live debut of four new songs (following the “An Evening with Twenty One Pilots” Mini Release tour just after the release of Clancy in May 2024), including “Vignette” and “Paladin Strait”. Through the tour the band struck a balance between their new releases and the existing fan favorites- ensuring the keep the punters on their toes with frequent changes to the setlists from gig to gig!</p><p>Throughout each show the duo made sure that no single person felt like they weren't included in the performance, this time they broke out two smaller “b-stages” platforms on either side of the arenas, here is where they would interact with fans, bring back old (or even some unreleased!) songs, and perform remixed versions of some classics!  Early on in the tour they played “Old song Medley”, which was a remix of very early fan favorite songs such as “Addicted with a Pen“, “Forest” and “Slowtown”, which was a real nostalgic treat for the long-term listeners in the crowd!</p>
+<figure class="article-media article-media--float-right">
+  <img src="https://feats-api.fpvgate-analytics.workers.dev/images/articles/497387396_18046622507579740_3139456768425903272_n.jpg" alt="" loading="lazy">
+  <figcaption>Image Credit: Gracie Hall - @gracroc</figcaption>
+</figure>
+<p>One standout favourite across the shows was when the duo performed “Ride”, inviting a young person onto the platform to sing with Tyler. Without fail, this melted the hearts of every single person in the arena &amp; will definitely be a core memory for the kids that got to choose!</p><p>The Twenty One Pilots fanbase is a defining element of the band! With thousands of fans donning the signature red/yellow stripes, with hundreds of custom bandito outfits, there really is no fan base that has the same kind of passion for a band! During the Sets despite the new songs being relatively new, the entire arena knew <em>all</em> the words! Even filling in fan-made gaps like quietly singing the lyrics to Trenches “Leave the City”, in the gap within “Paladin Straight”, and of course the fan favourite “<em>Here we Fucking Go”</em><strong><em> </em></strong>chant just before the epic finale of the Iconic “Trees”.</p><p><br/>In the final three gigs of the tour there was an extraordinary event in which one overly devoted attendee stole one of the bands drums at the end of the show! Fans quickly mobilised to help track it down &amp; within less than 24 hours the drum was recovered without issue! The band the next day made light of the situation with quick jokes &amp; a comically large chain attached to the drums! Incidents like this, along with the deafening sing-alongs at every stop, underscored the passionate bond between Twenty One Pilots and their audience.</p>
+<hr class="article-rule">
+<div>
+<blockquote><p>it’s not.<br/>the show is a flashback.<br/>like an entire life passing by.<br/>reminding us why we fight right before we do. <a href="https://t.co/8Wa2L8klMZ">https://t.co/8Wa2L8klMZ</a></p>— tyler jøseph (@tylerrjoseph) <a href="https://twitter.com/tylerrjoseph/status/1804571290793034150?ref_src=twsrc%5Etfw">June 22, 2024</a></blockquote>
+
+</div>
+<p><strong>A Theatrical Cinematic Experience</strong><br/>Critics and Fans alike have always praised the Pilots for their ambitious productions and showmanship, in that vein the Clancy tour was no different! Each concert was far more than a typical run-through of songs, as Tyler described in a reply to a <a href="https://x.com/tylerrjoseph/status/1804571290793034150"><span>tweet “The Show is a flashback. Like an Entire Life passing by. Reminding us why we fight right before we do.”</span></a> </p><p>The stage itself became a dystopian playground, with a mixture of nostalgic visuals &amp; conceptual lore telling- Tyler &amp; Josh built a story through the shows, each show dropping hits &amp; secrets, further building into the lore of Dema.</p>
+<figure class="article-media article-media--float-left">
+  <img src="https://feats-api.fpvgate-analytics.workers.dev/images/articles/497720585_18046540334579740_4416335569285117865_n.jpg" alt="" loading="lazy">
+  <figcaption>Image Credit: Gracie Hall - @gracroc</figcaption>
+</figure>
+<p>In the third quarter of the set, the duo took a moment to feed into the on-going storyline, with Torch-bearer (Josh), wearing the classic Bandito yellow stripes, walking through the crowd over to Clancy (Tyler), at which point he is handed the Clancy Era Red-striped jacket. Each night the duo changed the performance slightly, eventually ending with Clancy ignoring Torch-bearer, massively fueling speculation &amp; rumours from the band's fan-base!<br/><br/>Whilst that was the most “Lore Heavy” element of the show, it wasn't the only theatrical element - during Car-Radio Tyler would vanish from the main stage only to as if by magic appear high in the rafters of the arena.</p><p>Each show closed with the band’s iconic stunt: both members pounding away on portable drums held by the crowd during the exhilarating finale “Trees,” amid confetti cannons and roaring cheers. It was a tear-inducing climax that highlighted the joyful communion between the band and their fans.</p><p><strong>A Triumphant Recap of the Era</strong></p><p>All in all, the Clancy World Tour has been an engaging, high-octane journey that solidified Twenty One Pilots’ reputation as one of music's most electrifying live acts. Endless reviews hailed the tour as a “<em>masterclass in immersive storytelling, electrifying visuals, and heartfelt connection”, </em>emphasizing that the band’s live show operates <em>“in a league entirely its own”.</em></p><p><br/>Night after night, Tyler &amp; Josh gave everything, live vocals, incredible musical talent, all delivered with energy didnt leave a single dry eye in the house. With the explosive first notes in Denver to the final confetti fall in London, the Clancy Tour was both a celebration of the new album and a (deserved) victory lap of the band at the peak of its powers. Leaving the clique exhilarated, emotional, and excited to see what the band does next!</p>
     </article>
   </main>
 <footer class="site-footer">
@@ -78,6 +118,42 @@
     document.getElementById('navToggle').addEventListener('click', function(){
       document.getElementById('navLinks').classList.toggle('open');
     });
+
+    (function(){
+      var carousels = document.querySelectorAll('[data-article-carousel]');
+      carousels.forEach(function(carousel){
+        var slides = carousel.querySelectorAll('.carousel-slide');
+        var thumbs = carousel.querySelectorAll('.carousel-thumb');
+        if (!slides.length) return;
+
+        var currentIndex = 0;
+        function setSlide(nextIndex){
+          if (nextIndex < 0) nextIndex = slides.length - 1;
+          if (nextIndex >= slides.length) nextIndex = 0;
+          currentIndex = nextIndex;
+          slides.forEach(function(slide, index){
+            slide.classList.toggle('is-active', index === currentIndex);
+          });
+          thumbs.forEach(function(thumb, index){
+            thumb.classList.toggle('is-active', index === currentIndex);
+          });
+        }
+
+        var prevButton = carousel.querySelector('.carousel-nav.prev');
+        var nextButton = carousel.querySelector('.carousel-nav.next');
+        if (prevButton) {
+          prevButton.addEventListener('click', function(){ setSlide(currentIndex - 1); });
+        }
+        if (nextButton) {
+          nextButton.addEventListener('click', function(){ setSlide(currentIndex + 1); });
+        }
+
+        thumbs.forEach(function(button, index){
+          button.addEventListener('click', function(){ setSlide(index); });
+        });
+        setSlide(0);
+      });
+    })();
   </script>
 </body>
 </html>

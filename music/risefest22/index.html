@@ -12,16 +12,37 @@
   <link rel="icon" type="image/x-icon" href="/favicon.ico">
   <style>
     .article-body{max-width:750px;margin:0 auto;padding:3rem 2rem}
+    .article-body::after{content:'';display:block;clear:both}
     .article-body .featured-img{width:100%;height:auto;margin-bottom:2rem}
     .article-body h1{font-size:2.2rem;margin-bottom:.5rem;line-height:1.2}
     .article-body .meta{font-size:.8rem;opacity:.5;text-transform:uppercase;letter-spacing:1px;margin-bottom:2rem}
     .article-body p{font-size:1.05rem;opacity:.85;margin-bottom:1.5rem;line-height:1.8}
-    .article-body img{max-width:100%;height:auto;border-radius:4px}
     .article-body a{text-decoration:underline;opacity:.8}
     .article-body a:hover{opacity:1}
-    .img-wrap-right{float:right;width:45%;margin:0.5rem 0 0.5rem 1.5rem}
-    .img-wrap-left{float:left;width:45%;margin:0.5rem 1.5rem 0.5rem 0}
-    @media(max-width:600px){.img-wrap-right,.img-wrap-left{float:none;width:100%;margin:1rem 0}}
+    .article-media{margin:1.5rem 0}
+    .article-media--full{width:100%;clear:both}
+    .article-media--float-right{float:right;width:45%;margin:0.5rem 0 1.2rem 1.5rem}
+    .article-media--float-left{float:left;width:45%;margin:0.5rem 1.5rem 1.2rem 0}
+    .article-media img{width:100%;height:auto;display:block;border-radius:4px}
+    .article-media figcaption{font-size:.82rem;opacity:.62;line-height:1.45;margin-top:.5rem}
+    .article-rule{margin:2.3rem 0;border:none;border-top:1px solid rgba(0,0,0,.18);clear:both}
+    .article-carousel{position:relative}
+    .article-carousel-main{position:relative;background:#0a0a0a;overflow:hidden}
+    .article-carousel-slides{position:relative}
+    .article-carousel .carousel-slide{display:none}
+    .article-carousel .carousel-slide.is-active{display:block}
+    .article-carousel .carousel-nav{position:absolute;top:50%;transform:translateY(-50%);z-index:3;width:42px;height:42px;border:none;background:rgba(0,0,0,.33);color:#fff;font-size:2rem;line-height:1;cursor:pointer}
+    .article-carousel .carousel-nav.prev{left:0.65rem}
+    .article-carousel .carousel-nav.next{right:0.65rem}
+    .article-carousel.is-single .carousel-nav{display:none}
+    .article-carousel-thumbs{display:flex;gap:2px;overflow-x:auto;margin-top:.55rem;padding-bottom:2px}
+    .article-carousel .carousel-thumb{border:none;padding:0;background:transparent;opacity:.52;cursor:pointer;flex:0 0 auto}
+    .article-carousel .carousel-thumb.is-active{opacity:1}
+    .article-carousel .carousel-thumb img{width:58px;height:40px;object-fit:cover;border-radius:0}
+    @media(max-width:600px){
+      .article-media--float-right,.article-media--float-left{float:none;width:100%;margin:1rem 0}
+      .article-carousel .carousel-nav{width:36px;height:36px;font-size:1.65rem}
+    }
   </style>
 </head>
 <body>
@@ -47,15 +68,102 @@
       <img class="featured-img" src="https://feats-api.fpvgate-analytics.workers.dev/images/articles/DSC07568.jpg" alt="RiseFest ‘22:" loading="lazy">
       <div class="meta">Interview &middot; up and coming &middot; Festival &middot; Feats. &middot; 2022-09-15</div>
       <h1>RiseFest ‘22:</h1>
-      <h2><strong>Upcoming rock and metal festival exploding the heavy music out of Newcastle, showcasing some of the best emerging acts to date.</strong></h2><p><span>Sophie Bingham</span></p><p>Heavy music is not something you would normally credit Newcastle for, renowned for Sam Fender arguably one of the best artists in the indie scene at the minute and its sheer amount of Greggs (we counted six, two with a&nbsp; ‘drive thru’’!) However this weekend Newcastle was rearing and ready to go out with a bang to end this year's festival season, although the sun has soon disappeared everyone was well equipped with fishnets, masses of eyeliner and drinks in hand for this year's first ever RiseFest at Northumbria’s Student Union. Everytime a new alternative festival is announced everyone expects a FireFest 2.0 but this couldn’t have been the opposite.</p>
-<p>Tom Ellis (TJEphotots, Feats.)</p><p>Composed of Two stages, an exclusive ‘WEEPING WIDOW’ set from Creeper, and Frank Carter And the rattlesnakes set to bring chaos to the mainstage, talent was seeping through the walls. The day was kicked off with Newcastle locals, MALLY, stepping in last minute to replace Superlove, for a band just making a name for themselves in the industry, they brought their A game, a band full of energy, their biggest hit, control reaching just over 5,000 streams on Spotify, they pulled an incredible crowd down to the Fireball Stage at 12 O’clock. Quickly followed the five-piece alt-rock band from Middlesbrough Motherland.&nbsp;&nbsp;</p><p>Cassyette graced the mainstage earlier on in the day, and teased new song ‘BOOM’ , a heavier electronic sound with a strong bassline, the whole of Mainstage was packed full, she pulled everyone down early in morning to watch her set. We were not surprised Cassyette is always one to put on an incredible set, one of the biggest names coming out of Lockdown.</p>
-<p>Death Blooms bought their unapologetic aggression and complete and utter chaos to the Mainstage, later followed by another band exploding the scene, Static Dress, playing songs from their recent released, Rouge Carpet Disaster, pushing their ‘new wave hardcore’ sound into Newcastle! Another successful band coming from Leeds, who recently joined Sheffield’s Bring Me The Horizon on their Malta Weekender! &nbsp;Zand took to the fireball stage, creating gritty pop, coining the genre ‘ugly pop’!</p><p>Although the day was running smoothly, nothing is ever perfect without a little hiccup, the smaller stage had a little ‘bit of a moment’. The bands obviously bought too much energy and talent for iut to handle, but it was quickly fixed and the day could go on with as much chaos as we wanted.</p>
-<p><br></p><p>Vukovi then took the mainstage, The Scots, formed of Janine Shilstone and Hamish Reilly. They really know how to put on a show. Janine took everyone’s breath away. Confidence and sexuality seeping through into the crowd! Their upcoming album NULA, a manifestation of empowerment, is out later this year. We caught up with VUKOVI to talk about everything NULA, the Venga Boys and making music like making babies so keep your eyes peeled!</p>
+      <h2><strong>Upcoming rock and metal festival exploding the heavy music out of Newcastle, showcasing some of the best emerging acts to date.</strong></h2><p><span>Sophie Bingham</span></p><p>Heavy music is not something you would normally credit Newcastle for, renowned for Sam Fender arguably one of the best artists in the indie scene at the minute and its sheer amount of Greggs (we counted six, two with a  ‘drive thru’’!) However this weekend Newcastle was rearing and ready to go out with a bang to end this year's festival season, although the sun has soon disappeared everyone was well equipped with fishnets, masses of eyeliner and drinks in hand for this year's first ever RiseFest at Northumbria’s Student Union. Everytime a new alternative festival is announced everyone expects a FireFest 2.0 but this couldn’t have been the opposite.</p>
+<div class="article-carousel article-media article-media--full" data-article-carousel="carousel-1">
+  <div class="article-carousel-main">
+    <button type="button" class="carousel-nav prev" aria-label="Previous image">&#10094;</button>
+    <div class="article-carousel-slides">
+      <img class="carousel-slide is-active" src="https://feats-api.fpvgate-analytics.workers.dev/images/articles/DSC07568.jpg" alt="MALLY" loading="lazy">
+      <img class="carousel-slide" src="https://feats-api.fpvgate-analytics.workers.dev/images/articles/DSC07875.jpg" alt="CASSYETTE" loading="lazy">
+      <img class="carousel-slide" src="https://feats-api.fpvgate-analytics.workers.dev/images/articles/DSC07675.jpg" alt="TYLR RYDR " loading="lazy">
+      <img class="carousel-slide" src="https://feats-api.fpvgate-analytics.workers.dev/images/articles/DSC07901.jpg" alt="DEATH BLOOMS" loading="lazy">
+      <img class="carousel-slide" src="https://feats-api.fpvgate-analytics.workers.dev/images/articles/DSC08390.jpg" alt="ZAND" loading="lazy">
+      <img class="carousel-slide" src="https://feats-api.fpvgate-analytics.workers.dev/images/articles/DSC08086.jpg" alt="STATIC DRESS" loading="lazy">
+    </div>
+    <button type="button" class="carousel-nav next" aria-label="Next image">&#10095;</button>
+  </div>
+  <div class="article-carousel-thumbs">
+    <button type="button" class="carousel-thumb is-active" data-slide-index="0" aria-label="View image 1">
+      <img src="https://feats-api.fpvgate-analytics.workers.dev/images/articles/DSC07568.jpg" alt="" loading="lazy">
+    </button>
+    <button type="button" class="carousel-thumb" data-slide-index="1" aria-label="View image 2">
+      <img src="https://feats-api.fpvgate-analytics.workers.dev/images/articles/DSC07875.jpg" alt="" loading="lazy">
+    </button>
+    <button type="button" class="carousel-thumb" data-slide-index="2" aria-label="View image 3">
+      <img src="https://feats-api.fpvgate-analytics.workers.dev/images/articles/DSC07675.jpg" alt="" loading="lazy">
+    </button>
+    <button type="button" class="carousel-thumb" data-slide-index="3" aria-label="View image 4">
+      <img src="https://feats-api.fpvgate-analytics.workers.dev/images/articles/DSC07901.jpg" alt="" loading="lazy">
+    </button>
+    <button type="button" class="carousel-thumb" data-slide-index="4" aria-label="View image 5">
+      <img src="https://feats-api.fpvgate-analytics.workers.dev/images/articles/DSC08390.jpg" alt="" loading="lazy">
+    </button>
+    <button type="button" class="carousel-thumb" data-slide-index="5" aria-label="View image 6">
+      <img src="https://feats-api.fpvgate-analytics.workers.dev/images/articles/DSC08086.jpg" alt="" loading="lazy">
+    </button>
+  </div>
+</div>
+<p>Tom Ellis (TJEphotots, Feats.)</p><p>Composed of Two stages, an exclusive ‘WEEPING WIDOW’ set from Creeper, and Frank Carter And the rattlesnakes set to bring chaos to the mainstage, talent was seeping through the walls. The day was kicked off with Newcastle locals, MALLY, stepping in last minute to replace Superlove, for a band just making a name for themselves in the industry, they brought their A game, a band full of energy, their biggest hit, control reaching just over 5,000 streams on Spotify, they pulled an incredible crowd down to the Fireball Stage at 12 O’clock. Quickly followed the five-piece alt-rock band from Middlesbrough Motherland.  </p><p>Cassyette graced the mainstage earlier on in the day, and teased new song ‘BOOM’ , a heavier electronic sound with a strong bassline, the whole of Mainstage was packed full, she pulled everyone down early in morning to watch her set. We were not surprised Cassyette is always one to put on an incredible set, one of the biggest names coming out of Lockdown.</p>
+<figure class="article-media article-media--full">
+  <img src="https://feats-api.fpvgate-analytics.workers.dev/images/articles/DSC08195.jpg" alt="" loading="lazy">
+  <figcaption>Tom Ellis (TJEphotos, Feats.)</figcaption>
+</figure>
+<p>Death Blooms bought their unapologetic aggression and complete and utter chaos to the Mainstage, later followed by another band exploding the scene, Static Dress, playing songs from their recent released, Rouge Carpet Disaster, pushing their ‘new wave hardcore’ sound into Newcastle! Another successful band coming from Leeds, who recently joined Sheffield’s Bring Me The Horizon on their Malta Weekender!  Zand took to the fireball stage, creating gritty pop, coining the genre ‘ugly pop’!</p><p>Although the day was running smoothly, nothing is ever perfect without a little hiccup, the smaller stage had a little ‘bit of a moment’. The bands obviously bought too much energy and talent for iut to handle, but it was quickly fixed and the day could go on with as much chaos as we wanted.</p>
+<figure class="article-media article-media--full">
+  <img src="https://feats-api.fpvgate-analytics.workers.dev/images/articles/DSC08434.jpg" alt="" loading="lazy">
+</figure>
+<p>Vukovi then took the mainstage, The Scots, formed of Janine Shilstone and Hamish Reilly. They really know how to put on a show. Janine took everyone’s breath away. Confidence and sexuality seeping through into the crowd! Their upcoming album NULA, a manifestation of empowerment, is out later this year. We caught up with VUKOVI to talk about everything NULA, the Venga Boys and making music like making babies so keep your eyes peeled!</p>
+<div class="article-carousel article-media article-media--full" data-article-carousel="carousel-2">
+  <div class="article-carousel-main">
+    <button type="button" class="carousel-nav prev" aria-label="Previous image">&#10094;</button>
+    <div class="article-carousel-slides">
+      <img class="carousel-slide is-active" src="https://feats-api.fpvgate-analytics.workers.dev/images/articles/DSC08953.jpg" alt="BOSTON MANOR" loading="lazy">
+      <img class="carousel-slide" src="https://feats-api.fpvgate-analytics.workers.dev/images/articles/DSC09155_1.jpg" alt="CREEPER" loading="lazy">
+      <img class="carousel-slide" src="https://feats-api.fpvgate-analytics.workers.dev/images/articles/DSC09149.jpg" alt="CREEPER" loading="lazy">
+    </div>
+    <button type="button" class="carousel-nav next" aria-label="Next image">&#10095;</button>
+  </div>
+  <div class="article-carousel-thumbs">
+    <button type="button" class="carousel-thumb is-active" data-slide-index="0" aria-label="View image 1">
+      <img src="https://feats-api.fpvgate-analytics.workers.dev/images/articles/DSC08953.jpg" alt="" loading="lazy">
+    </button>
+    <button type="button" class="carousel-thumb" data-slide-index="1" aria-label="View image 2">
+      <img src="https://feats-api.fpvgate-analytics.workers.dev/images/articles/DSC09155_1.jpg" alt="" loading="lazy">
+    </button>
+    <button type="button" class="carousel-thumb" data-slide-index="2" aria-label="View image 3">
+      <img src="https://feats-api.fpvgate-analytics.workers.dev/images/articles/DSC09149.jpg" alt="" loading="lazy">
+    </button>
+  </div>
+</div>
 <p>The line up at RiseFest was undeniably incredibly and the headlines act did not disappoint, Boston Manor played banger after banger, with their latest release DATURA to come out later this October. Creeper came in with a ONE NIGHT ONLY set, Weeping Willow, where Hannah took the Stage without Will (Frontman of Creeper) and it was spectacular, Everyone after the show could not stop talking how incredible her vocals, stage presence and the set was!</p><p>Frank Carter and the Rattlesnakes then took to end the night off and it went out with a bang! They never fail to impress me, from diving in the crowd, to being in the center of a circle pit, his headstand from within the crowd and Deano (Dean Richardson, guitarist) crowd surfing and playing the guitar, multitasking! Their set opened up with My Town, A song bred with anger and disappointment in the way as a collective, the world treats each other. And live, it's something I think everyone has to experience, it’s three minutes where you can unleash all your anger, all your personal disappointment in people and the way our world, ‘our town’ is too.</p>
+<div class="article-carousel article-media article-media--full" data-article-carousel="carousel-3">
+  <div class="article-carousel-main">
+    <button type="button" class="carousel-nav prev" aria-label="Previous image">&#10094;</button>
+    <div class="article-carousel-slides">
+      <img class="carousel-slide is-active" src="https://feats-api.fpvgate-analytics.workers.dev/images/articles/DSC09495.jpg" alt="DSC09495.jpg" loading="lazy">
+      <img class="carousel-slide" src="https://feats-api.fpvgate-analytics.workers.dev/images/articles/DSC09538.jpg" alt="DSC09538.jpg" loading="lazy">
+      <img class="carousel-slide" src="https://feats-api.fpvgate-analytics.workers.dev/images/articles/DSC09266.jpg" alt="DSC09266.jpg" loading="lazy">
+      <img class="carousel-slide" src="https://feats-api.fpvgate-analytics.workers.dev/images/articles/DSC09271.jpg" alt="DSC09271.jpg" loading="lazy">
+    </div>
+    <button type="button" class="carousel-nav next" aria-label="Next image">&#10095;</button>
+  </div>
+  <div class="article-carousel-thumbs">
+    <button type="button" class="carousel-thumb is-active" data-slide-index="0" aria-label="View image 1">
+      <img src="https://feats-api.fpvgate-analytics.workers.dev/images/articles/DSC09495.jpg" alt="" loading="lazy">
+    </button>
+    <button type="button" class="carousel-thumb" data-slide-index="1" aria-label="View image 2">
+      <img src="https://feats-api.fpvgate-analytics.workers.dev/images/articles/DSC09538.jpg" alt="" loading="lazy">
+    </button>
+    <button type="button" class="carousel-thumb" data-slide-index="2" aria-label="View image 3">
+      <img src="https://feats-api.fpvgate-analytics.workers.dev/images/articles/DSC09266.jpg" alt="" loading="lazy">
+    </button>
+    <button type="button" class="carousel-thumb" data-slide-index="3" aria-label="View image 4">
+      <img src="https://feats-api.fpvgate-analytics.workers.dev/images/articles/DSC09271.jpg" alt="" loading="lazy">
+    </button>
+  </div>
+</div>
 <p>Tom Ellis (TJEphotos, Feats.)</p>
-<p>Known for their girls only pits to Wild Flowers, a song that is so beautifully written but so chaotic live, the girls only pit is so empowering to have a moment to show a scene, where often its easy as a girl to feel inferior or judged, that you can have a safe space to go crazy and mosh without fear of being touched inappropriately in the crowd! I really push every band to implement something similar. Frank went on to explain that we owe it to each other to create a safe space for people, and how important it is to call out people around you if they are acting predatory.&nbsp;</p><p>RiseFest was incredible showcase of the scene, of talented bands and artists coming together to create something special, it was most definitely worth the 8hrs coach down from London, and we have our fingers crossed for a RiseFest ‘23!</p><p><span>Sophie Bingham</span></p><p></p><p><span>Sponsored by Iron Stone Audio</span></p>
-<img src="https://feats-api.fpvgate-analytics.workers.dev/images/articles/DSC08195.jpg" alt="" style="width:100%;height:auto;display:block;margin:1.5rem 0;border-radius:4px" loading="lazy">
-<img src="https://feats-api.fpvgate-analytics.workers.dev/images/articles/DSC08434.jpg" alt="" style="width:100%;height:auto;display:block;margin:1.5rem 0;border-radius:4px" loading="lazy">
+<p>Known for their girls only pits to Wild Flowers, a song that is so beautifully written but so chaotic live, the girls only pit is so empowering to have a moment to show a scene, where often its easy as a girl to feel inferior or judged, that you can have a safe space to go crazy and mosh without fear of being touched inappropriately in the crowd! I really push every band to implement something similar. Frank went on to explain that we owe it to each other to create a safe space for people, and how important it is to call out people around you if they are acting predatory. </p><p>RiseFest was incredible showcase of the scene, of talented bands and artists coming together to create something special, it was most definitely worth the 8hrs coach down from London, and we have our fingers crossed for a RiseFest ‘23!</p><p><span>Sophie Bingham</span></p><p><span>Sponsored by Iron Stone Audio</span></p>
     </article>
   </main>
 <footer class="site-footer">
@@ -75,6 +183,42 @@
     document.getElementById('navToggle').addEventListener('click', function(){
       document.getElementById('navLinks').classList.toggle('open');
     });
+
+    (function(){
+      var carousels = document.querySelectorAll('[data-article-carousel]');
+      carousels.forEach(function(carousel){
+        var slides = carousel.querySelectorAll('.carousel-slide');
+        var thumbs = carousel.querySelectorAll('.carousel-thumb');
+        if (!slides.length) return;
+
+        var currentIndex = 0;
+        function setSlide(nextIndex){
+          if (nextIndex < 0) nextIndex = slides.length - 1;
+          if (nextIndex >= slides.length) nextIndex = 0;
+          currentIndex = nextIndex;
+          slides.forEach(function(slide, index){
+            slide.classList.toggle('is-active', index === currentIndex);
+          });
+          thumbs.forEach(function(thumb, index){
+            thumb.classList.toggle('is-active', index === currentIndex);
+          });
+        }
+
+        var prevButton = carousel.querySelector('.carousel-nav.prev');
+        var nextButton = carousel.querySelector('.carousel-nav.next');
+        if (prevButton) {
+          prevButton.addEventListener('click', function(){ setSlide(currentIndex - 1); });
+        }
+        if (nextButton) {
+          nextButton.addEventListener('click', function(){ setSlide(currentIndex + 1); });
+        }
+
+        thumbs.forEach(function(button, index){
+          button.addEventListener('click', function(){ setSlide(index); });
+        });
+        setSlide(0);
+      });
+    })();
   </script>
 </body>
 </html>

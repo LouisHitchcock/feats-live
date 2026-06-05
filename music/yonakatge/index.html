@@ -12,16 +12,37 @@
   <link rel="icon" type="image/x-icon" href="/favicon.ico">
   <style>
     .article-body{max-width:750px;margin:0 auto;padding:3rem 2rem}
+    .article-body::after{content:'';display:block;clear:both}
     .article-body .featured-img{width:100%;height:auto;margin-bottom:2rem}
     .article-body h1{font-size:2.2rem;margin-bottom:.5rem;line-height:1.2}
     .article-body .meta{font-size:.8rem;opacity:.5;text-transform:uppercase;letter-spacing:1px;margin-bottom:2rem}
     .article-body p{font-size:1.05rem;opacity:.85;margin-bottom:1.5rem;line-height:1.8}
-    .article-body img{max-width:100%;height:auto;border-radius:4px}
     .article-body a{text-decoration:underline;opacity:.8}
     .article-body a:hover{opacity:1}
-    .img-wrap-right{float:right;width:45%;margin:0.5rem 0 0.5rem 1.5rem}
-    .img-wrap-left{float:left;width:45%;margin:0.5rem 1.5rem 0.5rem 0}
-    @media(max-width:600px){.img-wrap-right,.img-wrap-left{float:none;width:100%;margin:1rem 0}}
+    .article-media{margin:1.5rem 0}
+    .article-media--full{width:100%;clear:both}
+    .article-media--float-right{float:right;width:45%;margin:0.5rem 0 1.2rem 1.5rem}
+    .article-media--float-left{float:left;width:45%;margin:0.5rem 1.5rem 1.2rem 0}
+    .article-media img{width:100%;height:auto;display:block;border-radius:4px}
+    .article-media figcaption{font-size:.82rem;opacity:.62;line-height:1.45;margin-top:.5rem}
+    .article-rule{margin:2.3rem 0;border:none;border-top:1px solid rgba(0,0,0,.18);clear:both}
+    .article-carousel{position:relative}
+    .article-carousel-main{position:relative;background:#0a0a0a;overflow:hidden}
+    .article-carousel-slides{position:relative}
+    .article-carousel .carousel-slide{display:none}
+    .article-carousel .carousel-slide.is-active{display:block}
+    .article-carousel .carousel-nav{position:absolute;top:50%;transform:translateY(-50%);z-index:3;width:42px;height:42px;border:none;background:rgba(0,0,0,.33);color:#fff;font-size:2rem;line-height:1;cursor:pointer}
+    .article-carousel .carousel-nav.prev{left:0.65rem}
+    .article-carousel .carousel-nav.next{right:0.65rem}
+    .article-carousel.is-single .carousel-nav{display:none}
+    .article-carousel-thumbs{display:flex;gap:2px;overflow-x:auto;margin-top:.55rem;padding-bottom:2px}
+    .article-carousel .carousel-thumb{border:none;padding:0;background:transparent;opacity:.52;cursor:pointer;flex:0 0 auto}
+    .article-carousel .carousel-thumb.is-active{opacity:1}
+    .article-carousel .carousel-thumb img{width:58px;height:40px;object-fit:cover;border-radius:0}
+    @media(max-width:600px){
+      .article-media--float-right,.article-media--float-left{float:none;width:100%;margin:1rem 0}
+      .article-carousel .carousel-nav{width:36px;height:36px;font-size:1.65rem}
+    }
   </style>
 </head>
 <body>
@@ -47,14 +68,36 @@
       <img class="featured-img" src="https://feats-api.fpvgate-analytics.workers.dev/images/articles/DSC03299.jpg" alt="Welcome to THEIR House: Yonaka at The Great Escape" loading="lazy">
       <div class="meta">Live Music &middot; Gig Review &middot; Interview &middot; Feats. &middot; 2023-07-06</div>
       <h1>Welcome to THEIR House: Yonaka at The Great Escape</h1>
-      <p>Brighton's own, 3-piece alternative rock trio return to The Great Escape for the first time in five years. This is also their first time back in Brighton since 2021. They return to Chalk to fill out the iconic venue again this year. We caught up with Yonaka to discuss everything “Welcome To My House”, upcoming music, Brighton nights out, Tonight Matthew, and everything in between.</p><p>&nbsp;</p><p>Three singles, ‘Welcome to my house’, ‘Panic’ and ‘Give Me My Halo’ have been released from their upcoming 7-song EP. During our chat with Yonaka they teased that one more single will be dropped before the EP comes out. Although originally teasing ‘By The Time You’re Reading This’ being the next single to come off of The EP, ‘Give Me My Halo’  was instead released last week, a beautiful anthem that allows Teresa’s Vocals to be showcased throughout the track. A slow mellow entry that builds into an ethereal atmosphere.</p>
-<p>Welcome to my house is the title track of the unreleased EP, a song that Teresa says ‘it’s me, I’m the house and all these experiences are guests - it's nice to remember that these (negative) feelings won’t last forever. It’s like a therapy session.’&nbsp;</p><p>The track sees Teresa go on a journey from self-loathe, working through that and finally seeing herself in this new positive light.&nbsp;</p><p>‘When I first made the loop, I didn’t know if it was a Yonaka song’, Alex says But it’s so clear how well ‘Welcome To My House’ fits Yonaka - A song with power embedded within the lyrics, and one that I think a lot of people can relate to.&nbsp;</p>
-<p>Their set opened up with ‘Ordinary’. Instant energy buzzed throughout the crowd. The barrier rammed - strobe lights flying over the crowd and screams blast through the ceiling as Yonaka walks out on stage.&nbsp;</p><p>As the set continued on, The band Debuted ‘By The Time You’re Reading This’, off the upcoming EP. The Track is yet to be released but everyone in the crowd treated it as if it were a Yonaka classic, hanging onto every lyric sang.</p><p>“Seize The Power” broke through during the set with a powerhouse song, sassy &amp; assertive with a catchy chorus - a great way to finish off their headline set at The Great Escape.</p>
-<p>“Seize The Power” has recently hit 30 million after appearing in marvels recent ‘SHE-HULK’. The track went viral on TikTok and is now listened to by thousands every day. ‘It's just stats but it’s nice to see’ George says while explaining how nice it is to see that people enjoy their music.</p><p>Returning home is always nice’ all three members are excited to play their own slot after an insane run with Palaye Royale took them to 26 different countries, returning home after a run like that anyone would be nervous but no, Yonaka are buzzing and it translates perfectly across the Stage. Confidence oozes out of them during their set, moving perfectly in sync. Yonaka is a band that never disappoints.&nbsp;<strong><em> </em></strong></p><p></p><p>Check out the full Interview and Yonakas Latest single Below:&nbsp;</p>
-<img src="https://feats-api.fpvgate-analytics.workers.dev/images/articles/DSC03299.jpg" alt="" style="width:100%;height:auto;display:block;margin:1.5rem 0;border-radius:4px" loading="lazy">
-<img src="https://feats-api.fpvgate-analytics.workers.dev/images/articles/IMG_0430.JPG" alt="" style="width:100%;height:auto;display:block;margin:1.5rem 0;border-radius:4px" loading="lazy">
-<img src="https://feats-api.fpvgate-analytics.workers.dev/images/articles/IMG_0417.JPG" alt="" style="width:100%;height:auto;display:block;margin:1.5rem 0;border-radius:4px" loading="lazy">
-<img src="https://feats-api.fpvgate-analytics.workers.dev/images/articles/yonaka29.JPG" alt="" style="width:100%;height:auto;display:block;margin:1.5rem 0;border-radius:4px" loading="lazy">
+      <figure class="article-media article-media--full">
+  <img src="https://feats-api.fpvgate-analytics.workers.dev/images/articles/DSC03299.jpg" alt="" loading="lazy">
+  <figcaption>Tom Ellis (TJEphotos/FEATS)</figcaption>
+</figure>
+<p>Brighton's own, 3-piece alternative rock trio return to The Great Escape for the first time in five years. This is also their first time back in Brighton since 2021. They return to Chalk to fill out the iconic venue again this year. We caught up with Yonaka to discuss everything “Welcome To My House”, upcoming music, Brighton nights out, Tonight Matthew, and everything in between.</p><p>Three singles, ‘Welcome to my house’, ‘Panic’ and ‘Give Me My Halo’ have been released from their upcoming 7-song EP. During our chat with Yonaka they teased that one more single will be dropped before the EP comes out. Although originally teasing ‘By The Time You’re Reading This’ being the next single to come off of The EP, ‘Give Me My Halo’  was instead released last week, a beautiful anthem that allows Teresa’s Vocals to be showcased throughout the track. A slow mellow entry that builds into an ethereal atmosphere.</p>
+<figure class="article-media article-media--full">
+  <img src="https://feats-api.fpvgate-analytics.workers.dev/images/articles/IMG_0430.JPG" alt="" loading="lazy">
+  <figcaption>Tom Ellis (TJEphotos/FEATS)</figcaption>
+</figure>
+<p>Welcome to my house is the title track of the unreleased EP, a song that Teresa says ‘it’s me, I’m the house and all these experiences are guests - it's nice to remember that these (negative) feelings won’t last forever. It’s like a therapy session.’ </p><p>The track sees Teresa go on a journey from self-loathe, working through that and finally seeing herself in this new positive light. </p><p>‘When I first made the loop, I didn’t know if it was a Yonaka song’, Alex says But it’s so clear how well ‘Welcome To My House’ fits Yonaka - A song with power embedded within the lyrics, and one that I think a lot of people can relate to. </p>
+<figure class="article-media article-media--full">
+  <img src="https://feats-api.fpvgate-analytics.workers.dev/images/articles/IMG_0417.JPG" alt="" loading="lazy">
+  <figcaption>Tom Ellis (TJEphotos/FEATS)</figcaption>
+</figure>
+<p>Their set opened up with ‘Ordinary’. Instant energy buzzed throughout the crowd. The barrier rammed - strobe lights flying over the crowd and screams blast through the ceiling as Yonaka walks out on stage. </p><p>As the set continued on, The band Debuted ‘By The Time You’re Reading This’, off the upcoming EP. The Track is yet to be released but everyone in the crowd treated it as if it were a Yonaka classic, hanging onto every lyric sang.</p><p>“Seize The Power” broke through during the set with a powerhouse song, sassy &amp; assertive with a catchy chorus - a great way to finish off their headline set at The Great Escape.</p>
+<figure class="article-media article-media--full">
+  <img src="https://feats-api.fpvgate-analytics.workers.dev/images/articles/yonaka29.JPG" alt="" loading="lazy">
+  <figcaption>Sophie Bingham (displacedimages/FEATS)</figcaption>
+</figure>
+<p>“Seize The Power” has recently hit 30 million after appearing in marvels recent ‘SHE-HULK’. The track went viral on TikTok and is now listened to by thousands every day. ‘It's just stats but it’s nice to see’ George says while explaining how nice it is to see that people enjoy their music.</p><p>Returning home is always nice’ all three members are excited to play their own slot after an insane run with Palaye Royale took them to 26 different countries, returning home after a run like that anyone would be nervous but no, Yonaka are buzzing and it translates perfectly across the Stage. Confidence oozes out of them during their set, moving perfectly in sync. Yonaka is a band that never disappoints. <strong><em> </em></strong></p><p>Check out the full Interview and Yonakas Latest single Below: </p>
+<div>
+<div>
+<div>
+<iframe allow="autoplay; fullscreen" allowfullscreen="true" frameborder="0" height="480" src="//cdn.embedly.com/widgets/media.html?src=https%3A%2F%2Fwww.youtube.com%2Fembed%2FNC0OwHh17co%3Ffeature%3Doembed&amp;display_name=YouTube&amp;url=https%3A%2F%2Fwww.youtube.com%2Fwatch%3Fv%3DNC0OwHh17co&amp;image=https%3A%2F%2Fi.ytimg.com%2Fvi%2FNC0OwHh17co%2Fhqdefault.jpg&amp;key=61d05c9d54e8455ea7a9677c366be814&amp;type=text%2Fhtml&amp;schema=youtube" title="YouTube embed" width="854"></iframe>
+</div>
+</div>
+</div>
+<div>
+<iframe allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" allowfullscreen="" frameborder="0" height="352" loading="lazy" src="https://open.spotify.com/embed/album/5aQsFdfnxekkMoyXnLyXeS?utm_source=generator&amp;theme=0" width="100%"></iframe>
+</div>
     </article>
   </main>
 <footer class="site-footer">
@@ -74,6 +117,42 @@
     document.getElementById('navToggle').addEventListener('click', function(){
       document.getElementById('navLinks').classList.toggle('open');
     });
+
+    (function(){
+      var carousels = document.querySelectorAll('[data-article-carousel]');
+      carousels.forEach(function(carousel){
+        var slides = carousel.querySelectorAll('.carousel-slide');
+        var thumbs = carousel.querySelectorAll('.carousel-thumb');
+        if (!slides.length) return;
+
+        var currentIndex = 0;
+        function setSlide(nextIndex){
+          if (nextIndex < 0) nextIndex = slides.length - 1;
+          if (nextIndex >= slides.length) nextIndex = 0;
+          currentIndex = nextIndex;
+          slides.forEach(function(slide, index){
+            slide.classList.toggle('is-active', index === currentIndex);
+          });
+          thumbs.forEach(function(thumb, index){
+            thumb.classList.toggle('is-active', index === currentIndex);
+          });
+        }
+
+        var prevButton = carousel.querySelector('.carousel-nav.prev');
+        var nextButton = carousel.querySelector('.carousel-nav.next');
+        if (prevButton) {
+          prevButton.addEventListener('click', function(){ setSlide(currentIndex - 1); });
+        }
+        if (nextButton) {
+          nextButton.addEventListener('click', function(){ setSlide(currentIndex + 1); });
+        }
+
+        thumbs.forEach(function(button, index){
+          button.addEventListener('click', function(){ setSlide(index); });
+        });
+        setSlide(0);
+      });
+    })();
   </script>
 </body>
 </html>

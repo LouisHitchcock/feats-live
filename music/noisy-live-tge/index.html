@@ -12,16 +12,37 @@
   <link rel="icon" type="image/x-icon" href="/favicon.ico">
   <style>
     .article-body{max-width:750px;margin:0 auto;padding:3rem 2rem}
+    .article-body::after{content:'';display:block;clear:both}
     .article-body .featured-img{width:100%;height:auto;margin-bottom:2rem}
     .article-body h1{font-size:2.2rem;margin-bottom:.5rem;line-height:1.2}
     .article-body .meta{font-size:.8rem;opacity:.5;text-transform:uppercase;letter-spacing:1px;margin-bottom:2rem}
     .article-body p{font-size:1.05rem;opacity:.85;margin-bottom:1.5rem;line-height:1.8}
-    .article-body img{max-width:100%;height:auto;border-radius:4px}
     .article-body a{text-decoration:underline;opacity:.8}
     .article-body a:hover{opacity:1}
-    .img-wrap-right{float:right;width:45%;margin:0.5rem 0 0.5rem 1.5rem}
-    .img-wrap-left{float:left;width:45%;margin:0.5rem 1.5rem 0.5rem 0}
-    @media(max-width:600px){.img-wrap-right,.img-wrap-left{float:none;width:100%;margin:1rem 0}}
+    .article-media{margin:1.5rem 0}
+    .article-media--full{width:100%;clear:both}
+    .article-media--float-right{float:right;width:45%;margin:0.5rem 0 1.2rem 1.5rem}
+    .article-media--float-left{float:left;width:45%;margin:0.5rem 1.5rem 1.2rem 0}
+    .article-media img{width:100%;height:auto;display:block;border-radius:4px}
+    .article-media figcaption{font-size:.82rem;opacity:.62;line-height:1.45;margin-top:.5rem}
+    .article-rule{margin:2.3rem 0;border:none;border-top:1px solid rgba(0,0,0,.18);clear:both}
+    .article-carousel{position:relative}
+    .article-carousel-main{position:relative;background:#0a0a0a;overflow:hidden}
+    .article-carousel-slides{position:relative}
+    .article-carousel .carousel-slide{display:none}
+    .article-carousel .carousel-slide.is-active{display:block}
+    .article-carousel .carousel-nav{position:absolute;top:50%;transform:translateY(-50%);z-index:3;width:42px;height:42px;border:none;background:rgba(0,0,0,.33);color:#fff;font-size:2rem;line-height:1;cursor:pointer}
+    .article-carousel .carousel-nav.prev{left:0.65rem}
+    .article-carousel .carousel-nav.next{right:0.65rem}
+    .article-carousel.is-single .carousel-nav{display:none}
+    .article-carousel-thumbs{display:flex;gap:2px;overflow-x:auto;margin-top:.55rem;padding-bottom:2px}
+    .article-carousel .carousel-thumb{border:none;padding:0;background:transparent;opacity:.52;cursor:pointer;flex:0 0 auto}
+    .article-carousel .carousel-thumb.is-active{opacity:1}
+    .article-carousel .carousel-thumb img{width:58px;height:40px;object-fit:cover;border-radius:0}
+    @media(max-width:600px){
+      .article-media--float-right,.article-media--float-left{float:none;width:100%;margin:1rem 0}
+      .article-carousel .carousel-nav{width:36px;height:36px;font-size:1.65rem}
+    }
   </style>
 </head>
 <body>
@@ -48,10 +69,55 @@
       <div class="meta">Festival &middot; Interview &middot; ONES TO WATCH &middot; Feats. &middot; 2023-05-27</div>
       <h1>ONES TO WATCH: NOISY LIVE AT TGE ‘23</h1>
       <p>Brighton boys NOISY put on a show last week at The Great Escape. With a queue surrounding the Waterbear Venue, old school 3D glasses and unbelievable tunes, NOISY are the band to play when you want to have a party, they’ve had a residency within Brighton, ‘Fast FWD To Friday’, bringing collaborations and a night that will blow you away: NOISY should already be on your radar.</p>
-<p><br></p><p>NOISY is made up of long-time friends, Cody Mathews (frontman), Connor Cheetham (Guitarist) and Spencer Tobias-Williams (producer/guitarist). Their experimental style of House, Rock, Pop and Rap, NOISY are like no other. Originally forming a indie-rock band ‘High Tyde’ that broke up back in 2018 NOISY was a new chapter for the boys, and putting on a home show for frontman Cody Mathews is “there’s no better feeling”. Even though they’re -technically- not from Brighton (Worthing) “it always feels like home” for them. </p><p><br></p><p>They’re all about having a good time, forgetting the Monday blues and drunken regrets and living your life to the fullest. Their latest release ‘DESIRE’ is NOISY to a T - experimental beats fused with their energy onstage has everybody jumping, it's impossible to stand still, even unacceptable at a NOISY gig. Explosive Riffs, honest lyrics this could be the song of the summer!</p><p><br></p><p>During The Great Escape NOISY debuted unreleased songs with some more of our favourites FrozeMode - the chemistry between both bands is insane, they are having a great time and you immediately see that, and basking in that energy you will realise what a great time you’re having. Charlotte Plank also joined the band onstage, her powerhouse vocals mixed perfectly with NOISY’s vibe. </p>
-<p><br>(TOM ELLIS TJEphotos/Feats.)<br><br>NOISY is honest and relatable ‘So What’ is the rejection of the normality, of what everybody expects and doing exactly what you want to do, while ‘young dumb’ is fun it's about experiencing everything while you’re young, making mistakes and having fun nights out. The music video couldn’t have portrayed it better. It was used in FIFA ’22 official soundtrack.</p><p></p><p>NOISY have come a long way and are no strangers to us here at Feats, from playing London's intimate Camden Assembly to playing festivals across the world, 2023 is the year of new music for NOISY with collaborations line up, singles left right and centre, we can’t wait to see what the rest of the year has inshore them! The world is getting NOISY.</p>
+<figure class="article-media article-media--full">
+  <img src="https://feats-api.fpvgate-analytics.workers.dev/images/articles/DSC01267.jpg" alt="" loading="lazy">
+  <figcaption>TOM ELLIS (TJEphotos/Feats.)</figcaption>
+</figure>
+<p>NOISY is made up of long-time friends, Cody Mathews (frontman), Connor Cheetham (Guitarist) and Spencer Tobias-Williams (producer/guitarist). Their experimental style of House, Rock, Pop and Rap, NOISY are like no other. Originally forming a indie-rock band ‘High Tyde’ that broke up back in 2018 NOISY was a new chapter for the boys, and putting on a home show for frontman Cody Mathews is “there’s no better feeling”. Even though they’re -technically- not from Brighton (Worthing) “it always feels like home” for them. </p><p>They’re all about having a good time, forgetting the Monday blues and drunken regrets and living your life to the fullest. Their latest release ‘DESIRE’ is NOISY to a T - experimental beats fused with their energy onstage has everybody jumping, it's impossible to stand still, even unacceptable at a NOISY gig. Explosive Riffs, honest lyrics this could be the song of the summer!</p><p>During The Great Escape NOISY debuted unreleased songs with some more of our favourites FrozeMode - the chemistry between both bands is insane, they are having a great time and you immediately see that, and basking in that energy you will realise what a great time you’re having. Charlotte Plank also joined the band onstage, her powerhouse vocals mixed perfectly with NOISY’s vibe. </p>
+<div class="article-carousel article-media article-media--full" data-article-carousel="carousel-1">
+  <div class="article-carousel-main">
+    <button type="button" class="carousel-nav prev" aria-label="Previous image">&#10094;</button>
+    <div class="article-carousel-slides">
+      <img class="carousel-slide is-active" src="https://feats-api.fpvgate-analytics.workers.dev/images/articles/DSC01347.jpg" alt="DSC01347.jpg" loading="lazy">
+      <img class="carousel-slide" src="https://feats-api.fpvgate-analytics.workers.dev/images/articles/DSC01365.jpg" alt="DSC01365.jpg" loading="lazy">
+      <img class="carousel-slide" src="https://feats-api.fpvgate-analytics.workers.dev/images/articles/DSC01418.jpg" alt="DSC01418.jpg" loading="lazy">
+      <img class="carousel-slide" src="https://feats-api.fpvgate-analytics.workers.dev/images/articles/DSC01428_1.jpg" alt="DSC01428_1.jpg" loading="lazy">
+      <img class="carousel-slide" src="https://feats-api.fpvgate-analytics.workers.dev/images/articles/NOISY21.JPG" alt="NOISY21.JPG" loading="lazy">
+    </div>
+    <button type="button" class="carousel-nav next" aria-label="Next image">&#10095;</button>
+  </div>
+  <div class="article-carousel-thumbs">
+    <button type="button" class="carousel-thumb is-active" data-slide-index="0" aria-label="View image 1">
+      <img src="https://feats-api.fpvgate-analytics.workers.dev/images/articles/DSC01347.jpg" alt="" loading="lazy">
+    </button>
+    <button type="button" class="carousel-thumb" data-slide-index="1" aria-label="View image 2">
+      <img src="https://feats-api.fpvgate-analytics.workers.dev/images/articles/DSC01365.jpg" alt="" loading="lazy">
+    </button>
+    <button type="button" class="carousel-thumb" data-slide-index="2" aria-label="View image 3">
+      <img src="https://feats-api.fpvgate-analytics.workers.dev/images/articles/DSC01418.jpg" alt="" loading="lazy">
+    </button>
+    <button type="button" class="carousel-thumb" data-slide-index="3" aria-label="View image 4">
+      <img src="https://feats-api.fpvgate-analytics.workers.dev/images/articles/DSC01428_1.jpg" alt="" loading="lazy">
+    </button>
+    <button type="button" class="carousel-thumb" data-slide-index="4" aria-label="View image 5">
+      <img src="https://feats-api.fpvgate-analytics.workers.dev/images/articles/NOISY21.JPG" alt="" loading="lazy">
+    </button>
+  </div>
+</div>
+<p><br/>(TOM ELLIS TJEphotos/Feats.)<br/><br/>NOISY is honest and relatable ‘So What’ is the rejection of the normality, of what everybody expects and doing exactly what you want to do, while ‘young dumb’ is fun it's about experiencing everything while you’re young, making mistakes and having fun nights out. The music video couldn’t have portrayed it better. It was used in FIFA ’22 official soundtrack.</p><p>NOISY have come a long way and are no strangers to us here at Feats, from playing London's intimate Camden Assembly to playing festivals across the world, 2023 is the year of new music for NOISY with collaborations line up, singles left right and centre, we can’t wait to see what the rest of the year has inshore them! The world is getting NOISY.</p>
+<div>
+<div>
+<div>
+<iframe allow="autoplay; fullscreen" allowfullscreen="true" frameborder="0" height="480" src="//cdn.embedly.com/widgets/media.html?src=https%3A%2F%2Fwww.youtube.com%2Fembed%2F_FTaT4IdGyQ%3Ffeature%3Doembed&amp;display_name=YouTube&amp;url=https%3A%2F%2Fwww.youtube.com%2Fwatch%3Fv%3D_FTaT4IdGyQ&amp;image=https%3A%2F%2Fi.ytimg.com%2Fvi%2F_FTaT4IdGyQ%2Fhqdefault.jpg&amp;key=61d05c9d54e8455ea7a9677c366be814&amp;type=text%2Fhtml&amp;schema=youtube" title="YouTube embed" width="854"></iframe>
+</div>
+</div>
+<div>
+<div>
+<p>ABBEY LYE FORSTER (AbbeytoAshesPhotography)</p>
+</div>
+</div>
+</div>
 <p>After a few pints, we caught up with NOISY’s own Cody Mathews after their comedown party, where they offered Nutri-bars, chewing gum, water - anything you need to cure your sore head from Friday nights antics or more pints to keep the party going. </p>
-<img src="https://feats-api.fpvgate-analytics.workers.dev/images/articles/DSC01267.jpg" alt="" style="width:100%;height:auto;display:block;margin:1.5rem 0;border-radius:4px" loading="lazy">
     </article>
   </main>
 <footer class="site-footer">
@@ -71,6 +137,42 @@
     document.getElementById('navToggle').addEventListener('click', function(){
       document.getElementById('navLinks').classList.toggle('open');
     });
+
+    (function(){
+      var carousels = document.querySelectorAll('[data-article-carousel]');
+      carousels.forEach(function(carousel){
+        var slides = carousel.querySelectorAll('.carousel-slide');
+        var thumbs = carousel.querySelectorAll('.carousel-thumb');
+        if (!slides.length) return;
+
+        var currentIndex = 0;
+        function setSlide(nextIndex){
+          if (nextIndex < 0) nextIndex = slides.length - 1;
+          if (nextIndex >= slides.length) nextIndex = 0;
+          currentIndex = nextIndex;
+          slides.forEach(function(slide, index){
+            slide.classList.toggle('is-active', index === currentIndex);
+          });
+          thumbs.forEach(function(thumb, index){
+            thumb.classList.toggle('is-active', index === currentIndex);
+          });
+        }
+
+        var prevButton = carousel.querySelector('.carousel-nav.prev');
+        var nextButton = carousel.querySelector('.carousel-nav.next');
+        if (prevButton) {
+          prevButton.addEventListener('click', function(){ setSlide(currentIndex - 1); });
+        }
+        if (nextButton) {
+          nextButton.addEventListener('click', function(){ setSlide(currentIndex + 1); });
+        }
+
+        thumbs.forEach(function(button, index){
+          button.addEventListener('click', function(){ setSlide(index); });
+        });
+        setSlide(0);
+      });
+    })();
   </script>
 </body>
 </html>
