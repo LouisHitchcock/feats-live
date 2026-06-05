@@ -27,15 +27,21 @@ body{font-family:'Work Sans',-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,
 /* Admin layout */
 .admin-layout{display:none;min-height:100vh}
 .admin-layout.active{display:flex}
-.sidebar{width:240px;background:#262626;color:white;padding:2rem 1.25rem;display:flex;flex-direction:column;flex-shrink:0}
-.sidebar .brand{font-size:1.4rem;font-weight:700;letter-spacing:.01em;margin-bottom:2rem;opacity:.9}
+.sidebar{width:74px;background:#262626;color:white;padding:1.4rem .7rem;display:flex;flex-direction:column;flex-shrink:0;transition:width .22s ease,padding .22s ease}
+.sidebar:hover{width:240px;padding:2rem 1.25rem}
+.sidebar .brand{font-size:1.4rem;font-weight:700;letter-spacing:.01em;margin-bottom:0;opacity:0;max-height:0;overflow:hidden;transition:opacity .2s ease,max-height .2s ease,margin-bottom .2s ease}
+.sidebar:hover .brand{opacity:.9;max-height:40px;margin-bottom:2rem}
 .sidebar nav{display:flex;flex-direction:column;gap:.15rem;flex:1}
-.sidebar nav a{padding:.6rem .75rem;border-radius:0;color:rgba(255,255,255,.6);text-decoration:none;font-size:.85rem;font-weight:500;transition:all .2s;cursor:pointer}
+.sidebar nav a{display:flex;align-items:center;gap:.65rem;padding:.6rem .65rem;border-radius:0;color:rgba(255,255,255,.68);text-decoration:none;font-size:.85rem;font-weight:500;transition:all .2s;cursor:pointer}
+.sidebar nav a .nav-icon{font-size:1rem;width:1.2rem;text-align:center;flex-shrink:0}
+.sidebar nav a .nav-label{opacity:0;transform:translateX(-6px);white-space:nowrap;transition:opacity .18s ease,transform .18s ease}
+.sidebar:hover nav a .nav-label{opacity:1;transform:translateX(0)}
 .sidebar nav a:hover{background:rgba(255,255,255,.08);color:white}
 .sidebar nav a.active{background:rgba(255,255,255,.12);color:white;font-weight:700}
 .sidebar nav a.logout-link{margin-top:auto;border-top:1px solid rgba(255,255,255,.15);padding-top:1rem;border-radius:0;font-size:.8rem;text-transform:uppercase;letter-spacing:1px}
 .sidebar nav a.logout-link:hover{background:transparent;color:#e74c3c}
-.sidebar .user-info{margin-top:auto;padding-top:1rem;border-top:1px solid rgba(255,255,255,.1);font-size:.75rem;opacity:.5}
+.sidebar .user-info{margin-top:auto;padding-top:1rem;border-top:1px solid rgba(255,255,255,.1);font-size:.75rem;opacity:.5;display:none}
+.sidebar:hover .user-info{display:block}
 .main{flex:1;padding:2.5rem;overflow-y:auto;max-height:100vh}
 .main h1{font-size:1.1rem;font-weight:700;text-transform:uppercase;letter-spacing:2px;margin-bottom:2rem}
 
@@ -77,9 +83,12 @@ body{font-family:'Work Sans',-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,
 .badge-superadmin{background:#444;color:#fff}
 
 .article-workspace{display:grid;grid-template-columns:320px 1fr;gap:1rem;min-height:72vh}
+.article-workspace.article-list-hidden{grid-template-columns:1fr}
+.article-workspace.article-list-hidden .article-list-panel{display:none}
 .article-list-panel,.article-editor-panel{background:#fff;border:1px solid #eee;display:flex;flex-direction:column;min-height:0}
 .article-list-header{padding:1rem;border-bottom:1px solid #eee;display:flex;flex-direction:column;gap:.75rem}
-.article-search{width:100%;padding:.6rem .75rem;border:1px solid #ddd;border-radius:0;font-size:.85rem;font-family:'Work Sans',sans-serif}
+.article-list-tools{display:flex;gap:.55rem;align-items:center}
+.article-search{width:100%;padding:.6rem .75rem;border:1px solid #ddd;border-radius:0;font-size:.85rem;font-family:'Work Sans',sans-serif;flex:1}
 .article-list{padding:.65rem;overflow-y:auto;display:flex;flex-direction:column;gap:.5rem}
 .article-item{border:1px solid #eee;background:#fff;padding:.7rem;text-align:left;cursor:pointer;transition:all .2s;font-family:'Work Sans',sans-serif}
 .article-item:hover{border-color:#bbb;background:#fafafa}
@@ -87,6 +96,8 @@ body{font-family:'Work Sans',-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,
 .article-item-title{font-weight:700;font-size:.85rem;margin-bottom:.3rem}
 .article-meta{font-size:.72rem;color:#888;letter-spacing:.2px}
 .article-editor-header{padding:1rem;border-bottom:1px solid #eee;display:flex;align-items:center;justify-content:space-between;gap:.75rem;flex-wrap:wrap}
+.article-list-toggle-btn{border:1px solid #ddd;background:#fff;color:#555;padding:.45rem .7rem;font-size:.7rem;text-transform:uppercase;letter-spacing:.8px;cursor:pointer;font-family:'Work Sans',sans-serif}
+.article-list-toggle-btn:hover{background:#f4f4f4}
 .article-editor-title{font-size:.9rem;font-weight:700;text-transform:uppercase;letter-spacing:1px}
 .article-editor-subtitle{font-size:.72rem;color:#888;letter-spacing:.5px}
 .article-editor-tabs{display:flex;align-items:center;gap:.4rem}
@@ -104,6 +115,11 @@ body{font-family:'Work Sans',-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,
 .editor-toolbar{display:flex;gap:.35rem;flex-wrap:wrap;margin-bottom:.5rem}
 .editor-toolbar button{border:1px solid #ddd;background:#fff;padding:.35rem .55rem;font-size:.7rem;text-transform:uppercase;letter-spacing:.7px;cursor:pointer;font-family:'Work Sans',sans-serif}
 .editor-toolbar button:hover{background:#f4f4f4}
+.article-insert-panel{border:1px solid #ddd;background:#fafafa;padding:.7rem;margin:.45rem 0 .7rem;display:none}
+.article-insert-panel.active{display:block}
+.article-insert-row{display:flex;gap:.5rem;flex-wrap:wrap;margin-bottom:.5rem}
+.article-insert-row .article-input,.article-insert-row .article-select{flex:1;min-width:180px}
+.article-insert-actions{display:flex;justify-content:flex-end;gap:.45rem}
 .editor-canvas{border:1px solid #ddd;min-height:340px;padding:.85rem;line-height:1.6;font-size:.92rem;background:#fff}
 .editor-canvas:focus{outline:none;border-color:#444}
 .article-preview-nav{display:flex;gap:.5rem;align-items:center;margin-bottom:.75rem;flex-wrap:wrap}
@@ -117,8 +133,11 @@ body{font-family:'Work Sans',-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,
 .writer-photo-upload .btn-sm{font-size:.7rem;padding:.25rem .55rem}
 
 /* Dark mode toggle */
-.dark-toggle{display:flex;align-items:center;gap:.5rem;padding:.5rem .75rem;margin-bottom:.35rem;font-size:.75rem;text-transform:uppercase;letter-spacing:1px;color:rgba(255,255,255,.5);cursor:pointer;user-select:none;transition:all .2s}
+.dark-toggle{display:flex;align-items:center;gap:.45rem;padding:.5rem .65rem;margin-bottom:.35rem;font-size:.75rem;text-transform:uppercase;letter-spacing:1px;color:rgba(255,255,255,.5);cursor:pointer;user-select:none;transition:all .2s}
 .dark-toggle:hover{color:rgba(255,255,255,.8)}
+.dark-toggle .dark-icon{font-size:1rem;width:1.2rem;text-align:center;flex-shrink:0}
+.dark-toggle .dark-label{opacity:0;transform:translateX(-6px);white-space:nowrap;transition:opacity .18s ease,transform .18s ease}
+.sidebar:hover .dark-toggle .dark-label{opacity:1;transform:translateX(0)}
 .dark-toggle input[type="checkbox"]{width:32px;height:16px;appearance:none;-webkit-appearance:none;background:rgba(255,255,255,.2);border-radius:8px;position:relative;cursor:pointer;flex-shrink:0;transition:background .2s}
 .dark-toggle input[type="checkbox"]::before{content:'';position:absolute;top:2px;left:2px;width:12px;height:12px;border-radius:50%;background:#fff;transition:transform .2s}
 .dark-toggle input[type="checkbox"]:checked{background:#666}
@@ -153,12 +172,12 @@ body{font-family:'Work Sans',-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,
 [data-theme="dark"] .modal-content{background:#262626;border:1px solid #333}
 [data-theme="dark"] .modal-content h2{color:#ccc}
 [data-theme="dark"] .modal-content label{color:#999}
-[data-theme="dark"] .modal-content input,.modal-content textarea,.modal-content select{background:#1a1a1a;border-color:#444;color:#ccc}
+[data-theme="dark"] .modal-content input,[data-theme="dark"] .modal-content textarea,[data-theme="dark"] .modal-content select{background:#1a1a1a;border-color:#444;color:#ccc}
 [data-theme="dark"] .badge-admin{background:#333;color:#ccc}
 [data-theme="dark"] .badge-superadmin{background:#555;color:#fff}
 [data-theme="dark"] .status-published{color:#4caf50}
 [data-theme="dark"] .status-draft{color:#ffb74d}
-[data-theme="dark"] .article-list-panel,.article-editor-panel{background:#262626;border-color:#333}
+[data-theme="dark"] .article-list-panel,[data-theme="dark"] .article-editor-panel{background:#262626;border-color:#333}
 [data-theme="dark"] .article-list-header{border-bottom-color:#333}
 [data-theme="dark"] .article-search{background:#1a1a1a;border-color:#444;color:#ccc}
 [data-theme="dark"] .article-item{background:#262626;border-color:#333;color:#ccc}
@@ -170,19 +189,22 @@ body{font-family:'Work Sans',-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,
 [data-theme="dark"] .article-editor-subtitle{color:#888}
 [data-theme="dark"] .article-editor-tabs button{background:#1a1a1a;border-color:#444;color:#888}
 [data-theme="dark"] .article-editor-tabs button.active{background:#555;border-color:#555;color:#fff}
+[data-theme="dark"] .article-list-toggle-btn{background:#1a1a1a;border-color:#444;color:#888}
+[data-theme="dark"] .article-list-toggle-btn:hover{background:#333;color:#fff}
 [data-theme="dark"] .article-save-status{color:#999;border-bottom-color:#333}
 [data-theme="dark"] .article-save-status.error{color:#ef9a9a;background:#3e1a1a}
 [data-theme="dark"] .article-save-status.success{color:#80cbc4;background:#1a3330}
 [data-theme="dark"] .article-field label{color:#999}
-[data-theme="dark"] .article-input,.article-textarea,.article-select{background:#1a1a1a;border-color:#444;color:#ccc}
+[data-theme="dark"] .article-input,[data-theme="dark"] .article-textarea,[data-theme="dark"] .article-select{background:#1a1a1a;border-color:#444;color:#ccc}
 [data-theme="dark"] .editor-toolbar button{background:#1a1a1a;border-color:#444;color:#888}
 [data-theme="dark"] .editor-toolbar button:hover{background:#333}
+[data-theme="dark"] .article-insert-panel{background:#1d1d1d;border-color:#444}
 [data-theme="dark"] .editor-canvas{background:#1a1a1a;border-color:#444;color:#ccc}
 [data-theme="dark"] .article-preview-frame{background:#1a1a1a;border-color:#444}
 [data-theme="dark"] .article-empty-state{color:#888}
 
-@media(max-width:1100px){.article-workspace{grid-template-columns:1fr}.article-list-panel{max-height:280px}}
-@media(max-width:768px){.sidebar{width:60px;padding:.75rem}.sidebar .brand,.sidebar nav a span,.sidebar .user-info{display:none}.main{padding:1.5rem}.stats-grid{grid-template-columns:repeat(2,1fr)}}
+@media(max-width:1100px){.article-workspace,.article-workspace.article-list-hidden{grid-template-columns:1fr}.article-list-panel{max-height:280px}.article-workspace.article-list-hidden .article-list-panel{display:flex}}
+@media(max-width:768px){.sidebar{width:60px;padding:.75rem}.sidebar:hover{width:60px;padding:.75rem}.sidebar .brand,.sidebar .user-info,.sidebar nav a .nav-label,.dark-toggle .dark-label{display:none}.main{padding:1.5rem}.stats-grid{grid-template-columns:repeat(2,1fr)}.article-list-tools{flex-wrap:wrap}}
 </style>
 </head>
 <body>
@@ -205,14 +227,14 @@ body{font-family:'Work Sans',-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,
 <aside class="sidebar">
     <div class="brand">Feats.</div>
     <nav>
-      <a class="active" data-tab="dashboard" onclick="showTab('dashboard', this)"><span>Dashboard</span></a>
-      <a data-tab="articles" onclick="showTab('articles', this)"><span>Articles</span></a>
-      <a data-tab="writers" onclick="showTab('writers', this)"><span>Writers</span></a>
-      <a data-tab="users" onclick="showTab('users', this)"><span>Admin Users</span></a>
-      <a data-tab="analytics" onclick="showTab('analytics', this)"><span>Analytics</span></a>
-      <a data-tab="tech" onclick="showTab('tech', this)"><span>Technical</span></a>
-      <label class="dark-toggle"><input type="checkbox" id="darkModeToggle" onchange="toggleDarkMode(this.checked)"> Dark Mode</label>
-      <a class="logout-link" onclick="logout()"><span>Logout</span></a>
+      <a class="active" data-tab="dashboard" onclick="showTab('dashboard', this)"><span class="nav-icon">⌂</span><span class="nav-label">Dashboard</span></a>
+      <a data-tab="articles" onclick="showTab('articles', this)"><span class="nav-icon">✎</span><span class="nav-label">Articles</span></a>
+      <a data-tab="writers" onclick="showTab('writers', this)"><span class="nav-icon">✦</span><span class="nav-label">Writers</span></a>
+      <a data-tab="users" onclick="showTab('users', this)"><span class="nav-icon">⚑</span><span class="nav-label">Admin Users</span></a>
+      <a data-tab="analytics" onclick="showTab('analytics', this)"><span class="nav-icon">▣</span><span class="nav-label">Analytics</span></a>
+      <a data-tab="tech" onclick="showTab('tech', this)"><span class="nav-icon">⚙</span><span class="nav-label">Technical</span></a>
+      <label class="dark-toggle"><span class="dark-icon">☾</span><input type="checkbox" id="darkModeToggle" onchange="toggleDarkMode(this.checked)"><span class="dark-label">Dark Mode</span></label>
+      <a class="logout-link" onclick="logout()"><span class="nav-icon">⇥</span><span class="nav-label">Logout</span></a>
     </nav>
     <div class="user-info" id="userInfo"></div>
   </aside>
@@ -373,7 +395,10 @@ var articleState = {
   current: null,
   selectedId: null,
   panel: 'editor',
-  previewPath: ''
+  previewPath: '',
+  listCollapsed: false,
+  savedRange: null,
+  carouselSeed: 0
 };
 
 function escAttr(s) {
@@ -408,7 +433,7 @@ function nowAsLocalDateTime() {
 
 function loadArticles() {
   var main = document.getElementById('mainContent');
-  main.innerHTML = '<h1>Articles</h1><div class="article-workspace"><section class="article-list-panel"><div class="article-list-header"><input id="articleSearchInput" class="article-search" placeholder="Search titles, slugs, or writers" oninput="filterArticleList(this.value)"><button class="btn btn-primary" onclick="startNewArticle()">+ New Article</button></div><div class="article-list" id="articleList"></div></section><section class="article-editor-panel"><div class="article-editor-header"><div><div class="article-editor-title" id="articleEditorTitle">Loading articles...</div><div class="article-editor-subtitle" id="articleEditorSubtitle"></div></div><div style="display:flex;align-items:center;gap:.5rem;flex-wrap:wrap"><div class="article-editor-tabs"><button id="articleTabEditor" onclick="switchArticlePanel(&quot;editor&quot;)">Editor</button><button id="articleTabProperties" onclick="switchArticlePanel(&quot;properties&quot;)">Properties</button><button id="articleTabPreview" onclick="switchArticlePanel(&quot;preview&quot;)">Preview</button></div><button class="btn btn-primary" onclick="saveCurrentArticle()">Save</button></div></div><div id="articleSaveStatus" class="article-save-status">Loading article list...</div><div class="article-editor-body" id="articleEditorBody"></div></section></div>';
+  main.innerHTML = '<h1>Articles</h1><div class="article-workspace" id="articleWorkspace"><section class="article-list-panel"><div class="article-list-header"><div class="article-list-tools"><input id="articleSearchInput" class="article-search" placeholder="Search titles, slugs, or writers" oninput="filterArticleList(this.value)"><button class="btn btn-primary" onclick="startNewArticle()">+ New Article</button></div></div><div class="article-list" id="articleList"></div></section><section class="article-editor-panel"><div class="article-editor-header"><div><div class="article-editor-title" id="articleEditorTitle">Loading articles...</div><div class="article-editor-subtitle" id="articleEditorSubtitle"></div></div><div style="display:flex;align-items:center;gap:.5rem;flex-wrap:wrap"><button id="articleListToggleBtn" class="article-list-toggle-btn" onclick="toggleArticleListPane()">Hide Selector</button><div class="article-editor-tabs"><button id="articleTabEditor" onclick="switchArticlePanel(&quot;editor&quot;)">Editor</button><button id="articleTabProperties" onclick="switchArticlePanel(&quot;properties&quot;)">Properties</button><button id="articleTabPreview" onclick="switchArticlePanel(&quot;preview&quot;)">Preview</button></div><button class="btn btn-primary" onclick="saveCurrentArticle()">Save</button></div></div><div id="articleSaveStatus" class="article-save-status">Loading article list...</div><div class="article-editor-body" id="articleEditorBody"></div></section></div>';
 
   articleState.list = [];
   articleState.filtered = [];
@@ -417,6 +442,10 @@ function loadArticles() {
   articleState.selectedId = null;
   articleState.panel = 'editor';
   articleState.previewPath = '';
+  articleState.listCollapsed = false;
+  articleState.savedRange = null;
+  articleState.carouselSeed = 0;
+  refreshArticleListPaneState();
 
   Promise.all([
     apiGet('/admin/articles'),
@@ -439,6 +468,24 @@ function loadArticles() {
     document.getElementById('articleEditorBody').innerHTML = '<div class="article-empty-state">Unable to load data: ' + esc(err.message) + '</div>';
     setArticleSaveStatus('Failed to load articles', true);
   });
+}
+
+function toggleArticleListPane(forceVisible) {
+  if (typeof forceVisible === 'boolean') {
+    articleState.listCollapsed = !forceVisible;
+  } else {
+    articleState.listCollapsed = !articleState.listCollapsed;
+  }
+  refreshArticleListPaneState();
+}
+
+function refreshArticleListPaneState() {
+  var workspace = document.getElementById('articleWorkspace');
+  if (!workspace) return;
+  if (articleState.listCollapsed) workspace.classList.add('article-list-hidden');
+  else workspace.classList.remove('article-list-hidden');
+  var toggleBtn = document.getElementById('articleListToggleBtn');
+  if (toggleBtn) toggleBtn.textContent = articleState.listCollapsed ? 'Show Selector' : 'Hide Selector';
 }
 
 function setArticleSaveStatus(message, isError, isSuccess) {
@@ -571,27 +618,32 @@ function renderArticleWorkspace() {
   if (articleState.panel === 'editor') document.getElementById('articleTabEditor').classList.add('active');
   if (articleState.panel === 'properties') document.getElementById('articleTabProperties').classList.add('active');
   if (articleState.panel === 'preview') document.getElementById('articleTabPreview').classList.add('active');
+  refreshArticleListPaneState();
 
   var body = document.getElementById('articleEditorBody');
   if (!body) return;
-  if (articleState.panel === 'editor') body.innerHTML = getArticleEditorHtml(current);
+  if (articleState.panel === 'editor') {
+    body.innerHTML = getArticleEditorHtml(current);
+    initializeArticleEditor();
+  }
   if (articleState.panel === 'properties') body.innerHTML = getArticlePropertiesHtml(current);
   if (articleState.panel === 'preview') body.innerHTML = getArticlePreviewHtml(current);
 }
 
-function getArticleEditorHtml(article) {
-  return '<div class="article-field"><label>Title</label><input id="articleTitleInput" class="article-input" value="' + escAttr(article.title) + '" placeholder="Article title"></div><div class="article-field"><label>Slug (URL ID)</label><input id="articleSlugInput" class="article-input" value="' + escAttr(article.url_id) + '" placeholder="your-article-slug"></div><div class="article-field"><label>Excerpt</label><textarea id="articleExcerptInput" class="article-textarea" placeholder="Short summary for cards and metadata">' + esc(article.excerpt) + '</textarea></div><div class="article-field"><label>Article Body</label><div class="editor-toolbar"><button onclick="applyArticleFormat(&quot;bold&quot;)"><b>Bold</b></button><button onclick="applyArticleFormat(&quot;italic&quot;)"><i>Italic</i></button><button onclick="applyArticleFormat(&quot;underline&quot;)"><u>Underline</u></button><button onclick="formatArticleHeading()">Heading</button><button onclick="applyArticleFormat(&quot;insertUnorderedList&quot;)">Bullets</button><button onclick="applyArticleFormat(&quot;insertOrderedList&quot;)">Numbered</button><button onclick="insertArticleLink()">Link</button><button onclick="applyArticleFormat(&quot;removeFormat&quot;)">Clear</button></div><div id="articleBodyEditor" class="editor-canvas" contenteditable="true">' + (article.body || '<p></p>') + '</div></div>';
+/* function getArticleEditorHtmlLegacy(article) {
+  return '<div class=\"article-field\"><label>Title</label><input id=\"articleTitleInput\" class=\"article-input\" value=\"' + escAttr(article.title) + '\" placeholder=\"Article title\"></div><div class=\"article-field\"><label>Article Body</label><div class=\"editor-toolbar\"><button type=\"button\" onclick=\"applyArticleFormat(&quot;bold&quot;)\"><b>Bold</b></button><button type=\"button\" onclick=\"applyArticleFormat(&quot;italic&quot;)\"><i>Italic</i></button><button type=\"button\" onclick=\"applyArticleFormat(&quot;underline&quot;)\"><u>Underline</u></button><button type=\"button\" onclick=\"formatArticleHeading()\">Heading</button><button type=\"button\" onclick=\"applyArticleFormat(&quot;insertUnorderedList&quot;)\">Bullets</button><button type=\"button\" onclick=\"applyArticleFormat(&quot;insertOrderedList&quot;)\">Numbered</button><button type=\"button\" onclick=\"insertArticleLink()\">Link</button><button type=\"button\" onclick=\"applyArticleFormat(&quot;removeFormat&quot;)\">Clear</button><button type=\"button\" onclick=\"toggleArticleImagePanel()\">Insert Image</button></div><div id=\"articleImagePanel\" class=\"article-insert-panel\"><div class=\"article-insert-row\"><select id=\"articleImageLayoutInput\" class=\"article-select\" onchange=\"toggleArticleCarouselInput()\"><option value=\"full\">Full Width</option><option value=\"left\">Float Left</option><option value=\"right\">Float Right</option><option value=\"carousel\">Carousel</option></select><input id=\"articleImageUrlInput\" class=\"article-input\" placeholder=\"Image URL (or comma-separated URLs for carousel)\"></div><div class=\"article-insert-row\" id=\"articleCarouselCaptionRow\" style=\"display:none\"><input id=\"articleImageCaptionInput\" class=\"article-input\" placeholder=\"Optional caption text\"></div><div class=\"article-insert-actions\"><button type=\"button\" class=\"btn btn-sm\" onclick=\"toggleArticleImagePanel(false)\">Cancel</button><button type=\"button\" class=\"btn btn-sm btn-primary\" onclick=\"insertArticleImageBlock()\">Insert</button></div></div><div id=\"articleBodyEditor\" class=\"editor-canvas\" contenteditable=\"true\">' + (article.body || '<p></p>') + '</div></div>';
 }
 
-function getArticlePropertiesHtml(article) {
+function getArticlePropertiesHtmlLegacy(article) {
   var options = '';
   articleState.writers.forEach(function(name) {
     var selected = splitWriters(article.author).includes(name) ? ' selected' : '';
     options += '<option value="' + escAttr(name) + '"' + selected + '>' + esc(name) + '</option>';
   });
-  return '<div class="article-properties-grid"><div class="article-field"><label>Status</label><select id="articleStatusInput" class="article-select"><option value="publish"' + (article.status === 'publish' ? ' selected' : '') + '>Published</option><option value="draft"' + (article.status !== 'publish' ? ' selected' : '') + '>Draft</option></select></div><div class="article-field"><label>Publish Date</label><input id="articlePublishInput" class="article-input" type="datetime-local" value="' + escAttr(article.publish_date || nowAsLocalDateTime()) + '"></div><div class="article-field"><label>Writer(s)</label><select id="articleWritersSelect" class="article-select" multiple size="5" onchange="syncArticleAuthorFromSelection()">' + options + '</select></div><div class="article-field"><label>Author Field (stored)</label><input id="articleAuthorInput" class="article-input" value="' + escAttr(article.author) + '" placeholder="Comma-separated writer names"></div><div class="article-field"><label>Tags</label><input id="articleTagsInput" class="article-input" value="' + escAttr(article.tags) + '" placeholder="news, live-review, interview"></div><div class="article-field"><label>Categories</label><input id="articleCategoriesInput" class="article-input" value="' + escAttr(article.categories) + '" placeholder="Rock, Live Reviews"></div><div class="article-field" style="grid-column:1 / -1"><label>Thumbnail / Cover URL</label><input id="articleCoverInput" class="article-input" value="' + escAttr(article.cover_url) + '" placeholder="https://..."></div></div>' + (article.id ? '<div style="margin-top:1rem"><button class="btn btn-danger" onclick="deleteCurrentArticle()">Delete Article</button></div>' : '');
+  return '<div class=\"article-properties-grid\"><div class=\"article-field\"><label>Slug (URL ID)</label><input id=\"articleSlugInput\" class=\"article-input\" value=\"' + escAttr(article.url_id) + '\" placeholder=\"your-article-slug\"></div><div class=\"article-field\"><label>Status</label><select id=\"articleStatusInput\" class=\"article-select\"><option value=\"publish\"' + (article.status === 'publish' ? ' selected' : '') + '>Published</option><option value=\"draft\"' + (article.status !== 'publish' ? ' selected' : '') + '>Draft</option></select></div><div class=\"article-field\"><label>Publish Date</label><input id=\"articlePublishInput\" class=\"article-input\" type=\"datetime-local\" value=\"' + escAttr(article.publish_date || nowAsLocalDateTime()) + '\"></div><div class=\"article-field\"><label>Writer(s)</label><select id=\"articleWritersSelect\" class=\"article-select\" multiple size=\"5\" onchange=\"syncArticleAuthorFromSelection()\">' + options + '</select></div><div class=\"article-field\"><label>Author Field (stored)</label><input id=\"articleAuthorInput\" class=\"article-input\" value=\"' + escAttr(article.author) + '\" placeholder=\"Comma-separated writer names\"></div><div class=\"article-field\"><label>Tags</label><input id=\"articleTagsInput\" class=\"article-input\" value=\"' + escAttr(article.tags) + '\" placeholder=\"news, live-review, interview\"></div><div class=\"article-field\"><label>Categories</label><input id=\"articleCategoriesInput\" class=\"article-input\" value=\"' + escAttr(article.categories) + '\" placeholder=\"Rock, Live Reviews\"></div><div class=\"article-field\" style=\"grid-column:1 / -1\"><label>Excerpt</label><textarea id=\"articleExcerptInput\" class=\"article-textarea\" placeholder=\"Short summary for cards and metadata\">' + esc(article.excerpt) + '</textarea></div><div class=\"article-field\" style=\"grid-column:1 / -1\"><label>Thumbnail / Cover URL</label><input id=\"articleCoverInput\" class=\"article-input\" value=\"' + escAttr(article.cover_url) + '\" placeholder=\"https://...\"></div></div>' + (article.id ? '<div style=\"margin-top:1rem\"><button class=\"btn btn-danger\" onclick=\"deleteCurrentArticle()\">Delete Article</button></div>' : '');
 }
 
+*/
 function getArticlePreviewHtml(article) {
   var path = articleState.previewPath || (article.url_id ? ('/music/' + article.url_id) : '/music');
   var src = 'https://louishitchcock.xyz' + normalizePreviewPath(path);
@@ -622,21 +674,21 @@ function previewCurrentArticlePath() {
   loadArticlePreviewPath();
 }
 
-function applyArticleFormat(command) {
+/* function applyArticleFormatLegacy(command) {
   var editor = document.getElementById('articleBodyEditor');
   if (!editor) return;
   editor.focus();
   document.execCommand(command, false, null);
 }
 
-function formatArticleHeading() {
+function formatArticleHeadingLegacy() {
   var editor = document.getElementById('articleBodyEditor');
   if (!editor) return;
   editor.focus();
   document.execCommand('formatBlock', false, 'H2');
 }
 
-function insertArticleLink() {
+function insertArticleLinkLegacy() {
   var editor = document.getElementById('articleBodyEditor');
   if (!editor) return;
   var url = prompt('Enter URL');
@@ -645,6 +697,7 @@ function insertArticleLink() {
   document.execCommand('createLink', false, url.trim());
 }
 
+*/
 function syncArticleAuthorFromSelection() {
   var select = document.getElementById('articleWritersSelect');
   var input = document.getElementById('articleAuthorInput');
@@ -654,6 +707,226 @@ function syncArticleAuthorFromSelection() {
     if (select.options[i].selected) selected.push(select.options[i].value);
   }
   input.value = selected.join(', ');
+}
+
+function getArticleEditorHtml(article) {
+  return '<div class="article-field"><label>Title</label><input id="articleTitleInput" class="article-input" value="' + escAttr(article.title) + '" placeholder="Article title"></div><div class="article-field"><label>Article Body</label><div class="editor-toolbar"><button type="button" onclick="applyArticleFormat(&quot;bold&quot;)"><b>Bold</b></button><button type="button" onclick="applyArticleFormat(&quot;italic&quot;)"><i>Italic</i></button><button type="button" onclick="applyArticleFormat(&quot;underline&quot;)"><u>Underline</u></button><button type="button" onclick="formatArticleHeading()">Heading</button><button type="button" onclick="applyArticleFormat(&quot;insertUnorderedList&quot;)">Bullets</button><button type="button" onclick="applyArticleFormat(&quot;insertOrderedList&quot;)">Numbered</button><button type="button" onclick="insertArticleLink()">Link</button><button type="button" onclick="applyArticleFormat(&quot;removeFormat&quot;)">Clear</button><button type="button" onclick="toggleArticleImagePanel()">Insert Image</button></div><div id="articleImagePanel" class="article-insert-panel"><div class="article-insert-row"><select id="articleImageLayoutInput" class="article-select" onchange="toggleArticleCarouselInput()"><option value="full">Full Width</option><option value="left">Float Left</option><option value="right">Float Right</option><option value="carousel">Carousel</option></select><input id="articleImageUrlInput" class="article-input" placeholder="Image URL (or comma-separated URLs for carousel)"></div><div class="article-insert-row" id="articleCarouselCaptionRow"><input id="articleImageCaptionInput" class="article-input" placeholder="Optional caption text"></div><div class="article-insert-actions"><button type="button" class="btn btn-sm" onclick="toggleArticleImagePanel(false)">Cancel</button><button type="button" class="btn btn-sm btn-primary" onclick="insertArticleImageBlock()">Insert</button></div></div><div id="articleBodyEditor" class="editor-canvas" contenteditable="true">' + (article.body || '<p></p>') + '</div></div>';
+}
+
+function getArticlePropertiesHtml(article) {
+  var options = '';
+  articleState.writers.forEach(function(name) {
+    var selected = splitWriters(article.author).includes(name) ? ' selected' : '';
+    options += '<option value="' + escAttr(name) + '"' + selected + '>' + esc(name) + '</option>';
+  });
+  return '<div class="article-properties-grid"><div class="article-field"><label>Slug (URL ID)</label><input id="articleSlugInput" class="article-input" value="' + escAttr(article.url_id) + '" placeholder="your-article-slug"></div><div class="article-field"><label>Status</label><select id="articleStatusInput" class="article-select"><option value="publish"' + (article.status === 'publish' ? ' selected' : '') + '>Published</option><option value="draft"' + (article.status !== 'publish' ? ' selected' : '') + '>Draft</option></select></div><div class="article-field"><label>Publish Date</label><input id="articlePublishInput" class="article-input" type="datetime-local" value="' + escAttr(article.publish_date || nowAsLocalDateTime()) + '"></div><div class="article-field"><label>Writer(s)</label><select id="articleWritersSelect" class="article-select" multiple size="5" onchange="syncArticleAuthorFromSelection()">' + options + '</select></div><div class="article-field"><label>Author Field (stored)</label><input id="articleAuthorInput" class="article-input" value="' + escAttr(article.author) + '" placeholder="Comma-separated writer names"></div><div class="article-field"><label>Tags</label><input id="articleTagsInput" class="article-input" value="' + escAttr(article.tags) + '" placeholder="news, live-review, interview"></div><div class="article-field"><label>Categories</label><input id="articleCategoriesInput" class="article-input" value="' + escAttr(article.categories) + '" placeholder="Rock, Live Reviews"></div><div class="article-field" style="grid-column:1 / -1"><label>Excerpt</label><textarea id="articleExcerptInput" class="article-textarea" placeholder="Short summary for cards and metadata">' + esc(article.excerpt) + '</textarea></div><div class="article-field" style="grid-column:1 / -1"><label>Thumbnail / Cover URL</label><input id="articleCoverInput" class="article-input" value="' + escAttr(article.cover_url) + '" placeholder="https://..."></div></div>' + (article.id ? '<div style="margin-top:1rem"><button class="btn btn-danger" onclick="deleteCurrentArticle()">Delete Article</button></div>' : '');
+}
+
+function initializeArticleEditor() {
+  var editor = document.getElementById('articleBodyEditor');
+  if (!editor) return;
+  var toolbar = editor.previousElementSibling && editor.previousElementSibling.classList && editor.previousElementSibling.classList.contains('article-insert-panel') ? editor.previousElementSibling.previousElementSibling : null;
+  if (toolbar && !toolbar.dataset.selectionGuard) {
+    toolbar.addEventListener('mousedown', function(e) {
+      if (e.target.closest('button')) e.preventDefault();
+    });
+    toolbar.dataset.selectionGuard = '1';
+  }
+  editor.addEventListener('mouseup', saveEditorSelection);
+  editor.addEventListener('keyup', saveEditorSelection);
+  editor.addEventListener('focus', saveEditorSelection);
+  editor.addEventListener('blur', saveEditorSelection);
+  toggleArticleImagePanel(false);
+  saveEditorSelection();
+}
+
+function saveEditorSelection() {
+  var editor = document.getElementById('articleBodyEditor');
+  if (!editor) return;
+  var sel = window.getSelection();
+  if (!sel || !sel.rangeCount) return;
+  var range = sel.getRangeAt(0);
+  if (!editor.contains(range.commonAncestorContainer)) return;
+  articleState.savedRange = range.cloneRange();
+}
+
+function restoreEditorSelection() {
+  var editor = document.getElementById('articleBodyEditor');
+  if (!editor || !articleState.savedRange) return false;
+  var sel = window.getSelection();
+  if (!sel) return false;
+  try {
+    sel.removeAllRanges();
+    sel.addRange(articleState.savedRange.cloneRange());
+    return true;
+  } catch (e) {
+    return false;
+  }
+}
+
+function executeArticleEditorCommand(command, value) {
+  var editor = document.getElementById('articleBodyEditor');
+  if (!editor) return;
+  editor.focus();
+  restoreEditorSelection();
+  document.execCommand(command, false, value == null ? null : value);
+  saveEditorSelection();
+  captureCurrentArticleDraft();
+}
+
+function applyArticleFormat(command) {
+  executeArticleEditorCommand(command, null);
+}
+
+function formatArticleHeading() {
+  executeArticleEditorCommand('formatBlock', 'H2');
+}
+
+function insertArticleLink() {
+  var url = prompt('Enter URL');
+  if (!url) return;
+  executeArticleEditorCommand('createLink', url.trim());
+}
+
+function toggleArticleImagePanel(forceOpen) {
+  var panel = document.getElementById('articleImagePanel');
+  if (!panel) return;
+  var shouldOpen = typeof forceOpen === 'boolean' ? forceOpen : !panel.classList.contains('active');
+  if (shouldOpen) {
+    panel.classList.add('active');
+    toggleArticleCarouselInput();
+    saveEditorSelection();
+    var urlInput = document.getElementById('articleImageUrlInput');
+    if (urlInput) urlInput.focus();
+  } else {
+    panel.classList.remove('active');
+  }
+}
+
+function toggleArticleCarouselInput() {
+  var layoutInput = document.getElementById('articleImageLayoutInput');
+  var urlInput = document.getElementById('articleImageUrlInput');
+  if (!layoutInput || !urlInput) return;
+  var isCarousel = layoutInput.value === 'carousel';
+  urlInput.placeholder = isCarousel ? 'Image URLs separated by commas' : 'Image URL';
+}
+
+function buildArticleFigureHtml(url, layout, caption) {
+  var modifier = 'article-media--full';
+  if (layout === 'left') modifier = 'article-media--float-left';
+  if (layout === 'right') modifier = 'article-media--float-right';
+  var html = '<figure class="article-media ' + modifier + '"><img src="' + escAttr(url) + '" alt="' + escAttr(caption || 'Article image') + '">';
+  if (caption) html += '<figcaption>' + esc(caption) + '</figcaption>';
+  html += '</figure><p></p>';
+  return html;
+}
+
+function buildArticleCarouselHtml(urls, caption) {
+  articleState.carouselSeed += 1;
+  var carouselId = 'article-carousel-' + Date.now() + '-' + articleState.carouselSeed;
+  var slides = '';
+  var thumbs = '';
+  urls.forEach(function(url, idx) {
+    var activeClass = idx === 0 ? ' active' : '';
+    slides += '<div class="carousel-slide' + activeClass + '"><img src="' + escAttr(url) + '" alt="' + escAttr(caption || ('Carousel image ' + (idx + 1))) + '"></div>';
+    thumbs += '<button type="button" class="carousel-thumb' + activeClass + '" onclick="changeCarouselSlide(&quot;' + carouselId + '&quot;, ' + idx + ')"><img src="' + escAttr(url) + '" alt="Thumbnail ' + (idx + 1) + '"></button>';
+  });
+  var html = '<div id="' + carouselId + '" class="article-carousel article-media article-media--full" data-article-carousel data-current-slide="0"><button type="button" class="carousel-nav carousel-nav-prev" onclick="moveCarouselSlide(&quot;' + carouselId + '&quot;, -1)">&#10094;</button><div class="carousel-slides">' + slides + '</div><button type="button" class="carousel-nav carousel-nav-next" onclick="moveCarouselSlide(&quot;' + carouselId + '&quot;, 1)">&#10095;</button><div class="carousel-thumbnails">' + thumbs + '</div>';
+  if (caption) html += '<div class="carousel-caption">' + esc(caption) + '</div>';
+  html += '</div><p></p>';
+  return html;
+}
+
+function changeCarouselSlide(carouselId, newIndex) {
+  var carousel = document.getElementById(carouselId);
+  if (!carousel) return;
+  var slides = carousel.querySelectorAll('.carousel-slide');
+  var thumbs = carousel.querySelectorAll('.carousel-thumb');
+  if (!slides.length) return;
+  var safeIndex = Math.max(0, Math.min(newIndex, slides.length - 1));
+  carousel.setAttribute('data-current-slide', String(safeIndex));
+  for (var i = 0; i < slides.length; i++) {
+    slides[i].classList.toggle('active', i === safeIndex);
+  }
+  for (var j = 0; j < thumbs.length; j++) {
+    thumbs[j].classList.toggle('active', j === safeIndex);
+  }
+}
+
+function moveCarouselSlide(carouselId, delta) {
+  var carousel = document.getElementById(carouselId);
+  if (!carousel) return;
+  var slides = carousel.querySelectorAll('.carousel-slide');
+  if (!slides.length) return;
+  var current = parseInt(carousel.getAttribute('data-current-slide') || '0', 10);
+  var next = current + delta;
+  if (next < 0) next = slides.length - 1;
+  if (next >= slides.length) next = 0;
+  changeCarouselSlide(carouselId, next);
+}
+
+function insertArticleHtmlAtCursor(html) {
+  var editor = document.getElementById('articleBodyEditor');
+  if (!editor) return false;
+  editor.focus();
+  restoreEditorSelection();
+  var inserted = false;
+  if (document.queryCommandSupported && document.queryCommandSupported('insertHTML')) {
+    inserted = document.execCommand('insertHTML', false, html);
+  }
+  if (!inserted) {
+    var sel = window.getSelection();
+    if (!sel) return false;
+    var range = sel.rangeCount ? sel.getRangeAt(0) : null;
+    if (!range || !editor.contains(range.commonAncestorContainer)) {
+      range = document.createRange();
+      range.selectNodeContents(editor);
+      range.collapse(false);
+    }
+    var container = document.createElement('div');
+    container.innerHTML = html;
+    var frag = document.createDocumentFragment();
+    var node;
+    var lastNode = null;
+    while ((node = container.firstChild)) {
+      lastNode = frag.appendChild(node);
+    }
+    range.deleteContents();
+    range.insertNode(frag);
+    if (lastNode) {
+      range = range.cloneRange();
+      range.setStartAfter(lastNode);
+      range.collapse(true);
+      sel.removeAllRanges();
+      sel.addRange(range);
+    }
+  }
+  saveEditorSelection();
+  captureCurrentArticleDraft();
+  return true;
+}
+
+function insertArticleImageBlock() {
+  var layoutInput = document.getElementById('articleImageLayoutInput');
+  var urlInput = document.getElementById('articleImageUrlInput');
+  var captionInput = document.getElementById('articleImageCaptionInput');
+  if (!layoutInput || !urlInput) return;
+  var layout = layoutInput.value || 'full';
+  var urls = String(urlInput.value || '').split(/[\n,]/).map(function(item) { return item.trim(); }).filter(Boolean);
+  var caption = captionInput ? captionInput.value.trim() : '';
+  if (!urls.length) {
+    setArticleSaveStatus('Provide at least one image URL before inserting', true);
+    return;
+  }
+  var html = layout === 'carousel' ? buildArticleCarouselHtml(urls, caption) : buildArticleFigureHtml(urls[0], layout, caption);
+  if (insertArticleHtmlAtCursor(html)) {
+    setArticleSaveStatus('Image block inserted', false, true);
+    if (urlInput) urlInput.value = '';
+    if (captionInput) captionInput.value = '';
+    toggleArticleImagePanel(false);
+  } else {
+    setArticleSaveStatus('Could not insert image block', true);
+  }
 }
 
 function buildArticlePayload() {
