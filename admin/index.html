@@ -142,19 +142,29 @@ body{font-family:'Work Sans',-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,
 .article-carousel .carousel-caption{text-align:center;font-size:.8rem;color:#888;margin-top:.35rem}
 
 /* Image insert UI */
-.article-image-insert-panel{display:none;padding:.65rem;border:1px solid #ddd;background:#fafafa;margin:.45rem 0 .2rem}
+.article-image-insert-panel{display:none;position:fixed;top:50%;left:50%;transform:translate(-50%,-50%);z-index:200;width:480px;max-width:92vw;max-height:80vh;overflow-y:auto;padding:1.5rem;background:#fff;border:1px solid #ddd;box-shadow:0 8px 32px rgba(0,0,0,.15)}
 .article-image-insert-panel.active{display:block}
-.article-image-insert-panel label{display:block;font-size:.72rem;font-weight:600;text-transform:uppercase;letter-spacing:1px;color:#888;margin-bottom:.3rem}
-.article-image-insert-rows{display:flex;flex-direction:column;gap:.5rem}
+.article-image-insert-panel .overlay-close{position:absolute;top:8px;right:10px;border:none;background:none;font-size:1.1rem;cursor:pointer;color:#888;padding:4px}
+.article-image-insert-panel .overlay-close:hover{color:#444}
+.article-image-insert-panel h3{font-size:.95rem;font-weight:700;text-transform:uppercase;letter-spacing:1.5px;margin-bottom:1rem;padding-right:24px}
+.article-image-insert-panel label{display:block;font-size:.7rem;font-weight:600;text-transform:uppercase;letter-spacing:1px;color:#888;margin-bottom:.3rem}
+.article-image-insert-rows{display:flex;flex-direction:column;gap:.75rem}
 .article-image-insert-row{display:flex;gap:.5rem;flex-wrap:wrap;align-items:center}
 .article-image-insert-row .article-select,.article-image-insert-row .article-input{flex:1;min-width:140px}
-.article-image-insert-preview{display:flex;gap:.35rem;flex-wrap:wrap;margin:.4rem 0}
-.article-image-insert-preview .img-preview-thumb{width:56px;height:56px;object-fit:cover;border:1px solid #ddd;cursor:pointer;position:relative}
-.article-image-insert-preview .img-preview-thumb.selected{border-color:#444;border-width:2px}
-.article-image-insert-preview .img-preview-remove{position:absolute;top:-6px;right:-6px;width:16px;height:16px;border-radius:50%;background:#e74c3c;color:#fff;border:none;font-size:.6rem;cursor:pointer;line-height:16px;text-align:center}
-.article-image-insert-actions{display:flex;justify-content:flex-end;gap:.45rem;margin-top:.4rem}
-.article-image-upload-btn{display:inline-flex;align-items:center;gap:.4rem;padding:.35rem .65rem;border:1px dashed #aaa;background:#fff;color:#666;font-size:.72rem;text-transform:uppercase;letter-spacing:.5px;cursor:pointer;font-family:'Work Sans',sans-serif}
-.article-image-upload-btn:hover{background:#f4f4f4;border-color:#888}
+.article-image-dropzone{border:2px dashed #ccc;padding:1.5rem;text-align:center;cursor:pointer;transition:border-color .2s,background .2s;font-size:.8rem;color:#888;display:flex;flex-direction:column;align-items:center;gap:.45rem}
+.article-image-dropzone:hover,.article-image-dropzone.drag-over{border-color:#444;background:#f4f4f4}
+.article-image-dropzone input[type="file"]{display:none}
+.article-image-dropzone .dropzone-icon{font-size:1.4rem}
+.article-image-uploaded-previews{display:flex;gap:.4rem;flex-wrap:wrap;margin-top:.5rem}
+.article-image-uploaded-previews .upload-thumb{width:60px;height:60px;object-fit:cover;border:1px solid #ddd;position:relative;cursor:default}
+.article-image-uploaded-previews .upload-thumb-wrapper{position:relative;display:inline-block}
+.article-image-uploaded-previews .upload-thumb-remove{position:absolute;top:-6px;right:-6px;width:16px;height:16px;border-radius:50%;background:#e74c3c;color:#fff;border:none;font-size:.6rem;cursor:pointer;line-height:16px;text-align:center;padding:0}
+.article-image-recent{display:flex;gap:.4rem;flex-wrap:wrap;margin:.3rem 0}
+.article-image-recent .recent-thumb{width:48px;height:48px;object-fit:cover;border:2px solid transparent;cursor:pointer;opacity:.7;transition:all .15s}
+.article-image-recent .recent-thumb:hover,.article-image-recent .recent-thumb.selected{opacity:1;border-color:#444}
+.article-image-insert-actions{display:flex;justify-content:flex-end;gap:.5rem;margin-top:.65rem}
+.article-image-overlay-backdrop{display:none;position:fixed;top:0;left:0;width:100%;height:100%;z-index:199;background:rgba(0,0,0,.25)}
+.article-image-overlay-backdrop.active{display:block}
 
 .writer-photo-upload{display:flex;flex-direction:column;gap:.75rem}
 .writer-photo-upload input[type="file"]{font-size:.85rem;font-family:'Work Sans',sans-serif}
@@ -237,12 +247,18 @@ body{font-family:'Work Sans',-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,
 [data-theme="dark"] .editor-floating-toolbar button:hover{background:#333;color:#ccc}
 [data-theme="dark"] .editor-floating-toolbar button.btn-insert-image{border-color:#888;color:#ccc}
 [data-theme="dark"] .editor-floating-toolbar .editor-floating-sep{background:#444}
-[data-theme="dark"] .article-image-insert-panel{background:#1d1d1d;border-color:#444}
+[data-theme="dark"] .article-image-insert-panel{background:#262626;border-color:#444;box-shadow:0 8px 32px rgba(0,0,0,.4)}
 [data-theme="dark"] .article-image-insert-panel label{color:#999}
-[data-theme="dark"] .article-image-upload-btn{background:#1a1a1a;border-color:#555;color:#999}
-[data-theme="dark"] .article-image-upload-btn:hover{background:#333;color:#ccc}
-[data-theme="dark"] .article-image-insert-preview .img-preview-thumb{border-color:#444}
-[data-theme="dark"] .article-image-insert-preview .img-preview-thumb.selected{border-color:#aaa}
+[data-theme="dark"] .article-image-insert-panel h3{color:#ccc}
+[data-theme="dark"] .article-image-insert-panel .overlay-close{color:#999}
+[data-theme="dark"] .article-image-insert-panel .overlay-close:hover{color:#ccc}
+[data-theme="dark"] .article-image-dropzone{border-color:#555;color:#999}
+[data-theme="dark"] .article-image-dropzone:hover,.article-image-dropzone.drag-over{border-color:#888;background:#333}
+[data-theme="dark"] .article-image-overlay-backdrop{background:rgba(0,0,0,.55)}
+[data-theme="dark"] .article-image-uploaded-previews .upload-thumb{border-color:#444}
+[data-theme="dark"] .article-image-uploaded-previews .upload-thumb-remove{background:#b42318}
+[data-theme="dark"] .article-image-recent .recent-thumb{border-color:transparent}
+[data-theme="dark"] .article-image-recent .recent-thumb:hover,.article-image-recent .recent-thumb.selected{border-color:#888}
 [data-theme="dark"] .editor-floating-toolbar{background:#262626;border-color:#444}
 [data-theme="dark"] .editor-floating-toolbar button{background:#1a1a1a;border-color:#444;color:#888}
 [data-theme="dark"] .editor-floating-toolbar button:hover{background:#333;color:#ccc}
@@ -503,9 +519,9 @@ main.innerHTML = '<h1>Articles</h1><div class="article-workspace" id="articleWor
   articleState.current = null;
   articleState.selectedId = null;
   articleState.panel = 'editor';
-  articleState.previewPath = '';
   articleState.listCollapsed = false;
   articleState.savedRange = null;
+  articleState.recentImages = [];
   articleState.carouselSeed = 0;
   refreshArticleListPaneState();
 
@@ -689,7 +705,7 @@ function renderArticleWorkspace() {
 }
 
 
-function getArticleEditorHtml(article) {
+function syncArticleAuthorFromSelection() {
   var select = document.getElementById('articleWritersSelect');
   var input = document.getElementById('articleAuthorInput');
   if (!select || !input) return;
@@ -701,15 +717,7 @@ function getArticleEditorHtml(article) {
 }
 
 function getArticleEditorHtml(article) {
-  var recentHtml = '';
-  if (articleState.recentImages && articleState.recentImages.length) {
-    recentHtml = '<div class="article-image-insert-row"><label>Recent media</label><div class="article-image-insert-preview">';
-    articleState.recentImages.forEach(function(url, idx) {
-      recentHtml += '<img src="' + escAttr(url) + '" class="img-preview-thumb" onclick="toggleImageSelection(this,&quot;' + escAttr(url) + '&quot;)" data-url="' + escAttr(url) + '">';
-    });
-    recentHtml += '</div></div>';
-  }
-  return '<div class="article-field"><label>Title</label><input id="articleTitleInput" class="article-input" value="' + escAttr(article.title) + '" placeholder="Article title"></div><div class="article-field"><label>Article Body</label><div id="articleBodyEditor" class="editor-canvas" contenteditable="true">' + (article.body || '<p></p>') + '</div><div class="editor-floating-toolbar"><button type="button" onclick="applyArticleFormat(&quot;bold&quot;)"><b>B</b></button><button type="button" onclick="applyArticleFormat(&quot;italic&quot;)"><i>I</i></button><button type="button" onclick="applyArticleFormat(&quot;underline&quot;)"><u>U</u></button><span class="editor-floating-sep"></span><button type="button" onclick="formatArticleHeading()">H2</button><button type="button" onclick="applyArticleFormat(&quot;insertUnorderedList&quot;)">UL</button><button type="button" onclick="applyArticleFormat(&quot;insertOrderedList&quot;)">OL</button><span class="editor-floating-sep"></span><button type="button" onclick="insertArticleLink()">Link</button><button type="button" onclick="applyArticleFormat(&quot;removeFormat&quot;)">Clear</button><span class="editor-floating-sep"></span><button type="button" class="btn-insert-image" onclick="toggleArticleImagePanel()">+ IMAGE</button></div><div id="articleImageInsertPanel" class="article-image-insert-panel"><div class="article-image-insert-rows">' + recentHtml + '<div class="article-image-insert-row"><label>Upload media</label><input type="file" id="articleImageUploadInput" accept="image/*" multiple onchange="handleArticleImageUpload(this.files)"><input type="file" id="articleImageUploadInputSingle" accept="image/*" style="display:none"></div><div class="article-image-insert-row"><label>Layout</label><select id="articleImageLayoutInput" class="article-select" onchange="toggleArticleCarouselInput()"><option value="full">Full Width</option><option value="left">Float Left</option><option value="right">Float Right</option><option value="carousel">Carousel</option></select><input id="articleImageCaptionInput" class="article-input" placeholder="Optional caption"></div><div id="articleCarouselMultiRow" class="article-image-insert-row" style="display:none"><div id="articleCarouselOrdered" class="article-image-insert-preview"></div></div></div><div class="article-image-insert-actions"><button type="button" class="btn btn-sm" onclick="toggleArticleImagePanel(false)">Cancel</button><button type="button" class="btn btn-sm btn-primary" onclick="insertArticleImageBlock()">Insert</button></div></div></div>';
+  return '<div class="article-field"><label>Title</label><input id="articleTitleInput" class="article-input" value="' + escAttr(article.title) + '" placeholder="Article title"></div><div class="article-field"><label>Article Body</label><div id="articleBodyEditor" class="editor-canvas" contenteditable="true">' + (article.body || '<p></p>') + '</div><div class="editor-floating-toolbar"><button type="button" onclick="applyArticleFormat(&quot;bold&quot;)"><b>B</b></button><button type="button" onclick="applyArticleFormat(&quot;italic&quot;)"><i>I</i></button><button type="button" onclick="applyArticleFormat(&quot;underline&quot;)"><u>U</u></button><span class="editor-floating-sep"></span><button type="button" onclick="formatArticleHeading()">H2</button><button type="button" onclick="applyArticleFormat(&quot;insertUnorderedList&quot;)">UL</button><button type="button" onclick="applyArticleFormat(&quot;insertOrderedList&quot;)">OL</button><span class="editor-floating-sep"></span><button type="button" onclick="insertArticleLink()">Link</button><button type="button" onclick="applyArticleFormat(&quot;removeFormat&quot;)">Clear</button><span class="editor-floating-sep"></span><button type="button" onclick="formatArticleCode()">&lt;/&gt;</button><button type="button" class="btn-insert-image" onclick="toggleArticleImagePanel()">+ IMAGE</button></div><div id="articleImageOverlayBackdrop" class="article-image-overlay-backdrop"></div><div id="articleImageInsertPanel" class="article-image-insert-panel"><button class="overlay-close" onclick="toggleArticleImagePanel(false)">x</button><h3>Insert Media</h3><div class="article-image-insert-rows"><div class="article-image-insert-row"><label>Upload or drag images</label><div class="article-image-dropzone" id="imageDropZone" onclick="document.getElementById(&apos;imageUploadFileInput&apos;).click()" ondragover="this.classList.add(&apos;drag-over&apos;);return false" ondragleave="this.classList.remove(&apos;drag-over&apos;)" ondrop="handleImageDrop(event);this.classList.remove(&apos;drag-over&apos;);return false"><span class="dropzone-icon">+</span><span>Click or drag images here</span><input type="file" id="imageUploadFileInput" accept="image/*" multiple onchange="handleArticleImageUpload(this.files)"></div></div><div id="imageUploadPreview" class="article-image-uploaded-previews"></div><div class="article-image-insert-row"><label>Layout</label><select id="imageOverlayLayout" class="article-select" onchange="toggleArticleCarouselInput()"><option value="full">Full Width</option><option value="left">Float Left</option><option value="right">Float Right</option><option value="carousel">Carousel</option></select><input id="imageOverlayCaption" class="article-input" placeholder="Optional caption"></div><div class="article-image-insert-row"><label>Recent uploads</label><div id="imageOverlayRecent" class="article-image-recent"></div></div></div><div class="article-image-insert-actions"><button type="button" class="btn btn-sm" onclick="toggleArticleImagePanel(false)">Cancel</button><button type="button" class="btn btn-sm btn-primary" onclick="insertArticleImageBlock()">Insert</button></div></div></div>';
 }
 
 function getArticlePropertiesHtml(article) {
@@ -724,6 +732,19 @@ function getArticlePropertiesHtml(article) {
 function initializeArticleEditor() {
   var editor = document.getElementById('articleBodyEditor');
   if (!editor) return;
+  var toolbar = document.querySelector('.editor-floating-toolbar');
+  if (toolbar && !toolbar.dataset.selectionGuard) {
+    toolbar.addEventListener('mousedown', function(e) {
+      if (e.target.closest('button')) e.preventDefault();
+    });
+    toolbar.dataset.selectionGuard = '1';
+  }
+  var backdrop = document.getElementById('articleImageOverlayBackdrop');
+  if (backdrop) {
+    backdrop.onclick = function() {
+      toggleArticleImagePanel(false);
+    };
+  }
   editor.addEventListener('mouseup', saveEditorSelection);
   editor.addEventListener('keyup', saveEditorSelection);
   editor.addEventListener('focus', saveEditorSelection);
@@ -780,78 +801,127 @@ function insertArticleLink() {
   executeArticleEditorCommand('createLink', url.trim());
 }
 
-function toggleArticleImagePanel(forceOpen) {
-  var panel = document.getElementById('articleImageInsertPanel');
-  if (!panel) return;
-  var shouldOpen = typeof forceOpen === 'boolean' ? forceOpen : !panel.classList.contains('active');
-  if (shouldOpen) {
-    panel.classList.add('active');
-    toggleArticleCarouselInput();
-    saveEditorSelection();
-  } else {
-    panel.classList.remove('active');
-  }
+function formatArticleCode() {
+  executeArticleEditorCommand('formatBlock', 'pre');
 }
 
-function toggleArticleCarouselInput() {
-  var layoutInput = document.getElementById('articleImageLayoutInput');
-  var multiRow = document.getElementById('articleCarouselMultiRow');
-  if (!layoutInput || !multiRow) return;
-  multiRow.style.display = layoutInput.value === 'carousel' ? 'flex' : 'none';
+function handleImageDrop(e) {
+  e.preventDefault();
+  var files = e.dataTransfer && e.dataTransfer.files;
+  if (files && files.length) handleArticleImageUpload(files);
 }
 
 var imageUploadQueue = [];
 
 function handleArticleImageUpload(files) {
   if (!files || !files.length) return;
-  var preview = document.querySelector('.article-image-insert-preview');
-  var uploadInput = document.getElementById('articleImageUploadInput');
-  var orderedContainer = document.getElementById('articleCarouselOrdered');
+  var preview = document.getElementById('imageUploadPreview');
   Array.from(files).forEach(function(file) {
-    uploadInput.value = '';
+    if (!file || !file.type || !file.type.startsWith('image/')) return;
     var objUrl = URL.createObjectURL(file);
     imageUploadQueue.push({ file: file, objUrl: objUrl, url: null });
-    var thumbHtml = '<div style="position:relative;display:inline-block"><img src="' + objUrl + '" class="img-preview-thumb selected" data-queue-idx="' + (imageUploadQueue.length - 1) + '"><button class="img-preview-remove" onclick="removeImageFromUploadQueue(this.parentElement)">x</button></div>';
-    if (preview) preview.innerHTML += thumbHtml;
-    if (orderedContainer) orderedContainer.innerHTML += thumbHtml;
+    var idx = imageUploadQueue.length - 1;
+    var div = document.createElement('div');
+    div.className = 'upload-thumb-wrapper';
+    div.innerHTML = '<img src="' + objUrl + '" class="upload-thumb"><button class="upload-thumb-remove" onclick="removeQueuedImage(' + idx + ',this)">x</button>';
+    if (preview) preview.appendChild(div);
   });
-  if (orderedContainer && orderedContainer.children.length) {
-    document.getElementById('articleCarouselMultiRow').style.display = 'flex';
-  }
-  setArticleSaveStatus(imageUploadQueue.length + ' image(s) staged for upload', false, true);
+  setArticleSaveStatus(imageUploadQueue.filter(function(item) { return item !== null; }).length + ' image(s) selected', false, true);
+  var uploadInput = document.getElementById('imageUploadFileInput');
+  if (uploadInput) uploadInput.value = '';
 }
 
-function removeImageFromUploadQueue(container) {
-  var img = container && container.querySelector('img');
-  if (!img) return;
-  var idx = parseInt(img.getAttribute('data-queue-idx'), 10);
-  if (!isNaN(idx) && imageUploadQueue[idx]) {
+function removeQueuedImage(idx, btn) {
+  if (imageUploadQueue[idx]) {
     URL.revokeObjectURL(imageUploadQueue[idx].objUrl);
     imageUploadQueue[idx] = null;
   }
-  container.parentElement.removeChild(container);
-  var orderedContainer = document.getElementById('articleCarouselOrdered');
-  if (orderedContainer && !orderedContainer.children.length) {
-    document.getElementById('articleCarouselMultiRow').style.display = 'none';
+  var wrapper = btn && btn.parentElement;
+  if (wrapper && wrapper.parentElement) wrapper.parentElement.removeChild(wrapper);
+  var remaining = imageUploadQueue.filter(function(item) { return item !== null; }).length;
+  setArticleSaveStatus(remaining ? (remaining + ' image(s) selected') : 'Image selection cleared', false, !!remaining);
+}
+
+function toggleArticleImagePanel(forceOpen) {
+  var panel = document.getElementById('articleImageInsertPanel');
+  var backdrop = document.getElementById('articleImageOverlayBackdrop');
+  if (!panel) return;
+  var shouldOpen = typeof forceOpen === 'boolean' ? forceOpen : !panel.classList.contains('active');
+  if (shouldOpen) {
+    saveEditorSelection();
+    toggleArticleCarouselInput();
+    renderImageOverlayRecent();
+    panel.classList.add('active');
+    if (backdrop) backdrop.classList.add('active');
+  } else {
+    panel.classList.remove('active');
+    if (backdrop) backdrop.classList.remove('active');
+    clearImageUploadQueue();
+    imageUploadQueue = [];
   }
 }
 
+function renderImageOverlayRecent() {
+  var container = document.getElementById('imageOverlayRecent');
+  if (!container) return;
+  container.innerHTML = '';
+  if (!articleState.recentImages || !articleState.recentImages.length) {
+    container.innerHTML = '<span style="font-size:.75rem;color:#aaa">No recent uploads</span>';
+    return;
+  }
+  articleState.recentImages.forEach(function(url) {
+    var img = document.createElement('img');
+    img.className = 'recent-thumb';
+    img.src = url;
+    img.title = 'Click to insert';
+    img.onclick = function() {
+      var layoutInput = document.getElementById('imageOverlayLayout');
+      var captionInput = document.getElementById('imageOverlayCaption');
+      var layout = layoutInput ? layoutInput.value : 'full';
+      var caption = captionInput ? captionInput.value.trim() : '';
+      var html = layout === 'carousel' ? buildArticleCarouselHtml([url], caption) : buildArticleFigureHtml(url, layout, caption);
+      insertArticleHtmlAtCursor(html);
+      toggleArticleImagePanel(false);
+      setArticleSaveStatus('Image inserted', false, true);
+    };
+    container.appendChild(img);
+  });
+}
+
+function clearImageUploadQueue() {
+  imageUploadQueue.forEach(function(item) {
+    if (item && item.objUrl) URL.revokeObjectURL(item.objUrl);
+  });
+  imageUploadQueue = [];
+  var preview = document.getElementById('imageUploadPreview');
+  if (preview) preview.innerHTML = '';
+  var uploadInput = document.getElementById('imageUploadFileInput');
+  if (uploadInput) uploadInput.value = '';
+}
+
+function toggleArticleCarouselInput() {
+  var layoutInput = document.getElementById('imageOverlayLayout');
+  var captionInput = document.getElementById('imageOverlayCaption');
+  if (!layoutInput || !captionInput) return;
+  captionInput.placeholder = layoutInput.value === 'carousel' ? 'Optional carousel caption' : 'Optional caption';
+}
+
 function insertArticleImageBlock() {
-  var layoutInput = document.getElementById('articleImageLayoutInput');
-  var captionInput = document.getElementById('articleImageCaptionInput');
+  var layoutInput = document.getElementById('imageOverlayLayout');
+  var captionInput = document.getElementById('imageOverlayCaption');
   if (!layoutInput) return;
   var layout = layoutInput.value || 'full';
   var caption = captionInput ? captionInput.value.trim() : '';
 
-  var queuedItems = imageUploadQueue.filter(function(item) { return item !== null; });
-  if (!queuedItems.length) {
-    setArticleSaveStatus('Upload at least one image before inserting', true);
+  var queued = imageUploadQueue.filter(function(item) { return item !== null; });
+  if (!queued.length) {
+    setArticleSaveStatus('Upload at least one image first', true);
     return;
   }
 
   setArticleSaveStatus('Uploading images...', false);
 
-  var uploadPromises = queuedItems.map(function(item) {
+  var promises = queued.map(function(item) {
     if (item.url) return Promise.resolve(item.url);
     return uploadImage(item.file).then(function(url) {
       item.url = url;
@@ -862,35 +932,118 @@ function insertArticleImageBlock() {
     });
   });
 
-  Promise.all(uploadPromises).then(function(urls) {
+  Promise.all(promises).then(function(urls) {
     var html;
     if (layout === 'carousel') {
       html = buildArticleCarouselHtml(urls, caption);
     } else {
       html = buildArticleFigureHtml(urls[0], layout, caption);
     }
-
-    // Clean up blob URLs
-    queuedItems.forEach(function(item) {
-      if (item.objUrl) URL.revokeObjectURL(item.objUrl);
-    });
-    imageUploadQueue = [];
-
+    clearImageUploadQueue();
     if (insertArticleHtmlAtCursor(html)) {
-      setArticleSaveStatus('Image block inserted', false, true);
+      setArticleSaveStatus('Image inserted', false, true);
       if (captionInput) captionInput.value = '';
       toggleArticleImagePanel(false);
-      var preview = document.querySelector('.article-image-insert-preview');
-      if (preview) preview.innerHTML = '';
-      var ordered = document.getElementById('articleCarouselOrdered');
-      if (ordered) ordered.innerHTML = '';
-      document.getElementById('articleCarouselMultiRow').style.display = 'none';
     } else {
-      setArticleSaveStatus('Could not insert image block', true);
+      setArticleSaveStatus('Could not insert image', true);
     }
   }).catch(function(err) {
     setArticleSaveStatus('Upload failed: ' + err.message, true);
   });
+}
+function buildArticleFigureHtml(url, layout, caption) {
+  var modifier = 'article-media--full';
+  if (layout === 'left') modifier = 'article-media--float-left';
+  if (layout === 'right') modifier = 'article-media--float-right';
+  var html = '<figure class="article-media ' + modifier + '"><img src="' + escAttr(url) + '" alt="' + escAttr(caption || 'Article image') + '">';
+  if (caption) html += '<figcaption>' + esc(caption) + '</figcaption>';
+  html += '</figure><p></p>';
+  return html;
+}
+
+function buildArticleCarouselHtml(urls, caption) {
+  articleState.carouselSeed += 1;
+  var carouselId = 'article-carousel-' + Date.now() + '-' + articleState.carouselSeed;
+  var slides = '';
+  var thumbs = '';
+  urls.forEach(function(url, idx) {
+    var activeClass = idx === 0 ? ' active' : '';
+    slides += '<div class="carousel-slide' + activeClass + '"><img src="' + escAttr(url) + '" alt="' + escAttr(caption || ('Carousel image ' + (idx + 1))) + '"></div>';
+    thumbs += '<button type="button" class="carousel-thumb' + activeClass + '" onclick="changeCarouselSlide(&quot;' + carouselId + '&quot;, ' + idx + ')"><img src="' + escAttr(url) + '" alt="Thumbnail ' + (idx + 1) + '"></button>';
+  });
+  var html = '<div id="' + carouselId + '" class="article-carousel article-media article-media--full" data-article-carousel data-current-slide="0"><button type="button" class="carousel-nav carousel-nav-prev" onclick="moveCarouselSlide(&quot;' + carouselId + '&quot;, -1)">&#10094;</button><div class="carousel-slides">' + slides + '</div><button type="button" class="carousel-nav carousel-nav-next" onclick="moveCarouselSlide(&quot;' + carouselId + '&quot;, 1)">&#10095;</button><div class="carousel-thumbnails">' + thumbs + '</div>';
+  if (caption) html += '<div class="carousel-caption">' + esc(caption) + '</div>';
+  html += '</div><p></p>';
+  return html;
+}
+
+function changeCarouselSlide(carouselId, newIndex) {
+  var carousel = document.getElementById(carouselId);
+  if (!carousel) return;
+  var slides = carousel.querySelectorAll('.carousel-slide');
+  var thumbs = carousel.querySelectorAll('.carousel-thumb');
+  if (!slides.length) return;
+  var safeIndex = Math.max(0, Math.min(newIndex, slides.length - 1));
+  carousel.setAttribute('data-current-slide', String(safeIndex));
+  for (var i = 0; i < slides.length; i++) {
+    slides[i].classList.toggle('active', i === safeIndex);
+  }
+  for (var j = 0; j < thumbs.length; j++) {
+    thumbs[j].classList.toggle('active', j === safeIndex);
+  }
+}
+
+function moveCarouselSlide(carouselId, delta) {
+  var carousel = document.getElementById(carouselId);
+  if (!carousel) return;
+  var slides = carousel.querySelectorAll('.carousel-slide');
+  if (!slides.length) return;
+  var current = parseInt(carousel.getAttribute('data-current-slide') || '0', 10);
+  var next = current + delta;
+  if (next < 0) next = slides.length - 1;
+  if (next >= slides.length) next = 0;
+  changeCarouselSlide(carouselId, next);
+}
+
+function insertArticleHtmlAtCursor(html) {
+  var editor = document.getElementById('articleBodyEditor');
+  if (!editor) return false;
+  editor.focus();
+  restoreEditorSelection();
+  var inserted = false;
+  if (document.queryCommandSupported && document.queryCommandSupported('insertHTML')) {
+    inserted = document.execCommand('insertHTML', false, html);
+  }
+  if (!inserted) {
+    var sel = window.getSelection();
+    if (!sel) return false;
+    var range = sel.rangeCount ? sel.getRangeAt(0) : null;
+    if (!range || !editor.contains(range.commonAncestorContainer)) {
+      range = document.createRange();
+      range.selectNodeContents(editor);
+      range.collapse(false);
+    }
+    var container = document.createElement('div');
+    container.innerHTML = html;
+    var frag = document.createDocumentFragment();
+    var node;
+    var lastNode = null;
+    while ((node = container.firstChild)) {
+      lastNode = frag.appendChild(node);
+    }
+    range.deleteContents();
+    range.insertNode(frag);
+    if (lastNode) {
+      range = range.cloneRange();
+      range.setStartAfter(lastNode);
+      range.collapse(true);
+      sel.removeAllRanges();
+      sel.addRange(range);
+    }
+  }
+  saveEditorSelection();
+  captureCurrentArticleDraft();
+  return true;
 }
 
 function buildArticlePayload() {
