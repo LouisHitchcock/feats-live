@@ -74,13 +74,41 @@ body{font-family:'Work Sans',-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,
 
 .badge{display:inline-block;padding:.2rem .5rem;border-radius:0;font-size:.7rem;font-weight:600;text-transform:uppercase;letter-spacing:.5px}
 .badge-admin{background:#f0f0f0;color:#444}
-.badge-superadmin{background:#262626;color:#fff}
+.badge-superadmin{background:#444;color:#fff}
 
-.writer-photo-upload{display:flex;flex-direction:column;gap:.75rem}
-.writer-photo-upload input[type="file"]{font-size:.85rem;font-family:'Work Sans',sans-serif}
-.writer-photo-current{display:flex;align-items:center;gap:.75rem}
-.writer-photo-current img{width:60px;height:60px;border-radius:50%;object-fit:cover;border:1px solid #eee}
-.writer-photo-upload .btn-sm{font-size:.7rem;padding:.25rem .55rem}
+.article-workspace{display:grid;grid-template-columns:320px 1fr;gap:1rem;min-height:72vh}
+.article-list-panel,.article-editor-panel{background:#fff;border:1px solid #eee;display:flex;flex-direction:column;min-height:0}
+.article-list-header{padding:1rem;border-bottom:1px solid #eee;display:flex;flex-direction:column;gap:.75rem}
+.article-search{width:100%;padding:.6rem .75rem;border:1px solid #ddd;border-radius:0;font-size:.85rem;font-family:'Work Sans',sans-serif}
+.article-list{padding:.65rem;overflow-y:auto;display:flex;flex-direction:column;gap:.5rem}
+.article-item{border:1px solid #eee;background:#fff;padding:.7rem;text-align:left;cursor:pointer;transition:all .2s;font-family:'Work Sans',sans-serif}
+.article-item:hover{border-color:#bbb;background:#fafafa}
+.article-item.active{border-color:#444;background:#f5f5f5}
+.article-item-title{font-weight:700;font-size:.85rem;margin-bottom:.3rem}
+.article-meta{font-size:.72rem;color:#888;letter-spacing:.2px}
+.article-editor-header{padding:1rem;border-bottom:1px solid #eee;display:flex;align-items:center;justify-content:space-between;gap:.75rem;flex-wrap:wrap}
+.article-editor-title{font-size:.9rem;font-weight:700;text-transform:uppercase;letter-spacing:1px}
+.article-editor-subtitle{font-size:.72rem;color:#888;letter-spacing:.5px}
+.article-editor-tabs{display:flex;align-items:center;gap:.4rem}
+.article-editor-tabs button{border:1px solid #ddd;background:#fff;color:#555;padding:.4rem .65rem;font-size:.72rem;text-transform:uppercase;letter-spacing:.8px;cursor:pointer;font-family:'Work Sans',sans-serif}
+.article-editor-tabs button.active{border-color:#444;background:#444;color:#fff}
+.article-save-status{padding:.55rem 1rem;border-bottom:1px solid #eee;font-size:.72rem;letter-spacing:.4px;color:#777;min-height:2rem;text-transform:uppercase}
+.article-save-status.error{color:#b42318;background:#fff5f5}
+.article-save-status.success{color:#0f766e;background:#f0fdfa}
+.article-editor-body{padding:1rem;overflow-y:auto;flex:1}
+.article-field{margin-bottom:.85rem}
+.article-field label{display:block;font-size:.72rem;font-weight:600;text-transform:uppercase;letter-spacing:1px;color:#888;margin-bottom:.35rem}
+.article-input,.article-textarea,.article-select{width:100%;padding:.6rem .75rem;border:1px solid #ddd;border-radius:0;font-size:.85rem;font-family:'Work Sans',sans-serif}
+.article-textarea{min-height:90px;resize:vertical}
+.article-properties-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:.75rem}
+.editor-toolbar{display:flex;gap:.35rem;flex-wrap:wrap;margin-bottom:.5rem}
+.editor-toolbar button{border:1px solid #ddd;background:#fff;padding:.35rem .55rem;font-size:.7rem;text-transform:uppercase;letter-spacing:.7px;cursor:pointer;font-family:'Work Sans',sans-serif}
+.editor-toolbar button:hover{background:#f4f4f4}
+.editor-canvas{border:1px solid #ddd;min-height:340px;padding:.85rem;line-height:1.6;font-size:.92rem;background:#fff}
+.editor-canvas:focus{outline:none;border-color:#444}
+.article-preview-nav{display:flex;gap:.5rem;align-items:center;margin-bottom:.75rem;flex-wrap:wrap}
+.article-preview-frame{width:100%;height:440px;border:1px solid #ddd;background:#fff}
+.article-empty-state{padding:2rem 1rem;color:#777;text-align:center;font-size:.85rem;text-transform:uppercase;letter-spacing:1px}
 
 /* Dark mode toggle */
 .dark-toggle{display:flex;align-items:center;gap:.5rem;padding:.5rem .75rem;margin-bottom:.35rem;font-size:.75rem;text-transform:uppercase;letter-spacing:1px;color:rgba(255,255,255,.5);cursor:pointer;user-select:none;transition:all .2s}
@@ -122,7 +150,6 @@ body{font-family:'Work Sans',-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,
 [data-theme="dark"] .modal-content input,.modal-content textarea,.modal-content select{background:#1a1a1a;border-color:#444;color:#ccc}
 [data-theme="dark"] .badge-admin{background:#333;color:#ccc}
 [data-theme="dark"] .badge-superadmin{background:#555;color:#fff}
-[data-theme="dark"] .writer-photo-current img{border-color:#444}
 [data-theme="dark"] .status-published{color:#4caf50}
 [data-theme="dark"] .status-draft{color:#ffb74d}
 [data-theme="dark"] .article-list-panel,.article-editor-panel{background:#262626;border-color:#333}
@@ -148,6 +175,7 @@ body{font-family:'Work Sans',-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,
 [data-theme="dark"] .article-preview-frame{background:#1a1a1a;border-color:#444}
 [data-theme="dark"] .article-empty-state{color:#888}
 
+@media(max-width:1100px){.article-workspace{grid-template-columns:1fr}.article-list-panel{max-height:280px}}
 @media(max-width:768px){.sidebar{width:60px;padding:.75rem}.sidebar .brand,.sidebar nav a span,.sidebar .user-info{display:none}.main{padding:1.5rem}.stats-grid{grid-template-columns:repeat(2,1fr)}}
 </style>
 </head>
@@ -172,6 +200,7 @@ body{font-family:'Work Sans',-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,
     <div class="brand">Feats.</div>
     <nav>
       <a class="active" data-tab="dashboard" onclick="showTab('dashboard', this)"><span>Dashboard</span></a>
+      <a data-tab="articles" onclick="showTab('articles', this)"><span>Articles</span></a>
       <a data-tab="writers" onclick="showTab('writers', this)"><span>Writers</span></a>
       <a data-tab="users" onclick="showTab('users', this)"><span>Admin Users</span></a>
       <a data-tab="analytics" onclick="showTab('analytics', this)"><span>Analytics</span></a>
@@ -331,62 +360,369 @@ function loadDashboard() {
 }
 
 // ===== ARTICLES =====
+var articleState = {
+  list: [],
+  filtered: [],
+  writers: [],
+  current: null,
+  selectedId: null,
+  panel: 'editor',
+  previewPath: ''
+};
+
+function escAttr(s) {
+  return String(s == null ? '' : s).replace(/&/g,'&amp;').replace(/"/g,'&quot;').replace(/</g,'&lt;');
+}
+
+function normalizeArticle(a) {
+  return {
+    id: a.id || null,
+    title: a.title || '',
+    url_id: a.url_id || '',
+    author: a.author || '',
+    excerpt: a.excerpt || '',
+    body: a.body || '<p></p>',
+    categories: a.categories || '',
+    tags: a.tags || '',
+    cover_url: a.cover_url || '',
+    publish_date: (a.publish_date || '').slice(0,16),
+    status: a.status || 'draft'
+  };
+}
+
+function splitWriters(author) {
+  return String(author || '').split(',').map(function(w) { return w.trim(); }).filter(Boolean);
+}
+
+function nowAsLocalDateTime() {
+  var now = new Date();
+  var tz = now.getTimezoneOffset() * 60000;
+  return new Date(now - tz).toISOString().slice(0,16);
+}
+
 function loadArticles() {
   var main = document.getElementById('mainContent');
-  main.innerHTML = '<h1>Articles</h1><button class="btn btn-primary" onclick="showNewArticle()">+ New Article</button><div class="card" style="margin-top:1rem"><table><thead><tr><th>Title</th><th>Author</th><th>Date</th><th>Status</th><th></th></tr></thead><tbody id="articlesBody"></tbody></table></div>';
+  main.innerHTML = '<h1>Articles</h1><div class="article-workspace"><section class="article-list-panel"><div class="article-list-header"><input id="articleSearchInput" class="article-search" placeholder="Search titles, slugs, or writers" oninput="filterArticleList(this.value)"><button class="btn btn-primary" onclick="startNewArticle()">+ New Article</button></div><div class="article-list" id="articleList"></div></section><section class="article-editor-panel"><div class="article-editor-header"><div><div class="article-editor-title" id="articleEditorTitle">Loading articles...</div><div class="article-editor-subtitle" id="articleEditorSubtitle"></div></div><div style="display:flex;align-items:center;gap:.5rem;flex-wrap:wrap"><div class="article-editor-tabs"><button id="articleTabEditor" onclick="switchArticlePanel(&quot;editor&quot;)">Editor</button><button id="articleTabProperties" onclick="switchArticlePanel(&quot;properties&quot;)">Properties</button><button id="articleTabPreview" onclick="switchArticlePanel(&quot;preview&quot;)">Preview</button></div><button class="btn btn-primary" onclick="saveCurrentArticle()">Save</button></div></div><div id="articleSaveStatus" class="article-save-status">Loading article list...</div><div class="article-editor-body" id="articleEditorBody"></div></section></div>';
 
-  apiGet('/admin/articles').then(function(d) {
-    var body = document.getElementById('articlesBody');
-    d.articles.forEach(function(a) {
-      body.innerHTML += '<tr><td>' + a.title + '</td><td>' + a.author + '</td><td>' + (a.publish_date || '').slice(0,10) + '</td><td><span class="' + (a.status === 'publish' ? 'status-published' : 'status-draft') + '">' + a.status + '</span></td><td><button class="btn btn-sm btn-primary" onclick="editArticle(' + a.id + ')">Edit</button> <button class="btn btn-sm btn-danger" onclick="deleteArticle(' + a.id + ')">Delete</button></td></tr>';
+  articleState.list = [];
+  articleState.filtered = [];
+  articleState.writers = [];
+  articleState.current = null;
+  articleState.selectedId = null;
+  articleState.panel = 'editor';
+  articleState.previewPath = '';
+
+  Promise.all([
+    apiGet('/admin/articles'),
+    apiGet('/admin/writers').catch(function() { return { writers: [] }; })
+  ]).then(function(payloads) {
+    var articlePayload = payloads[0] || { articles: [] };
+    var writerPayload = payloads[1] || { writers: [] };
+    articleState.list = (articlePayload.articles || []).map(normalizeArticle);
+    articleState.filtered = articleState.list.slice();
+    articleState.writers = (writerPayload.writers || []).map(function(w) { return w.name; });
+    renderArticleList();
+    if (articleState.list.length) {
+      selectArticleFromList(articleState.list[0].id);
+    } else {
+      startNewArticle();
+      setArticleSaveStatus('No articles yet. Start writing your first one.', false);
+    }
+  }).catch(function(err) {
+    document.getElementById('articleList').innerHTML = '<div class="article-empty-state">Failed to load articles.</div>';
+    document.getElementById('articleEditorBody').innerHTML = '<div class="article-empty-state">Unable to load data: ' + esc(err.message) + '</div>';
+    setArticleSaveStatus('Failed to load articles', true);
+  });
+}
+
+function setArticleSaveStatus(message, isError, isSuccess) {
+  var el = document.getElementById('articleSaveStatus');
+  if (!el) return;
+  el.className = 'article-save-status';
+  if (isError) el.classList.add('error');
+  if (isSuccess) el.classList.add('success');
+  el.textContent = message || '';
+}
+
+function filterArticleList(query) {
+  var q = String(query || '').toLowerCase().trim();
+  if (!q) {
+    articleState.filtered = articleState.list.slice();
+  } else {
+    articleState.filtered = articleState.list.filter(function(a) {
+      return String(a.title || '').toLowerCase().includes(q) ||
+             String(a.url_id || '').toLowerCase().includes(q) ||
+             String(a.author || '').toLowerCase().includes(q);
     });
+  }
+  renderArticleList();
+}
+
+function renderArticleList() {
+  var el = document.getElementById('articleList');
+  if (!el) return;
+  if (!articleState.filtered.length) {
+    el.innerHTML = '<div class="article-empty-state">No matching articles.</div>';
+    return;
+  }
+  var html = '';
+  articleState.filtered.forEach(function(a) {
+    var active = articleState.selectedId === a.id ? ' active' : '';
+    var dateText = (a.publish_date || '').slice(0,10);
+    html += '<button class="article-item' + active + '" onclick="selectArticleFromList(' + a.id + ')"><div class="article-item-title">' + esc(a.title || 'Untitled') + '</div><div class="article-meta">' + esc(a.url_id || 'no-slug') + ' â€¢ ' + esc(a.author || 'No writer') + '</div><div class="article-meta">' + esc(a.status || 'draft') + (dateText ? ' â€¢ ' + esc(dateText) : '') + '</div></button>';
+  });
+  el.innerHTML = html;
+}
+
+function startNewArticle() {
+  captureCurrentArticleDraft();
+  articleState.selectedId = null;
+  articleState.current = normalizeArticle({
+    id: null,
+    title: 'Untitled Article',
+    url_id: '',
+    author: '',
+    excerpt: '',
+    body: '<p></p>',
+    categories: '',
+    tags: '',
+    cover_url: '',
+    publish_date: nowAsLocalDateTime(),
+    status: 'draft'
+  });
+  articleState.panel = 'editor';
+  articleState.previewPath = '/music';
+  renderArticleList();
+  renderArticleWorkspace();
+  setArticleSaveStatus('Editing new article draft', false);
+}
+
+function selectArticleFromList(id) {
+  captureCurrentArticleDraft();
+  articleState.selectedId = id;
+  articleState.panel = 'editor';
+  renderArticleList();
+  document.getElementById('articleEditorTitle').textContent = 'Loading article...';
+  document.getElementById('articleEditorSubtitle').textContent = '';
+  document.getElementById('articleEditorBody').innerHTML = '<div class="article-empty-state">Loading selected article...</div>';
+  apiGet('/admin/articles/' + id).then(function(data) {
+    articleState.current = normalizeArticle(data.article || {});
+    articleState.selectedId = articleState.current.id;
+    articleState.previewPath = articleState.current.url_id ? '/music/' + articleState.current.url_id : '/music';
+    renderArticleList();
+    renderArticleWorkspace();
+    setArticleSaveStatus('Loaded article', false);
+  }).catch(function(err) {
+    setArticleSaveStatus('Could not load article: ' + err.message, true);
   });
 }
 
-function showNewArticle() {
-  openModal('<h2>New Article</h2><label>Title</label><input id="articleTitle"><label>URL ID (slug)</label><input id="articleSlug"><label>Author</label><input id="articleAuthor" placeholder="Name as stored in writers table"><label>Excerpt</label><textarea id="articleExcerpt"></textarea><label>Body (HTML)</label><textarea id="articleBody" style="min-height:200px"></textarea><label>Categories</label><input id="articleCategories"><label>Cover URL</label><input id="articleCover"><label>Publish Date</label><input id="articleDate" type="datetime-local"><div class="modal-footer"><button class="btn" onclick="closeModal()">Cancel</button><button class="btn btn-primary" onclick="saveNewArticle()">Save</button></div>');
+function switchArticlePanel(panel) {
+  if (!articleState.current) return;
+  captureCurrentArticleDraft();
+  articleState.panel = panel;
+  renderArticleWorkspace();
 }
 
-function saveNewArticle() {
-  var body = {
-    title: document.getElementById('articleTitle').value,
-    url_id: document.getElementById('articleSlug').value,
-    author: document.getElementById('articleAuthor').value,
-    excerpt: document.getElementById('articleExcerpt').value,
-    body: document.getElementById('articleBody').value,
-    categories: document.getElementById('articleCategories').value,
-    cover_url: document.getElementById('articleCover').value,
-    publish_date: document.getElementById('articleDate').value
+function captureCurrentArticleDraft() {
+  if (!articleState.current) return;
+  var titleEl = document.getElementById('articleTitleInput');
+  var slugEl = document.getElementById('articleSlugInput');
+  var excerptEl = document.getElementById('articleExcerptInput');
+  var bodyEl = document.getElementById('articleBodyEditor');
+  var authorEl = document.getElementById('articleAuthorInput');
+  var categoriesEl = document.getElementById('articleCategoriesInput');
+  var tagsEl = document.getElementById('articleTagsInput');
+  var coverEl = document.getElementById('articleCoverInput');
+  var publishEl = document.getElementById('articlePublishInput');
+  var statusEl = document.getElementById('articleStatusInput');
+
+  if (titleEl) articleState.current.title = titleEl.value;
+  if (slugEl) articleState.current.url_id = slugEl.value.trim();
+  if (excerptEl) articleState.current.excerpt = excerptEl.value;
+  if (bodyEl) articleState.current.body = bodyEl.innerHTML;
+  if (authorEl) articleState.current.author = authorEl.value;
+  if (categoriesEl) articleState.current.categories = categoriesEl.value;
+  if (tagsEl) articleState.current.tags = tagsEl.value;
+  if (coverEl) articleState.current.cover_url = coverEl.value;
+  if (publishEl) articleState.current.publish_date = publishEl.value;
+  if (statusEl) articleState.current.status = statusEl.value;
+}
+
+function renderArticleWorkspace() {
+  var current = articleState.current;
+  if (!current) return;
+  var titleEl = document.getElementById('articleEditorTitle');
+  var subtitleEl = document.getElementById('articleEditorSubtitle');
+  if (titleEl) titleEl.textContent = current.title || 'Untitled Article';
+  if (subtitleEl) subtitleEl.textContent = (current.url_id ? ('/' + current.url_id) : 'New article draft') + ' â€¢ ' + (current.status || 'draft');
+
+  ['articleTabEditor','articleTabProperties','articleTabPreview'].forEach(function(id) {
+    var tab = document.getElementById(id);
+    if (!tab) return;
+    tab.classList.remove('active');
+  });
+  if (articleState.panel === 'editor') document.getElementById('articleTabEditor').classList.add('active');
+  if (articleState.panel === 'properties') document.getElementById('articleTabProperties').classList.add('active');
+  if (articleState.panel === 'preview') document.getElementById('articleTabPreview').classList.add('active');
+
+  var body = document.getElementById('articleEditorBody');
+  if (!body) return;
+  if (articleState.panel === 'editor') body.innerHTML = getArticleEditorHtml(current);
+  if (articleState.panel === 'properties') body.innerHTML = getArticlePropertiesHtml(current);
+  if (articleState.panel === 'preview') body.innerHTML = getArticlePreviewHtml(current);
+}
+
+function getArticleEditorHtml(article) {
+  return '<div class="article-field"><label>Title</label><input id="articleTitleInput" class="article-input" value="' + escAttr(article.title) + '" placeholder="Article title"></div><div class="article-field"><label>Slug (URL ID)</label><input id="articleSlugInput" class="article-input" value="' + escAttr(article.url_id) + '" placeholder="your-article-slug"></div><div class="article-field"><label>Excerpt</label><textarea id="articleExcerptInput" class="article-textarea" placeholder="Short summary for cards and metadata">' + esc(article.excerpt) + '</textarea></div><div class="article-field"><label>Article Body</label><div class="editor-toolbar"><button onclick="applyArticleFormat(&quot;bold&quot;)"><b>Bold</b></button><button onclick="applyArticleFormat(&quot;italic&quot;)"><i>Italic</i></button><button onclick="applyArticleFormat(&quot;underline&quot;)"><u>Underline</u></button><button onclick="formatArticleHeading()">Heading</button><button onclick="applyArticleFormat(&quot;insertUnorderedList&quot;)">Bullets</button><button onclick="applyArticleFormat(&quot;insertOrderedList&quot;)">Numbered</button><button onclick="insertArticleLink()">Link</button><button onclick="applyArticleFormat(&quot;removeFormat&quot;)">Clear</button></div><div id="articleBodyEditor" class="editor-canvas" contenteditable="true">' + (article.body || '<p></p>') + '</div></div>';
+}
+
+function getArticlePropertiesHtml(article) {
+  var options = '';
+  articleState.writers.forEach(function(name) {
+    var selected = splitWriters(article.author).includes(name) ? ' selected' : '';
+    options += '<option value="' + escAttr(name) + '"' + selected + '>' + esc(name) + '</option>';
+  });
+  return '<div class="article-properties-grid"><div class="article-field"><label>Status</label><select id="articleStatusInput" class="article-select"><option value="publish"' + (article.status === 'publish' ? ' selected' : '') + '>Published</option><option value="draft"' + (article.status !== 'publish' ? ' selected' : '') + '>Draft</option></select></div><div class="article-field"><label>Publish Date</label><input id="articlePublishInput" class="article-input" type="datetime-local" value="' + escAttr(article.publish_date || nowAsLocalDateTime()) + '"></div><div class="article-field"><label>Writer(s)</label><select id="articleWritersSelect" class="article-select" multiple size="5" onchange="syncArticleAuthorFromSelection()">' + options + '</select></div><div class="article-field"><label>Author Field (stored)</label><input id="articleAuthorInput" class="article-input" value="' + escAttr(article.author) + '" placeholder="Comma-separated writer names"></div><div class="article-field"><label>Tags</label><input id="articleTagsInput" class="article-input" value="' + escAttr(article.tags) + '" placeholder="news, live-review, interview"></div><div class="article-field"><label>Categories</label><input id="articleCategoriesInput" class="article-input" value="' + escAttr(article.categories) + '" placeholder="Rock, Live Reviews"></div><div class="article-field" style="grid-column:1 / -1"><label>Thumbnail / Cover URL</label><input id="articleCoverInput" class="article-input" value="' + escAttr(article.cover_url) + '" placeholder="https://..."></div></div>' + (article.id ? '<div style="margin-top:1rem"><button class="btn btn-danger" onclick="deleteCurrentArticle()">Delete Article</button></div>' : '');
+}
+
+function getArticlePreviewHtml(article) {
+  var path = articleState.previewPath || (article.url_id ? ('/music/' + article.url_id) : '/music');
+  var src = 'https://louishitchcock.xyz' + normalizePreviewPath(path);
+  return '<div class="article-preview-nav"><input id="articlePreviewPathInput" class="article-input" style="max-width:420px" value="' + escAttr(path) + '" placeholder="/music"><button class="btn" onclick="loadArticlePreviewPath()">Go</button><button class="btn" onclick="previewCurrentArticlePath()">Selected article</button><a class="btn" style="text-decoration:none" target="_blank" href="' + escAttr(src) + '">Open in new tab</a></div><iframe id="articlePreviewFrame" class="article-preview-frame" src="' + escAttr(src) + '"></iframe>';
+}
+
+function normalizePreviewPath(path) {
+  var p = String(path || '/').trim();
+  if (!p.startsWith('/')) p = '/' + p;
+  return p;
+}
+
+function loadArticlePreviewPath() {
+  var input = document.getElementById('articlePreviewPathInput');
+  var frame = document.getElementById('articlePreviewFrame');
+  if (!input || !frame) return;
+  articleState.previewPath = normalizePreviewPath(input.value || '/');
+  input.value = articleState.previewPath;
+  frame.src = 'https://louishitchcock.xyz' + articleState.previewPath;
+}
+
+function previewCurrentArticlePath() {
+  captureCurrentArticleDraft();
+  var path = articleState.current && articleState.current.url_id ? '/music/' + articleState.current.url_id : '/music';
+  articleState.previewPath = path;
+  var input = document.getElementById('articlePreviewPathInput');
+  if (input) input.value = path;
+  loadArticlePreviewPath();
+}
+
+function applyArticleFormat(command) {
+  var editor = document.getElementById('articleBodyEditor');
+  if (!editor) return;
+  editor.focus();
+  document.execCommand(command, false, null);
+}
+
+function formatArticleHeading() {
+  var editor = document.getElementById('articleBodyEditor');
+  if (!editor) return;
+  editor.focus();
+  document.execCommand('formatBlock', false, 'H2');
+}
+
+function insertArticleLink() {
+  var editor = document.getElementById('articleBodyEditor');
+  if (!editor) return;
+  var url = prompt('Enter URL');
+  if (!url) return;
+  editor.focus();
+  document.execCommand('createLink', false, url.trim());
+}
+
+function syncArticleAuthorFromSelection() {
+  var select = document.getElementById('articleWritersSelect');
+  var input = document.getElementById('articleAuthorInput');
+  if (!select || !input) return;
+  var selected = [];
+  for (var i = 0; i < select.options.length; i++) {
+    if (select.options[i].selected) selected.push(select.options[i].value);
+  }
+  input.value = selected.join(', ');
+}
+
+function buildArticlePayload() {
+  captureCurrentArticleDraft();
+  return {
+    title: articleState.current.title,
+    url_id: articleState.current.url_id,
+    author: articleState.current.author,
+    excerpt: articleState.current.excerpt,
+    body: articleState.current.body,
+    categories: articleState.current.categories,
+    tags: articleState.current.tags,
+    cover_url: articleState.current.cover_url,
+    publish_date: articleState.current.publish_date || nowAsLocalDateTime(),
+    status: articleState.current.status || 'draft'
   };
-  if (!body.title || !body.url_id) { alert('Title and slug required'); return; }
-  apiPost('/admin/articles', body).then(function() { closeModal(); loadArticles(); }).catch(function(e) { alert('Error: ' + e.message); });
 }
 
-function editArticle(id) {
-  apiGet('/admin/articles/' + id).then(function(d) {
-    var a = d.article;
-    openModal('<h2>Edit Article</h2><label>Title</label><input id="articleTitle" value="' + esc(a.title) + '"><label>URL ID</label><input id="articleSlug" value="' + esc(a.url_id) + '"><label>Author</label><input id="articleAuthor" value="' + esc(a.author) + '"><label>Excerpt</label><textarea id="articleExcerpt">' + esc(a.excerpt) + '</textarea><label>Body (HTML)</label><textarea id="articleBody" style="min-height:200px">' + esc(a.body) + '</textarea><label>Categories</label><input id="articleCategories" value="' + esc(a.categories) + '"><label>Cover URL</label><input id="articleCover" value="' + esc(a.cover_url) + '"><label>Publish Date</label><input id="articleDate" type="datetime-local" value="' + (a.publish_date || '').slice(0,16) + '"><label>Status</label><select id="articleStatus"><option value="publish" ' + (a.status === 'publish' ? 'selected' : '') + '>Published</option><option value="draft" ' + (a.status === 'draft' ? 'selected' : '') + '>Draft</option></select><div class="modal-footer"><button class="btn" onclick="closeModal()">Cancel</button><button class="btn btn-primary" onclick="saveEditArticle(' + id + ')">Save</button></div>');
+function saveCurrentArticle() {
+  if (!articleState.current) return;
+  var payload = buildArticlePayload();
+  if (!payload.title || !payload.url_id) {
+    setArticleSaveStatus('Title and slug are required before saving', true);
+    return;
+  }
+  setArticleSaveStatus('Saving article...', false);
+  var savePromise;
+  if (articleState.current.id) {
+    savePromise = apiPut('/admin/articles/' + articleState.current.id, payload);
+  } else {
+    savePromise = apiPost('/admin/articles', payload);
+  }
+  savePromise.then(function() {
+    setArticleSaveStatus('Article saved', false, true);
+    refreshArticleListAfterSave(payload.url_id, articleState.current.id);
+  }).catch(function(err) {
+    setArticleSaveStatus('Save failed: ' + err.message, true);
   });
 }
 
-function saveEditArticle(id) {
-  var body = {
-    title: document.getElementById('articleTitle').value,
-    url_id: document.getElementById('articleSlug').value,
-    author: document.getElementById('articleAuthor').value,
-    excerpt: document.getElementById('articleExcerpt').value,
-    body: document.getElementById('articleBody').value,
-    categories: document.getElementById('articleCategories').value,
-    cover_url: document.getElementById('articleCover').value,
-    publish_date: document.getElementById('articleDate').value,
-    status: document.getElementById('articleStatus').value
-  };
-  apiPut('/admin/articles/' + id, body).then(function() { closeModal(); loadArticles(); }).catch(function(e) { alert('Error: ' + e.message); });
+function refreshArticleListAfterSave(savedSlug, existingId) {
+  apiGet('/admin/articles').then(function(data) {
+    articleState.list = (data.articles || []).map(normalizeArticle);
+    var searchInput = document.getElementById('articleSearchInput');
+    filterArticleList(searchInput ? searchInput.value : '');
+    if (existingId) {
+      selectArticleFromList(existingId);
+      return;
+    }
+    var created = articleState.list.find(function(a) { return a.url_id === savedSlug; });
+    if (created) {
+      selectArticleFromList(created.id);
+    } else {
+      renderArticleWorkspace();
+    }
+  });
 }
 
-function deleteArticle(id) {
+function deleteCurrentArticle() {
+  if (!articleState.current || !articleState.current.id) return;
   if (!confirm('Delete this article?')) return;
-  apiDelete('/admin/articles/' + id).then(function() { loadArticles(); }).catch(function(e) { alert('Error: ' + e.message); });
+  var id = articleState.current.id;
+  apiDelete('/admin/articles/' + id).then(function() {
+    setArticleSaveStatus('Article deleted', false, true);
+    articleState.current = null;
+    articleState.selectedId = null;
+    return apiGet('/admin/articles');
+  }).then(function(data) {
+    articleState.list = (data.articles || []).map(normalizeArticle);
+    filterArticleList(document.getElementById('articleSearchInput') ? document.getElementById('articleSearchInput').value : '');
+    if (articleState.list.length) selectArticleFromList(articleState.list[0].id);
+    else startNewArticle();
+  }).catch(function(err) {
+    setArticleSaveStatus('Delete failed: ' + err.message, true);
+  });
 }
 
 // ===== WRITERS =====
@@ -403,52 +739,33 @@ function loadWriters() {
 }
 
 function showNewWriter() {
-  openModal('<h2>Add Writer</h2><label>Name</label><input id="writerName"><label>Photo</label><div class="writer-photo-upload"><input type="file" id="writerPhotoFile" accept="image/*"><div id="writerPhotoPreview"></div></div><label>Bio</label><textarea id="writerBio"></textarea><div class="modal-footer"><button class="btn" onclick="closeModal()">Cancel</button><button class="btn btn-primary" onclick="saveNewWriter()">Save</button></div>');
+  openModal('<h2>Add Writer</h2><label>Name</label><input id="writerName"><label>Photo URL</label><input id="writerPhoto" placeholder="https://..."><label>Bio</label><textarea id="writerBio"></textarea><div class="modal-footer"><button class="btn" onclick="closeModal()">Cancel</button><button class="btn btn-primary" onclick="saveNewWriter()">Save</button></div>');
 }
 
 function saveNewWriter() {
-  var file = document.getElementById('writerPhotoFile').files[0];
-  var name = document.getElementById('writerName').value;
-  var bio = document.getElementById('writerBio').value;
-  if (!name) { alert('Name required'); return; }
-
-  function doSave(photoUrl) {
-    apiPost('/admin/writers', { name: name, photo_url: photoUrl || '', bio: bio })
-      .then(function() { closeModal(); loadWriters(); })
-      .catch(function(e) { alert('Error: ' + e.message); });
-  }
-
-  if (file) {
-    uploadImage(file).then(doSave).catch(function(e) { alert('Upload failed: ' + e.message); });
-  } else {
-    doSave('');
-  }
+  var body = {
+    name: document.getElementById('writerName').value,
+    photo_url: document.getElementById('writerPhoto').value,
+    bio: document.getElementById('writerBio').value
+  };
+  if (!body.name) { alert('Name required'); return; }
+  apiPost('/admin/writers', body).then(function() { closeModal(); loadWriters(); }).catch(function(e) { alert('Error: ' + e.message); });
 }
 
 function editWriter(id) {
   apiGet('/admin/writers/' + id).then(function(d) {
     var w = d.writer;
-    openModal('<h2>Edit Writer</h2><label>Name</label><input id="writerName" value="' + esc(w.name) + '"><label>Photo</label><div class="writer-photo-upload">' + (w.photo_url ? '<div class="writer-photo-current"><img src="' + esc(w.photo_url) + '"><button class="btn btn-sm btn-danger" onclick="removeWriterPhoto(' + id + ')">Remove Photo</button></div>' : '') + '<input type="file" id="writerPhotoFile" accept="image/*"><div id="writerPhotoPreview"></div></div><label>Bio</label><textarea id="writerBio">' + esc(w.bio || '') + '</textarea><div class="modal-footer"><button class="btn" onclick="closeModal()">Cancel</button><button class="btn btn-primary" onclick="saveEditWriter(' + id + ')">Save</button></div>');
+    openModal('<h2>Edit Writer</h2><label>Name</label><input id="writerName" value="' + esc(w.name) + '"><label>Photo URL</label><input id="writerPhoto" value="' + esc(w.photo_url || '') + '"><label>Bio</label><textarea id="writerBio">' + esc(w.bio || '') + '</textarea><div class="modal-footer"><button class="btn" onclick="closeModal()">Cancel</button><button class="btn btn-primary" onclick="saveEditWriter(' + id + ')">Save</button></div>');
   });
 }
 
 function saveEditWriter(id) {
-  var file = document.getElementById('writerPhotoFile').files[0];
-  var name = document.getElementById('writerName').value;
-  var bio = document.getElementById('writerBio').value;
-  if (!name) { alert('Name required'); return; }
-
-  function doSave(photoUrl) {
-    apiPut('/admin/writers/' + id, { name: name, photo_url: photoUrl || '', bio: bio })
-      .then(function() { closeModal(); loadWriters(); })
-      .catch(function(e) { alert('Error: ' + e.message); });
-  }
-
-  if (file) {
-    uploadImage(file).then(doSave).catch(function(e) { alert('Upload failed: ' + e.message); });
-  } else {
-    doSave(null);
-  }
+  var body = {
+    name: document.getElementById('writerName').value,
+    photo_url: document.getElementById('writerPhoto').value,
+    bio: document.getElementById('writerBio').value
+  };
+  apiPut('/admin/writers/' + id, body).then(function() { closeModal(); loadWriters(); }).catch(function(e) { alert('Error: ' + e.message); });
 }
 
 function deleteWriter(id) {
@@ -523,6 +840,7 @@ function loadTech() {
 }
 
 // ===== UTILITIES =====
+// ===== UTILITIES =====
 function toggleDarkMode(enabled) {
   document.documentElement.setAttribute('data-theme', enabled ? 'dark' : '');
   localStorage.setItem('feats_admin_dark', enabled ? '1' : '');
@@ -534,34 +852,6 @@ function toggleDarkMode(enabled) {
     if (cb) cb.checked = true;
   }
 })();
-
-function uploadImage(file) {
-  return new Promise(function(resolve, reject) {
-    var ext = file.name.split('.').pop().toLowerCase();
-    var key = 'uploads/' + Date.now() + '-' + Math.random().toString(36).slice(2,8) + '.' + ext;
-    var reader = new FileReader();
-    reader.onload = function(e) {
-      var contentType = ext === 'png' ? 'image/png' : 'image/jpeg';
-      fetch(API + '/images/' + key, {
-        method: 'PUT',
-        headers: Object.assign(apiHeaders(), { 'Content-Type': contentType }),
-        body: new Blob([e.target.result], { type: contentType })
-      }).then(function(r) {
-        if (!r.ok) throw new Error('Upload failed: ' + r.status);
-        resolve(API + '/images/' + key);
-      }).catch(reject);
-    };
-    reader.onerror = reject;
-    reader.readAsArrayBuffer(file);
-  });
-}
-
-function removeWriterPhoto(id) {
-  if (!confirm('Remove this writer\'s photo?')) return;
-  apiPut('/admin/writers/' + id, { name: document.getElementById('writerName').value, photo_url: '', bio: document.getElementById('writerBio').value })
-    .then(function() { closeModal(); loadWriters(); })
-    .catch(function(e) { alert('Error: ' + e.message); });
-}
 
 function esc(s) { return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;'); }
 

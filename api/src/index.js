@@ -156,9 +156,20 @@ export default {
         if (path === '/admin/articles' && method === 'POST') {
           const b = await request.json();
           await env.DB.prepare(
-            `INSERT INTO articles (title, url_id, body, excerpt, author, publish_date, categories, cover_url, status)
-             VALUES (?, ?, ?, ?, ?, ?, ?, ?, 'publish')`
-          ).bind(b.title, b.url_id, b.body || '', b.excerpt || '', b.author || 'Feats.', b.publish_date, b.categories || '', b.cover_url || '').run();
+            `INSERT INTO articles (title, url_id, body, excerpt, author, publish_date, categories, tags, cover_url, status)
+             VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`
+          ).bind(
+            b.title,
+            b.url_id,
+            b.body || '',
+            b.excerpt || '',
+            b.author || 'Feats.',
+            b.publish_date,
+            b.categories || '',
+            b.tags || '',
+            b.cover_url || '',
+            b.status || 'publish'
+          ).run();
           return new Response('Created', { status: 201, headers: corsHeaders });
         }
 
@@ -172,8 +183,8 @@ export default {
           if (method === 'PUT') {
             const b = await request.json();
             await env.DB.prepare(
-              'UPDATE articles SET title=?, url_id=?, body=?, excerpt=?, author=?, categories=?, cover_url=?, publish_date=?, status=? WHERE id=?'
-            ).bind(b.title, b.url_id, b.body, b.excerpt, b.author, b.categories, b.cover_url, b.publish_date, b.status || 'publish', id).run();
+              'UPDATE articles SET title=?, url_id=?, body=?, excerpt=?, author=?, categories=?, tags=?, cover_url=?, publish_date=?, status=? WHERE id=?'
+            ).bind(b.title, b.url_id, b.body, b.excerpt, b.author, b.categories, b.tags || '', b.cover_url, b.publish_date, b.status || 'publish', id).run();
             return new Response('Updated', { headers: corsHeaders });
           }
           if (method === 'DELETE') {
