@@ -151,9 +151,9 @@ ps://images.squarespace-cdn.com/content/v1/627907a6b74722549de2ec0c/d163f869-ee3
         recent.forEach(a => {
           const card = document.createElement('article');
           card.className = 'recent-card';
-          const cover = a.cover_url || '/images/hero-3.jpg';
+          const cover = a.cover_url || 'https://feats-api.fpvgate-analytics.workers.dev/images/hero-3.jpg';
           const safeTitle = a.title.replace(/"/g, '&quot;');
-          card.innerHTML = '<a href="/music/' + a.url_id + '">'
+          card.innerHTML = '<a href="music/' + a.url_id + '">'
             + '<img src="' + cover + '" alt="' + safeTitle + '" loading="lazy">'
             + '<div class="date">' + formatDate(a.publish_date) + '</div>'
             + '<h3>' + a.title + '</h3>'

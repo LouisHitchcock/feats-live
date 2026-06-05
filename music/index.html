@@ -82,11 +82,11 @@ function renderArticles(articles) {
   articles.forEach(function(a) {
     const col = document.createElement('div');
     col.className = 'music-card';
-    const cover = a.cover_url || '/images/hero-3.jpg';
+    const cover = a.cover_url || 'https://feats-api.fpvgate-analytics.workers.dev/images/hero-3.jpg';
     const safeTitle = a.title.replace(/"/g, '&quot;');
     const cats = a.categories || 'Article';
     const desc = (a.excerpt || '').substring(0, 200);
-    col.innerHTML = '<a href="/music/' + a.url_id + '">'
+    col.innerHTML = '<a href="' + a.url_id + '">'
       + '<img src="' + cover + '" alt="' + safeTitle + '" loading="lazy">'
       + '<div class="meta"><span>' + cats + '</span><span>' + a.author + '</span><span>' + formatDate(a.publish_date) + '</span></div>'
       + '<h2>' + a.title + '</h2>'
