@@ -1,0 +1,8 @@
+name = "feats-api"
+main = "src/index.js"
+compatibility_date = "2026-06-05"
+
+[[d1_databases]]
+binding = "DB"
+database_name = "feats-db"
+database_id = ""

@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://feats.live/sitemap.xml
