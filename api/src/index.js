@@ -1,10 +1,9 @@
 export default {
   async fetch(request, env) {
     const url = new URL(request.url);
-    const path = url.pathname.replace('/api', '');
+    const path = url.pathname;
     const method = request.method;
 
-    // CORS headers
     const corsHeaders = {
       'Access-Control-Allow-Origin': '*',
       'Access-Control-Allow-Methods': 'GET, POST, PUT, DELETE, OPTIONS',
@@ -12,14 +11,39 @@ export default {
     };
 
     if (method === 'OPTIONS') {
-      
-if (method==='DELETE'&&path==='/delete-all'){await env.DB.prepare('DELETE FROM articles').run();return new Response('Deleted',{headers:corsHeaders})}
-return new Response(null, { headers: corsHeaders });
+      return new Response(null, { headers: corsHeaders });
     }
 
     try {
-      // GET /api/articles — list all published articles
-      if (method === 'GET' && path === '/articles') {
+      // GET /images/* — serve from R2
+      if (method === 'GET' && path.startsWith('/images/')) {
+        const key = path.replace('/images/', '');
+        const obj = await env.IMAGES.get(key);
+        if (!obj) {
+          return new Response('Not found', { status: 404 });
+        }
+        const headers = new Headers();
+        obj.writeHttpMetadata(headers);
+        headers.set('Cache-Control', 'public, max-age=31536000');
+        headers.set('Access-Control-Allow-Origin', '*');
+        return new Response(obj.body, { headers });
+      }
+
+      // PUT /images/* — upload to R2
+      if (method === 'PUT' && path.startsWith('/images/')) {
+        const key = path.replace('/images/', '');
+        const existing = await env.IMAGES.get(key);
+        if (existing) {
+          return new Response('Already exists', { status: 409 });
+        }
+        await env.IMAGES.put(key, request.body, {
+          httpMetadata: { contentType: key.endsWith('.png') ? 'image/png' : 'image/jpeg' }
+        });
+        return new Response('OK', { headers: corsHeaders });
+      }
+
+      // GET /api/articles — list all published
+      if (method === 'GET' && path === '/api/articles') {
         const { results } = await env.DB.prepare(
           `SELECT id, title, url_id, excerpt, author, publish_date, categories, cover_url
            FROM articles WHERE status = 'publish'
@@ -28,69 +52,55 @@ return new Response(null, { headers: corsHeaders });
         return Response.json({ articles: results }, { headers: corsHeaders });
       }
 
-      // GET /api/articles/:url_id — single article
-      if (method === 'GET' && path.startsWith('/articles/')) {
-        const urlId = path.replace('/articles/', '');
+      // GET /api/articles/:url_id — single article with full body
+      if (method === 'GET' && path.startsWith('/api/articles/')) {
+        const urlId = path.replace('/api/articles/', '');
         const article = await env.DB.prepare(
           `SELECT * FROM articles WHERE url_id = ? AND status = 'publish'`
         ).bind(urlId).first();
-
         if (!article) {
-          
-if (method==='DELETE'&&path==='/delete-all'){await env.DB.prepare('DELETE FROM articles').run();return new Response('Deleted',{headers:corsHeaders})}
-return new Response('Not found', { status: 404, headers: corsHeaders });
+          return new Response('Not found', { status: 404, headers: corsHeaders });
         }
-
         return Response.json({ article }, { headers: corsHeaders });
       }
 
-      // POST /api/articles — create article (for future admin)
-      if (method === 'POST' && path === '/articles') {
+      // POST /api/articles — create
+      if (method === 'POST' && path === '/api/articles') {
         const body = await request.json();
         const { title, url_id, body: content, excerpt, author, publish_date, categories, cover_url } = body;
-
         await env.DB.prepare(
           `INSERT INTO articles (title, url_id, body, excerpt, author, publish_date, categories, cover_url, status)
            VALUES (?, ?, ?, ?, ?, ?, ?, ?, 'publish')`
         ).bind(title, url_id, content, excerpt, author, publish_date, categories, cover_url).run();
-
-        
-if (method==='DELETE'&&path==='/delete-all'){await env.DB.prepare('DELETE FROM articles').run();return new Response('Deleted',{headers:corsHeaders})}
-return new Response('Created', { status: 201, headers: corsHeaders });
+        return new Response('Created', { status: 201, headers: corsHeaders });
       }
 
-      // PUT /api/articles/:url_id — update article (future admin)
-      if (method === 'PUT' && path.startsWith('/articles/')) {
-        const urlId = path.replace('/articles/', '');
+      // PUT /api/articles/:url_id — update
+      if (method === 'PUT' && path.startsWith('/api/articles/')) {
+        const urlId = path.replace('/api/articles/', '');
         const body = await request.json();
         const { title, body: content, excerpt, author, categories, cover_url, status } = body;
-
         await env.DB.prepare(
           `UPDATE articles SET title=?, body=?, excerpt=?, author=?, categories=?, cover_url=?, status=? WHERE url_id=?`
         ).bind(title, content, excerpt, author, categories, cover_url, status, urlId).run();
-
-        
-if (method==='DELETE'&&path==='/delete-all'){await env.DB.prepare('DELETE FROM articles').run();return new Response('Deleted',{headers:corsHeaders})}
-return new Response('Updated', { headers: corsHeaders });
+        return new Response('Updated', { headers: corsHeaders });
       }
 
-      // DELETE /api/articles/:url_id — (future admin)
-      if (method === 'DELETE' && path.startsWith('/articles/')) {
-        const urlId = path.replace('/articles/', '');
-        await env.DB.prepare(`DELETE FROM articles WHERE url_id = ?`).bind(urlId).run();
-        
-if (method==='DELETE'&&path==='/delete-all'){await env.DB.prepare('DELETE FROM articles').run();return new Response('Deleted',{headers:corsHeaders})}
-return new Response('Deleted', { headers: corsHeaders });
+      // DELETE /api/articles/:url_id
+      if (method === 'DELETE' && path.startsWith('/api/articles/')) {
+        const urlId = path.replace('/api/articles/', '');
+        if (urlId === 'delete-all') {
+          await env.DB.prepare('DELETE FROM articles').run();
+          return new Response('All deleted', { headers: corsHeaders });
+        }
+        await env.DB.prepare('DELETE FROM articles WHERE url_id = ?').bind(urlId).run();
+        return new Response('Deleted', { headers: corsHeaders });
       }
 
-      
-if (method==='DELETE'&&path==='/delete-all'){await env.DB.prepare('DELETE FROM articles').run();return new Response('Deleted',{headers:corsHeaders})}
-return new Response('Not found', { status: 404, headers: corsHeaders });
+      return new Response('Not found', { status: 404, headers: corsHeaders });
 
     } catch (err) {
-      
-if (method==='DELETE'&&path==='/delete-all'){await env.DB.prepare('DELETE FROM articles').run();return new Response('Deleted',{headers:corsHeaders})}
-return new Response(err.message, { status: 500, headers: corsHeaders });
+      return new Response(err.message, { status: 500, headers: corsHeaders });
     }
   }
 };
