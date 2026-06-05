@@ -165,6 +165,22 @@ body{font-family:'Work Sans',-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,
 .article-image-insert-actions{display:flex;justify-content:flex-end;gap:.5rem;margin-top:.65rem}
 .article-image-overlay-backdrop{display:none;position:fixed;top:0;left:0;width:100%;height:100%;z-index:199;background:rgba(0,0,0,.25)}
 .article-image-overlay-backdrop.active{display:block}
+.editor-context-menu{display:none;position:fixed;z-index:260;min-width:220px;background:#fff;border:1px solid #ddd;box-shadow:0 8px 24px rgba(0,0,0,.16);padding:.35rem}
+.editor-context-menu.active{display:block}
+.editor-context-menu button{display:block;width:100%;text-align:left;border:0;background:transparent;color:#444;padding:.45rem .5rem;font-size:.78rem;cursor:pointer;font-family:'Work Sans',sans-serif}
+.editor-context-menu button:hover{background:#f4f4f4}
+.editor-context-menu .menu-separator{height:1px;background:#eee;margin:.25rem 0}
+.article-divider{border:0;border-top:1px solid #ddd;margin:1.25rem 0}
+.article-pullquote{margin:1.25rem 0;padding:.85rem 1rem;border-left:4px solid #444;background:#f8f8f8;font-size:1.15rem;line-height:1.45;font-style:italic}
+.article-pullquote p{margin:0}
+.article-callout{margin:1.25rem 0;padding:.8rem 1rem;border-left:4px solid #888;background:#f6f6f6}
+.article-callout p{margin:0}
+.article-spacer{display:block;width:100%}
+.article-spacer--sm{height:20px}
+.article-spacer--md{height:40px}
+.article-spacer--lg{height:64px}
+.article-cta{display:inline-block;padding:.55rem 1rem;border:1px solid #444;color:#444;text-decoration:none;font-size:.78rem;font-weight:700;letter-spacing:.6px;text-transform:uppercase}
+.article-cta:hover{background:#444;color:#fff}
 
 .writer-photo-upload{display:flex;flex-direction:column;gap:.75rem}
 .writer-photo-upload input[type="file"]{font-size:.85rem;font-family:'Work Sans',sans-serif}
@@ -259,6 +275,15 @@ body{font-family:'Work Sans',-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,
 [data-theme="dark"] .article-image-uploaded-previews .upload-thumb-remove{background:#b42318}
 [data-theme="dark"] .article-image-recent .recent-thumb{border-color:transparent}
 [data-theme="dark"] .article-image-recent .recent-thumb:hover,.article-image-recent .recent-thumb.selected{border-color:#888}
+[data-theme="dark"] .editor-context-menu{background:#262626;border-color:#444;box-shadow:0 8px 24px rgba(0,0,0,.45)}
+[data-theme="dark"] .editor-context-menu button{color:#ccc}
+[data-theme="dark"] .editor-context-menu button:hover{background:#333}
+[data-theme="dark"] .editor-context-menu .menu-separator{background:#3d3d3d}
+[data-theme="dark"] .article-divider{border-top-color:#444}
+[data-theme="dark"] .article-pullquote{border-left-color:#888;background:#222;color:#ddd}
+[data-theme="dark"] .article-callout{border-left-color:#777;background:#222;color:#ddd}
+[data-theme="dark"] .article-cta{border-color:#888;color:#ddd}
+[data-theme="dark"] .article-cta:hover{background:#888;color:#111}
 [data-theme="dark"] .editor-floating-toolbar{background:#262626;border-color:#444}
 [data-theme="dark"] .editor-floating-toolbar button{background:#1a1a1a;border-color:#444;color:#888}
 [data-theme="dark"] .editor-floating-toolbar button:hover{background:#333;color:#ccc}
@@ -745,6 +770,16 @@ function initializeArticleEditor() {
       toggleArticleImagePanel(false);
     };
   }
+  ensureArticleContextMenu();
+  if (!editor.dataset.contextMenuBound) {
+    editor.addEventListener('contextmenu', function(e) {
+      e.preventDefault();
+      if (!moveEditorSelectionToPoint(editor, e.clientX, e.clientY)) saveEditorSelection();
+      openArticleContextMenu(e.clientX, e.clientY);
+    });
+    editor.addEventListener('scroll', closeArticleContextMenu, { passive: true });
+    editor.dataset.contextMenuBound = '1';
+  }
   editor.addEventListener('mouseup', saveEditorSelection);
   editor.addEventListener('keyup', saveEditorSelection);
   editor.addEventListener('focus', saveEditorSelection);
@@ -804,6 +839,135 @@ function insertArticleLink() {
 function formatArticleCode() {
   executeArticleEditorCommand('formatBlock', 'pre');
 }
+function ensureArticleContextMenu() {
+  var menu = document.getElementById('articleEditorContextMenu');
+  if (menu) return menu;
+  menu = document.createElement('div');
+  menu.id = 'articleEditorContextMenu';
+  menu.className = 'editor-context-menu';
+  menu.innerHTML = '<button type="button" data-action="divider">Insert Divider Line</button><button type="button" data-action="image">Insert Image</button><button type="button" data-action="carousel">Insert Carousel</button><div class="menu-separator"></div><button type="button" data-action="quote">Insert Pull Quote</button><button type="button" data-action="callout">Insert Callout Box</button><div class="menu-separator"></div><button type="button" data-action="spacer-sm">Insert Small Spacer</button><button type="button" data-action="spacer-md">Insert Medium Spacer</button><button type="button" data-action="spacer-lg">Insert Large Spacer</button><div class="menu-separator"></div><button type="button" data-action="cta">Insert CTA Button</button>';
+  menu.addEventListener('mousedown', function(e) {
+    e.preventDefault();
+  });
+  menu.addEventListener('click', function(e) {
+    var btn = e.target.closest('button[data-action]');
+    if (!btn) return;
+    handleArticleContextMenuAction(btn.getAttribute('data-action'));
+  });
+  document.body.appendChild(menu);
+
+  if (!document.body.dataset.articleContextMenuGlobalsBound) {
+    document.addEventListener('click', function(e) {
+      var current = document.getElementById('articleEditorContextMenu');
+      if (!current || !current.classList.contains('active')) return;
+      if (!current.contains(e.target)) closeArticleContextMenu();
+    });
+    document.addEventListener('keydown', function(e) {
+      if (e.key === 'Escape') closeArticleContextMenu();
+    });
+    window.addEventListener('resize', closeArticleContextMenu);
+    window.addEventListener('scroll', closeArticleContextMenu, true);
+    document.body.dataset.articleContextMenuGlobalsBound = '1';
+  }
+
+  return menu;
+}
+
+function openArticleContextMenu(clientX, clientY) {
+  var menu = ensureArticleContextMenu();
+  menu.style.left = clientX + 'px';
+  menu.style.top = clientY + 'px';
+  menu.classList.add('active');
+  var rect = menu.getBoundingClientRect();
+  var margin = 8;
+  var left = clientX;
+  var top = clientY;
+  if (left + rect.width + margin > window.innerWidth) left = window.innerWidth - rect.width - margin;
+  if (top + rect.height + margin > window.innerHeight) top = window.innerHeight - rect.height - margin;
+  if (left < margin) left = margin;
+  if (top < margin) top = margin;
+  menu.style.left = left + 'px';
+  menu.style.top = top + 'px';
+}
+
+function closeArticleContextMenu() {
+  var menu = document.getElementById('articleEditorContextMenu');
+  if (!menu) return;
+  menu.classList.remove('active');
+}
+
+function moveEditorSelectionToPoint(editor, clientX, clientY) {
+  if (!editor) return false;
+  var range = null;
+  if (document.caretRangeFromPoint) {
+    range = document.caretRangeFromPoint(clientX, clientY);
+  } else if (document.caretPositionFromPoint) {
+    var pos = document.caretPositionFromPoint(clientX, clientY);
+    if (pos) {
+      range = document.createRange();
+      range.setStart(pos.offsetNode, pos.offset);
+      range.collapse(true);
+    }
+  }
+  if (!range || !editor.contains(range.startContainer)) return false;
+  var sel = window.getSelection();
+  if (!sel) return false;
+  sel.removeAllRanges();
+  sel.addRange(range);
+  saveEditorSelection();
+  return true;
+}
+
+function openArticleImageOverlayWithLayout(layout) {
+  restoreEditorSelection();
+  saveEditorSelection();
+  toggleArticleImagePanel(true);
+  var layoutInput = document.getElementById('imageOverlayLayout');
+  if (layoutInput) {
+    layoutInput.value = layout || 'full';
+    toggleArticleCarouselInput();
+  }
+}
+
+function handleArticleContextMenuAction(action) {
+  closeArticleContextMenu();
+  if (action === 'image') {
+    openArticleImageOverlayWithLayout('full');
+    return;
+  }
+  if (action === 'carousel') {
+    openArticleImageOverlayWithLayout('carousel');
+    return;
+  }
+  if (action === 'cta') {
+    var label = prompt('Button text', 'Read More');
+    if (label == null) return;
+    label = label.trim() || 'Read More';
+    var url = prompt('Button URL', 'https://');
+    if (url == null) return;
+    url = url.trim() || '#';
+    if (url !== '#' && !/^https?:\/\//i.test(url) && !url.startsWith('/')) url = 'https://' + url;
+    insertArticleHtmlAtCursor('<p><a class="article-cta" href="' + escAttr(url) + '" target="_blank" rel="noopener">' + esc(label) + '</a></p><p></p>');
+    setArticleSaveStatus('CTA button inserted', false, true);
+    return;
+  }
+
+  var inserts = {
+    divider: '<hr class="article-divider"><p></p>',
+    quote: '<blockquote class="article-pullquote"><p>Quote text...</p></blockquote><p></p>',
+    callout: '<aside class="article-callout"><p><strong>Note:</strong> Add important context here.</p></aside><p></p>',
+    'spacer-sm': '<div class="article-spacer article-spacer--sm"></div><p></p>',
+    'spacer-md': '<div class="article-spacer article-spacer--md"></div><p></p>',
+    'spacer-lg': '<div class="article-spacer article-spacer--lg"></div><p></p>'
+  };
+  var html = inserts[action];
+  if (!html) return;
+  if (insertArticleHtmlAtCursor(html)) {
+    setArticleSaveStatus('Block inserted', false, true);
+  } else {
+    setArticleSaveStatus('Could not insert block', true);
+  }
+}
 
 function handleImageDrop(e) {
   e.preventDefault();
@@ -843,6 +1007,7 @@ function removeQueuedImage(idx, btn) {
 }
 
 function toggleArticleImagePanel(forceOpen) {
+  closeArticleContextMenu();
   var panel = document.getElementById('articleImageInsertPanel');
   var backdrop = document.getElementById('articleImageOverlayBackdrop');
   if (!panel) return;
