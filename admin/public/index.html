@@ -27,21 +27,21 @@ body{font-family:'Work Sans',-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,
 /* Admin layout */
 .admin-layout{display:none;min-height:100vh}
 .admin-layout.active{display:flex}
-.sidebar{width:74px;background:#262626;color:white;padding:1.4rem .7rem;display:flex;flex-direction:column;flex-shrink:0;transition:width .22s ease,padding .22s ease}
-.sidebar:hover{width:240px;padding:2rem 1.25rem}
+.sidebar{width:74px;background:#262626;color:white;padding:1.4rem .7rem;display:flex;flex-direction:column;flex-shrink:0;transition:width .22s ease,padding .22s ease;position:relative}
+.sidebar.is-expanded,.sidebar:hover{width:240px;padding:2rem 1.25rem}
+.sidebar.is-collapsed,.sidebar:not(.is-expanded):not(.is-pinned){width:74px;padding:1.4rem .7rem}
 .sidebar .brand{font-size:1.4rem;font-weight:700;letter-spacing:.01em;margin-bottom:0;opacity:0;max-height:0;overflow:hidden;transition:opacity .2s ease,max-height .2s ease,margin-bottom .2s ease}
-.sidebar:hover .brand{opacity:.9;max-height:40px;margin-bottom:2rem}
-.sidebar nav{display:flex;flex-direction:column;gap:.15rem;flex:1}
+.sidebar.is-expanded .brand,.sidebar:hover .brand{opacity:.9;max-height:40px;margin-bottom:2rem}
+.sidebar nav{display:flex;flex-direction:column;gap:.15rem;flex:1;min-height:0}
 .sidebar nav a{display:flex;align-items:center;gap:.65rem;padding:.6rem .65rem;border-radius:0;color:rgba(255,255,255,.68);text-decoration:none;font-size:.85rem;font-weight:500;transition:all .2s;cursor:pointer}
 .sidebar nav a .nav-icon{font-size:1rem;width:1.2rem;text-align:center;flex-shrink:0}
 .sidebar nav a .nav-label{opacity:0;transform:translateX(-6px);white-space:nowrap;transition:opacity .18s ease,transform .18s ease}
-.sidebar:hover nav a .nav-label{opacity:1;transform:translateX(0)}
+.sidebar.is-expanded nav a .nav-label,.sidebar:hover nav a .nav-label{opacity:1;transform:translateX(0)}
 .sidebar nav a:hover{background:rgba(255,255,255,.08);color:white}
 .sidebar nav a.active{background:rgba(255,255,255,.12);color:white;font-weight:700}
-.sidebar nav a.logout-link{margin-top:auto;border-top:1px solid rgba(255,255,255,.15);padding-top:1rem;border-radius:0;font-size:.8rem;text-transform:uppercase;letter-spacing:1px}
-.sidebar nav a.logout-link:hover{background:transparent;color:#e74c3c}
-.sidebar .user-info{margin-top:auto;padding-top:1rem;border-top:1px solid rgba(255,255,255,.1);font-size:.75rem;opacity:.5;display:none}
-.sidebar:hover .user-info{display:block}
+.sidebar-nav-actions{margin-top:auto;padding-top:.75rem;border-top:1px solid rgba(255,255,255,.12)}
+.sidebar .user-info{margin-top:auto;padding-top:.65rem;border-top:1px solid rgba(255,255,255,.1);font-size:.75rem;opacity:.5;display:none}
+.sidebar.is-expanded .user-info,.sidebar:hover .user-info{display:block}
 .main{flex:1;padding:2.5rem;overflow-y:auto;max-height:100vh}
 .main h1{font-size:1.1rem;font-weight:700;text-transform:uppercase;letter-spacing:2px;margin-bottom:2rem}
 
@@ -112,19 +112,49 @@ body{font-family:'Work Sans',-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,
 .article-input,.article-textarea,.article-select{width:100%;padding:.6rem .75rem;border:1px solid #ddd;border-radius:0;font-size:.85rem;font-family:'Work Sans',sans-serif}
 .article-textarea{min-height:90px;resize:vertical}
 .article-properties-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:.75rem}
-.editor-toolbar{display:flex;gap:.35rem;flex-wrap:wrap;margin-bottom:.5rem}
-.editor-toolbar button{border:1px solid #ddd;background:#fff;padding:.35rem .55rem;font-size:.7rem;text-transform:uppercase;letter-spacing:.7px;cursor:pointer;font-family:'Work Sans',sans-serif}
-.editor-toolbar button:hover{background:#f4f4f4}
-.article-insert-panel{border:1px solid #ddd;background:#fafafa;padding:.7rem;margin:.45rem 0 .7rem;display:none}
-.article-insert-panel.active{display:block}
-.article-insert-row{display:flex;gap:.5rem;flex-wrap:wrap;margin-bottom:.5rem}
-.article-insert-row .article-input,.article-insert-row .article-select{flex:1;min-width:180px}
-.article-insert-actions{display:flex;justify-content:flex-end;gap:.45rem}
-.editor-canvas{border:1px solid #ddd;min-height:340px;padding:.85rem;line-height:1.6;font-size:.92rem;background:#fff}
+.editor-canvas{border:1px solid #ddd;min-height:340px;padding:.85rem;line-height:1.6;font-size:.92rem;background:#fff;padding-bottom:3.5rem}
 .editor-canvas:focus{outline:none;border-color:#444}
-.article-preview-nav{display:flex;gap:.5rem;align-items:center;margin-bottom:.75rem;flex-wrap:wrap}
-.article-preview-frame{width:100%;height:440px;border:1px solid #ddd;background:#fff}
 .article-empty-state{padding:2rem 1rem;color:#777;text-align:center;font-size:.85rem;text-transform:uppercase;letter-spacing:1px}
+.editor-floating-toolbar{position:sticky;bottom:0;z-index:10;display:flex;gap:.35rem;flex-wrap:nowrap;overflow-x:auto;align-items:center;border:1px solid #ddd;border-top:none;background:#fff;padding:.35rem .55rem;min-height:2.4rem;scrollbar-width:thin}
+.editor-floating-toolbar button{border:1px solid #ddd;background:#fff;padding:.3rem .5rem;font-size:.7rem;text-transform:uppercase;letter-spacing:.7px;cursor:pointer;font-family:'Work Sans',sans-serif;white-space:nowrap;flex-shrink:0}
+.editor-floating-toolbar button:hover{background:#f4f4f4}
+.editor-floating-toolbar button.btn-insert-image{border-color:#444;color:#444;font-weight:600}
+.editor-floating-toolbar .editor-floating-sep{width:1px;height:1.6rem;background:#ddd;flex-shrink:0;margin:0 .2rem}
+.article-media{position:relative;margin:1rem 0}
+.article-media img{max-width:100%;height:auto}
+.article-media--full img{width:100%}
+.article-media--float-left{float:left;margin-right:1rem;margin-bottom:.5rem;max-width:50%}
+.article-media--float-right{float:right;margin-left:1rem;margin-bottom:.5rem;max-width:50%}
+.article-media figcaption{font-size:.8rem;color:#888;margin-top:.3rem;text-align:center}
+.article-carousel{position:relative;margin:1rem 0;overflow:hidden}
+.article-carousel .carousel-slides{position:relative;min-height:200px}
+.article-carousel .carousel-slide{display:none}
+.article-carousel .carousel-slide.active{display:block}
+.article-carousel .carousel-slide img{width:100%;height:auto}
+.article-carousel .carousel-nav{position:absolute;top:50%;transform:translateY(-50%);z-index:2;background:rgba(0,0,0,.4);color:#fff;border:none;font-size:1.2rem;padding:.4rem .55rem;cursor:pointer;line-height:1}
+.article-carousel .carousel-nav-prev{left:0}
+.article-carousel .carousel-nav-next{right:0}
+.article-carousel .carousel-nav:hover{background:rgba(0,0,0,.6)}
+.article-carousel .carousel-thumbnails{display:flex;gap:.35rem;margin-top:.5rem;overflow-x:auto}
+.article-carousel .carousel-thumb{flex-shrink:0;width:44px;height:44px;border:2px solid transparent;cursor:pointer;padding:0;background:none}
+.article-carousel .carousel-thumb.active{border-color:#444}
+.article-carousel .carousel-thumb img{width:100%;height:100%;object-fit:cover}
+.article-carousel .carousel-caption{text-align:center;font-size:.8rem;color:#888;margin-top:.35rem}
+
+/* Image insert UI */
+.article-image-insert-panel{display:none;padding:.65rem;border:1px solid #ddd;background:#fafafa;margin:.45rem 0 .2rem}
+.article-image-insert-panel.active{display:block}
+.article-image-insert-panel label{display:block;font-size:.72rem;font-weight:600;text-transform:uppercase;letter-spacing:1px;color:#888;margin-bottom:.3rem}
+.article-image-insert-rows{display:flex;flex-direction:column;gap:.5rem}
+.article-image-insert-row{display:flex;gap:.5rem;flex-wrap:wrap;align-items:center}
+.article-image-insert-row .article-select,.article-image-insert-row .article-input{flex:1;min-width:140px}
+.article-image-insert-preview{display:flex;gap:.35rem;flex-wrap:wrap;margin:.4rem 0}
+.article-image-insert-preview .img-preview-thumb{width:56px;height:56px;object-fit:cover;border:1px solid #ddd;cursor:pointer;position:relative}
+.article-image-insert-preview .img-preview-thumb.selected{border-color:#444;border-width:2px}
+.article-image-insert-preview .img-preview-remove{position:absolute;top:-6px;right:-6px;width:16px;height:16px;border-radius:50%;background:#e74c3c;color:#fff;border:none;font-size:.6rem;cursor:pointer;line-height:16px;text-align:center}
+.article-image-insert-actions{display:flex;justify-content:flex-end;gap:.45rem;margin-top:.4rem}
+.article-image-upload-btn{display:inline-flex;align-items:center;gap:.4rem;padding:.35rem .65rem;border:1px dashed #aaa;background:#fff;color:#666;font-size:.72rem;text-transform:uppercase;letter-spacing:.5px;cursor:pointer;font-family:'Work Sans',sans-serif}
+.article-image-upload-btn:hover{background:#f4f4f4;border-color:#888}
 
 .writer-photo-upload{display:flex;flex-direction:column;gap:.75rem}
 .writer-photo-upload input[type="file"]{font-size:.85rem;font-family:'Work Sans',sans-serif}
@@ -132,16 +162,22 @@ body{font-family:'Work Sans',-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,
 .writer-photo-current img{width:60px;height:60px;border-radius:50%;object-fit:cover;border:1px solid #eee}
 .writer-photo-upload .btn-sm{font-size:.7rem;padding:.25rem .55rem}
 
-/* Dark mode toggle */
-.dark-toggle{display:flex;align-items:center;gap:.45rem;padding:.5rem .65rem;margin-bottom:.35rem;font-size:.75rem;text-transform:uppercase;letter-spacing:1px;color:rgba(255,255,255,.5);cursor:pointer;user-select:none;transition:all .2s}
-.dark-toggle:hover{color:rgba(255,255,255,.8)}
-.dark-toggle .dark-icon{font-size:1rem;width:1.2rem;text-align:center;flex-shrink:0}
-.dark-toggle .dark-label{opacity:0;transform:translateX(-6px);white-space:nowrap;transition:opacity .18s ease,transform .18s ease}
-.sidebar:hover .dark-toggle .dark-label{opacity:1;transform:translateX(0)}
-.dark-toggle input[type="checkbox"]{width:32px;height:16px;appearance:none;-webkit-appearance:none;background:rgba(255,255,255,.2);border-radius:8px;position:relative;cursor:pointer;flex-shrink:0;transition:background .2s}
-.dark-toggle input[type="checkbox"]::before{content:'';position:absolute;top:2px;left:2px;width:12px;height:12px;border-radius:50%;background:#fff;transition:transform .2s}
-.dark-toggle input[type="checkbox"]:checked{background:#666}
-.dark-toggle input[type="checkbox"]:checked::before{transform:translateX(16px)}
+/* Sidebar action items (below nav) */
+.sidebar-action{display:flex;align-items:center;gap:.65rem;padding:.5rem .65rem;border-radius:0;color:rgba(255,255,255,.5);font-size:.75rem;text-transform:uppercase;letter-spacing:1px;cursor:pointer;user-select:none;transition:all .2s;border:none;background:none;width:100%;font-family:'Work Sans',sans-serif;overflow:hidden}
+.sidebar-action:hover{color:rgba(255,255,255,.8)}
+.sidebar-action .nav-icon{font-size:1rem;width:1.2rem;text-align:center;flex-shrink:0}
+.sidebar-action .nav-label{opacity:0;transform:translateX(-6px);white-space:nowrap;transition:opacity .18s ease,transform .18s ease}
+.sidebar.is-expanded .sidebar-action .nav-label,.sidebar:hover .sidebar-action .nav-label{opacity:1;transform:translateX(0)}
+.sidebar-action.logout-action{margin-top:.15rem;border-top:1px solid rgba(255,255,255,.12);padding-top:.75rem;color:rgba(255,255,255,.45)}
+.sidebar-action.logout-action:hover{color:#e74c3c}
+.sidebar-action input[type="checkbox"]{width:28px;height:14px;appearance:none;-webkit-appearance:none;background:rgba(255,255,255,.2);border-radius:7px;position:relative;cursor:pointer;flex-shrink:0;transition:background .2s}
+.sidebar-action input[type="checkbox"]::before{content:'';position:absolute;top:1px;left:2px;width:12px;height:12px;border-radius:50%;background:#fff;transition:transform .2s}
+.sidebar-action input[type="checkbox"]:checked{background:#666}
+.sidebar-action input[type="checkbox"]:checked::before{transform:translateX(14px)}
+.sidebar-pin-btn{position:absolute;right:6px;top:8px;width:22px;height:22px;border-radius:0;border:none;background:rgba(255,255,255,.08);color:rgba(255,255,255,.5);font-size:.7rem;cursor:pointer;display:none;align-items:center;justify-content:center;transition:all .2s;padding:0}
+.sidebar.is-expanded .sidebar-pin-btn,.sidebar:hover .sidebar-pin-btn{display:flex}
+.sidebar-pin-btn:hover{background:rgba(255,255,255,.15);color:#fff}
+.sidebar.is-pinned .sidebar-pin-btn{display:flex}
 
 /* Dark mode */
 [data-theme="dark"] body{background:#1a1a1a;color:#d4d4d4}
@@ -196,15 +232,38 @@ body{font-family:'Work Sans',-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,
 [data-theme="dark"] .article-save-status.success{color:#80cbc4;background:#1a3330}
 [data-theme="dark"] .article-field label{color:#999}
 [data-theme="dark"] .article-input,[data-theme="dark"] .article-textarea,[data-theme="dark"] .article-select{background:#1a1a1a;border-color:#444;color:#ccc}
-[data-theme="dark"] .editor-toolbar button{background:#1a1a1a;border-color:#444;color:#888}
-[data-theme="dark"] .editor-toolbar button:hover{background:#333}
-[data-theme="dark"] .article-insert-panel{background:#1d1d1d;border-color:#444}
-[data-theme="dark"] .editor-canvas{background:#1a1a1a;border-color:#444;color:#ccc}
-[data-theme="dark"] .article-preview-frame{background:#1a1a1a;border-color:#444}
-[data-theme="dark"] .article-empty-state{color:#888}
+[data-theme="dark"] .editor-floating-toolbar{background:#262626;border-color:#444}
+[data-theme="dark"] .editor-floating-toolbar button{background:#1a1a1a;border-color:#444;color:#888}
+[data-theme="dark"] .editor-floating-toolbar button:hover{background:#333;color:#ccc}
+[data-theme="dark"] .editor-floating-toolbar button.btn-insert-image{border-color:#888;color:#ccc}
+[data-theme="dark"] .editor-floating-toolbar .editor-floating-sep{background:#444}
+[data-theme="dark"] .article-image-insert-panel{background:#1d1d1d;border-color:#444}
+[data-theme="dark"] .article-image-insert-panel label{color:#999}
+[data-theme="dark"] .article-image-upload-btn{background:#1a1a1a;border-color:#555;color:#999}
+[data-theme="dark"] .article-image-upload-btn:hover{background:#333;color:#ccc}
+[data-theme="dark"] .article-image-insert-preview .img-preview-thumb{border-color:#444}
+[data-theme="dark"] .article-image-insert-preview .img-preview-thumb.selected{border-color:#aaa}
+[data-theme="dark"] .editor-floating-toolbar{background:#262626;border-color:#444}
+[data-theme="dark"] .editor-floating-toolbar button{background:#1a1a1a;border-color:#444;color:#888}
+[data-theme="dark"] .editor-floating-toolbar button:hover{background:#333;color:#ccc}
+[data-theme="dark"] .editor-floating-toolbar button.btn-insert-image{border-color:#888;color:#ccc}
+[data-theme="dark"] .editor-floating-toolbar .editor-floating-sep{background:#444}
+[data-theme="dark"] .article-image-insert-panel{background:#1d1d1d;border-color:#444}
+[data-theme="dark"] .article-image-insert-panel label{color:#999}
+[data-theme="dark"] .article-image-upload-btn{background:#1a1a1a;border-color:#555;color:#999}
+[data-theme="dark"] .article-image-upload-btn:hover{background:#333;color:#ccc}
+[data-theme="dark"] .article-image-insert-preview .img-preview-thumb{border-color:#444}
+[data-theme="dark"] .article-image-insert-preview .img-preview-thumb.selected{border-color:#aaa}
+[data-theme="dark"] .sidebar-action{color:rgba(255,255,255,.45)}
+[data-theme="dark"] .sidebar-action:hover{color:rgba(255,255,255,.75)}
+[data-theme="dark"] .sidebar-pin-btn{background:rgba(255,255,255,.06);color:rgba(255,255,255,.4)}
+[data-theme="dark"] .sidebar-pin-btn:hover{background:rgba(255,255,255,.12);color:#fff}
+[data-theme="dark"] .article-media figcaption{color:#888}
+[data-theme="dark"] .article-carousel .carousel-nav{background:rgba(0,0,0,.6)}
+[data-theme="dark"] .article-carousel .carousel-caption{color:#888}
 
 @media(max-width:1100px){.article-workspace,.article-workspace.article-list-hidden{grid-template-columns:1fr}.article-list-panel{max-height:280px}.article-workspace.article-list-hidden .article-list-panel{display:flex}}
-@media(max-width:768px){.sidebar{width:60px;padding:.75rem}.sidebar:hover{width:60px;padding:.75rem}.sidebar .brand,.sidebar .user-info,.sidebar nav a .nav-label,.dark-toggle .dark-label{display:none}.main{padding:1.5rem}.stats-grid{grid-template-columns:repeat(2,1fr)}.article-list-tools{flex-wrap:wrap}}
+@media(max-width:768px){.sidebar,.sidebar.is-expanded,.sidebar:hover{width:60px;padding:.75rem}.sidebar .brand,.sidebar .user-info,.sidebar nav a .nav-label,.sidebar-action .nav-label,.sidebar-pin-btn{display:none}.main{padding:1.5rem}.stats-grid{grid-template-columns:repeat(2,1fr)}.article-list-tools{flex-wrap:wrap}}
 </style>
 </head>
 <body>
@@ -225,6 +284,7 @@ body{font-family:'Work Sans',-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,
 
 <div class="admin-layout" id="adminLayout">
 <aside class="sidebar">
+    <button class="sidebar-pin-btn" onclick="toggleSidebarPin()" title="Pin sidebar" id="sidebarPinBtn">⧖</button>
     <div class="brand">Feats.</div>
     <nav>
       <a class="active" data-tab="dashboard" onclick="showTab('dashboard', this)"><span class="nav-icon">⌂</span><span class="nav-label">Dashboard</span></a>
@@ -233,9 +293,11 @@ body{font-family:'Work Sans',-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,
       <a data-tab="users" onclick="showTab('users', this)"><span class="nav-icon">⚑</span><span class="nav-label">Admin Users</span></a>
       <a data-tab="analytics" onclick="showTab('analytics', this)"><span class="nav-icon">▣</span><span class="nav-label">Analytics</span></a>
       <a data-tab="tech" onclick="showTab('tech', this)"><span class="nav-icon">⚙</span><span class="nav-label">Technical</span></a>
-      <label class="dark-toggle"><span class="dark-icon">☾</span><input type="checkbox" id="darkModeToggle" onchange="toggleDarkMode(this.checked)"><span class="dark-label">Dark Mode</span></label>
-      <a class="logout-link" onclick="logout()"><span class="nav-icon">⇥</span><span class="nav-label">Logout</span></a>
     </nav>
+    <div class="sidebar-nav-actions">
+      <label class="sidebar-action"><span class="nav-icon">☾</span><span class="nav-label">Dark Mode</span><input type="checkbox" id="darkModeToggle" onchange="toggleDarkMode(this.checked)"></label>
+      <a class="sidebar-action logout-action" onclick="logout()"><span class="nav-icon">⇥</span><span class="nav-label">Logout</span></a>
+    </div>
     <div class="user-info" id="userInfo"></div>
   </aside>
   <main class="main" id="mainContent">
@@ -395,9 +457,9 @@ var articleState = {
   current: null,
   selectedId: null,
   panel: 'editor',
-  previewPath: '',
   listCollapsed: false,
   savedRange: null,
+  recentImages: [],
   carouselSeed: 0
 };
 
@@ -433,7 +495,7 @@ function nowAsLocalDateTime() {
 
 function loadArticles() {
   var main = document.getElementById('mainContent');
-  main.innerHTML = '<h1>Articles</h1><div class="article-workspace" id="articleWorkspace"><section class="article-list-panel"><div class="article-list-header"><div class="article-list-tools"><input id="articleSearchInput" class="article-search" placeholder="Search titles, slugs, or writers" oninput="filterArticleList(this.value)"><button class="btn btn-primary" onclick="startNewArticle()">+ New Article</button></div></div><div class="article-list" id="articleList"></div></section><section class="article-editor-panel"><div class="article-editor-header"><div><div class="article-editor-title" id="articleEditorTitle">Loading articles...</div><div class="article-editor-subtitle" id="articleEditorSubtitle"></div></div><div style="display:flex;align-items:center;gap:.5rem;flex-wrap:wrap"><button id="articleListToggleBtn" class="article-list-toggle-btn" onclick="toggleArticleListPane()">Hide Selector</button><div class="article-editor-tabs"><button id="articleTabEditor" onclick="switchArticlePanel(&quot;editor&quot;)">Editor</button><button id="articleTabProperties" onclick="switchArticlePanel(&quot;properties&quot;)">Properties</button><button id="articleTabPreview" onclick="switchArticlePanel(&quot;preview&quot;)">Preview</button></div><button class="btn btn-primary" onclick="saveCurrentArticle()">Save</button></div></div><div id="articleSaveStatus" class="article-save-status">Loading article list...</div><div class="article-editor-body" id="articleEditorBody"></div></section></div>';
+main.innerHTML = '<h1>Articles</h1><div class="article-workspace" id="articleWorkspace"><section class="article-list-panel"><div class="article-list-header"><div class="article-list-tools"><input id="articleSearchInput" class="article-search" placeholder="Search titles, slugs, or writers" oninput="filterArticleList(this.value)"><button class="btn btn-primary" onclick="startNewArticle()">+ New Article</button></div></div><div class="article-list" id="articleList"></div></section><section class="article-editor-panel"><div class="article-editor-header"><div><div class="article-editor-title" id="articleEditorTitle">Loading articles...</div><div class="article-editor-subtitle" id="articleEditorSubtitle"></div></div><div style="display:flex;align-items:center;gap:.5rem;flex-wrap:wrap"><button id="articleListToggleBtn" class="article-list-toggle-btn" onclick="toggleArticleListPane()">Hide Selector</button><div class="article-editor-tabs"><button id="articleTabEditor" onclick="switchArticlePanel(&quot;editor&quot;)">Editor</button><button id="articleTabProperties" onclick="switchArticlePanel(&quot;properties&quot;)">Properties</button></div><button class="btn btn-primary" onclick="saveCurrentArticle()">Save</button></div></div><div id="articleSaveStatus" class="article-save-status">Loading article list...</div><div class="article-editor-body" id="articleEditorBody"></div></section></div>';
 
   articleState.list = [];
   articleState.filtered = [];
@@ -544,7 +606,6 @@ function startNewArticle() {
     status: 'draft'
   });
   articleState.panel = 'editor';
-  articleState.previewPath = '/music';
   renderArticleList();
   renderArticleWorkspace();
   setArticleSaveStatus('Editing new article draft', false);
@@ -561,7 +622,6 @@ function selectArticleFromList(id) {
   apiGet('/admin/articles/' + id).then(function(data) {
     articleState.current = normalizeArticle(data.article || {});
     articleState.selectedId = articleState.current.id;
-    articleState.previewPath = articleState.current.url_id ? '/music/' + articleState.current.url_id : '/music';
     renderArticleList();
     renderArticleWorkspace();
     setArticleSaveStatus('Loaded article', false);
@@ -610,14 +670,13 @@ function renderArticleWorkspace() {
   if (titleEl) titleEl.textContent = current.title || 'Untitled Article';
   if (subtitleEl) subtitleEl.textContent = (current.url_id ? ('/' + current.url_id) : 'New article draft') + ' â€¢ ' + (current.status || 'draft');
 
-  ['articleTabEditor','articleTabProperties','articleTabPreview'].forEach(function(id) {
+  ['articleTabEditor','articleTabProperties'].forEach(function(id) {
     var tab = document.getElementById(id);
     if (!tab) return;
     tab.classList.remove('active');
   });
   if (articleState.panel === 'editor') document.getElementById('articleTabEditor').classList.add('active');
   if (articleState.panel === 'properties') document.getElementById('articleTabProperties').classList.add('active');
-  if (articleState.panel === 'preview') document.getElementById('articleTabPreview').classList.add('active');
   refreshArticleListPaneState();
 
   var body = document.getElementById('articleEditorBody');
@@ -627,78 +686,10 @@ function renderArticleWorkspace() {
     initializeArticleEditor();
   }
   if (articleState.panel === 'properties') body.innerHTML = getArticlePropertiesHtml(current);
-  if (articleState.panel === 'preview') body.innerHTML = getArticlePreviewHtml(current);
 }
 
-/* function getArticleEditorHtmlLegacy(article) {
-  return '<div class=\"article-field\"><label>Title</label><input id=\"articleTitleInput\" class=\"article-input\" value=\"' + escAttr(article.title) + '\" placeholder=\"Article title\"></div><div class=\"article-field\"><label>Article Body</label><div class=\"editor-toolbar\"><button type=\"button\" onclick=\"applyArticleFormat(&quot;bold&quot;)\"><b>Bold</b></button><button type=\"button\" onclick=\"applyArticleFormat(&quot;italic&quot;)\"><i>Italic</i></button><button type=\"button\" onclick=\"applyArticleFormat(&quot;underline&quot;)\"><u>Underline</u></button><button type=\"button\" onclick=\"formatArticleHeading()\">Heading</button><button type=\"button\" onclick=\"applyArticleFormat(&quot;insertUnorderedList&quot;)\">Bullets</button><button type=\"button\" onclick=\"applyArticleFormat(&quot;insertOrderedList&quot;)\">Numbered</button><button type=\"button\" onclick=\"insertArticleLink()\">Link</button><button type=\"button\" onclick=\"applyArticleFormat(&quot;removeFormat&quot;)\">Clear</button><button type=\"button\" onclick=\"toggleArticleImagePanel()\">Insert Image</button></div><div id=\"articleImagePanel\" class=\"article-insert-panel\"><div class=\"article-insert-row\"><select id=\"articleImageLayoutInput\" class=\"article-select\" onchange=\"toggleArticleCarouselInput()\"><option value=\"full\">Full Width</option><option value=\"left\">Float Left</option><option value=\"right\">Float Right</option><option value=\"carousel\">Carousel</option></select><input id=\"articleImageUrlInput\" class=\"article-input\" placeholder=\"Image URL (or comma-separated URLs for carousel)\"></div><div class=\"article-insert-row\" id=\"articleCarouselCaptionRow\" style=\"display:none\"><input id=\"articleImageCaptionInput\" class=\"article-input\" placeholder=\"Optional caption text\"></div><div class=\"article-insert-actions\"><button type=\"button\" class=\"btn btn-sm\" onclick=\"toggleArticleImagePanel(false)\">Cancel</button><button type=\"button\" class=\"btn btn-sm btn-primary\" onclick=\"insertArticleImageBlock()\">Insert</button></div></div><div id=\"articleBodyEditor\" class=\"editor-canvas\" contenteditable=\"true\">' + (article.body || '<p></p>') + '</div></div>';
-}
 
-function getArticlePropertiesHtmlLegacy(article) {
-  var options = '';
-  articleState.writers.forEach(function(name) {
-    var selected = splitWriters(article.author).includes(name) ? ' selected' : '';
-    options += '<option value="' + escAttr(name) + '"' + selected + '>' + esc(name) + '</option>';
-  });
-  return '<div class=\"article-properties-grid\"><div class=\"article-field\"><label>Slug (URL ID)</label><input id=\"articleSlugInput\" class=\"article-input\" value=\"' + escAttr(article.url_id) + '\" placeholder=\"your-article-slug\"></div><div class=\"article-field\"><label>Status</label><select id=\"articleStatusInput\" class=\"article-select\"><option value=\"publish\"' + (article.status === 'publish' ? ' selected' : '') + '>Published</option><option value=\"draft\"' + (article.status !== 'publish' ? ' selected' : '') + '>Draft</option></select></div><div class=\"article-field\"><label>Publish Date</label><input id=\"articlePublishInput\" class=\"article-input\" type=\"datetime-local\" value=\"' + escAttr(article.publish_date || nowAsLocalDateTime()) + '\"></div><div class=\"article-field\"><label>Writer(s)</label><select id=\"articleWritersSelect\" class=\"article-select\" multiple size=\"5\" onchange=\"syncArticleAuthorFromSelection()\">' + options + '</select></div><div class=\"article-field\"><label>Author Field (stored)</label><input id=\"articleAuthorInput\" class=\"article-input\" value=\"' + escAttr(article.author) + '\" placeholder=\"Comma-separated writer names\"></div><div class=\"article-field\"><label>Tags</label><input id=\"articleTagsInput\" class=\"article-input\" value=\"' + escAttr(article.tags) + '\" placeholder=\"news, live-review, interview\"></div><div class=\"article-field\"><label>Categories</label><input id=\"articleCategoriesInput\" class=\"article-input\" value=\"' + escAttr(article.categories) + '\" placeholder=\"Rock, Live Reviews\"></div><div class=\"article-field\" style=\"grid-column:1 / -1\"><label>Excerpt</label><textarea id=\"articleExcerptInput\" class=\"article-textarea\" placeholder=\"Short summary for cards and metadata\">' + esc(article.excerpt) + '</textarea></div><div class=\"article-field\" style=\"grid-column:1 / -1\"><label>Thumbnail / Cover URL</label><input id=\"articleCoverInput\" class=\"article-input\" value=\"' + escAttr(article.cover_url) + '\" placeholder=\"https://...\"></div></div>' + (article.id ? '<div style=\"margin-top:1rem\"><button class=\"btn btn-danger\" onclick=\"deleteCurrentArticle()\">Delete Article</button></div>' : '');
-}
-
-*/
-function getArticlePreviewHtml(article) {
-  var path = articleState.previewPath || (article.url_id ? ('/music/' + article.url_id) : '/music');
-  var src = 'https://louishitchcock.xyz' + normalizePreviewPath(path);
-  return '<div class="article-preview-nav"><input id="articlePreviewPathInput" class="article-input" style="max-width:420px" value="' + escAttr(path) + '" placeholder="/music"><button class="btn" onclick="loadArticlePreviewPath()">Go</button><button class="btn" onclick="previewCurrentArticlePath()">Selected article</button><a class="btn" style="text-decoration:none" target="_blank" href="' + escAttr(src) + '">Open in new tab</a></div><iframe id="articlePreviewFrame" class="article-preview-frame" src="' + escAttr(src) + '"></iframe>';
-}
-
-function normalizePreviewPath(path) {
-  var p = String(path || '/').trim();
-  if (!p.startsWith('/')) p = '/' + p;
-  return p;
-}
-
-function loadArticlePreviewPath() {
-  var input = document.getElementById('articlePreviewPathInput');
-  var frame = document.getElementById('articlePreviewFrame');
-  if (!input || !frame) return;
-  articleState.previewPath = normalizePreviewPath(input.value || '/');
-  input.value = articleState.previewPath;
-  frame.src = 'https://louishitchcock.xyz' + articleState.previewPath;
-}
-
-function previewCurrentArticlePath() {
-  captureCurrentArticleDraft();
-  var path = articleState.current && articleState.current.url_id ? '/music/' + articleState.current.url_id : '/music';
-  articleState.previewPath = path;
-  var input = document.getElementById('articlePreviewPathInput');
-  if (input) input.value = path;
-  loadArticlePreviewPath();
-}
-
-/* function applyArticleFormatLegacy(command) {
-  var editor = document.getElementById('articleBodyEditor');
-  if (!editor) return;
-  editor.focus();
-  document.execCommand(command, false, null);
-}
-
-function formatArticleHeadingLegacy() {
-  var editor = document.getElementById('articleBodyEditor');
-  if (!editor) return;
-  editor.focus();
-  document.execCommand('formatBlock', false, 'H2');
-}
-
-function insertArticleLinkLegacy() {
-  var editor = document.getElementById('articleBodyEditor');
-  if (!editor) return;
-  var url = prompt('Enter URL');
-  if (!url) return;
-  editor.focus();
-  document.execCommand('createLink', false, url.trim());
-}
-
-*/
-function syncArticleAuthorFromSelection() {
+function getArticleEditorHtml(article) {
   var select = document.getElementById('articleWritersSelect');
   var input = document.getElementById('articleAuthorInput');
   if (!select || !input) return;
@@ -710,7 +701,15 @@ function syncArticleAuthorFromSelection() {
 }
 
 function getArticleEditorHtml(article) {
-  return '<div class="article-field"><label>Title</label><input id="articleTitleInput" class="article-input" value="' + escAttr(article.title) + '" placeholder="Article title"></div><div class="article-field"><label>Article Body</label><div class="editor-toolbar"><button type="button" onclick="applyArticleFormat(&quot;bold&quot;)"><b>Bold</b></button><button type="button" onclick="applyArticleFormat(&quot;italic&quot;)"><i>Italic</i></button><button type="button" onclick="applyArticleFormat(&quot;underline&quot;)"><u>Underline</u></button><button type="button" onclick="formatArticleHeading()">Heading</button><button type="button" onclick="applyArticleFormat(&quot;insertUnorderedList&quot;)">Bullets</button><button type="button" onclick="applyArticleFormat(&quot;insertOrderedList&quot;)">Numbered</button><button type="button" onclick="insertArticleLink()">Link</button><button type="button" onclick="applyArticleFormat(&quot;removeFormat&quot;)">Clear</button><button type="button" onclick="toggleArticleImagePanel()">Insert Image</button></div><div id="articleImagePanel" class="article-insert-panel"><div class="article-insert-row"><select id="articleImageLayoutInput" class="article-select" onchange="toggleArticleCarouselInput()"><option value="full">Full Width</option><option value="left">Float Left</option><option value="right">Float Right</option><option value="carousel">Carousel</option></select><input id="articleImageUrlInput" class="article-input" placeholder="Image URL (or comma-separated URLs for carousel)"></div><div class="article-insert-row" id="articleCarouselCaptionRow"><input id="articleImageCaptionInput" class="article-input" placeholder="Optional caption text"></div><div class="article-insert-actions"><button type="button" class="btn btn-sm" onclick="toggleArticleImagePanel(false)">Cancel</button><button type="button" class="btn btn-sm btn-primary" onclick="insertArticleImageBlock()">Insert</button></div></div><div id="articleBodyEditor" class="editor-canvas" contenteditable="true">' + (article.body || '<p></p>') + '</div></div>';
+  var recentHtml = '';
+  if (articleState.recentImages && articleState.recentImages.length) {
+    recentHtml = '<div class="article-image-insert-row"><label>Recent media</label><div class="article-image-insert-preview">';
+    articleState.recentImages.forEach(function(url, idx) {
+      recentHtml += '<img src="' + escAttr(url) + '" class="img-preview-thumb" onclick="toggleImageSelection(this,&quot;' + escAttr(url) + '&quot;)" data-url="' + escAttr(url) + '">';
+    });
+    recentHtml += '</div></div>';
+  }
+  return '<div class="article-field"><label>Title</label><input id="articleTitleInput" class="article-input" value="' + escAttr(article.title) + '" placeholder="Article title"></div><div class="article-field"><label>Article Body</label><div id="articleBodyEditor" class="editor-canvas" contenteditable="true">' + (article.body || '<p></p>') + '</div><div class="editor-floating-toolbar"><button type="button" onclick="applyArticleFormat(&quot;bold&quot;)"><b>B</b></button><button type="button" onclick="applyArticleFormat(&quot;italic&quot;)"><i>I</i></button><button type="button" onclick="applyArticleFormat(&quot;underline&quot;)"><u>U</u></button><span class="editor-floating-sep"></span><button type="button" onclick="formatArticleHeading()">H2</button><button type="button" onclick="applyArticleFormat(&quot;insertUnorderedList&quot;)">UL</button><button type="button" onclick="applyArticleFormat(&quot;insertOrderedList&quot;)">OL</button><span class="editor-floating-sep"></span><button type="button" onclick="insertArticleLink()">Link</button><button type="button" onclick="applyArticleFormat(&quot;removeFormat&quot;)">Clear</button><span class="editor-floating-sep"></span><button type="button" class="btn-insert-image" onclick="toggleArticleImagePanel()">+ IMAGE</button></div><div id="articleImageInsertPanel" class="article-image-insert-panel"><div class="article-image-insert-rows">' + recentHtml + '<div class="article-image-insert-row"><label>Upload media</label><input type="file" id="articleImageUploadInput" accept="image/*" multiple onchange="handleArticleImageUpload(this.files)"><input type="file" id="articleImageUploadInputSingle" accept="image/*" style="display:none"></div><div class="article-image-insert-row"><label>Layout</label><select id="articleImageLayoutInput" class="article-select" onchange="toggleArticleCarouselInput()"><option value="full">Full Width</option><option value="left">Float Left</option><option value="right">Float Right</option><option value="carousel">Carousel</option></select><input id="articleImageCaptionInput" class="article-input" placeholder="Optional caption"></div><div id="articleCarouselMultiRow" class="article-image-insert-row" style="display:none"><div id="articleCarouselOrdered" class="article-image-insert-preview"></div></div></div><div class="article-image-insert-actions"><button type="button" class="btn btn-sm" onclick="toggleArticleImagePanel(false)">Cancel</button><button type="button" class="btn btn-sm btn-primary" onclick="insertArticleImageBlock()">Insert</button></div></div></div>';
 }
 
 function getArticlePropertiesHtml(article) {
@@ -725,13 +724,6 @@ function getArticlePropertiesHtml(article) {
 function initializeArticleEditor() {
   var editor = document.getElementById('articleBodyEditor');
   if (!editor) return;
-  var toolbar = editor.previousElementSibling && editor.previousElementSibling.classList && editor.previousElementSibling.classList.contains('article-insert-panel') ? editor.previousElementSibling.previousElementSibling : null;
-  if (toolbar && !toolbar.dataset.selectionGuard) {
-    toolbar.addEventListener('mousedown', function(e) {
-      if (e.target.closest('button')) e.preventDefault();
-    });
-    toolbar.dataset.selectionGuard = '1';
-  }
   editor.addEventListener('mouseup', saveEditorSelection);
   editor.addEventListener('keyup', saveEditorSelection);
   editor.addEventListener('focus', saveEditorSelection);
@@ -789,15 +781,13 @@ function insertArticleLink() {
 }
 
 function toggleArticleImagePanel(forceOpen) {
-  var panel = document.getElementById('articleImagePanel');
+  var panel = document.getElementById('articleImageInsertPanel');
   if (!panel) return;
   var shouldOpen = typeof forceOpen === 'boolean' ? forceOpen : !panel.classList.contains('active');
   if (shouldOpen) {
     panel.classList.add('active');
     toggleArticleCarouselInput();
     saveEditorSelection();
-    var urlInput = document.getElementById('articleImageUrlInput');
-    if (urlInput) urlInput.focus();
   } else {
     panel.classList.remove('active');
   }
@@ -805,128 +795,102 @@ function toggleArticleImagePanel(forceOpen) {
 
 function toggleArticleCarouselInput() {
   var layoutInput = document.getElementById('articleImageLayoutInput');
-  var urlInput = document.getElementById('articleImageUrlInput');
-  if (!layoutInput || !urlInput) return;
-  var isCarousel = layoutInput.value === 'carousel';
-  urlInput.placeholder = isCarousel ? 'Image URLs separated by commas' : 'Image URL';
+  var multiRow = document.getElementById('articleCarouselMultiRow');
+  if (!layoutInput || !multiRow) return;
+  multiRow.style.display = layoutInput.value === 'carousel' ? 'flex' : 'none';
 }
 
-function buildArticleFigureHtml(url, layout, caption) {
-  var modifier = 'article-media--full';
-  if (layout === 'left') modifier = 'article-media--float-left';
-  if (layout === 'right') modifier = 'article-media--float-right';
-  var html = '<figure class="article-media ' + modifier + '"><img src="' + escAttr(url) + '" alt="' + escAttr(caption || 'Article image') + '">';
-  if (caption) html += '<figcaption>' + esc(caption) + '</figcaption>';
-  html += '</figure><p></p>';
-  return html;
-}
+var imageUploadQueue = [];
 
-function buildArticleCarouselHtml(urls, caption) {
-  articleState.carouselSeed += 1;
-  var carouselId = 'article-carousel-' + Date.now() + '-' + articleState.carouselSeed;
-  var slides = '';
-  var thumbs = '';
-  urls.forEach(function(url, idx) {
-    var activeClass = idx === 0 ? ' active' : '';
-    slides += '<div class="carousel-slide' + activeClass + '"><img src="' + escAttr(url) + '" alt="' + escAttr(caption || ('Carousel image ' + (idx + 1))) + '"></div>';
-    thumbs += '<button type="button" class="carousel-thumb' + activeClass + '" onclick="changeCarouselSlide(&quot;' + carouselId + '&quot;, ' + idx + ')"><img src="' + escAttr(url) + '" alt="Thumbnail ' + (idx + 1) + '"></button>';
+function handleArticleImageUpload(files) {
+  if (!files || !files.length) return;
+  var preview = document.querySelector('.article-image-insert-preview');
+  var uploadInput = document.getElementById('articleImageUploadInput');
+  var orderedContainer = document.getElementById('articleCarouselOrdered');
+  Array.from(files).forEach(function(file) {
+    uploadInput.value = '';
+    var objUrl = URL.createObjectURL(file);
+    imageUploadQueue.push({ file: file, objUrl: objUrl, url: null });
+    var thumbHtml = '<div style="position:relative;display:inline-block"><img src="' + objUrl + '" class="img-preview-thumb selected" data-queue-idx="' + (imageUploadQueue.length - 1) + '"><button class="img-preview-remove" onclick="removeImageFromUploadQueue(this.parentElement)">x</button></div>';
+    if (preview) preview.innerHTML += thumbHtml;
+    if (orderedContainer) orderedContainer.innerHTML += thumbHtml;
   });
-  var html = '<div id="' + carouselId + '" class="article-carousel article-media article-media--full" data-article-carousel data-current-slide="0"><button type="button" class="carousel-nav carousel-nav-prev" onclick="moveCarouselSlide(&quot;' + carouselId + '&quot;, -1)">&#10094;</button><div class="carousel-slides">' + slides + '</div><button type="button" class="carousel-nav carousel-nav-next" onclick="moveCarouselSlide(&quot;' + carouselId + '&quot;, 1)">&#10095;</button><div class="carousel-thumbnails">' + thumbs + '</div>';
-  if (caption) html += '<div class="carousel-caption">' + esc(caption) + '</div>';
-  html += '</div><p></p>';
-  return html;
+  if (orderedContainer && orderedContainer.children.length) {
+    document.getElementById('articleCarouselMultiRow').style.display = 'flex';
+  }
+  setArticleSaveStatus(imageUploadQueue.length + ' image(s) staged for upload', false, true);
 }
 
-function changeCarouselSlide(carouselId, newIndex) {
-  var carousel = document.getElementById(carouselId);
-  if (!carousel) return;
-  var slides = carousel.querySelectorAll('.carousel-slide');
-  var thumbs = carousel.querySelectorAll('.carousel-thumb');
-  if (!slides.length) return;
-  var safeIndex = Math.max(0, Math.min(newIndex, slides.length - 1));
-  carousel.setAttribute('data-current-slide', String(safeIndex));
-  for (var i = 0; i < slides.length; i++) {
-    slides[i].classList.toggle('active', i === safeIndex);
+function removeImageFromUploadQueue(container) {
+  var img = container && container.querySelector('img');
+  if (!img) return;
+  var idx = parseInt(img.getAttribute('data-queue-idx'), 10);
+  if (!isNaN(idx) && imageUploadQueue[idx]) {
+    URL.revokeObjectURL(imageUploadQueue[idx].objUrl);
+    imageUploadQueue[idx] = null;
   }
-  for (var j = 0; j < thumbs.length; j++) {
-    thumbs[j].classList.toggle('active', j === safeIndex);
+  container.parentElement.removeChild(container);
+  var orderedContainer = document.getElementById('articleCarouselOrdered');
+  if (orderedContainer && !orderedContainer.children.length) {
+    document.getElementById('articleCarouselMultiRow').style.display = 'none';
   }
-}
-
-function moveCarouselSlide(carouselId, delta) {
-  var carousel = document.getElementById(carouselId);
-  if (!carousel) return;
-  var slides = carousel.querySelectorAll('.carousel-slide');
-  if (!slides.length) return;
-  var current = parseInt(carousel.getAttribute('data-current-slide') || '0', 10);
-  var next = current + delta;
-  if (next < 0) next = slides.length - 1;
-  if (next >= slides.length) next = 0;
-  changeCarouselSlide(carouselId, next);
-}
-
-function insertArticleHtmlAtCursor(html) {
-  var editor = document.getElementById('articleBodyEditor');
-  if (!editor) return false;
-  editor.focus();
-  restoreEditorSelection();
-  var inserted = false;
-  if (document.queryCommandSupported && document.queryCommandSupported('insertHTML')) {
-    inserted = document.execCommand('insertHTML', false, html);
-  }
-  if (!inserted) {
-    var sel = window.getSelection();
-    if (!sel) return false;
-    var range = sel.rangeCount ? sel.getRangeAt(0) : null;
-    if (!range || !editor.contains(range.commonAncestorContainer)) {
-      range = document.createRange();
-      range.selectNodeContents(editor);
-      range.collapse(false);
-    }
-    var container = document.createElement('div');
-    container.innerHTML = html;
-    var frag = document.createDocumentFragment();
-    var node;
-    var lastNode = null;
-    while ((node = container.firstChild)) {
-      lastNode = frag.appendChild(node);
-    }
-    range.deleteContents();
-    range.insertNode(frag);
-    if (lastNode) {
-      range = range.cloneRange();
-      range.setStartAfter(lastNode);
-      range.collapse(true);
-      sel.removeAllRanges();
-      sel.addRange(range);
-    }
-  }
-  saveEditorSelection();
-  captureCurrentArticleDraft();
-  return true;
 }
 
 function insertArticleImageBlock() {
   var layoutInput = document.getElementById('articleImageLayoutInput');
-  var urlInput = document.getElementById('articleImageUrlInput');
   var captionInput = document.getElementById('articleImageCaptionInput');
-  if (!layoutInput || !urlInput) return;
+  if (!layoutInput) return;
   var layout = layoutInput.value || 'full';
-  var urls = String(urlInput.value || '').split(/[\n,]/).map(function(item) { return item.trim(); }).filter(Boolean);
   var caption = captionInput ? captionInput.value.trim() : '';
-  if (!urls.length) {
-    setArticleSaveStatus('Provide at least one image URL before inserting', true);
+
+  var queuedItems = imageUploadQueue.filter(function(item) { return item !== null; });
+  if (!queuedItems.length) {
+    setArticleSaveStatus('Upload at least one image before inserting', true);
     return;
   }
-  var html = layout === 'carousel' ? buildArticleCarouselHtml(urls, caption) : buildArticleFigureHtml(urls[0], layout, caption);
-  if (insertArticleHtmlAtCursor(html)) {
-    setArticleSaveStatus('Image block inserted', false, true);
-    if (urlInput) urlInput.value = '';
-    if (captionInput) captionInput.value = '';
-    toggleArticleImagePanel(false);
-  } else {
-    setArticleSaveStatus('Could not insert image block', true);
-  }
+
+  setArticleSaveStatus('Uploading images...', false);
+
+  var uploadPromises = queuedItems.map(function(item) {
+    if (item.url) return Promise.resolve(item.url);
+    return uploadImage(item.file).then(function(url) {
+      item.url = url;
+      articleState.recentImages = articleState.recentImages || [];
+      if (articleState.recentImages.indexOf(url) === -1) articleState.recentImages.unshift(url);
+      if (articleState.recentImages.length > 20) articleState.recentImages.length = 20;
+      return url;
+    });
+  });
+
+  Promise.all(uploadPromises).then(function(urls) {
+    var html;
+    if (layout === 'carousel') {
+      html = buildArticleCarouselHtml(urls, caption);
+    } else {
+      html = buildArticleFigureHtml(urls[0], layout, caption);
+    }
+
+    // Clean up blob URLs
+    queuedItems.forEach(function(item) {
+      if (item.objUrl) URL.revokeObjectURL(item.objUrl);
+    });
+    imageUploadQueue = [];
+
+    if (insertArticleHtmlAtCursor(html)) {
+      setArticleSaveStatus('Image block inserted', false, true);
+      if (captionInput) captionInput.value = '';
+      toggleArticleImagePanel(false);
+      var preview = document.querySelector('.article-image-insert-preview');
+      if (preview) preview.innerHTML = '';
+      var ordered = document.getElementById('articleCarouselOrdered');
+      if (ordered) ordered.innerHTML = '';
+      document.getElementById('articleCarouselMultiRow').style.display = 'none';
+    } else {
+      setArticleSaveStatus('Could not insert image block', true);
+    }
+  }).catch(function(err) {
+    setArticleSaveStatus('Upload failed: ' + err.message, true);
+  });
 }
 
 function buildArticlePayload() {
@@ -1137,6 +1101,67 @@ function loadTech() {
   });
 }
 
+// ===== SIDEBAR STATE =====
+var sidebarRetractTimer = null;
+
+function applySidebarState(expanded, pinned) {
+  var sb = document.querySelector('.sidebar');
+  if (!sb) return;
+  sb.classList.remove('is-expanded','is-collapsed','is-pinned');
+  if (pinned) {
+    sb.classList.add('is-pinned','is-expanded');
+  } else if (expanded) {
+    sb.classList.add('is-expanded');
+  } else {
+    sb.classList.add('is-collapsed');
+  }
+}
+
+function sidebarEnter() {
+  if (sidebarRetractTimer) {
+    clearTimeout(sidebarRetractTimer);
+    sidebarRetractTimer = null;
+  }
+  var sb = document.querySelector('.sidebar');
+  if (!sb || sb.classList.contains('is-pinned')) return;
+  applySidebarState(true, false);
+}
+
+function sidebarLeave() {
+  var sb = document.querySelector('.sidebar');
+  if (!sb || sb.classList.contains('is-pinned')) return;
+  if (sidebarRetractTimer) clearTimeout(sidebarRetractTimer);
+  sidebarRetractTimer = setTimeout(function() {
+    applySidebarState(false, false);
+    sidebarRetractTimer = null;
+  }, 200);
+}
+
+function toggleSidebarPin() {
+  var sb = document.querySelector('.sidebar');
+  if (!sb) return;
+  var wasPinned = sb.classList.contains('is-pinned');
+  var newPinned = !wasPinned;
+  localStorage.setItem('feats_admin_sidebar_pin', newPinned ? '1' : '');
+  if (newPinned) {
+    applySidebarState(true, true);
+  } else {
+    applySidebarState(false, false);
+  }
+}
+
+// Init sidebar state from localStorage
+(function() {
+  var sb = document.querySelector('.sidebar');
+  if (!sb) return;
+  var isPinned = localStorage.getItem('feats_admin_sidebar_pin') === '1';
+  if (isPinned) {
+    applySidebarState(true, true);
+  } else {
+    applySidebarState(false, false);
+  }
+})();
+
 // ===== UTILITIES =====
 // ===== UTILITIES =====
 function toggleDarkMode(enabled) {
@@ -1183,7 +1208,14 @@ function removeWriterPhoto(id) {
 function esc(s) { return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;'); }
 
 // Check auth on load
-document.addEventListener('DOMContentLoaded', checkAuth);
+document.addEventListener('DOMContentLoaded', function() {
+  var sb = document.querySelector('.sidebar');
+  if (sb) {
+    sb.addEventListener('mouseenter', sidebarEnter);
+    sb.addEventListener('mouseleave', sidebarLeave);
+  }
+  checkAuth();
+});
 </script>
 </body>
 </html>
