@@ -159,7 +159,7 @@
     });
 
     // Auto-advance carousel
-    setInterval(() => {
+    setInterval(function() {
       goToSlide((currentIndex + 1) % slides.length);
     }, 5000);
 
