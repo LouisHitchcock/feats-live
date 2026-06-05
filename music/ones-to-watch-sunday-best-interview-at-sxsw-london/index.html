@@ -70,6 +70,7 @@
       <h1>Ones-to-Watch - Sunday Best Interview At SXSW London</h1>
       <p>We caught up with <strong>Sunday Best</strong> after their set at SXSW London to talk about their latest single, what being a DIY band means to them, and the artists they’d love to collaborate with. The five-piece from in and around London describe themselves as a group of friends making “funky post-hardcore” with a clear political edge. Their newest track<strong> Dig Deep </strong>draws on themes of resistance and accountability, balancing heavy subject matter with a mix of shoegaze, funk, and hardcore influences - and, by their own admission, a touch of Deftones.</p>
 <p>As a fully independent band, they spoke about how much of their journey has been shaped by friendship and representation. Growing up without seeing bands that looked like them, they now hope to be that presence for others in the scene. Their dream collaborations ranged from MF Doom and Hayley Williams to Rage Against the Machine and Stormzy — a mix that mirrors their varied influences. You can find Sunday Best on all streaming platforms, with <strong>Dig Deep</strong> out now.</p><p><br/><a href="https://youtu.be/3x4TAquxt1s" target="_blank">Watch the Full Interview on our Youtube Channel!</a></p>
+          <div class="writer-credit hidden" id="writerCredit"><img class="writer-credit-photo" id="writerPhoto" src="" alt="" /><div class="writer-credit-info"><h4 id="writerName"></h4><p id="writerBio"></p></div></div>
     </article>
   </main>
 <footer class="site-footer">
@@ -86,6 +87,31 @@
     </div>
   </footer>
   <script>
+        // Fetch writer credit from API
+    (function() {
+      var slug = window.location.pathname.replace(/\/$/, '').split('/').pop();
+      fetch('https://feats-api.fpvgate-analytics.workers.dev/api/articles/' + slug)
+        .then(function(r) { return r.json(); })
+        .then(function(data) {
+          var a = data.article;
+          if (!a) return;
+          var name = document.getElementById('writerName');
+          var bio = document.getElementById('writerBio');
+          var photo = document.getElementById('writerPhoto');
+          if (name) name.textContent = a.author || 'Feats.';
+          if (bio) bio.textContent = a.writer_bio || '';
+          if (photo && a.writer_photo_url) {
+            photo.src = a.writer_photo_url;
+            photo.alt = a.author || '';
+          }
+          var credit = document.getElementById('writerCredit');
+          if (credit && (a.writer_bio || a.writer_photo_url)) {
+            credit.classList.remove('hidden');
+          }
+        })
+        .catch(function() {});
+    })();
+
     document.getElementById('navToggle').addEventListener('click', function(){
       document.getElementById('navLinks').classList.toggle('open');
     });

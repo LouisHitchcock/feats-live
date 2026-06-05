@@ -247,6 +247,7 @@
   </div>
 </div>
 <p>The whole crowd singing along to finish off the night on a high. </p><p>The band take a bow to a loud and long applause, thanking everyone for a wonderful time. </p><p>It was an amazing night being taken back to the 90s with the sights, the sounds and even the smells. </p>
+          <div class="writer-credit hidden" id="writerCredit"><img class="writer-credit-photo" id="writerPhoto" src="" alt="" /><div class="writer-credit-info"><h4 id="writerName"></h4><p id="writerBio"></p></div></div>
     </article>
   </main>
 <footer class="site-footer">
@@ -263,6 +264,31 @@
     </div>
   </footer>
   <script>
+        // Fetch writer credit from API
+    (function() {
+      var slug = window.location.pathname.replace(/\/$/, '').split('/').pop();
+      fetch('https://feats-api.fpvgate-analytics.workers.dev/api/articles/' + slug)
+        .then(function(r) { return r.json(); })
+        .then(function(data) {
+          var a = data.article;
+          if (!a) return;
+          var name = document.getElementById('writerName');
+          var bio = document.getElementById('writerBio');
+          var photo = document.getElementById('writerPhoto');
+          if (name) name.textContent = a.author || 'Feats.';
+          if (bio) bio.textContent = a.writer_bio || '';
+          if (photo && a.writer_photo_url) {
+            photo.src = a.writer_photo_url;
+            photo.alt = a.author || '';
+          }
+          var credit = document.getElementById('writerCredit');
+          if (credit && (a.writer_bio || a.writer_photo_url)) {
+            credit.classList.remove('hidden');
+          }
+        })
+        .catch(function() {});
+    })();
+
     document.getElementById('navToggle').addEventListener('click', function(){
       document.getElementById('navLinks').classList.toggle('open');
     });

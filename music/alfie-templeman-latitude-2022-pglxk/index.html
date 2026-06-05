@@ -69,6 +69,7 @@
   
 
 <p>The album is already impressive but knowing that Templeman produced everything in his bedroom absolutely makes this one of the top albums released this year. His musical talent is no surprise as he comes from a family full of musical influence.</p><p>No one can guess what's next in-store for him, but the only way for Alfie Templeman is onwards and upwards, after his performance on friday, he is definitely part of my Latitude highlights.</p><p><br><br></p><p><br><br></p><p>Sophie Bingham, (Feats.) ©</p><hr style="margin:2rem 0;border:none;border-top:1px solid rgba(0,0,0,.1)">
+          <div class="writer-credit hidden" id="writerCredit"><img class="writer-credit-photo" id="writerPhoto" src="" alt="" /><div class="writer-credit-info"><h4 id="writerName"></h4><p id="writerBio"></p></div></div>
     </article>
   </main>
 <footer class="site-footer">
@@ -84,6 +85,31 @@
     </div>
   </footer>
   <script>
+        // Fetch writer credit from API
+    (function() {
+      var slug = window.location.pathname.replace(/\/$/, '').split('/').pop();
+      fetch('https://feats-api.fpvgate-analytics.workers.dev/api/articles/' + slug)
+        .then(function(r) { return r.json(); })
+        .then(function(data) {
+          var a = data.article;
+          if (!a) return;
+          var name = document.getElementById('writerName');
+          var bio = document.getElementById('writerBio');
+          var photo = document.getElementById('writerPhoto');
+          if (name) name.textContent = a.author || 'Feats.';
+          if (bio) bio.textContent = a.writer_bio || '';
+          if (photo && a.writer_photo_url) {
+            photo.src = a.writer_photo_url;
+            photo.alt = a.author || '';
+          }
+          var credit = document.getElementById('writerCredit');
+          if (credit && (a.writer_bio || a.writer_photo_url)) {
+            credit.classList.remove('hidden');
+          }
+        })
+        .catch(function() {});
+    })();
+
     document.getElementById('navToggle').addEventListener('click', function(){
       document.getElementById('navLinks').classList.toggle('open');
     });

@@ -82,6 +82,7 @@
   <img src="https://feats-api.fpvgate-analytics.workers.dev/images/articles/Gig+On+The+Green+%28124+of+184%29.jpg" alt="" loading="lazy">
 </figure>
 <p>Whilst it was annoying to hear from others on loop. Genuinely understanding the “importance of the journey” was something I have begun to engrain. Therefore, being more accepting of the lows and living further in the highs of the process has been a real turning point and reset the pace completely. As they say, slow and steady always wins the race. </p><p>Collaboration is innovation. In an industry where it’s easy to feel alone, it’s always important to remember you never are. Only in the past few months have I really discovered the benefits of collaboration, being able to learn with others not only relieves pressure but allows the opportunity to fail and grow together. As creative people we are all just working it out, so it’s important not to forget that most will be happy to help where they can. </p><p>As much as you may love what you do, engaging in non-creative activities is as effective as switching off after a 9-5. Whilst I am fortunate enough to have friends in the creative circle, I have many who work outside of it which always gives me a nice bit of room to escape the constant chats about “what I have coming up next”. The gym is another core part of my routine, I am no JasmineFitUK but exercise provides me a complete mental reset. Sometimes my best ideas have come from me panting on a treadmill for 30 minutes. As someone who works most weekends, I have tried to make Mondays my self-care sanctuary and have spent some of the last few; Quad Biking, Boating, Biking and Bobsledding (I know quirky). So if it’s a day, or even a few hours if you can don’t underestimate the importance of a walk or quick catch up as a means of releasing serotonin. </p><p>Burnout isn’t permanent, it’s a temporary. And whilst it may feel impossible and long winded it is possible to get to the point of balance over burnout. Creativity is powerful, but being kind to yourself is essential. </p>
+          <div class="writer-credit hidden" id="writerCredit"><img class="writer-credit-photo" id="writerPhoto" src="" alt="" /><div class="writer-credit-info"><h4 id="writerName"></h4><p id="writerBio"></p></div></div>
     </article>
   </main>
 <footer class="site-footer">
@@ -98,6 +99,31 @@
     </div>
   </footer>
   <script>
+        // Fetch writer credit from API
+    (function() {
+      var slug = window.location.pathname.replace(/\/$/, '').split('/').pop();
+      fetch('https://feats-api.fpvgate-analytics.workers.dev/api/articles/' + slug)
+        .then(function(r) { return r.json(); })
+        .then(function(data) {
+          var a = data.article;
+          if (!a) return;
+          var name = document.getElementById('writerName');
+          var bio = document.getElementById('writerBio');
+          var photo = document.getElementById('writerPhoto');
+          if (name) name.textContent = a.author || 'Feats.';
+          if (bio) bio.textContent = a.writer_bio || '';
+          if (photo && a.writer_photo_url) {
+            photo.src = a.writer_photo_url;
+            photo.alt = a.author || '';
+          }
+          var credit = document.getElementById('writerCredit');
+          if (credit && (a.writer_bio || a.writer_photo_url)) {
+            credit.classList.remove('hidden');
+          }
+        })
+        .catch(function() {});
+    })();
+
     document.getElementById('navToggle').addEventListener('click', function(){
       document.getElementById('navLinks').classList.toggle('open');
     });

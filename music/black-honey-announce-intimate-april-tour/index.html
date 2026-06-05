@@ -76,6 +76,7 @@
 <blockquote> <section> <a href="https://www.tiktok.com/@blackhoneyuk?refer=embed" target="_blank" title="@blackhoneyuk">@blackhoneyuk</a> <p>Tag them pls </p> <a href="https://www.tiktok.com/music/original-sound-7488736967088769814?refer=embed" target="_blank" title="♬ original sound - Blackhoneyuk">♬ original sound - Blackhoneyuk</a> </section> </blockquote> 
 </div>
 <p>It’s a clear signal of the band’s interest in supporting emerging voices — and a recognition of how artists are increasingly turning to digital platforms for discovery and connection. With TikTok’s reach and informal tone, the callout has opened the door for a diverse range of acts to submit their work directly to the band.</p><p>While the selection process remains in the band’s hands, this approach places Black Honey in a growing group of artists using social media not just for promotion, but for grassroots collaboration. The initiative offers fans an added layer of anticipation: the chance to witness up-and-coming acts handpicked by the headliners themselves.</p><p>Black Honey’s April shows will likely blend new material with crowd favourites, and this refreshed approach to tour curation shows a band both in touch with their community and keen to challenge the conventions of touring. With “Psycho” setting the tone — both sonically and visually — it’s clear they’re entering 2025 with intent.</p><p><a href="https://www.bandsintown.com/a/1127942-black-honey" target="_blank">Tickets are on sale now.</a></p>
+          <div class="writer-credit hidden" id="writerCredit"><img class="writer-credit-photo" id="writerPhoto" src="" alt="" /><div class="writer-credit-info"><h4 id="writerName"></h4><p id="writerBio"></p></div></div>
     </article>
   </main>
 <footer class="site-footer">
@@ -92,6 +93,31 @@
     </div>
   </footer>
   <script>
+        // Fetch writer credit from API
+    (function() {
+      var slug = window.location.pathname.replace(/\/$/, '').split('/').pop();
+      fetch('https://feats-api.fpvgate-analytics.workers.dev/api/articles/' + slug)
+        .then(function(r) { return r.json(); })
+        .then(function(data) {
+          var a = data.article;
+          if (!a) return;
+          var name = document.getElementById('writerName');
+          var bio = document.getElementById('writerBio');
+          var photo = document.getElementById('writerPhoto');
+          if (name) name.textContent = a.author || 'Feats.';
+          if (bio) bio.textContent = a.writer_bio || '';
+          if (photo && a.writer_photo_url) {
+            photo.src = a.writer_photo_url;
+            photo.alt = a.author || '';
+          }
+          var credit = document.getElementById('writerCredit');
+          if (credit && (a.writer_bio || a.writer_photo_url)) {
+            credit.classList.remove('hidden');
+          }
+        })
+        .catch(function() {});
+    })();
+
     document.getElementById('navToggle').addEventListener('click', function(){
       document.getElementById('navLinks').classList.toggle('open');
     });

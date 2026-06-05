@@ -92,6 +92,7 @@
 <p><strong>Finally, Do you know what a grapefruit is now?</strong></p><p>“<em>No. Famously, I don't know my fruits.</em>”</p>
 <hr class="article-rule">
 <p><strong>What did we take away from the conversation-</strong></p><p>Throughout the entire conversation there were a few key themes that seemed to resonate:</p><ul><li><p><strong>Be true to your creative identity</strong> - don’t chase trends, chase truth.</p></li><li><p><strong>Hook your audience early</strong> - visuals and branding matter just as much as sound.<strong><br/>Build a team when you can - </strong>burnout helps no one.</p></li><li><p><strong>Keep creating - </strong>Always upload. Iterate. Improve.<strong><br/>Stay curious. </strong>Stay silly. And maybe... learn your fruits.</p></li></ul>
+          <div class="writer-credit hidden" id="writerCredit"><img class="writer-credit-photo" id="writerPhoto" src="" alt="" /><div class="writer-credit-info"><h4 id="writerName"></h4><p id="writerBio"></p></div></div>
     </article>
   </main>
 <footer class="site-footer">
@@ -108,6 +109,31 @@
     </div>
   </footer>
   <script>
+        // Fetch writer credit from API
+    (function() {
+      var slug = window.location.pathname.replace(/\/$/, '').split('/').pop();
+      fetch('https://feats-api.fpvgate-analytics.workers.dev/api/articles/' + slug)
+        .then(function(r) { return r.json(); })
+        .then(function(data) {
+          var a = data.article;
+          if (!a) return;
+          var name = document.getElementById('writerName');
+          var bio = document.getElementById('writerBio');
+          var photo = document.getElementById('writerPhoto');
+          if (name) name.textContent = a.author || 'Feats.';
+          if (bio) bio.textContent = a.writer_bio || '';
+          if (photo && a.writer_photo_url) {
+            photo.src = a.writer_photo_url;
+            photo.alt = a.author || '';
+          }
+          var credit = document.getElementById('writerCredit');
+          if (credit && (a.writer_bio || a.writer_photo_url)) {
+            credit.classList.remove('hidden');
+          }
+        })
+        .catch(function() {});
+    })();
+
     document.getElementById('navToggle').addEventListener('click', function(){
       document.getElementById('navLinks').classList.toggle('open');
     });

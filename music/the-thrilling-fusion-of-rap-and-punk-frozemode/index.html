@@ -89,6 +89,7 @@
   <figcaption>Photo Credit: Louis Hitchcock (louishitchphotos/ feats.live)</figcaption>
 </figure>
 <p>Some of the remaining questions of our interview with Frozemode were as follows. </p><p><br/><strong>What Was your favourite song to perform live?</strong> </p><p>That’s such a hard question. It really depends on the night, but STICK DAT is always a lot of fun to perform as it is our last song in the set list. We always do a call and response and then jump into the crowd and finish the song moshing with the audience which feels like a great climax to any show.</p><p><strong>What other festivals are you doing this year ?</strong></p><p>Hidden Door, 2000trees, Burn It Down Festival and more to be announced soon.</p><p><strong>What would be your dream venue to perform at ?</strong> </p><p>There are loads of great venues we’d love to perform at, but when we finally hit Wembley we’ll know our career is where we’ve always wanted it to be.</p><p><strong>Are there thoughts of an album or a debut Ep soon? </strong></p><p>There’s always been that thought in the back of our minds. We’d love to release a project as soon as it seems like the right time. For now we’ll release a few more singles and see where that takes us. There have been a few conversations about the possibility of releasing a project towards the end of the year though, so if the people want it let us know, haha. </p><p><strong>Lastly, if you could feature on another artist's track or get someone else to feature on yours. Who would your dream collaborator be? Dead or alive.</strong> </p><p>Shit….. Skepta, Kendrick Lamar, Idles, Young Thug, MF Doom, Outkast, Radiohead and the list goes on and on.</p><p>Frozemode were definitely one of our -my personal number one-  favourite new discoveries of the weekend, so if you haven’t yet listened to them, go check them out. </p><p><br/>STICK DAT,  now streaming worldwide on all streaming services. </p>
+          <div class="writer-credit hidden" id="writerCredit"><img class="writer-credit-photo" id="writerPhoto" src="" alt="" /><div class="writer-credit-info"><h4 id="writerName"></h4><p id="writerBio"></p></div></div>
     </article>
   </main>
 <footer class="site-footer">
@@ -105,6 +106,31 @@
     </div>
   </footer>
   <script>
+        // Fetch writer credit from API
+    (function() {
+      var slug = window.location.pathname.replace(/\/$/, '').split('/').pop();
+      fetch('https://feats-api.fpvgate-analytics.workers.dev/api/articles/' + slug)
+        .then(function(r) { return r.json(); })
+        .then(function(data) {
+          var a = data.article;
+          if (!a) return;
+          var name = document.getElementById('writerName');
+          var bio = document.getElementById('writerBio');
+          var photo = document.getElementById('writerPhoto');
+          if (name) name.textContent = a.author || 'Feats.';
+          if (bio) bio.textContent = a.writer_bio || '';
+          if (photo && a.writer_photo_url) {
+            photo.src = a.writer_photo_url;
+            photo.alt = a.author || '';
+          }
+          var credit = document.getElementById('writerCredit');
+          if (credit && (a.writer_bio || a.writer_photo_url)) {
+            credit.classList.remove('hidden');
+          }
+        })
+        .catch(function() {});
+    })();
+
     document.getElementById('navToggle').addEventListener('click', function(){
       document.getElementById('navLinks').classList.toggle('open');
     });

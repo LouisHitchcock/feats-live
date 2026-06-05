@@ -151,6 +151,7 @@
   </div>
 </div>
 <p>She has several songs which cut deep, like shells on your feet, like <em>shoreline</em>, another song off her new album, about an old friendship and <em>pond</em>. There’s a sadness we sink into with Chloe, briefly and with fair and tender warning, before we’re swept back into the most cyclical sense of joy that characterises the whole set.</p><p>Rest assured Chloe wouldn’t leave you washed ashore, she'll meet you at high tide, at the shoreline.</p><p>Chloe Moriondo’s latest single <em>Girls with Gills</em>, is out now. You can listen to it <a href="https://youtu.be/E2Pmf3sPBgM?si=lrULL1dizIXur5sq"><span>here</span></a> now.</p>
+          <div class="writer-credit hidden" id="writerCredit"><img class="writer-credit-photo" id="writerPhoto" src="" alt="" /><div class="writer-credit-info"><h4 id="writerName"></h4><p id="writerBio"></p></div></div>
     </article>
   </main>
 <footer class="site-footer">
@@ -167,6 +168,31 @@
     </div>
   </footer>
   <script>
+        // Fetch writer credit from API
+    (function() {
+      var slug = window.location.pathname.replace(/\/$/, '').split('/').pop();
+      fetch('https://feats-api.fpvgate-analytics.workers.dev/api/articles/' + slug)
+        .then(function(r) { return r.json(); })
+        .then(function(data) {
+          var a = data.article;
+          if (!a) return;
+          var name = document.getElementById('writerName');
+          var bio = document.getElementById('writerBio');
+          var photo = document.getElementById('writerPhoto');
+          if (name) name.textContent = a.author || 'Feats.';
+          if (bio) bio.textContent = a.writer_bio || '';
+          if (photo && a.writer_photo_url) {
+            photo.src = a.writer_photo_url;
+            photo.alt = a.author || '';
+          }
+          var credit = document.getElementById('writerCredit');
+          if (credit && (a.writer_bio || a.writer_photo_url)) {
+            credit.classList.remove('hidden');
+          }
+        })
+        .catch(function() {});
+    })();
+
     document.getElementById('navToggle').addEventListener('click', function(){
       document.getElementById('navLinks').classList.toggle('open');
     });

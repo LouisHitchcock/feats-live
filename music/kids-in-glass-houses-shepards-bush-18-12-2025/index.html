@@ -179,6 +179,7 @@
   </div>
 </div>
 <p>The band delivered <a href="https://open.spotify.com/album/5iDzAlSZKZm6QUGrh1JHri?si=mG3fArnXSVaqJ0wuIK7FtA" target="_blank"><em>Dirt</em> </a>with pride and energy, playing the record front to back as part of this anniversary run. Songs that once felt restless and young now carried a living-with-them weight, and moments of intense guitar and vocal energy sat neatly alongside the louder sing-back choruses. For fans who grew up with the record, it was a chance to relive those songs in the place where a lot of those memories first took shape.</p><p>After the album run through, Kids in Glass Houses rounded out the night with a punchy encore drawn from across their wider catalogue, leaving the crowd with a sense of both completeness and excitement. There was no theatrics, just true live connection,  guitars ringing, voices raised, and that sense of a crowd singing together as one.</p><p>Kids in Glass Houses delivered an outstanding night filled with nostalgia, good vibes and rock-solid songs that still stand tall 15 years on. With Shepherd’s Bush Empire marking the penultimate date of the <em>Dirt</em> anniversary run, the show felt both celebratory and reflective, capturing exactly why this record, and this band, continue to matter. If this tour proved anything, it’s that Kids in Glass Houses remain a compelling live force, and if you’re a fan, making it to the next tour should be an easy recommendation.</p>
+          <div class="writer-credit hidden" id="writerCredit"><img class="writer-credit-photo" id="writerPhoto" src="" alt="" /><div class="writer-credit-info"><h4 id="writerName"></h4><p id="writerBio"></p></div></div>
     </article>
   </main>
 <footer class="site-footer">
@@ -195,6 +196,31 @@
     </div>
   </footer>
   <script>
+        // Fetch writer credit from API
+    (function() {
+      var slug = window.location.pathname.replace(/\/$/, '').split('/').pop();
+      fetch('https://feats-api.fpvgate-analytics.workers.dev/api/articles/' + slug)
+        .then(function(r) { return r.json(); })
+        .then(function(data) {
+          var a = data.article;
+          if (!a) return;
+          var name = document.getElementById('writerName');
+          var bio = document.getElementById('writerBio');
+          var photo = document.getElementById('writerPhoto');
+          if (name) name.textContent = a.author || 'Feats.';
+          if (bio) bio.textContent = a.writer_bio || '';
+          if (photo && a.writer_photo_url) {
+            photo.src = a.writer_photo_url;
+            photo.alt = a.author || '';
+          }
+          var credit = document.getElementById('writerCredit');
+          if (credit && (a.writer_bio || a.writer_photo_url)) {
+            credit.classList.remove('hidden');
+          }
+        })
+        .catch(function() {});
+    })();
+
     document.getElementById('navToggle').addEventListener('click', function(){
       document.getElementById('navLinks').classList.toggle('open');
     });

@@ -76,6 +76,7 @@
 <p>Turnstile came up through Baltimore’s hardcore scene and have since grown into one of the most exciting live bands around. Led by frontman Brendan Yates, with Franz Lyons, Daniel Fang, Pat McCrory, and new member Meg Mills, they’ve built a sound that pulls from punk, rock, and beyond—without ever feeling forced.</p><p>Their latest album <a href="https://open.spotify.com/album/52yD51X7yDinwlg6tbCtpP?si=2iCWzimgR9ytHrrUsMyd_Q"><span><strong><em>Never Enough</em></strong></span></a> dropped in June and lands with a sense of focus and ease they’ve grown into over time. Tracks like “<a href="https://open.spotify.com/track/0k9JIBszlCqCa4SpXI353F?si=b474fe75af1e4421"><span><strong>Birds</strong></span></a>” and “<a href="https://open.spotify.com/track/0vbdCsYHg1by09QKOGO4PR?si=1d36d2e8c1af40bf"><span><strong>Seein’ Stars</strong></span></a>” are already slotting into their sets, adding new weight without losing the energy they’re known for. Whether it’s a packed theatre or a huge room like Ally Pally, Turnstile still manages to make the whole place move as one.</p>
 <hr class="article-rule">
 <p>Pre-sale kicks off 10am on Tuesday 2 July, with general sale opening 10am Thursday 4 July. Set a reminder. Sell-outs feel likely.</p>
+          <div class="writer-credit hidden" id="writerCredit"><img class="writer-credit-photo" id="writerPhoto" src="" alt="" /><div class="writer-credit-info"><h4 id="writerName"></h4><p id="writerBio"></p></div></div>
     </article>
   </main>
 <footer class="site-footer">
@@ -92,6 +93,31 @@
     </div>
   </footer>
   <script>
+        // Fetch writer credit from API
+    (function() {
+      var slug = window.location.pathname.replace(/\/$/, '').split('/').pop();
+      fetch('https://feats-api.fpvgate-analytics.workers.dev/api/articles/' + slug)
+        .then(function(r) { return r.json(); })
+        .then(function(data) {
+          var a = data.article;
+          if (!a) return;
+          var name = document.getElementById('writerName');
+          var bio = document.getElementById('writerBio');
+          var photo = document.getElementById('writerPhoto');
+          if (name) name.textContent = a.author || 'Feats.';
+          if (bio) bio.textContent = a.writer_bio || '';
+          if (photo && a.writer_photo_url) {
+            photo.src = a.writer_photo_url;
+            photo.alt = a.author || '';
+          }
+          var credit = document.getElementById('writerCredit');
+          if (credit && (a.writer_bio || a.writer_photo_url)) {
+            credit.classList.remove('hidden');
+          }
+        })
+        .catch(function() {});
+    })();
+
     document.getElementById('navToggle').addEventListener('click', function(){
       document.getElementById('navLinks').classList.toggle('open');
     });

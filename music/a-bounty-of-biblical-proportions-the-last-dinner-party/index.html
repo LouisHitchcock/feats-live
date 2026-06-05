@@ -151,6 +151,7 @@
 <p>The joyous nature wrought in their gigs providing in equal measure, an awareness that sorrow sews its seeds in the fabric of this country, and if we don’t have each other, then really, what do we have? </p><p>As relayed by Abigail during set, the last three years, the amount of people that need food banks/ are food insecure has tripled.</p><p>(The Trussell Trust, 2025)</p>
 <hr class="article-rule">
 <p>For a band that rests their aesthetics in the old and medieval, their sound is fresh and free. Judgement is cast jubilantly on the world’s troubles and their own, cleverly constructed in absurdity and jest. I can’t tell you how fun they are to see live. I can’t tell you how much their sound may draw from the old, but they’re providing something new. Hopefully you’ll see it yourself the next time they tour.</p><p>The Last Dinner Party are set to head to Australia and the EU next, kicking the ‘From The Pyre’ tour off 10th January 2026.</p>
+          <div class="writer-credit hidden" id="writerCredit"><img class="writer-credit-photo" id="writerPhoto" src="" alt="" /><div class="writer-credit-info"><h4 id="writerName"></h4><p id="writerBio"></p></div></div>
     </article>
   </main>
 <footer class="site-footer">
@@ -167,6 +168,31 @@
     </div>
   </footer>
   <script>
+        // Fetch writer credit from API
+    (function() {
+      var slug = window.location.pathname.replace(/\/$/, '').split('/').pop();
+      fetch('https://feats-api.fpvgate-analytics.workers.dev/api/articles/' + slug)
+        .then(function(r) { return r.json(); })
+        .then(function(data) {
+          var a = data.article;
+          if (!a) return;
+          var name = document.getElementById('writerName');
+          var bio = document.getElementById('writerBio');
+          var photo = document.getElementById('writerPhoto');
+          if (name) name.textContent = a.author || 'Feats.';
+          if (bio) bio.textContent = a.writer_bio || '';
+          if (photo && a.writer_photo_url) {
+            photo.src = a.writer_photo_url;
+            photo.alt = a.author || '';
+          }
+          var credit = document.getElementById('writerCredit');
+          if (credit && (a.writer_bio || a.writer_photo_url)) {
+            credit.classList.remove('hidden');
+          }
+        })
+        .catch(function() {});
+    })();
+
     document.getElementById('navToggle').addEventListener('click', function(){
       document.getElementById('navLinks').classList.toggle('open');
     });

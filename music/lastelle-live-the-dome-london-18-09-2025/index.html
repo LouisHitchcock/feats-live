@@ -152,6 +152,7 @@
   </div>
 </div>
 <p>Since forming in 2018, Lastelle have steadily grown their reputation through a series of EPs and a commitment to emotionally charged live shows. Their recent two-part release <a href="https://open.spotify.com/artist/2BB6OyMcGIRSwJQfsmpjKJ?si=1Vjur_9bRNCC6WScvSU6Cw" target="_blank"><em>Exist</em></a> has cemented their place as one of the UK’s most exciting emerging acts, combining expansive soundscapes with raw lyrical honesty. Following their London appearance, the band continue their tour with dates across the UK including Birkenhead, Glasgow, Manchester, Leeds, and Sheffield. With new material now out in the world and more live shows ahead, Lastelle’s momentum is only set to grow.</p>
+          <div class="writer-credit hidden" id="writerCredit"><img class="writer-credit-photo" id="writerPhoto" src="" alt="" /><div class="writer-credit-info"><h4 id="writerName"></h4><p id="writerBio"></p></div></div>
     </article>
   </main>
 <footer class="site-footer">
@@ -168,6 +169,31 @@
     </div>
   </footer>
   <script>
+        // Fetch writer credit from API
+    (function() {
+      var slug = window.location.pathname.replace(/\/$/, '').split('/').pop();
+      fetch('https://feats-api.fpvgate-analytics.workers.dev/api/articles/' + slug)
+        .then(function(r) { return r.json(); })
+        .then(function(data) {
+          var a = data.article;
+          if (!a) return;
+          var name = document.getElementById('writerName');
+          var bio = document.getElementById('writerBio');
+          var photo = document.getElementById('writerPhoto');
+          if (name) name.textContent = a.author || 'Feats.';
+          if (bio) bio.textContent = a.writer_bio || '';
+          if (photo && a.writer_photo_url) {
+            photo.src = a.writer_photo_url;
+            photo.alt = a.author || '';
+          }
+          var credit = document.getElementById('writerCredit');
+          if (credit && (a.writer_bio || a.writer_photo_url)) {
+            credit.classList.remove('hidden');
+          }
+        })
+        .catch(function() {});
+    })();
+
     document.getElementById('navToggle').addEventListener('click', function(){
       document.getElementById('navLinks').classList.toggle('open');
     });

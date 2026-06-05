@@ -84,6 +84,7 @@
   <img src="https://feats-api.fpvgate-analytics.workers.dev/images/articles/WhatsApp+Image+2025-08-20+at+11.40.44_1bdbb49c.jpg" alt="" loading="lazy">
 </figure>
 <p>As I mentioned, I state a lot of this from my own journey. In January, I decided it was time to upskill. Inspired by seeing more female sound engineers in the circuit during DJ sets at the end of 2024, I decided I wanted to train myself, and began a seven month course at the start of the year. </p><p>Sound Engineering being completely brand new to me, I too dealt with the feeling the information was going in one ear and out the other. But doing the course alongside a couple of my best mates, I was reminded that we started our freelance careers in radio production with no knowledge of how to work a radio desk - and years later we are still in our jobs. Again, another reminder of the importance of sticking with being ‘’bad’’, before becoming ‘’good’’. </p><p>So, when I say get comfortable with being uncomfortable, I in no way mean this in a negative light. Rather presenting the recognition, that it’s okay to embrace the badness. And although naturally we all want to do a good job to begin with, trial and error will always remain the most effective strategy to develop our skills. </p>
+          <div class="writer-credit hidden" id="writerCredit"><img class="writer-credit-photo" id="writerPhoto" src="" alt="" /><div class="writer-credit-info"><h4 id="writerName"></h4><p id="writerBio"></p></div></div>
     </article>
   </main>
 <footer class="site-footer">
@@ -100,6 +101,31 @@
     </div>
   </footer>
   <script>
+        // Fetch writer credit from API
+    (function() {
+      var slug = window.location.pathname.replace(/\/$/, '').split('/').pop();
+      fetch('https://feats-api.fpvgate-analytics.workers.dev/api/articles/' + slug)
+        .then(function(r) { return r.json(); })
+        .then(function(data) {
+          var a = data.article;
+          if (!a) return;
+          var name = document.getElementById('writerName');
+          var bio = document.getElementById('writerBio');
+          var photo = document.getElementById('writerPhoto');
+          if (name) name.textContent = a.author || 'Feats.';
+          if (bio) bio.textContent = a.writer_bio || '';
+          if (photo && a.writer_photo_url) {
+            photo.src = a.writer_photo_url;
+            photo.alt = a.author || '';
+          }
+          var credit = document.getElementById('writerCredit');
+          if (credit && (a.writer_bio || a.writer_photo_url)) {
+            credit.classList.remove('hidden');
+          }
+        })
+        .catch(function() {});
+    })();
+
     document.getElementById('navToggle').addEventListener('click', function(){
       document.getElementById('navLinks').classList.toggle('open');
     });

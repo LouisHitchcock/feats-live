@@ -676,6 +676,7 @@
   </div>
 </div>
 <p>Headliners <a href="https://open.spotify.com/artist/66hNnhwIh8EOyOvI1HTtuC?si=2DM5A2cuTDCX9pPKzBq8CQ" target="_blank"><strong>Bulgarelli</strong> </a>closed the night with a well-rounded and thoughtful performance. Blending melodic indie with emo-tinged songwriting, their set moved between slow-builders and more technical, energetic moments. <em>“Sonic Days”</em> and <em>“Crocodile”</em> eased the crowd in, while <em>“Moving”</em> stood out with its shifting rhythms and detailed guitar work. <em>“Santander”</em> and <em>“Club 33”</em> brought some weight to the back end of the set, with the band locking in tightly as things wrapped up. They weren’t flashy, but they were focused — and their sound suited the late-night New Cross atmosphere perfectly.</p><p><strong>To Conclude: <br/></strong>The New Cross Inn did what it does best — crammed five different bands into a single night and let them go for it. It was loud, sweaty, varied, and full of character. For anyone interested in where UK underground music is heading, nights like this still matter.</p>
+          <div class="writer-credit hidden" id="writerCredit"><img class="writer-credit-photo" id="writerPhoto" src="" alt="" /><div class="writer-credit-info"><h4 id="writerName"></h4><p id="writerBio"></p></div></div>
     </article>
   </main>
 <footer class="site-footer">
@@ -692,6 +693,31 @@
     </div>
   </footer>
   <script>
+        // Fetch writer credit from API
+    (function() {
+      var slug = window.location.pathname.replace(/\/$/, '').split('/').pop();
+      fetch('https://feats-api.fpvgate-analytics.workers.dev/api/articles/' + slug)
+        .then(function(r) { return r.json(); })
+        .then(function(data) {
+          var a = data.article;
+          if (!a) return;
+          var name = document.getElementById('writerName');
+          var bio = document.getElementById('writerBio');
+          var photo = document.getElementById('writerPhoto');
+          if (name) name.textContent = a.author || 'Feats.';
+          if (bio) bio.textContent = a.writer_bio || '';
+          if (photo && a.writer_photo_url) {
+            photo.src = a.writer_photo_url;
+            photo.alt = a.author || '';
+          }
+          var credit = document.getElementById('writerCredit');
+          if (credit && (a.writer_bio || a.writer_photo_url)) {
+            credit.classList.remove('hidden');
+          }
+        })
+        .catch(function() {});
+    })();
+
     document.getElementById('navToggle').addEventListener('click', function(){
       document.getElementById('navLinks').classList.toggle('open');
     });

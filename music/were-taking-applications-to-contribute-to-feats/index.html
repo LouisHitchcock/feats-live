@@ -69,6 +69,7 @@
       <div class="meta">Feats &middot; Publication &middot; Feats. &middot; 2025-04-07</div>
       <h1>We&#x27;re Taking Applications to Contribute to Feats!</h1>
       <p>We’re Taking Applications for Journalists and Photographers to Join the FEATS team! Our goal is to shine a light on stories that so often get missed - And we want your help to do so!<br/></p><p>Whatever your skill level is, or where you are in your career, Writer, Journalist, Photographer, Videographer or Host - we want to add you to the Feats. Team!</p><p><br/>If that sounds like something you think you’d like to get involved with! <a href="https://forms.gle/p75gpQKsxJ8xT5LU8"><span>Click here to apply! </span></a>And we will get back to you as soon as possible! </p><p><br/><strong>We look forward to working with you - The Feats. Team!</strong><br/></p>
+          <div class="writer-credit hidden" id="writerCredit"><img class="writer-credit-photo" id="writerPhoto" src="" alt="" /><div class="writer-credit-info"><h4 id="writerName"></h4><p id="writerBio"></p></div></div>
     </article>
   </main>
 <footer class="site-footer">
@@ -85,6 +86,31 @@
     </div>
   </footer>
   <script>
+        // Fetch writer credit from API
+    (function() {
+      var slug = window.location.pathname.replace(/\/$/, '').split('/').pop();
+      fetch('https://feats-api.fpvgate-analytics.workers.dev/api/articles/' + slug)
+        .then(function(r) { return r.json(); })
+        .then(function(data) {
+          var a = data.article;
+          if (!a) return;
+          var name = document.getElementById('writerName');
+          var bio = document.getElementById('writerBio');
+          var photo = document.getElementById('writerPhoto');
+          if (name) name.textContent = a.author || 'Feats.';
+          if (bio) bio.textContent = a.writer_bio || '';
+          if (photo && a.writer_photo_url) {
+            photo.src = a.writer_photo_url;
+            photo.alt = a.author || '';
+          }
+          var credit = document.getElementById('writerCredit');
+          if (credit && (a.writer_bio || a.writer_photo_url)) {
+            credit.classList.remove('hidden');
+          }
+        })
+        .catch(function() {});
+    })();
+
     document.getElementById('navToggle').addEventListener('click', function(){
       document.getElementById('navLinks').classList.toggle('open');
     });

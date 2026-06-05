@@ -75,6 +75,7 @@
   
 
 <p><br>(TOM ELLIS TJEphotos/Feats.)<br><br>NOISY is honest and relatable ‘So What’ is the rejection of the normality, of what everybody expects and doing exactly what you want to do, while ‘young dumb’ is fun it's about experiencing everything while you’re young, making mistakes and having fun nights out. The music video couldn’t have portrayed it better. It was used in FIFA ’22 official soundtrack.</p><p></p><p>NOISY have come a long way and are no strangers to us here at Feats, from playing London's intimate Camden Assembly to playing festivals across the world, 2023 is the year of new music for NOISY with collaborations line up, singles left right and centre, we can’t wait to see what the rest of the year has inshore them! The world is getting NOISY.</p><iframe src="//cdn.embedly.com/widgets/media.html?src=https%3A%2F%2Fwww.youtube.com%2Fembed%2F_FTaT4IdGyQ%3Ffeature%3Doembed&display_name=YouTube&url=https%3A%2F%2Fwww.youtube.com%2Fwatch%3Fv%3D_FTaT4IdGyQ&image=https%3A%2F%2Fi.ytimg.com%2Fvi%2F_FTaT4IdGyQ%2Fhqdefault.jpg&key=61d05c9d54e8455ea7a9677c366be814&type=text%2Fhtml&schema=youtube" width="854" height="480" scrolling="no" title="YouTube embed" frameborder="0" allow="autoplay; fullscreen" allowfullscreen="true"></iframe><p>After a few pints, we caught up with NOISY’s own Cody Mathews after their comedown party, where they offered Nutri-bars, chewing gum, water - anything you need to cure your sore head from Friday nights antics or more pints to keep the party going. </p>
+          <div class="writer-credit hidden" id="writerCredit"><img class="writer-credit-photo" id="writerPhoto" src="" alt="" /><div class="writer-credit-info"><h4 id="writerName"></h4><p id="writerBio"></p></div></div>
     </article>
   </main>
 <footer class="site-footer">
@@ -90,6 +91,31 @@
     </div>
   </footer>
   <script>
+        // Fetch writer credit from API
+    (function() {
+      var slug = window.location.pathname.replace(/\/$/, '').split('/').pop();
+      fetch('https://feats-api.fpvgate-analytics.workers.dev/api/articles/' + slug)
+        .then(function(r) { return r.json(); })
+        .then(function(data) {
+          var a = data.article;
+          if (!a) return;
+          var name = document.getElementById('writerName');
+          var bio = document.getElementById('writerBio');
+          var photo = document.getElementById('writerPhoto');
+          if (name) name.textContent = a.author || 'Feats.';
+          if (bio) bio.textContent = a.writer_bio || '';
+          if (photo && a.writer_photo_url) {
+            photo.src = a.writer_photo_url;
+            photo.alt = a.author || '';
+          }
+          var credit = document.getElementById('writerCredit');
+          if (credit && (a.writer_bio || a.writer_photo_url)) {
+            credit.classList.remove('hidden');
+          }
+        })
+        .catch(function() {});
+    })();
+
     document.getElementById('navToggle').addEventListener('click', function(){
       document.getElementById('navLinks').classList.toggle('open');
     });

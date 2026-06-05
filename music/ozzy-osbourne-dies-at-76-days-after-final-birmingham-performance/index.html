@@ -81,6 +81,7 @@
 <p>Rising to fame in the 1970s as the voice of <a href="https://open.spotify.com/artist/5M52tdBnJaKSvOpJGz8mfZ?si=70AvNO3YSi2LfVqkGowL5Q"><span>Black Sabbath</span></a>, Ozzy helped lay the groundwork for what heavy music would become. Albums like <a href="https://open.spotify.com/album/4kA2o0L3tz9vFKJetiFUJI?si=RDajUE0-QLijNkKkA76jaA"><span><em>Paranoid</em> </span></a>and <a href="https://open.spotify.com/album/24fNwoIq4NLDf4ARJYAFN9?si=dkHL9WjlTbqdRbQ7_KIwcQ"><span><em>Master of Reality</em></span></a> introduced a darker, heavier sound that shifted the landscape of rock music altogether. His solo career, beginning with <a href="https://open.spotify.com/album/4qUMByJ3Pk94BFnCmGaUPS?si=7NRfpSSaR1Ce5x6jtLfO0A"><span><em>Blizzard of Ozz</em></span></a> in 1980, brought a string of enduring tracks that would later define a generation of metal fans.</p><p>Throughout it all, he remained rooted in his origins - both musically and personally. That his final public appearance took place just a few miles from where it all began feels almost poetic. Even as his health declined, his commitment to performing never wavered.</p><p>Ozzy Osbourne’s contribution to music cannot be measured in albums sold or tours completed. His legacy lives in the sound and spirit of every band he inspired, every stage he lit up, and every artist who followed in his path. His passing marks the end of a monumental chapter, but the noise he made will echo for generations.</p>
 <hr class="article-rule">
 <p>Farewell, Ozzy - and thank you for everything.</p>
+          <div class="writer-credit hidden" id="writerCredit"><img class="writer-credit-photo" id="writerPhoto" src="" alt="" /><div class="writer-credit-info"><h4 id="writerName"></h4><p id="writerBio"></p></div></div>
     </article>
   </main>
 <footer class="site-footer">
@@ -97,6 +98,31 @@
     </div>
   </footer>
   <script>
+        // Fetch writer credit from API
+    (function() {
+      var slug = window.location.pathname.replace(/\/$/, '').split('/').pop();
+      fetch('https://feats-api.fpvgate-analytics.workers.dev/api/articles/' + slug)
+        .then(function(r) { return r.json(); })
+        .then(function(data) {
+          var a = data.article;
+          if (!a) return;
+          var name = document.getElementById('writerName');
+          var bio = document.getElementById('writerBio');
+          var photo = document.getElementById('writerPhoto');
+          if (name) name.textContent = a.author || 'Feats.';
+          if (bio) bio.textContent = a.writer_bio || '';
+          if (photo && a.writer_photo_url) {
+            photo.src = a.writer_photo_url;
+            photo.alt = a.author || '';
+          }
+          var credit = document.getElementById('writerCredit');
+          if (credit && (a.writer_bio || a.writer_photo_url)) {
+            credit.classList.remove('hidden');
+          }
+        })
+        .catch(function() {});
+    })();
+
     document.getElementById('navToggle').addEventListener('click', function(){
       document.getElementById('navLinks').classList.toggle('open');
     });

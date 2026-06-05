@@ -79,6 +79,7 @@
   <figcaption>Photo Credit: Tom Ellis (TJEPhotos/Feats)</figcaption>
 </figure>
 <p>Punk-rock duo Snayx controlled our night at Brighton’s own ‘The Village’, an old time pub filled to the brim with kooky and creepy dolls decorated around the room, filled up to the brim, everyone a pint in hand. Beach riot, Brighton’s own kicked it off for us with their electric set. Snayx came in with their high energy riling everyone up, playing the Venga boys’ we like to party and they couldn’t be more right.</p><p>With such an amazing first day by the beach it only made us more excited to kick off the festival today with some of the most anticipated acts such as Hot Wax, Coach Party, VLURE, Grove and Noisy.</p>
+          <div class="writer-credit hidden" id="writerCredit"><img class="writer-credit-photo" id="writerPhoto" src="" alt="" /><div class="writer-credit-info"><h4 id="writerName"></h4><p id="writerBio"></p></div></div>
     </article>
   </main>
 <footer class="site-footer">
@@ -95,6 +96,31 @@
     </div>
   </footer>
   <script>
+        // Fetch writer credit from API
+    (function() {
+      var slug = window.location.pathname.replace(/\/$/, '').split('/').pop();
+      fetch('https://feats-api.fpvgate-analytics.workers.dev/api/articles/' + slug)
+        .then(function(r) { return r.json(); })
+        .then(function(data) {
+          var a = data.article;
+          if (!a) return;
+          var name = document.getElementById('writerName');
+          var bio = document.getElementById('writerBio');
+          var photo = document.getElementById('writerPhoto');
+          if (name) name.textContent = a.author || 'Feats.';
+          if (bio) bio.textContent = a.writer_bio || '';
+          if (photo && a.writer_photo_url) {
+            photo.src = a.writer_photo_url;
+            photo.alt = a.author || '';
+          }
+          var credit = document.getElementById('writerCredit');
+          if (credit && (a.writer_bio || a.writer_photo_url)) {
+            credit.classList.remove('hidden');
+          }
+        })
+        .catch(function() {});
+    })();
+
     document.getElementById('navToggle').addEventListener('click', function(){
       document.getElementById('navLinks').classList.toggle('open');
     });

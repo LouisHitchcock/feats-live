@@ -446,6 +446,7 @@
 <p>This all culminated to the epic finale “<a href="https://open.spotify.com/track/3JTdY9DNqL1RF8V9M0bNaf?si=6e4325b3b2284c6d"><span>Resistance</span></a>”, really leaning into their post-punk style, whilst providing that push of existential dread, the whole song is a wider comment on the way that the world sucks, and how resistance to the status quo, can be empowering and almost joyful. Interestingly, the song structure displayed a clear progression, starting with the never-endingness of the passage of time, moving into the Overwhelming everything and the endless void of dread, then Hope, found in act of resistance, being the answer to feeling a sense of paralysis. With the cover being a clear stance on feminism and fighting against the patriarchy.</p>
 <hr class="article-rule">
 <p>We managed to catch up with the band prior to their set and get a few questions in; <strong>we asked them to introduce themselves, and tell us about who Bureau De Change are:</strong></p><p><em>"Hi, this is Flora, one quarter of Bureau De Change! Your new favourite post punk band. We’ve been a band for about two years now, we met a while ago whilst I was promoting the boys previous band. Then a couple of years later, they reached out and asked if I’d join them on this project, thus, Bureau de Change was born!”</em></p><p><strong>What out of your discography is the song(s) you’re most excited to playing live &amp; why?</strong></p><p><em>“To be honest, the most exciting stuff to play is the unreleased stuff at the moment. We go back into the studio in January and I can’t wait to get an album into the world in 2026. However, I do always love to sing ‘The Potters Wheel’.”</em></p><p><strong>What can we expect coming up for Bureau De Change?<br/><em>“</em></strong><em>A busy year, a couple of tours and shows are on the cards now! Hoping to really jump into the festival circuit this summer!”</em></p><p><strong>What would you’re dream gig/venue/festival be to play in the future and why?</strong></p><p><em>“</em><a href="https://leftofthedial.nl/" target="_blank"><em>Left of the Dial</em></a><em>, (winks) call us!”</em></p><p><br/><strong>At Feats. We’ve always got one penultimate question for our interviews - If you could Feature anyone (dead or alive) on a track who would it be and why?</strong></p><p><em>“The answer for this to me will always be Florence Welch. Especially now they are rocking this new, Nick Cave meets PJ Harvey vibe. Imagine getting some Florence esc wails over some heavy drops, that would be absolutely chefs kiss”</em></p><p><strong>And finally - Where can we find you? (Next gig, social media call out ect.) </strong></p><p><em>“Catch us in Bristol at on Mono on the 1st of November, then catch us all over Europe from the 6th-17th November. All the usual, follow us on Instagram @</em><a href="https://www.instagram.com/bureaudechangeband/"><span><em>bureaudechange</em></span></a><em> band, buy our songs on bandcamp or stream em, contact us via smoke signal.”</em></p>
+          <div class="writer-credit hidden" id="writerCredit"><img class="writer-credit-photo" id="writerPhoto" src="" alt="" /><div class="writer-credit-info"><h4 id="writerName"></h4><p id="writerBio"></p></div></div>
     </article>
   </main>
 <footer class="site-footer">
@@ -462,6 +463,31 @@
     </div>
   </footer>
   <script>
+        // Fetch writer credit from API
+    (function() {
+      var slug = window.location.pathname.replace(/\/$/, '').split('/').pop();
+      fetch('https://feats-api.fpvgate-analytics.workers.dev/api/articles/' + slug)
+        .then(function(r) { return r.json(); })
+        .then(function(data) {
+          var a = data.article;
+          if (!a) return;
+          var name = document.getElementById('writerName');
+          var bio = document.getElementById('writerBio');
+          var photo = document.getElementById('writerPhoto');
+          if (name) name.textContent = a.author || 'Feats.';
+          if (bio) bio.textContent = a.writer_bio || '';
+          if (photo && a.writer_photo_url) {
+            photo.src = a.writer_photo_url;
+            photo.alt = a.author || '';
+          }
+          var credit = document.getElementById('writerCredit');
+          if (credit && (a.writer_bio || a.writer_photo_url)) {
+            credit.classList.remove('hidden');
+          }
+        })
+        .catch(function() {});
+    })();
+
     document.getElementById('navToggle').addEventListener('click', function(){
       document.getElementById('navLinks').classList.toggle('open');
     });

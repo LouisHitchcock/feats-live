@@ -83,6 +83,7 @@
   <figcaption>Tom Ellis (TJEphotos/FEATS)</figcaption>
 </figure>
 <p>Similarly Dan highlighted artists like Lizzo, who launched her latest album whilst live on twitch, feeding back that she enjoyed having that “instant feedback” - in the same vein, Dan talked about DJ’s on twitch, one of the most viewed categories on the platform, he said “DJ’s are about building a community”, which was why it fit so well on a community focused platform. He didn’t mention it in the talk, but Dan Clancy actually streams on Twitch too, often performing DJ sets or live music covers (@DJClancy999 on Twitch).</p><p>To conclude his talk he spoke about the future of Twitch &amp; Live streaming in general, he briefly spoke about the use of AI &amp; how he believes that “Technology provides tools to produce content” for creators, describing a Vtuber which was powered by Ai, trained to produce content based off a specific creators style.<br/><br/>He also briefly spoke about short-form content, saying “TikTok did to YouTube, What YouTube did to TV”, highlighting the disruptive nature that short-form content has forced its way into the mainstream, but highlighting the adaptability that content must have to perform well, the industry is everchanging meaning creators’ content should too. </p><p><br/>By the end of Dan’s talk, I was left with one big question, “If TikTok did to YouTube, what YouTube did to TV, where does Twitch &amp; Long form Live Streaming content fit in with that?”.</p>
+          <div class="writer-credit hidden" id="writerCredit"><img class="writer-credit-photo" id="writerPhoto" src="" alt="" /><div class="writer-credit-info"><h4 id="writerName"></h4><p id="writerBio"></p></div></div>
     </article>
   </main>
 <footer class="site-footer">
@@ -99,6 +100,31 @@
     </div>
   </footer>
   <script>
+        // Fetch writer credit from API
+    (function() {
+      var slug = window.location.pathname.replace(/\/$/, '').split('/').pop();
+      fetch('https://feats-api.fpvgate-analytics.workers.dev/api/articles/' + slug)
+        .then(function(r) { return r.json(); })
+        .then(function(data) {
+          var a = data.article;
+          if (!a) return;
+          var name = document.getElementById('writerName');
+          var bio = document.getElementById('writerBio');
+          var photo = document.getElementById('writerPhoto');
+          if (name) name.textContent = a.author || 'Feats.';
+          if (bio) bio.textContent = a.writer_bio || '';
+          if (photo && a.writer_photo_url) {
+            photo.src = a.writer_photo_url;
+            photo.alt = a.author || '';
+          }
+          var credit = document.getElementById('writerCredit');
+          if (credit && (a.writer_bio || a.writer_photo_url)) {
+            credit.classList.remove('hidden');
+          }
+        })
+        .catch(function() {});
+    })();
+
     document.getElementById('navToggle').addEventListener('click', function(){
       document.getElementById('navLinks').classList.toggle('open');
     });
