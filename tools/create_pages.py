@@ -1,0 +1,105 @@
+import os
+
+BASE = r'C:\Users\Louis\Desktop\Code\Feats'
+
+H = '''<header class="site-header">
+    <a href="/feats-live/" class="site-logo">Feats.</a>
+    <button class="nav-toggle" id="navToggle" aria-label="Toggle menu">&#9776;</button>
+    <nav class="nav-links" id="navLinks">
+      <a href="/feats-live/music">Music</a>
+      <a href="/feats-live/about">About</a>
+      <a href="/feats-live/contact">Contact</a>
+    </nav>
+  </header>'''
+
+F = '''<footer class="site-footer">
+    <div class="brand">Feats.</div>
+    <div class="info"><a href="mailto:Info@Feats.Live">Info@Feats.Live</a> | <a href="https://www.instagram.com/feats.live/" target="_blank">Instagram</a> | <a href="https://www.youtube.com/@FeatsLive" target="_blank">YouTube</a></div>
+    <div class="info">Brighton and London Based</div>
+    <div class="info">&copy; 2026 FEATS LIVE CIC | Company Number: 16660624</div>
+    <div class="footer-links">
+      <a href="/feats-live/youth-development">Youth Development Programme</a>
+      <a href="/feats-live/s/Feats-Contributor-Code-of-Conduct-V3.pdf">Contributor Code of Conduct</a>
+      <a href="/feats-live/privacy-policy">Privacy Policy</a>
+      <a href="/feats-live/sitemap.xml">Sitemap</a>
+    </div>
+  </footer>'''
+
+J = '<script>document.getElementById("navToggle").addEventListener("click",function(){document.getElementById("navLinks").classList.toggle("open");});</script>'
+
+PRE = '''<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Work+Sans:ital,wght@0,500;0,700;1,500;1,700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/feats-live/css/style.css">
+  <link rel="icon" type="image/x-icon" href="/feats-live/favicon.ico">'''
+
+MAIN_OPEN = '<main class="page-wrap"><section class="section">'
+MAIN_CLOSE = '</section></main>'
+
+# Youth Development
+yd_title = '<title>Youth Development Programme &mdash; Feats.</title><meta name="description" content="Feats. Professional Development Programme helps young creatives kickstart careers with paid, published opportunities.">'
+yd_content = '''
+      <h1>Feats. Professional Development Programme</h1>
+      <p>Helping young creatives kickstart their careers with paid, published opportunities.</p>
+      <p><a href="mailto:Feats.Live@gmail.com?subject=Feats.%20Professional%20Development%20Programme" class="btn">Get Involved</a></p>
+      <h2>What we Offer:</h2>
+      <p><strong>Mentorship</strong> &mdash; One-to-one support from experienced editors and creatives to help build your confidence, skills, and career path.</p>
+      <p><strong>Paid Opportunities</strong> &mdash; We commission and pay you for your work, valuing your time, talent, and contribution to the industry.</p>
+      <p><strong>Published Work</strong> &mdash; Get your articles, reviews, and photos professionally published on Feats. Building a real-world portfolio you can be proud of.</p>
+      <p><strong>Industry Access</strong> &mdash; We handle accreditation and access so you can cover live gigs, festivals, and emerging artists from the front row.</p>
+      <p><strong>Admin Help &amp; Templates</strong> &mdash; We make the admin easy, with ready-to-use templates for invoices, licensing, and article writing.</p>
+      <h2>Who Are We</h2>
+      <p>We are an independent non-profit music publication focusing on upcoming and talented artists. We work with young professionals to guide, mentor and develop their professional skills as a stepping stone into long-term creative careers.</p>
+      <h2>What We Do</h2>
+      <p>We commission young creative professionals to cover stories within the music industry. This lowers the barrier of entry into creative industries by providing paid, real-world experience and a platform for published work.</p>
+      <h2>How We Work for Creatives</h2>
+      <p>Our contributors pitch coverage of gigs/releases, we arrange accreditation and logistics. We help with article framing, invoicing, licensing, and copyrights. Once completed, our team does a final editor pass before publishing with full credit to the creative.</p>
+      <h2>How We Work for Artists</h2>
+      <p>We encourage artists to reach out to us directly. We work with our contributors to arrange coverage, research the artist, and often liaise directly with them or their management for interviews. After publication, we ensure the artist is aware of our coverage.</p>
+      <h2>Why We Do It</h2>
+      <p>Feats. was founded to provide access and build professional careers for its founding members while highlighting artists who hadn't reached mainstream attention. Since then, the original team has used Feats. as a stepping stone into successful freelance careers. We recognise that paid experience is critical for young professionals who cannot afford unpaid work experience.</p>'''
+
+yd_html = PRE + yd_title + '</head><body>' + H + MAIN_OPEN + yd_content + MAIN_CLOSE + F + J + '</body></html>'
+
+with open(os.path.join(BASE, 'youth-development', 'index.html'), 'w', encoding='utf-8') as f:
+    f.write(yd_html)
+print('Written: youth-development/index.html')
+
+# Privacy Policy
+pp_title = '<title>Privacy Policy &mdash; Feats.</title><meta name="description" content="Feats. Privacy Policy.">'
+pp_content = '''
+      <h1>Privacy Policy</h1>
+      <p><strong>Last updated: January 2022</strong></p>
+      <p>FEATS LIVE CIC (&quot;we&quot;, &quot;our&quot;, &quot;us&quot;) is committed to protecting your privacy.</p>
+      <h2>1. Information We Collect</h2>
+      <p>We may collect your name, email address, IP address, browser type, and information about your visit to our site.</p>
+      <h2>2. How We Use Your Information</h2>
+      <p>We use your information to respond to enquiries, send requested information, improve our website, and comply with legal obligations. We never use your data for marketing without explicit consent.</p>
+      <h2>3. Data Storage &amp; Security</h2>
+      <p>Your data is stored securely and retained only as long as necessary to fulfil the purposes for which it was collected.</p>
+      <h2>4. Your Rights</h2>
+      <p>You have the right to access, correct, delete, or transfer your personal data. Contact us at Info@Feats.Live to exercise these rights.</p>
+      <h2>5. Third Parties</h2>
+      <p>We do not sell your data. We may share data with service providers who help operate our site, bound by confidentiality obligations.</p>
+      <h2>6. Contact</h2>
+      <p>For questions about this policy: <a href="mailto:Info@Feats.Live">Info@Feats.Live</a></p>'''
+
+pp_html = PRE + pp_title + '</head><body>' + H + MAIN_OPEN + pp_content + MAIN_CLOSE + F + J + '</body></html>'
+
+with open(os.path.join(BASE, 'privacy-policy', 'index.html'), 'w', encoding='utf-8') as f:
+    f.write(pp_html)
+print('Written: privacy-policy/index.html')
+
+# Also delete temp files
+import os as _os
+for fn in ['write_pages.py', 'write_yd.py', 'write_all_pages.py', 'tmp_header.html', 'yd_b64.txt']:
+    fp = os.path.join(BASE, fn)
+    if os.path.exists(fp):
+        os.remove(fp)
+
+print('Done!')
