@@ -110,6 +110,12 @@ body{font-family:'Work Sans',-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,
 .article-preview-frame{width:100%;height:440px;border:1px solid #ddd;background:#fff}
 .article-empty-state{padding:2rem 1rem;color:#777;text-align:center;font-size:.85rem;text-transform:uppercase;letter-spacing:1px}
 
+.writer-photo-upload{display:flex;flex-direction:column;gap:.75rem}
+.writer-photo-upload input[type="file"]{font-size:.85rem;font-family:'Work Sans',sans-serif}
+.writer-photo-current{display:flex;align-items:center;gap:.75rem}
+.writer-photo-current img{width:60px;height:60px;border-radius:50%;object-fit:cover;border:1px solid #eee}
+.writer-photo-upload .btn-sm{font-size:.7rem;padding:.25rem .55rem}
+
 /* Dark mode toggle */
 .dark-toggle{display:flex;align-items:center;gap:.5rem;padding:.5rem .75rem;margin-bottom:.35rem;font-size:.75rem;text-transform:uppercase;letter-spacing:1px;color:rgba(255,255,255,.5);cursor:pointer;user-select:none;transition:all .2s}
 .dark-toggle:hover{color:rgba(255,255,255,.8)}
@@ -739,33 +745,52 @@ function loadWriters() {
 }
 
 function showNewWriter() {
-  openModal('<h2>Add Writer</h2><label>Name</label><input id="writerName"><label>Photo URL</label><input id="writerPhoto" placeholder="https://..."><label>Bio</label><textarea id="writerBio"></textarea><div class="modal-footer"><button class="btn" onclick="closeModal()">Cancel</button><button class="btn btn-primary" onclick="saveNewWriter()">Save</button></div>');
+  openModal('<h2>Add Writer</h2><label>Name</label><input id="writerName"><label>Photo</label><div class="writer-photo-upload"><input type="file" id="writerPhotoFile" accept="image/*"><div id="writerPhotoPreview"></div></div><label>Bio</label><textarea id="writerBio"></textarea><div class="modal-footer"><button class="btn" onclick="closeModal()">Cancel</button><button class="btn btn-primary" onclick="saveNewWriter()">Save</button></div>');
 }
 
 function saveNewWriter() {
-  var body = {
-    name: document.getElementById('writerName').value,
-    photo_url: document.getElementById('writerPhoto').value,
-    bio: document.getElementById('writerBio').value
-  };
-  if (!body.name) { alert('Name required'); return; }
-  apiPost('/admin/writers', body).then(function() { closeModal(); loadWriters(); }).catch(function(e) { alert('Error: ' + e.message); });
+  var file = document.getElementById('writerPhotoFile').files[0];
+  var name = document.getElementById('writerName').value;
+  var bio = document.getElementById('writerBio').value;
+  if (!name) { alert('Name required'); return; }
+
+  function doSave(photoUrl) {
+    apiPost('/admin/writers', { name: name, photo_url: photoUrl || '', bio: bio })
+      .then(function() { closeModal(); loadWriters(); })
+      .catch(function(e) { alert('Error: ' + e.message); });
+  }
+
+  if (file) {
+    uploadImage(file).then(doSave).catch(function(e) { alert('Upload failed: ' + e.message); });
+  } else {
+    doSave('');
+  }
 }
 
 function editWriter(id) {
   apiGet('/admin/writers/' + id).then(function(d) {
     var w = d.writer;
-    openModal('<h2>Edit Writer</h2><label>Name</label><input id="writerName" value="' + esc(w.name) + '"><label>Photo URL</label><input id="writerPhoto" value="' + esc(w.photo_url || '') + '"><label>Bio</label><textarea id="writerBio">' + esc(w.bio || '') + '</textarea><div class="modal-footer"><button class="btn" onclick="closeModal()">Cancel</button><button class="btn btn-primary" onclick="saveEditWriter(' + id + ')">Save</button></div>');
+    openModal('<h2>Edit Writer</h2><label>Name</label><input id="writerName" value="' + esc(w.name) + '"><label>Photo</label><div class="writer-photo-upload">' + (w.photo_url ? '<div class="writer-photo-current"><img src="' + esc(w.photo_url) + '"><button class="btn btn-sm btn-danger" onclick="removeWriterPhoto(' + id + ')">Remove Photo</button></div>' : '') + '<input type="file" id="writerPhotoFile" accept="image/*"><div id="writerPhotoPreview"></div></div><label>Bio</label><textarea id="writerBio">' + esc(w.bio || '') + '</textarea><div class="modal-footer"><button class="btn" onclick="closeModal()">Cancel</button><button class="btn btn-primary" onclick="saveEditWriter(' + id + ')">Save</button></div>');
   });
 }
 
 function saveEditWriter(id) {
-  var body = {
-    name: document.getElementById('writerName').value,
-    photo_url: document.getElementById('writerPhoto').value,
-    bio: document.getElementById('writerBio').value
-  };
-  apiPut('/admin/writers/' + id, body).then(function() { closeModal(); loadWriters(); }).catch(function(e) { alert('Error: ' + e.message); });
+  var file = document.getElementById('writerPhotoFile').files[0];
+  var name = document.getElementById('writerName').value;
+  var bio = document.getElementById('writerBio').value;
+  if (!name) { alert('Name required'); return; }
+
+  function doSave(photoUrl) {
+    apiPut('/admin/writers/' + id, { name: name, photo_url: photoUrl || '', bio: bio })
+      .then(function() { closeModal(); loadWriters(); })
+      .catch(function(e) { alert('Error: ' + e.message); });
+  }
+
+  if (file) {
+    uploadImage(file).then(doSave).catch(function(e) { alert('Upload failed: ' + e.message); });
+  } else {
+    doSave(null);
+  }
 }
 
 function deleteWriter(id) {
@@ -852,6 +877,35 @@ function toggleDarkMode(enabled) {
     if (cb) cb.checked = true;
   }
 })();
+
+// ===== UTILITIES =====
+function uploadImage(file) {
+  return new Promise(function(resolve, reject) {
+    var ext = file.name.split('.').pop().toLowerCase();
+    var key = 'uploads/' + Date.now() + '-' + Math.random().toString(36).slice(2,8) + '.' + ext;
+    var reader = new FileReader();
+    reader.onload = function(e) {
+      var contentType = ext === 'png' ? 'image/png' : 'image/jpeg';
+      fetch(API + '/images/' + key, {
+        method: 'PUT',
+        headers: Object.assign(apiHeaders(), { 'Content-Type': contentType }),
+        body: new Blob([e.target.result], { type: contentType })
+      }).then(function(r) {
+        if (!r.ok) throw new Error('Upload failed: ' + r.status);
+        resolve(API + '/images/' + key);
+      }).catch(reject);
+    };
+    reader.onerror = reject;
+    reader.readAsArrayBuffer(file);
+  });
+}
+
+function removeWriterPhoto(id) {
+  if (!confirm('Remove this writer\'s photo?')) return;
+  apiPut('/admin/writers/' + id, { name: document.getElementById('writerName').value, photo_url: '', bio: document.getElementById('writerBio').value })
+    .then(function() { closeModal(); loadWriters(); })
+    .catch(function(e) { alert('Error: ' + e.message); });
+}
 
 function esc(s) { return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;'); }
 
