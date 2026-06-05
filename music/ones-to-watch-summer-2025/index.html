@@ -48,7 +48,7 @@
 <body>
 <header class="site-header">
     <a href="/" class="site-logo">Feats.</a>
-    <button class="nav-toggle" id="navToggle" aria-label="Toggle menu">&#9776;</button>
+    <button class="nav-toggle" id="navToggle" aria-label="Toggle menu"><span></span><span></span><span></span></button>
     <nav class="nav-links" id="navLinks">
       <a href="/music" class="active" aria-current="page">Music</a>
       <a href="/about">About</a>
@@ -123,7 +123,9 @@
     })();
 
     document.getElementById('navToggle').addEventListener('click', function(){
+      this.classList.toggle('open');
       document.getElementById('navLinks').classList.toggle('open');
+      document.body.style.overflow = document.getElementById('navLinks').classList.contains('open') ? 'hidden' : '';
     });
 
     (function(){
