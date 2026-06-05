@@ -1,23 +1,5 @@
 [
   {
-    "url_id": "about",
-    "title": "About",
-    "excerpt": "",
-    "author": "Feats.",
-    "publish_date": "2026-06-05 14:42:45",
-    "categories": "",
-    "cover_url": "https://feats-api.fpvgate-analytics.workers.dev/images/articles/DSC05000.jpg"
-  },
-  {
-    "url_id": "contact",
-    "title": "Contact",
-    "excerpt": "",
-    "author": "Feats.",
-    "publish_date": "2026-06-05 14:42:45",
-    "categories": "",
-    "cover_url": "/images/hero-3.jpg"
-  },
-  {
     "url_id": "work-v2",
     "title": "Work V2",
     "excerpt": "",
@@ -25,24 +7,6 @@
     "publish_date": "2026-06-05 14:42:45",
     "categories": "",
     "cover_url": "https://feats-api.fpvgate-analytics.workers.dev/images/articles/Copy+of+DSC04713_3.jpg"
-  },
-  {
-    "url_id": "privacy-policy",
-    "title": "Privacy Policy",
-    "excerpt": "",
-    "author": "Feats.",
-    "publish_date": "2026-06-05 14:42:45",
-    "categories": "",
-    "cover_url": "/images/hero-3.jpg"
-  },
-  {
-    "url_id": "youth-development",
-    "title": "Youth Development",
-    "excerpt": "",
-    "author": "Feats.",
-    "publish_date": "2026-06-05 14:42:45",
-    "categories": "",
-    "cover_url": "https://feats-api.fpvgate-analytics.workers.dev/images/articles/bts1%281%29.jpg"
   },
   {
     "url_id": "member-site-homepage-1",
