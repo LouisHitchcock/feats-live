@@ -1,0 +1,25 @@
+const urls = [
+  'kids-in-glass-houses-shepards-bush-18-12-2025','a-bounty-of-biblical-proportions-the-last-dinner-party','james-marriot-brighton-dome-19-november-2025','turnstile-live-depot-mayfield-mancehster-03-11-2025','ones-to-watch-bureau-de-change','chloe-moriondo-live-yes-pink-room-20-09-2025','kymara-closes-out-4-week-residency-at-casablancas-brighton','lastelle-live-the-dome-london-18-09-2025','high-regard-live-underworld-camden-11-09-2025','trash-boat-live-underworld-camden-12-09-2025','feats-ones-to-watch-2025-festival-round-up','comfortable-being-uncomfortable-the-failure-within-success','twenty-one-pilots-breach-tour-will-it-skip-the-uk-eu','hotwax-talk-debut-album-amp-nova-twins-tour-before-their-latitude-2025-set','babys-first-latitude-a-freelancers-fruitful-frolic-to-the-forest','stratford-rise-at-the-windmill-31-07-2025','wasp-live-the-lcr-norwich-20-07-2025','wolf-mother-live-o2-ritz-30-07-2025','death-from-above-1979-live-camden-electric-ballroom-20072025','importance-of-balance-over-burnout','ozzy-osbourne-dies-at-76-days-after-final-birmingham-performance','star-print-clad-greendoor-interview-14-07-2025','cyan-kicks-live-adrian-flux-waterfront-studio-07-07-2025','the-state-of-grass-roots-venues-2025-3-months-follow-up','big-special-surprise-drop-national-average-album','turnstile-announce-uk-dates-for-autumn-tour','just-upload-max-foshs-advice-for-young-creatives-sxsw-london','faetooth-live-norwich-arts-centre-19-06-2025','the-chainsmokers-live-the-cause-london-05-06-2025','coco-and-the-lost-live-sxsw-london-05-06-2025','snake-eyes-live-adrian-flux-waterfront-studio-11-06-2025','sxsw-london-a-collection-of-high-networth-individuals','ones-to-watch-sunday-best-interview-at-sxsw-london','sxsw-london-2025-whose-ai-is-it-anyway','final-dose-voodoo-daddys-showroom-05-06-2025','dan-clancys-the-live-streaming-economy-sxsw-london-2025','sweet-pill-live-downstairs-at-the-dome-28-05-2025','gender-crisis-at-sxsw-london-02-06-2025','heart-attack-man-live-underworld-london-27-05-2025','sunday-best-at-sxsw-london-02-06-2025','when-rivers-meet-live-adrian-flux-waterfront-29-05-2025','zimmer90-live-gorilla-manchester-09-05-2025','sxsw-london-2025-ones-to-watch','as-it-is-live-green-door-store-22-05-2025','twenty-one-pilots-clancy-tour-review-recap','melin-meylin-live-norwich-arts-centre-09-05-2025','elvana-live-at-o2-brixton-09-05-2025','south-of-salem-roxoff-festival-04-05-2025','big-special-live-oslo-hackney-05-05-25','pet-needs-the-garage-04-05-25','orchads-the-moth-club-02-04-2025','ten-bands-to-check-out-at-slam-dunk-festival-this-year','bulgarelli-at-new-cross-inn-28-04-2025','ocean-colour-scene-and-kula-shaker-at-the-lcr-29-04-2025','feats-guide-to-the-great-escape-2025-your-next-favourite-artists','bloodstock-2025-heavy-hitters-and-hidden-gems','christian-loffler-live-at-chalk-brighton','from-gigs-to-reels-how-artists-are-adapting-to-the-cinematic-trend','lunch-reveal-uk-dates-to-preview-upcoming-ep-and-cliffhanger','black-honey-announce-intimate-april-tour','ones-to-watch-summer-2025','truck-festival-2025-indie-spirit-with-a-big-heart','the-state-of-grassroots-venues-in-2025','reading-festival-2025-ones-to-watch','latitude-2025-ones-to-watch','dont-stand-idles','friday-at-2000trees-2023','thursdayat2000trees23','yonakatge','noisy-live-tge','the-thrilling-fusion-of-rap-and-punk-frozemode','sad-night-dynamic-tge23','saturday-at-tge23','snayxliveat-tge','friday-at-tge','hotwaxtge23','thursdays-highlights-at-the-great-escape-23','the-great-escape-day-1','don-broco-sell-out-alexandra-palace-alongside-the-legendary-papa-roach-heres-how-it-went','the-great-escape-announces-150-new-names-for-the-festival-in-may','thegreatescape22','youmeatsixtruthdecayatalexandrapalace','eden-live-at-koko','february-releases-we-think-you-should-check-out-feats-february-feature','my-hi-skintight','hotmilkatkoko','eurovision-winners-maneskin-release-their-new-album-rush-and-prove-to-the-world-that-theyre-here-to-stay','vlure-set-us-free-as-we-follow-them-through-the-release-of-their-new-single-cut-itnbsp','lovejoy-liveatleeds','risefest22','letseatgrandmatalatitude','cassyette-is-our-artist-of-the-year-so-far-and-this-is-why-we-think-you-should-keep-a-close-eye-on-her','nova-twins-at-latitude','courting-set-to-release-their-debut-album-guitar-music-courting-at-latitude','lynks-at-latitude','rebecca-black-tge-2022','lewis-capaldi-latitude-2022','alfie-templeman-latitude-2022','cassyette-teases-newmusic'
+];
+
+const seen = {};
+let i = 0;
+
+function next() {
+  if (i >= urls.length) { console.log(JSON.stringify(seen, null, 2)); return; }
+  const slug = urls[i++];
+  fetch('https://feats.live/music/' + slug)
+    .then(function(r) { return r.text(); })
+    .then(function(html) {
+      var re = /author-avatar[^<]*data-src="([^"]+)"[^>]*>[\s\S]*?author-name">([^<]+)/;
+      var m = html.match(re);
+      if (m) {
+        var name = m[2].trim();
+        var url = m[1].replace(/&amp;/g, '&');
+        if (!seen[name]) { seen[name] = url; }
+      }
+    })
+    .catch(function() {})
+    .finally(function() { setTimeout(next, 100); });
+}
+next();
