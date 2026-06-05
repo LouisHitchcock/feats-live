@@ -1,0 +1,408 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Feats Admin</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif}
+body{background:#f5f5f5;color:#1a1a1a}
+.login-page{display:flex;align-items:center;justify-content:center;min-height:100vh;background:linear-gradient(135deg,#667eea,#764ba2)}
+.login-card{background:white;padding:3rem;border-radius:16px;box-shadow:0 20px 60px rgba(0,0,0,.2);text-align:center;max-width:400px;width:90%}
+.login-card h1{font-size:1.8rem;margin-bottom:.5rem}
+.login-card p{color:#666;margin-bottom:2rem;font-size:.95rem}
+.google-btn{display:inline-flex;align-items:center;gap:.75rem;padding:.85rem 2rem;border:1px solid #ddd;border-radius:8px;background:white;color:#333;font-size:1rem;font-weight:500;cursor:pointer;transition:all .2s}
+.google-btn:hover{background:#f8f8f8;box-shadow:0 2px 8px rgba(0,0,0,.1)}
+.google-btn svg{width:20px;height:20px}
+
+.admin-layout{display:none;min-height:100vh}
+.admin-layout.active{display:flex}
+.sidebar{width:240px;background:#1a1a2e;color:white;padding:1.5rem;display:flex;flex-direction:column;flex-shrink:0}
+.sidebar h2{font-size:1.2rem;margin-bottom:2rem;opacity:.9}
+.sidebar nav{display:flex;flex-direction:column;gap:.25rem;flex:1}
+.sidebar nav a{padding:.65rem .85rem;border-radius:6px;color:rgba(255,255,255,.7);text-decoration:none;font-size:.9rem;transition:all .2s;cursor:pointer}
+.sidebar nav a:hover{background:rgba(255,255,255,.1);color:white}
+.sidebar nav a.active{background:rgba(255,255,255,.15);color:white;font-weight:600}
+.sidebar .user-info{margin-top:auto;padding-top:1rem;border-top:1px solid rgba(255,255,255,.1);font-size:.8rem;opacity:.7}
+.main{flex:1;padding:2rem;overflow-y:auto;max-height:100vh}
+.main h1{font-size:1.5rem;margin-bottom:1.5rem}
+
+.stats-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:1rem;margin-bottom:2rem}
+.stat-card{background:white;padding:1.25rem;border-radius:10px;box-shadow:0 1px 4px rgba(0,0,0,.06)}
+.stat-card h3{font-size:.8rem;text-transform:uppercase;letter-spacing:1px;color:#888;margin-bottom:.5rem}
+.stat-card .value{font-size:1.8rem;font-weight:700}
+.stat-card .sub{font-size:.8rem;color:#888;margin-top:.25rem}
+
+.card{background:white;padding:1.5rem;border-radius:10px;box-shadow:0 1px 4px rgba(0,0,0,.06);margin-bottom:1rem}
+.card table{width:100%;border-collapse:collapse;font-size:.9rem}
+.card th{text-align:left;padding:.75rem .5rem;border-bottom:2px solid #eee;color:#888;font-weight:600;font-size:.8rem;text-transform:uppercase;letter-spacing:.5px}
+.card td{padding:.75rem .5rem;border-bottom:1px solid #f0f0f0}
+.card tr:last-child td{border-bottom:none}
+.card tr:hover td{background:#fafafa}
+
+.btn{padding:.5rem 1rem;border:none;border-radius:6px;cursor:pointer;font-size:.85rem;font-weight:500;transition:all .2s}
+.btn-primary{background:#667eea;color:white}
+.btn-primary:hover{background:#5a6fd6}
+.btn-danger{background:#e74c3c;color:white}
+.btn-danger:hover{background:#c0392b}
+.btn-sm{padding:.35rem .65rem;font-size:.8rem}
+
+.modal{display:none;position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,.5);align-items:center;justify-content:center;z-index:1000}
+.modal.active{display:flex}
+.modal-content{background:white;border-radius:12px;padding:2rem;max-width:600px;width:90%;max-height:80vh;overflow-y:auto}
+.modal-content h2{margin-bottom:1rem}
+.modal-content label{display:block;font-size:.85rem;font-weight:600;margin-bottom:.35rem;margin-top:1rem}
+.modal-content input,.modal-content textarea,.modal-content select{width:100%;padding:.6rem .75rem;border:1px solid #ddd;border-radius:6px;font-size:.9rem;margin-bottom:.25rem}
+.modal-content textarea{min-height:100px;resize:vertical}
+.modal-footer{display:flex;gap:.75rem;justify-content:flex-end;margin-top:1.5rem}
+
+.tab-content{display:none}
+.tab-content.active{display:block}
+
+.status-published{color:#27ae60;font-weight:600;font-size:.8rem}
+.status-draft{color:#f39c12;font-weight:600;font-size:.8rem}
+
+.badge{display:inline-block;padding:.2rem .5rem;border-radius:20px;font-size:.75rem;font-weight:600}
+.badge-admin{background:#e8e8ff;color:#667eea}
+.badge-superadmin{background:#ffe8e8;color:#e74c3c}
+
+@media(max-width:768px){.sidebar{width:60px;padding:.75rem}.sidebar h2,.sidebar nav a span,.sidebar .user-info{display:none}.main{padding:1rem}.stats-grid{grid-template-columns:repeat(2,1fr)}}
+</style>
+</head>
+<body>
+<div class="login-page" id="loginPage">
+  <div class="login-card">
+    <h1>Feats Admin</h1>
+    <p>Sign in with your Google account to manage the site</p>
+    <button class="google-btn" onclick="loginWithGoogle()">
+      <svg viewBox="0 0 24 24"><path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92a5.06 5.06 0 0 1-2.2 3.32v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.1z"/><path fill="#34A853" d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"/><path fill="#FBBC05" d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z"/><path fill="#EA4335" d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z"/></svg>
+      Sign in with Google
+    </button>
+  </div>
+</div>
+
+<div class="admin-layout" id="adminLayout">
+  <aside class="sidebar">
+    <h2>Feats Admin</h2>
+    <nav>
+      <a class="active" onclick="showTab('dashboard')"><span>📊 Dashboard</span></a>
+      <a onclick="showTab('articles')"><span>📝 Articles</span></a>
+      <a onclick="showTab('writers')"><span>✍️ Writers</span></a>
+      <a onclick="showTab('users')"><span>👥 Admin Users</span></a>
+      <a onclick="showTab('analytics')"><span>📈 Analytics</span></a>
+      <a onclick="showTab('tech')"><span>⚙️ Technical</span></a>
+    </nav>
+    <div class="user-info" id="userInfo"></div>
+  </aside>
+  <main class="main" id="mainContent">
+    <!-- Content loaded dynamically -->
+  </main>
+</div>
+
+<div class="modal" id="modal">
+  <div class="modal-content" id="modalContent"></div>
+</div>
+
+<script>
+// ===== STATE =====
+var API = 'https://feats-live.louishitchcock.xyz';
+var currentUser = null;
+
+// ===== AUTH =====
+function loginWithGoogle() {
+  window.location.href = API + '/auth/google';
+}
+
+function checkAuth() {
+  var token = localStorage.getItem('feats_admin_token');
+  if (!token) return;
+  fetch(API + '/admin/me', { headers: { 'Authorization': 'Bearer ' + token } })
+    .then(function(r) { if (!r.ok) throw new Error(); return r.json(); })
+    .then(function(user) {
+      currentUser = user;
+      document.getElementById('loginPage').style.display = 'none';
+      document.getElementById('adminLayout').classList.add('active');
+      document.getElementById('userInfo').textContent = user.name + ' (' + user.role + ')';
+      showTab('dashboard');
+    })
+    .catch(function() { localStorage.removeItem('feats_admin_token'); });
+}
+
+// Extract token from URL after OAuth redirect
+var params = new URLSearchParams(window.location.search);
+if (params.get('token')) {
+  localStorage.setItem('feats_admin_token', params.get('token'));
+  window.history.replaceState({}, document.title, '/admin');
+  checkAuth();
+} else {
+  checkAuth();
+}
+
+// ===== TABS =====
+function showTab(name) {
+  document.querySelectorAll('.sidebar nav a').forEach(function(a) { a.classList.remove('active'); });
+  event.target.classList.add('active');
+
+  switch(name) {
+    case 'dashboard': loadDashboard(); break;
+    case 'articles': loadArticles(); break;
+    case 'writers': loadWriters(); break;
+    case 'users': loadUsers(); break;
+    case 'analytics': loadAnalytics(); break;
+    case 'tech': loadTech(); break;
+  }
+}
+
+// ===== API HELPERS =====
+function apiHeaders() {
+  var h = { 'Content-Type': 'application/json' };
+  var token = localStorage.getItem('feats_admin_token');
+  if (token) h['Authorization'] = 'Bearer ' + token;
+  return h;
+}
+
+function apiGet(path) {
+  return fetch(API + path, { headers: apiHeaders() }).then(function(r) {
+    if (r.status === 401) { localStorage.removeItem('feats_admin_token'); window.location.reload(); }
+    if (!r.ok) throw new Error(r.status);
+    return r.json();
+  });
+}
+
+function apiPost(path, body) {
+  return fetch(API + path, { method: 'POST', headers: apiHeaders(), body: JSON.stringify(body) }).then(function(r) {
+    if (r.status === 401) { localStorage.removeItem('feats_admin_token'); window.location.reload(); }
+    return r;
+  });
+}
+
+function apiPut(path, body) {
+  return fetch(API + path, { method: 'PUT', headers: apiHeaders(), body: JSON.stringify(body) }).then(function(r) {
+    if (r.status === 401) { localStorage.removeItem('feats_admin_token'); window.location.reload(); }
+    return r;
+  });
+}
+
+function apiDelete(path) {
+  return fetch(API + path, { method: 'DELETE', headers: apiHeaders() }).then(function(r) {
+    if (r.status === 401) { localStorage.removeItem('feats_admin_token'); window.location.reload(); }
+    return r;
+  });
+}
+
+// ===== MODAL =====
+function openModal(html) {
+  document.getElementById('modalContent').innerHTML = html;
+  document.getElementById('modal').classList.add('active');
+}
+
+function closeModal() {
+  document.getElementById('modal').classList.remove('active');
+  document.getElementById('modalContent').innerHTML = '';
+}
+
+document.getElementById('modal').addEventListener('click', function(e) {
+  if (e.target === this) closeModal();
+});
+
+// ===== DASHBOARD =====
+function loadDashboard() {
+  var main = document.getElementById('mainContent');
+  main.innerHTML = '<h1>Dashboard</h1><div class="stats-grid" id="statsGrid"></div><div id="recentActivity"></div>';
+
+  apiGet('/admin/dashboard').then(function(d) {
+    var grid = document.getElementById('statsGrid');
+    grid.innerHTML = '';
+    var stats = [
+      { label: 'Total Articles', value: d.totalArticles, sub: d.publishedArticles + ' published' },
+      { label: 'Total Writers', value: d.totalWriters, sub: '' },
+      { label: 'Total Views', value: d.totalViews || 0, sub: d.uniqueVisitors ? d.uniqueVisitors + ' unique' : '' },
+      { label: 'Storage Used', value: d.storageMB ? d.storageMB + ' MB' : 'N/A', sub: '' }
+    ];
+    stats.forEach(function(s) {
+      grid.innerHTML += '<div class="stat-card"><h3>' + s.label + '</h3><div class="value">' + s.value + '</div><div class="sub">' + s.sub + '</div></div>';
+    });
+  });
+}
+
+// ===== ARTICLES =====
+function loadArticles() {
+  var main = document.getElementById('mainContent');
+  main.innerHTML = '<h1>Articles</h1><button class="btn btn-primary" onclick="showNewArticle()">+ New Article</button><div class="card" style="margin-top:1rem"><table><thead><tr><th>Title</th><th>Author</th><th>Date</th><th>Status</th><th></th></tr></thead><tbody id="articlesBody"></tbody></table></div>';
+
+  apiGet('/admin/articles').then(function(d) {
+    var body = document.getElementById('articlesBody');
+    d.articles.forEach(function(a) {
+      body.innerHTML += '<tr><td>' + a.title + '</td><td>' + a.author + '</td><td>' + (a.publish_date || '').slice(0,10) + '</td><td><span class="' + (a.status === 'publish' ? 'status-published' : 'status-draft') + '">' + a.status + '</span></td><td><button class="btn btn-sm btn-primary" onclick="editArticle(' + a.id + ')">Edit</button> <button class="btn btn-sm btn-danger" onclick="deleteArticle(' + a.id + ')">Delete</button></td></tr>';
+    });
+  });
+}
+
+function showNewArticle() {
+  openModal('<h2>New Article</h2><label>Title</label><input id="articleTitle"><label>URL ID (slug)</label><input id="articleSlug"><label>Author</label><input id="articleAuthor" placeholder="Name as stored in writers table"><label>Excerpt</label><textarea id="articleExcerpt"></textarea><label>Body (HTML)</label><textarea id="articleBody" style="min-height:200px"></textarea><label>Categories</label><input id="articleCategories"><label>Cover URL</label><input id="articleCover"><label>Publish Date</label><input id="articleDate" type="datetime-local"><div class="modal-footer"><button class="btn" onclick="closeModal()">Cancel</button><button class="btn btn-primary" onclick="saveNewArticle()">Save</button></div>');
+}
+
+function saveNewArticle() {
+  var body = {
+    title: document.getElementById('articleTitle').value,
+    url_id: document.getElementById('articleSlug').value,
+    author: document.getElementById('articleAuthor').value,
+    excerpt: document.getElementById('articleExcerpt').value,
+    body: document.getElementById('articleBody').value,
+    categories: document.getElementById('articleCategories').value,
+    cover_url: document.getElementById('articleCover').value,
+    publish_date: document.getElementById('articleDate').value
+  };
+  if (!body.title || !body.url_id) { alert('Title and slug required'); return; }
+  apiPost('/admin/articles', body).then(function() { closeModal(); loadArticles(); }).catch(function(e) { alert('Error: ' + e.message); });
+}
+
+function editArticle(id) {
+  apiGet('/admin/articles/' + id).then(function(d) {
+    var a = d.article;
+    openModal('<h2>Edit Article</h2><label>Title</label><input id="articleTitle" value="' + esc(a.title) + '"><label>URL ID</label><input id="articleSlug" value="' + esc(a.url_id) + '"><label>Author</label><input id="articleAuthor" value="' + esc(a.author) + '"><label>Excerpt</label><textarea id="articleExcerpt">' + esc(a.excerpt) + '</textarea><label>Body (HTML)</label><textarea id="articleBody" style="min-height:200px">' + esc(a.body) + '</textarea><label>Categories</label><input id="articleCategories" value="' + esc(a.categories) + '"><label>Cover URL</label><input id="articleCover" value="' + esc(a.cover_url) + '"><label>Publish Date</label><input id="articleDate" type="datetime-local" value="' + (a.publish_date || '').slice(0,16) + '"><label>Status</label><select id="articleStatus"><option value="publish" ' + (a.status === 'publish' ? 'selected' : '') + '>Published</option><option value="draft" ' + (a.status === 'draft' ? 'selected' : '') + '>Draft</option></select><div class="modal-footer"><button class="btn" onclick="closeModal()">Cancel</button><button class="btn btn-primary" onclick="saveEditArticle(' + id + ')">Save</button></div>');
+  });
+}
+
+function saveEditArticle(id) {
+  var body = {
+    title: document.getElementById('articleTitle').value,
+    url_id: document.getElementById('articleSlug').value,
+    author: document.getElementById('articleAuthor').value,
+    excerpt: document.getElementById('articleExcerpt').value,
+    body: document.getElementById('articleBody').value,
+    categories: document.getElementById('articleCategories').value,
+    cover_url: document.getElementById('articleCover').value,
+    publish_date: document.getElementById('articleDate').value,
+    status: document.getElementById('articleStatus').value
+  };
+  apiPut('/admin/articles/' + id, body).then(function() { closeModal(); loadArticles(); }).catch(function(e) { alert('Error: ' + e.message); });
+}
+
+function deleteArticle(id) {
+  if (!confirm('Delete this article?')) return;
+  apiDelete('/admin/articles/' + id).then(function() { loadArticles(); }).catch(function(e) { alert('Error: ' + e.message); });
+}
+
+// ===== WRITERS =====
+function loadWriters() {
+  var main = document.getElementById('mainContent');
+  main.innerHTML = '<h1>Writers / Contributors</h1><button class="btn btn-primary" onclick="showNewWriter()">+ Add Writer</button><div class="card" style="margin-top:1rem"><table><thead><tr><th>Name</th><th>Photo</th><th>Bio</th><th></th></tr></thead><tbody id="writersBody"></tbody></table></div>';
+
+  apiGet('/admin/writers').then(function(d) {
+    var body = document.getElementById('writersBody');
+    d.writers.forEach(function(w) {
+      body.innerHTML += '<tr><td>' + esc(w.name) + '</td><td>' + (w.photo_url ? '<img src="' + esc(w.photo_url) + '" style="width:36px;height:36px;border-radius:50%;object-fit:cover">' : '-') + '</td><td style="max-width:300px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap">' + esc(w.bio || '') + '</td><td><button class="btn btn-sm btn-primary" onclick="editWriter(' + w.id + ')">Edit</button> <button class="btn btn-sm btn-danger" onclick="deleteWriter(' + w.id + ')">Delete</button></td></tr>';
+    });
+  });
+}
+
+function showNewWriter() {
+  openModal('<h2>Add Writer</h2><label>Name</label><input id="writerName"><label>Photo URL</label><input id="writerPhoto" placeholder="https://..."><label>Bio</label><textarea id="writerBio"></textarea><div class="modal-footer"><button class="btn" onclick="closeModal()">Cancel</button><button class="btn btn-primary" onclick="saveNewWriter()">Save</button></div>');
+}
+
+function saveNewWriter() {
+  var body = {
+    name: document.getElementById('writerName').value,
+    photo_url: document.getElementById('writerPhoto').value,
+    bio: document.getElementById('writerBio').value
+  };
+  if (!body.name) { alert('Name required'); return; }
+  apiPost('/admin/writers', body).then(function() { closeModal(); loadWriters(); }).catch(function(e) { alert('Error: ' + e.message); });
+}
+
+function editWriter(id) {
+  apiGet('/admin/writers/' + id).then(function(d) {
+    var w = d.writer;
+    openModal('<h2>Edit Writer</h2><label>Name</label><input id="writerName" value="' + esc(w.name) + '"><label>Photo URL</label><input id="writerPhoto" value="' + esc(w.photo_url || '') + '"><label>Bio</label><textarea id="writerBio">' + esc(w.bio || '') + '</textarea><div class="modal-footer"><button class="btn" onclick="closeModal()">Cancel</button><button class="btn btn-primary" onclick="saveEditWriter(' + id + ')">Save</button></div>');
+  });
+}
+
+function saveEditWriter(id) {
+  var body = {
+    name: document.getElementById('writerName').value,
+    photo_url: document.getElementById('writerPhoto').value,
+    bio: document.getElementById('writerBio').value
+  };
+  apiPut('/admin/writers/' + id, body).then(function() { closeModal(); loadWriters(); }).catch(function(e) { alert('Error: ' + e.message); });
+}
+
+function deleteWriter(id) {
+  if (!confirm('Delete this writer?')) return;
+  apiDelete('/admin/writers/' + id).then(function() { loadWriters(); }).catch(function(e) { alert('Error: ' + e.message); });
+}
+
+// ===== ADMIN USERS =====
+function loadUsers() {
+  var main = document.getElementById('mainContent');
+  main.innerHTML = '<h1>Admin Users</h1>' + (currentUser && currentUser.role === 'superadmin' ? '<button class="btn btn-primary" onclick="showNewUser()">+ Add User</button>' : '') + '<div class="card" style="margin-top:1rem"><table><thead><tr><th>Name</th><th>Email</th><th>Role</th><th>Last Login</th><th></th></tr></thead><tbody id="usersBody"></tbody></table></div>';
+
+  apiGet('/admin/users').then(function(d) {
+    var body = document.getElementById('usersBody');
+    d.users.forEach(function(u) {
+      body.innerHTML += '<tr><td>' + esc(u.name) + '</td><td>' + esc(u.email) + '</td><td><span class="badge badge-' + u.role + '">' + u.role + '</span></td><td>' + (u.last_login || '').slice(0,10) + '</td><td>' + (currentUser && currentUser.role === 'superadmin' && u.role !== 'superadmin' ? '<button class="btn btn-sm btn-danger" onclick="deleteUser(' + u.id + ')">Remove</button>' : '') + '</td></tr>';
+    });
+  });
+}
+
+function showNewUser() {
+  openModal('<h2>Add Admin User</h2><label>Email</label><input id="userEmail" placeholder="google@email.com"><label>Name</label><input id="userName"><label>Role</label><select id="userRole"><option value="admin">Admin</option><option value="superadmin">Super Admin</option></select><div class="modal-footer"><button class="btn" onclick="closeModal()">Cancel</button><button class="btn btn-primary" onclick="saveNewUser()">Add</button></div>');
+}
+
+function saveNewUser() {
+  var body = {
+    email: document.getElementById('userEmail').value,
+    name: document.getElementById('userName').value,
+    role: document.getElementById('userRole').value
+  };
+  if (!body.email) { alert('Email required'); return; }
+  apiPost('/admin/users', body).then(function() { closeModal(); loadUsers(); }).catch(function(e) { alert('Error: ' + e.message); });
+}
+
+function deleteUser(id) {
+  if (!confirm('Remove this admin user?')) return;
+  apiDelete('/admin/users/' + id).then(function() { loadUsers(); }).catch(function(e) { alert('Error: ' + e.message); });
+}
+
+// ===== ANALYTICS =====
+function loadAnalytics() {
+  var main = document.getElementById('mainContent');
+  main.innerHTML = '<h1>Analytics</h1><p style="color:#888;margin-bottom:1rem">Analytics tracking will be populated as visitors browse the site.</p><div class="stats-grid" id="analyticsGrid"><div class="stat-card"><h3>Total Page Views</h3><div class="value">---</div></div><div class="stat-card"><h3>Unique Visitors</h3><div class="value">---</div></div><div class="stat-card"><h3>Countries</h3><div class="value">---</div></div></div><div class="card"><h3 style="margin-bottom:1rem">Top Articles</h3><table><thead><tr><th>Article</th><th>Views</th><th>Unique Visitors</th></tr></thead><tbody id="analyticsTopBody"><tr><td colspan="3" style="text-align:center;color:#888">Loading...</td></tr></tbody></table></div>';
+
+  apiGet('/admin/analytics').then(function(d) {
+    var grid = document.getElementById('analyticsGrid');
+    grid.innerHTML = '<div class="stat-card"><h3>Total Page Views</h3><div class="value">' + (d.totalViews || 0) + '</div></div><div class="stat-card"><h3>Unique Visitors</h3><div class="value">' + (d.uniqueVisitors || 0) + '</div></div><div class="stat-card"><h3>Countries</h3><div class="value">' + (d.countries || 0) + '</div></div>';
+
+    var body = document.getElementById('analyticsTopBody');
+    body.innerHTML = '';
+    if (d.topArticles && d.topArticles.length) {
+      d.topArticles.forEach(function(a) {
+        body.innerHTML += '<tr><td>' + esc(a.title) + '</td><td>' + a.views + '</td><td>' + a.unique_visitors + '</td></tr>';
+      });
+    } else {
+      body.innerHTML = '<tr><td colspan="3" style="text-align:center;color:#888">No data yet</td></tr>';
+    }
+  });
+}
+
+// ===== TECHNICAL =====
+function loadTech() {
+  var main = document.getElementById('mainContent');
+  main.innerHTML = '<h1>Technical Details</h1><div class="stats-grid" id="techGrid"></div><div class="card" style="margin-top:1rem"><h3>Environment</h3><pre style="background:#f8f8f8;padding:1rem;border-radius:6px;margin-top:.5rem;font-size:.85rem;overflow-x:auto" id="techEnv"></pre></div>';
+
+  apiGet('/admin/tech').then(function(d) {
+    var grid = document.getElementById('techGrid');
+    grid.innerHTML = '<div class="stat-card"><h3>R2 Images</h3><div class="value">' + (d.r2ImageCount || 'N/A') + '</div><div class="sub">' + (d.r2StorageMB || 'N/A') + ' MB used</div></div><div class="stat-card"><h3>Database Size</h3><div class="value">' + (d.dbSizeMB || 'N/A') + ' MB</div></div><div class="stat-card"><h3>Worker</h3><div class="value">feats-live</div><div class="sub">Custom domain</div></div><div class="stat-card"><h3>Bandwidth</h3><div class="value">' + (d.bandwidthGB || 'N/A') + ' GB</div><div class="sub">This month (estimate)</div></div>';
+
+    document.getElementById('techEnv').textContent = JSON.stringify(d.env, null, 2);
+  });
+}
+
+// ===== UTILITIES =====
+function esc(s) { return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;'); }
+
+// Check auth on load
+document.addEventListener('DOMContentLoaded', checkAuth);
+</script>
+</body>
+</html>
