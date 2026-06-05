@@ -182,12 +182,6 @@
       dotsContainer.querySelectorAll('.dot').forEach((d, i) => d.classList.toggle('active', i === index));
     }
 
-    document.getElementById('carouselNext').addEventListener('click', () => {
-      goToSlide((currentIndex + 1) % slides.length);
-    });
-    document.getElementById('carouselPrev').addEventListener('click', () => {
-      goToSlide((currentIndex - 1 + slides.length) % slides.length);
-    });
 
     // Auto-advance carousel
     setInterval(function() {
