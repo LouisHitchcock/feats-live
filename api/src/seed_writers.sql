@@ -14,4 +14,11 @@ INSERT INTO writers (name, photo_url, bio) VALUES ('Emily Shinn', '', 'Music jou
 INSERT INTO writers (name, photo_url, bio) VALUES ('Greg Nuttall', '', 'Live music reviewer and contributor covering rock and alternative gigs.');
 INSERT INTO writers (name, photo_url, bio) VALUES ('Ben Blissett', '', 'Writer covering live music, punk, and alternative scene gigs.');
 INSERT INTO writers (name, photo_url, bio) VALUES ('Jasmine Rowland', '', 'Writer covering wellbeing, editorial features, and music culture.');
+INSERT INTO writers (name, photo_url, bio) VALUES ('Dave White', '', 'Live music reviewer covering electronic and pop gigs across London.');
+INSERT INTO writers (name, photo_url, bio) VALUES ('C. Wilkinson', '', 'Live music photographer and writer covering punk and alternative shows.');
+INSERT INTO writers (name, photo_url, bio) VALUES ('Anna R', '', 'Live music photographer and writer covering gigs across the UK.');
+INSERT INTO writers (name, photo_url, bio) VALUES ('Haylea Allison', '', 'Music photographer and writer covering live reviews.');
+INSERT INTO writers (name, photo_url, bio) VALUES ('M Carty', '', 'Music writer covering live reviews and electronic music.');
+INSERT INTO writers (name, photo_url, bio) VALUES ('Flore Ghulam', '', 'Writer and editorial contributor covering festivals, live music, and emerging artists.');
+INSERT INTO writers (name, photo_url, bio) VALUES ('Feats Live', '', 'The Feats editorial team.');
 INSERT INTO writers (name, photo_url, bio) VALUES ('Feats.', '', 'The Feats editorial team — bringing you the best in live music coverage, reviews, and culture from Brighton, London, and beyond.');
