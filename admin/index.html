@@ -85,12 +85,12 @@ body{background:#f5f5f5;color:#1a1a1a}
   <aside class="sidebar">
     <h2>Feats Admin</h2>
     <nav>
-      <a class="active" onclick="showTab('dashboard')"><span>📊 Dashboard</span></a>
-      <a onclick="showTab('articles')"><span>📝 Articles</span></a>
-      <a onclick="showTab('writers')"><span>✍️ Writers</span></a>
-      <a onclick="showTab('users')"><span>👥 Admin Users</span></a>
-      <a onclick="showTab('analytics')"><span>📈 Analytics</span></a>
-      <a onclick="showTab('tech')"><span>⚙️ Technical</span></a>
+      <a class="active" data-tab="dashboard" onclick="showTab('dashboard', this)"><span>📊 Dashboard</span></a>
+      <a data-tab="articles" onclick="showTab('articles', this)"><span>📝 Articles</span></a>
+      <a data-tab="writers" onclick="showTab('writers', this)"><span>✍️ Writers</span></a>
+      <a data-tab="users" onclick="showTab('users', this)"><span>👥 Admin Users</span></a>
+      <a data-tab="analytics" onclick="showTab('analytics', this)"><span>📈 Analytics</span></a>
+      <a data-tab="tech" onclick="showTab('tech', this)"><span>⚙️ Technical</span></a>
     </nav>
     <div class="user-info" id="userInfo"></div>
   </aside>
@@ -123,9 +123,16 @@ function checkAuth() {
       document.getElementById('loginPage').style.display = 'none';
       document.getElementById('adminLayout').classList.add('active');
       document.getElementById('userInfo').textContent = user.name + ' (' + user.role + ')';
-      showTab('dashboard');
+      try {
+        showTab('dashboard');
+      } catch (e) {
+        console.error('Failed to load default tab', e);
+      }
     })
-    .catch(function() { localStorage.removeItem('feats_admin_token'); });
+    .catch(function(err) {
+      console.error('Auth check failed', err);
+      localStorage.removeItem('feats_admin_token');
+    });
 }
 
 // Extract token from URL after OAuth redirect
@@ -139,9 +146,14 @@ if (params.get('token')) {
 }
 
 // ===== TABS =====
-function showTab(name) {
+function showTab(name, clickedEl) {
   document.querySelectorAll('.sidebar nav a').forEach(function(a) { a.classList.remove('active'); });
-  event.target.classList.add('active');
+  if (clickedEl && clickedEl.classList) {
+    clickedEl.classList.add('active');
+  } else {
+    var activeNav = document.querySelector('.sidebar nav a[data-tab="' + name + '"]');
+    if (activeNav) activeNav.classList.add('active');
+  }
 
   switch(name) {
     case 'dashboard': loadDashboard(); break;

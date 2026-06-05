@@ -114,7 +114,7 @@ export default {
           exp: Date.now() + 86400000
         }));
 
-        return Response.redirect('https://feats-live.louishitchcock.xyz/admin?token=' + token, 302);
+        return Response.redirect('https://louishitchcock.xyz/admin?token=' + token, 302);
       }
 
       // ===== AUTH MIDDLEWARE =====
