@@ -105,6 +105,7 @@
       var apiUrl = window.location.pathname.replace(/\/$/, '');
       var slug = window.location.pathname.replace(/\/$/, '').split('/').pop();
       fetch('https://feats-api.fpvgate-analytics.workers.dev/api/articles/' + slug)
+        .then(function(r) { return r.json(); })
         .then(function(data) {
           var a = data.article;
           if (!a) return;
