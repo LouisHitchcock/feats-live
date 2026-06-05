@@ -65,7 +65,7 @@ ul{list-style:none}
 .dot.active{background:#0a0a0a}
 
 /* === SECTION COMMON === */
-.section{padding:5rem 2rem;max-width:1200px;margin:0 auto}
+.section{padding:2rem 2rem;max-width:1200px;margin:0 auto}
 .section-title{
   font-size:2rem;font-weight:700;text-transform:uppercase;
   letter-spacing:3px;margin-bottom:2rem
@@ -81,7 +81,8 @@ ul{list-style:none}
 /* === RECENT POSTS (HOME) === */
 .recent-title{text-transform:none;letter-spacing:0}
 .recent-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:2.5rem}
-.recent-card{text-align:center}
+.recent-card{text-align:center;opacity:0;transform:translateY(24px);transition:opacity .5s ease,transform .5s ease}
+.recent-card.visible{opacity:1;transform:translateY(0)}
 .recent-card img{width:100%;aspect-ratio:1/1;object-fit:cover;margin-bottom:1rem}
 .recent-card h3{font-size:1.25rem;margin-bottom:.75rem;line-height:1.25}
 .recent-card .excerpt{font-size:.875rem;opacity:1;line-height:1.4;margin-bottom:.75rem}
@@ -106,7 +107,8 @@ ul{list-style:none}
 
 /* === MUSIC LISTING === */
 .music-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(340px,1fr));gap:2.5rem}
-.music-card{transition:opacity .2s;border-bottom:1px solid rgba(0,0,0,.08);padding-bottom:2rem}
+.music-card{opacity:0;transform:translateY(24px);transition:opacity .5s ease,transform .5s ease;border-bottom:1px solid rgba(0,0,0,.08);padding-bottom:2rem}
+.music-card.visible{opacity:1;transform:translateY(0)}
 .music-card:hover{opacity:.8}
 .music-card img{width:100%;height:240px;object-fit:cover;margin-bottom:1rem}
 .music-card .meta{font-size:.7rem;opacity:.5;text-transform:uppercase;letter-spacing:1px;margin-bottom:.5rem}
