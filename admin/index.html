@@ -527,10 +527,9 @@ function normalizeArticle(a) {
     url_id: a.url_id || '',
     author: a.author || '',
     excerpt: a.excerpt || '',
-    body: a.body || '<p></p>',
+    body: a.body || '',
     categories: a.categories || '',
     tags: a.tags || '',
-    cover_url: a.cover_url || '',
     publish_date: (a.publish_date || '').slice(0,16),
     status: a.status || 'draft'
   };
@@ -653,10 +652,9 @@ function startNewArticle() {
     url_id: '',
     author: '',
     excerpt: '',
-    body: '<p></p>',
+    body: '',
     categories: '',
     tags: '',
-    cover_url: '',
     publish_date: nowAsLocalDateTime(),
     status: 'draft'
   });
@@ -704,7 +702,6 @@ function captureCurrentArticleDraft() {
   var authorEl = document.getElementById('articleAuthorInput');
   var categoriesEl = document.getElementById('articleCategoriesInput');
   var tagsEl = document.getElementById('articleTagsInput');
-  var coverEl = document.getElementById('articleCoverInput');
   var publishEl = document.getElementById('articlePublishInput');
   var statusEl = document.getElementById('articleStatusInput');
 
@@ -714,7 +711,7 @@ function captureCurrentArticleDraft() {
   if (isArticleMarkdownMode() && markdownEl) {
     articleState.markdownDraft = markdownEl.value;
     articleState.current.body = markdownToArticleHtml(markdownEl.value);
-    if (bodyEl) bodyEl.innerHTML = articleState.current.body || '<p></p>';
+    if (bodyEl) bodyEl.innerHTML = articleState.current.body || '';
   } else if (bodyEl) {
     articleState.current.body = bodyEl.innerHTML;
     articleState.markdownDraft = articleHtmlToMarkdown(articleState.current.body);
@@ -723,7 +720,6 @@ function captureCurrentArticleDraft() {
   if (authorEl) articleState.current.author = authorEl.value;
   if (categoriesEl) articleState.current.categories = categoriesEl.value;
   if (tagsEl) articleState.current.tags = tagsEl.value;
-  if (coverEl) articleState.current.cover_url = coverEl.value;
   if (publishEl) articleState.current.publish_date = publishEl.value;
   if (statusEl) articleState.current.status = statusEl.value;
 }
@@ -767,7 +763,7 @@ function syncArticleAuthorFromSelection() {
 }
 
 function getArticleEditorHtml(article) {
-  return '<div class="article-field"><label>Title</label><input id="articleTitleInput" class="article-input" value="' + escAttr(article.title) + '" placeholder="Article title"></div><div class="article-field"><label>Article Body</label><div id="articleBodyEditor" class="editor-canvas" contenteditable="true">' + (article.body || '<p></p>') + '</div><div class="editor-floating-toolbar"><button type="button" onclick="applyArticleFormat(&quot;bold&quot;)"><b>B</b></button><button type="button" onclick="applyArticleFormat(&quot;italic&quot;)"><i>I</i></button><button type="button" onclick="applyArticleFormat(&quot;underline&quot;)"><u>U</u></button><span class="editor-floating-sep"></span><button type="button" onclick="formatArticleHeading()">H2</button><button type="button" onclick="applyArticleFormat(&quot;insertUnorderedList&quot;)">UL</button><button type="button" onclick="applyArticleFormat(&quot;insertOrderedList&quot;)">OL</button><span class="editor-floating-sep"></span><button type="button" onclick="insertArticleLink()">Link</button><button type="button" onclick="applyArticleFormat(&quot;removeFormat&quot;)">Clear</button><span class="editor-floating-sep"></span><button type="button" onclick="formatArticleCode()">&lt;/&gt;</button><button type="button" class="btn-insert-image" onclick="toggleArticleImagePanel()">+ IMAGE</button></div><div id="articleImageOverlayBackdrop" class="article-image-overlay-backdrop"></div><div id="articleImageInsertPanel" class="article-image-insert-panel"><button class="overlay-close" onclick="toggleArticleImagePanel(false)">x</button><h3>Insert Media</h3><div class="article-image-insert-rows"><div class="article-image-insert-row"><label>Upload or drag images</label><div class="article-image-dropzone" id="imageDropZone" onclick="document.getElementById(&apos;imageUploadFileInput&apos;).click()" ondragover="this.classList.add(&apos;drag-over&apos;);return false" ondragleave="this.classList.remove(&apos;drag-over&apos;)" ondrop="handleImageDrop(event);this.classList.remove(&apos;drag-over&apos;);return false"><span class="dropzone-icon">+</span><span>Click or drag images here</span><input type="file" id="imageUploadFileInput" accept="image/*" multiple onchange="handleArticleImageUpload(this.files)"></div></div><div id="imageUploadPreview" class="article-image-uploaded-previews"></div><div class="article-image-insert-row"><label>Layout</label><select id="imageOverlayLayout" class="article-select" onchange="toggleArticleCarouselInput()"><option value="full">Full Width</option><option value="left">Float Left</option><option value="right">Float Right</option><option value="carousel">Carousel</option></select><input id="imageOverlayCaption" class="article-input" placeholder="Optional caption"></div><div class="article-image-insert-row"><label>Recent uploads</label><div id="imageOverlayRecent" class="article-image-recent"></div></div></div><div class="article-image-insert-actions"><button type="button" class="btn btn-sm" onclick="toggleArticleImagePanel(false)">Cancel</button><button type="button" class="btn btn-sm btn-primary" onclick="insertArticleImageBlock()">Insert</button></div></div></div>';
+  return '<div class="article-field"><label>Title</label><input id="articleTitleInput" class="article-input" value="' + escAttr(article.title) + '" placeholder="Article title"></div><div class="article-field"><label>Article Body</label><div id="articleBodyEditor" class="editor-canvas" contenteditable="true">' + (article.body || '') + '</div><div class="editor-floating-toolbar"><button type="button" onclick="applyArticleFormat(&quot;bold&quot;)"><b>B</b></button><button type="button" onclick="applyArticleFormat(&quot;italic&quot;)"><i>I</i></button><button type="button" onclick="applyArticleFormat(&quot;underline&quot;)"><u>U</u></button><span class="editor-floating-sep"></span><button type="button" onclick="formatArticleHeading()">H2</button><button type="button" onclick="applyArticleFormat(&quot;insertUnorderedList&quot;)">UL</button><button type="button" onclick="applyArticleFormat(&quot;insertOrderedList&quot;)">OL</button><span class="editor-floating-sep"></span><button type="button" onclick="insertArticleLink()">Link</button><button type="button" onclick="applyArticleFormat(&quot;removeFormat&quot;)">Clear</button><span class="editor-floating-sep"></span><button type="button" onclick="formatArticleCode()">&lt;/&gt;</button><button type="button" class="btn-insert-image" onclick="toggleArticleImagePanel()">+ IMAGE</button></div><div id="articleImageOverlayBackdrop" class="article-image-overlay-backdrop"></div><div id="articleImageInsertPanel" class="article-image-insert-panel"><button class="overlay-close" onclick="toggleArticleImagePanel(false)">x</button><h3>Insert Media</h3><div class="article-image-insert-rows"><div class="article-image-insert-row"><label>Upload or drag images</label><div class="article-image-dropzone" id="imageDropZone" onclick="document.getElementById(&apos;imageUploadFileInput&apos;).click()" ondragover="this.classList.add(&apos;drag-over&apos;);return false" ondragleave="this.classList.remove(&apos;drag-over&apos;)" ondrop="handleImageDrop(event);this.classList.remove(&apos;drag-over&apos;);return false"><span class="dropzone-icon">+</span><span>Click or drag images here</span><input type="file" id="imageUploadFileInput" accept="image/*" multiple onchange="handleArticleImageUpload(this.files)"></div></div><div id="imageUploadPreview" class="article-image-uploaded-previews"></div><div class="article-image-insert-row"><label>Layout</label><select id="imageOverlayLayout" class="article-select" onchange="toggleArticleCarouselInput()"><option value="full">Full Width</option><option value="left">Float Left</option><option value="right">Float Right</option><option value="carousel">Carousel</option></select><input id="imageOverlayCaption" class="article-input" placeholder="Optional caption"></div><div class="article-image-insert-row"><label>Recent uploads</label><div id="imageOverlayRecent" class="article-image-recent"></div></div></div><div class="article-image-insert-actions"><button type="button" class="btn btn-sm" onclick="toggleArticleImagePanel(false)">Cancel</button><button type="button" class="btn btn-sm btn-primary" onclick="insertArticleImageBlock()">Insert</button></div></div></div>';
 }
 
 function getArticlePropertiesHtml(article) {
@@ -776,7 +772,7 @@ function getArticlePropertiesHtml(article) {
     var selected = splitWriters(article.author).includes(name) ? ' selected' : '';
     options += '<option value="' + escAttr(name) + '"' + selected + '>' + esc(name) + '</option>';
   });
-  return '<div class="article-properties-grid"><div class="article-field"><label>Slug (URL ID)</label><input id="articleSlugInput" class="article-input" value="' + escAttr(article.url_id) + '" placeholder="your-article-slug"></div><div class="article-field"><label>Status</label><select id="articleStatusInput" class="article-select"><option value="publish"' + (article.status === 'publish' ? ' selected' : '') + '>Published</option><option value="draft"' + (article.status !== 'publish' ? ' selected' : '') + '>Draft</option></select></div><div class="article-field"><label>Publish Date</label><input id="articlePublishInput" class="article-input" type="datetime-local" value="' + escAttr(article.publish_date || nowAsLocalDateTime()) + '"></div><div class="article-field"><label>Writer(s)</label><select id="articleWritersSelect" class="article-select" multiple size="5" onchange="syncArticleAuthorFromSelection()">' + options + '</select></div><div class="article-field"><label>Author Field (stored)</label><input id="articleAuthorInput" class="article-input" value="' + escAttr(article.author) + '" placeholder="Comma-separated writer names"></div><div class="article-field"><label>Tags</label><input id="articleTagsInput" class="article-input" value="' + escAttr(article.tags) + '" placeholder="news, live-review, interview"></div><div class="article-field"><label>Categories</label><input id="articleCategoriesInput" class="article-input" value="' + escAttr(article.categories) + '" placeholder="Rock, Live Reviews"></div><div class="article-field" style="grid-column:1 / -1"><label>Excerpt</label><textarea id="articleExcerptInput" class="article-textarea" placeholder="Short summary for cards and metadata">' + esc(article.excerpt) + '</textarea></div><div class="article-field" style="grid-column:1 / -1"><label>Thumbnail / Cover URL</label><input id="articleCoverInput" class="article-input" value="' + escAttr(article.cover_url) + '" placeholder="https://..."></div></div>' + (article.id ? '<div style="margin-top:1rem"><button class="btn btn-danger" onclick="deleteCurrentArticle()">Delete Article</button></div>' : '');
+  return '<div class="article-properties-grid"><div class="article-field"><label>Slug (URL ID)</label><input id="articleSlugInput" class="article-input" value="' + escAttr(article.url_id) + '" placeholder="your-article-slug"></div><div class="article-field"><label>Status</label><select id="articleStatusInput" class="article-select"><option value="publish"' + (article.status === 'publish' ? ' selected' : '') + '>Published</option><option value="draft"' + (article.status !== 'publish' ? ' selected' : '') + '>Draft</option></select></div><div class="article-field"><label>Publish Date</label><input id="articlePublishInput" class="article-input" type="datetime-local" value="' + escAttr(article.publish_date || nowAsLocalDateTime()) + '"></div><div class="article-field"><label>Writer(s)</label><select id="articleWritersSelect" class="article-select" multiple size="5" onchange="syncArticleAuthorFromSelection()">' + options + '</select></div><div class="article-field"><label>Author Field (stored)</label><input id="articleAuthorInput" class="article-input" value="' + escAttr(article.author) + '" placeholder="Comma-separated writer names"></div><div class="article-field"><label>Tags</label><input id="articleTagsInput" class="article-input" value="' + escAttr(article.tags) + '" placeholder="news, live-review, interview"></div><div class="article-field"><label>Categories</label><input id="articleCategoriesInput" class="article-input" value="' + escAttr(article.categories) + '" placeholder="Rock, Live Reviews"></div><div class="article-field" style="grid-column:1 / -1"><label>Excerpt</label><textarea id="articleExcerptInput" class="article-textarea" placeholder="Short summary for cards and metadata">' + esc(article.excerpt) + '</textarea></div></div>' + (article.id ? '<div style="margin-top:1rem"><button class="btn btn-danger" onclick="deleteCurrentArticle()">Delete Article</button></div>' : '');
 }
 
 function isArticleMarkdownMode() {
@@ -1054,7 +1050,7 @@ function isArticleRawHtmlLine(line) {
 
 function markdownToArticleHtml(markdown) {
   var source = String(markdown || '').replace(/\r\n?/g, '\n');
-  if (!source.trim()) return '<p></p>';
+  if (!source.trim()) return '';
   var lines = source.split('\n');
   var htmlParts = [];
   var paragraphLines = [];
@@ -1189,7 +1185,7 @@ function markdownToArticleHtml(markdown) {
   flushParagraph();
 
   var html = htmlParts.join('\n').trim();
-  return html || '<p></p>';
+  return html || '';
 }
 
 function insertTextIntoTextarea(textarea, text) {
@@ -1691,7 +1687,6 @@ function buildArticlePayload() {
     body: articleState.current.body,
     categories: articleState.current.categories,
     tags: articleState.current.tags,
-    cover_url: articleState.current.cover_url,
     publish_date: articleState.current.publish_date || nowAsLocalDateTime(),
     status: articleState.current.status || 'draft'
   };
