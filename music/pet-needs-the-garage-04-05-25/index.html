@@ -11,9 +11,8 @@
   <link rel="stylesheet" href="/css/style.css">
   <link rel="icon" type="image/x-icon" href="/favicon.ico">
   <style>
-    .article-body{max-width:750px;margin:0 auto;padding:3rem 2rem}
+    .article-body{max-width:980px;margin:0 auto;padding:3rem 2rem}
     .article-body::after{content:'';display:block;clear:both}
-    .article-body .featured-img{width:100%;height:auto;margin-bottom:2rem}
     .article-body h1{font-size:2.2rem;margin-bottom:.5rem;line-height:1.2}
     .article-body .meta{font-size:.8rem;opacity:.5;text-transform:uppercase;letter-spacing:1px;margin-bottom:2rem}
     .article-body p{font-size:1.05rem;opacity:.85;margin-bottom:1.5rem;line-height:1.8}
@@ -78,7 +77,6 @@
   </header>
   <main class="page-wrap">
     <article class="article-body" id="articleBody" data-article-slug="pet-needs-the-garage-04-05-25" data-hydrate-from-api="0">
-      <img class="featured-img" src="https://feats-live.louishitchcock.xyz/images/articles/%40c.shoots.shows+-+Pagent+Mum+-+The+Garage-+04-05-2025+%281%29.jpg" alt="Pet Needs @ The Garage - 04.05.25" loading="lazy">
       <div class="meta">Live Music &middot; Gig Review &middot; London Music &middot; Artist Showcase &middot; C.  Wilkinson &middot; 2025-05-12</div>
       <h1>Pet Needs @ The Garage - 04.05.25</h1>
       <p style="white-space:pre-wrap;">It’s the night of <a href="https://open.spotify.com/artist/5bBMfsANUM0cj5h5MjEdxP?si=6QsuIrWZRdy5WgE8fgzWoA" target="_blank">Pet Needs</a> biggest headline show to date and the wrap of their ‘Fractured Party’ , a weekend of live shows by the band. With fans travelling from all over the stage it set for a memorable night</p><p style="white-space:pre-wrap;">Up first <a href="https://open.spotify.com/artist/7DEM6YRBFI1BYcyWYiZaJ5?si=LzlBkEuhSBKKvy_jxS6z2Q" target="_blank">Pageant Mum</a>, playing not long after doors opened people were still making their way in. With a slightly shorter 5 songs set they made a good effort to interact with the crowd and get them engaged. The set ended on an energetic high note.</p>
@@ -496,7 +494,6 @@
             .join(' &middot; ');
           if (!categories) categories = 'Article';
           var publishDate = escapeHtml(formatDate(String(article.publish_date || '').slice(0, 10)));
-          var coverUrl = escapeHtml(article.cover_url || ARTICLE_FALLBACK_COVER);
           var bodyHtml = article.body || '<p></p>';
           var writerPhotoUrl = escapeHtml(article.writer_photo_url || '');
           var writerBio = escapeHtml(article.writer_bio || '');
@@ -506,8 +503,7 @@
             + (writerBio ? '<p>' + writerBio + '</p>' : '')
             + '</div></div>';
           container.innerHTML =
-            '<img class="featured-img" src="' + coverUrl + '" alt="' + articleTitle + '" loading="lazy">' +
-            '<div class="meta">' + categories + ' &middot; ' + articleAuthor + ' &middot; ' + publishDate + '</div>' +
+            '<div class=\"meta\">' + categories + ' &middot; ' + articleAuthor + ' &middot; ' + publishDate + '</div>' +
             '<h1>' + articleTitle + '</h1>' +
             bodyHtml +
             writerCreditHtml;

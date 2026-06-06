@@ -11,9 +11,8 @@
   <link rel="stylesheet" href="/css/style.css">
   <link rel="icon" type="image/x-icon" href="/favicon.ico">
   <style>
-    .article-body{max-width:750px;margin:0 auto;padding:3rem 2rem}
+    .article-body{max-width:980px;margin:0 auto;padding:3rem 2rem}
     .article-body::after{content:'';display:block;clear:both}
-    .article-body .featured-img{width:100%;height:auto;margin-bottom:2rem}
     .article-body h1{font-size:2.2rem;margin-bottom:.5rem;line-height:1.2}
     .article-body .meta{font-size:.8rem;opacity:.5;text-transform:uppercase;letter-spacing:1px;margin-bottom:2rem}
     .article-body p{font-size:1.05rem;opacity:.85;margin-bottom:1.5rem;line-height:1.8}
@@ -78,7 +77,6 @@
   </header>
   <main class="page-wrap">
     <article class="article-body" id="articleBody" data-article-slug="ones-to-watch-sunday-best-interview-at-sxsw-london" data-hydrate-from-api="0">
-      <img class="featured-img" src="/images/hero-3.jpg" alt="Ones-to-Watch - Sunday Best Interview At SXSW London" loading="lazy">
       <div class="meta">Interview &middot; Live Music &middot; SXSW London &middot; Sophie Bingham &middot; 2025-06-16</div>
       <h1>Ones-to-Watch - Sunday Best Interview At SXSW London</h1>
       <p style="white-space:pre-wrap;">We caught up with <strong>Sunday Best</strong> after their set at SXSW London to talk about their latest single, what being a DIY band means to them, and the artists they’d love to collaborate with. The five-piece from in and around London describe themselves as a group of friends making “funky post-hardcore” with a clear political edge. Their newest track<strong> Dig Deep </strong>draws on themes of resistance and accountability, balancing heavy subject matter with a mix of shoegaze, funk, and hardcore influences - and, by their own admission, a touch of Deftones.</p>
@@ -281,7 +279,6 @@
             .join(' &middot; ');
           if (!categories) categories = 'Article';
           var publishDate = escapeHtml(formatDate(String(article.publish_date || '').slice(0, 10)));
-          var coverUrl = escapeHtml(article.cover_url || ARTICLE_FALLBACK_COVER);
           var bodyHtml = article.body || '<p></p>';
           var writerPhotoUrl = escapeHtml(article.writer_photo_url || '');
           var writerBio = escapeHtml(article.writer_bio || '');
@@ -291,8 +288,7 @@
             + (writerBio ? '<p>' + writerBio + '</p>' : '')
             + '</div></div>';
           container.innerHTML =
-            '<img class="featured-img" src="' + coverUrl + '" alt="' + articleTitle + '" loading="lazy">' +
-            '<div class="meta">' + categories + ' &middot; ' + articleAuthor + ' &middot; ' + publishDate + '</div>' +
+            '<div class=\"meta\">' + categories + ' &middot; ' + articleAuthor + ' &middot; ' + publishDate + '</div>' +
             '<h1>' + articleTitle + '</h1>' +
             bodyHtml +
             writerCreditHtml;

@@ -11,9 +11,8 @@
   <link rel="stylesheet" href="/css/style.css">
   <link rel="icon" type="image/x-icon" href="/favicon.ico">
   <style>
-    .article-body{max-width:750px;margin:0 auto;padding:3rem 2rem}
+    .article-body{max-width:980px;margin:0 auto;padding:3rem 2rem}
     .article-body::after{content:'';display:block;clear:both}
-    .article-body .featured-img{width:100%;height:auto;margin-bottom:2rem}
     .article-body h1{font-size:2.2rem;margin-bottom:.5rem;line-height:1.2}
     .article-body .meta{font-size:.8rem;opacity:.5;text-transform:uppercase;letter-spacing:1px;margin-bottom:2rem}
     .article-body p{font-size:1.05rem;opacity:.85;margin-bottom:1.5rem;line-height:1.8}
@@ -78,7 +77,6 @@
   </header>
   <main class="page-wrap">
     <article class="article-body" id="articleBody" data-article-slug="lastelle-live-the-dome-london-18-09-2025" data-hydrate-from-api="0">
-      <img class="featured-img" src="https://feats-live.louishitchcock.xyz/images/articles/%40jeffvad3r42+-+Lastelle+-+The+Dome+-+18-09-2025+-+011.jpg" alt="Lastelle Live @ The Dome London 18.09.2025" loading="lazy">
       <div class="meta">Live Music &middot; Gig Review &middot; Touring &middot; Ewan McDonald &middot; 2025-09-22</div>
       <h1>Lastelle Live @ The Dome London 18.09.2025</h1>
       <p style="white-space:pre-wrap;"><a href="https://open.spotify.com/artist/2BB6OyMcGIRSwJQfsmpjKJ?si=1Vjur_9bRNCC6WScvSU6Cw" target="_blank">Lastelle </a>took to The Dome in London as part of their current UK run, bringing a set that balanced soaring emotion with heavier bursts of energy. Known for weaving difficult and deeply personal themes into their music, the band delivered a performance that was both atmospheric and intense. The show carried moments of quiet reflection before erupting into full force, with the London crowd fully engaged throughout. It was the kind of night that demonstrated why they’ve quickly become one of the most talked-about names in the UK’s post-hardcore and alternative scene.</p>
@@ -360,7 +358,6 @@
             .join(' &middot; ');
           if (!categories) categories = 'Article';
           var publishDate = escapeHtml(formatDate(String(article.publish_date || '').slice(0, 10)));
-          var coverUrl = escapeHtml(article.cover_url || ARTICLE_FALLBACK_COVER);
           var bodyHtml = article.body || '<p></p>';
           var writerPhotoUrl = escapeHtml(article.writer_photo_url || '');
           var writerBio = escapeHtml(article.writer_bio || '');
@@ -370,8 +367,7 @@
             + (writerBio ? '<p>' + writerBio + '</p>' : '')
             + '</div></div>';
           container.innerHTML =
-            '<img class="featured-img" src="' + coverUrl + '" alt="' + articleTitle + '" loading="lazy">' +
-            '<div class="meta">' + categories + ' &middot; ' + articleAuthor + ' &middot; ' + publishDate + '</div>' +
+            '<div class=\"meta\">' + categories + ' &middot; ' + articleAuthor + ' &middot; ' + publishDate + '</div>' +
             '<h1>' + articleTitle + '</h1>' +
             bodyHtml +
             writerCreditHtml;

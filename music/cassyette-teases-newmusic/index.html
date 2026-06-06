@@ -11,9 +11,8 @@
   <link rel="stylesheet" href="/css/style.css">
   <link rel="icon" type="image/x-icon" href="/favicon.ico">
   <style>
-    .article-body{max-width:750px;margin:0 auto;padding:3rem 2rem}
+    .article-body{max-width:980px;margin:0 auto;padding:3rem 2rem}
     .article-body::after{content:'';display:block;clear:both}
-    .article-body .featured-img{width:100%;height:auto;margin-bottom:2rem}
     .article-body h1{font-size:2.2rem;margin-bottom:.5rem;line-height:1.2}
     .article-body .meta{font-size:.8rem;opacity:.5;text-transform:uppercase;letter-spacing:1px;margin-bottom:2rem}
     .article-body p{font-size:1.05rem;opacity:.85;margin-bottom:1.5rem;line-height:1.8}
@@ -78,7 +77,6 @@
   </header>
   <main class="page-wrap">
     <article class="article-body" id="articleBody" data-article-slug="cassyette-teases-newmusic" data-hydrate-from-api="0">
-      <img class="featured-img" src="https://feats-live.louishitchcock.xyz/images/articles/DSC09971.jpg" alt="Cassyette teases new single ‘Boom’ and ‘Picture Perfect’ at her London headline show!" loading="lazy">
       <div class="meta">Article &middot; Sophie Bingham &middot; 2019-03-11</div>
       <h1>Cassyette teases new single ‘Boom’ and ‘Picture Perfect’ at her London headline show!</h1>
       <p style="white-space:pre-wrap;">Cassyette came back to London with a bang, after selling out Camden’s legendary The Underworld back in February, in less than a year, she sold out o2 Academy Islington. Her setlist was crafted of many songs that she has not yet released, the crowd nonetheless knew many of the songs, most of them seeing her live multiple dates of the Sad Girl Summer Tour. With a stellar line up, Crashface joined the tour with fellow punk-star rapper Kid Bookie. </p>
@@ -311,7 +309,6 @@ The Tour Dates Block is rendered by Handlebars.
             .join(' &middot; ');
           if (!categories) categories = 'Article';
           var publishDate = escapeHtml(formatDate(String(article.publish_date || '').slice(0, 10)));
-          var coverUrl = escapeHtml(article.cover_url || ARTICLE_FALLBACK_COVER);
           var bodyHtml = article.body || '<p></p>';
           var writerPhotoUrl = escapeHtml(article.writer_photo_url || '');
           var writerBio = escapeHtml(article.writer_bio || '');
@@ -321,8 +318,7 @@ The Tour Dates Block is rendered by Handlebars.
             + (writerBio ? '<p>' + writerBio + '</p>' : '')
             + '</div></div>';
           container.innerHTML =
-            '<img class="featured-img" src="' + coverUrl + '" alt="' + articleTitle + '" loading="lazy">' +
-            '<div class="meta">' + categories + ' &middot; ' + articleAuthor + ' &middot; ' + publishDate + '</div>' +
+            '<div class=\"meta\">' + categories + ' &middot; ' + articleAuthor + ' &middot; ' + publishDate + '</div>' +
             '<h1>' + articleTitle + '</h1>' +
             bodyHtml +
             writerCreditHtml;

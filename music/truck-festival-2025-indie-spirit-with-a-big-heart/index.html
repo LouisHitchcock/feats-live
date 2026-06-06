@@ -11,9 +11,8 @@
   <link rel="stylesheet" href="/css/style.css">
   <link rel="icon" type="image/x-icon" href="/favicon.ico">
   <style>
-    .article-body{max-width:750px;margin:0 auto;padding:3rem 2rem}
+    .article-body{max-width:980px;margin:0 auto;padding:3rem 2rem}
     .article-body::after{content:'';display:block;clear:both}
-    .article-body .featured-img{width:100%;height:auto;margin-bottom:2rem}
     .article-body h1{font-size:2.2rem;margin-bottom:.5rem;line-height:1.2}
     .article-body .meta{font-size:.8rem;opacity:.5;text-transform:uppercase;letter-spacing:1px;margin-bottom:2rem}
     .article-body p{font-size:1.05rem;opacity:.85;margin-bottom:1.5rem;line-height:1.8}
@@ -78,7 +77,6 @@
   </header>
   <main class="page-wrap">
     <article class="article-body" id="articleBody" data-article-slug="truck-festival-2025-indie-spirit-with-a-big-heart" data-hydrate-from-api="0">
-      <img class="featured-img" src="/images/hero-3.jpg" alt="Truck Festival 2025: Indie Spirit with a Big Heart" loading="lazy">
       <div class="meta">Article &middot; Louis Hitchcock &middot; 2025-04-04</div>
       <h1>Truck Festival 2025: Indie Spirit with a Big Heart</h1>
       <h3 style="text-align:center;white-space:pre-wrap;"><strong>Main Acts Lighting Up 2025</strong></h3><p style="white-space:pre-wrap;">Truck’s reputation for showcasing new talent hasn’t stopped it from pulling in major headliners. This year the top of the bill is downright formidable. We’ve got <strong>Nothing But Thieves</strong> (playing an exclusive UK festival set), the ever-anthemic <strong>Kasabian</strong>, Manchester indie heroes <strong>Courteeners </strong>and alt-rock icons Bloc Party bringing the sing-along hits. Seeing such big names on a cosy farm stage is proof of how far Truck has come – the festival’s stature has snowballed without losing its soul.</p><p style="white-space:pre-wrap;">The undercard is just as exciting. 2000s legends like <strong>Franz Ferdinand </strong>and The <strong>Futureheads</strong>, indie darlings <strong>Blossoms</strong>, cheeky chart-toppers<strong> Scouting for Girls</strong>, and pop-rock favourite <strong>Natasha Bedingfield</strong> (<em>as a special guest</em>) are all on the lineup. And true to Truck form, the bill is bursting with buzzworthy new bands: from hype-heavy <strong>The Last Dinner Party</strong> and Irish rockers T<strong>he Reytons</strong>, to quirky indie crew <strong>Sports Team</strong> and soulful songwriter <strong>CMAT</strong>, you’ll find stellar music on every stage before the headliners even play. Throw in a stacked comedy tent headlined by the inimitable <strong>Reggie Watts</strong>, and Truck 2025 promises non-stop entertainment at every turn.</p><h3 style="text-align:center;white-space:pre-wrap;"><strong>Ones to Watch</strong></h3><p style="white-space:pre-wrap;">One of the best parts of Truck Festival is discovering tomorrow’s stars. Here are a few up-and-coming artists on the 2025 bill that you won’t want to miss – each bringing fresh music to the farm:</p><ul><li><p style="white-space:pre-wrap;"><strong>Courting </strong>– A post-punk outfit from Liverpool known for witty lyrics and genre-bending tunes. They’re fresh off releasing their adventurous third album “Lust for Life, or How To Thread The Needle…”, which landed in March to critical acclaim. Expect an unpredictable, high-energy set that shows why they’re rapidly becoming indie favourites. We caught up with them at 2000Trees a few years ago - You can watch the interview <a href="https://www.youtube.com/watch?v=eV3l0kQn-Bc" target="_blank">here</a>!</p></li></ul>
@@ -284,7 +282,6 @@
             .join(' &middot; ');
           if (!categories) categories = 'Article';
           var publishDate = escapeHtml(formatDate(String(article.publish_date || '').slice(0, 10)));
-          var coverUrl = escapeHtml(article.cover_url || ARTICLE_FALLBACK_COVER);
           var bodyHtml = article.body || '<p></p>';
           var writerPhotoUrl = escapeHtml(article.writer_photo_url || '');
           var writerBio = escapeHtml(article.writer_bio || '');
@@ -294,8 +291,7 @@
             + (writerBio ? '<p>' + writerBio + '</p>' : '')
             + '</div></div>';
           container.innerHTML =
-            '<img class="featured-img" src="' + coverUrl + '" alt="' + articleTitle + '" loading="lazy">' +
-            '<div class="meta">' + categories + ' &middot; ' + articleAuthor + ' &middot; ' + publishDate + '</div>' +
+            '<div class=\"meta\">' + categories + ' &middot; ' + articleAuthor + ' &middot; ' + publishDate + '</div>' +
             '<h1>' + articleTitle + '</h1>' +
             bodyHtml +
             writerCreditHtml;

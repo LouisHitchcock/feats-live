@@ -11,9 +11,8 @@
   <link rel="stylesheet" href="/css/style.css">
   <link rel="icon" type="image/x-icon" href="/favicon.ico">
   <style>
-    .article-body{max-width:750px;margin:0 auto;padding:3rem 2rem}
+    .article-body{max-width:980px;margin:0 auto;padding:3rem 2rem}
     .article-body::after{content:'';display:block;clear:both}
-    .article-body .featured-img{width:100%;height:auto;margin-bottom:2rem}
     .article-body h1{font-size:2.2rem;margin-bottom:.5rem;line-height:1.2}
     .article-body .meta{font-size:.8rem;opacity:.5;text-transform:uppercase;letter-spacing:1px;margin-bottom:2rem}
     .article-body p{font-size:1.05rem;opacity:.85;margin-bottom:1.5rem;line-height:1.8}
@@ -78,7 +77,6 @@
   </header>
   <main class="page-wrap">
     <article class="article-body" id="articleBody" data-article-slug="snayxliveat-tge" data-hydrate-from-api="0">
-      <img class="featured-img" src="https://feats-live.louishitchcock.xyz/images/articles/The+Great+Escape+2023-21-min.jpg" alt="Exploding out of the scene:&amp;nbsp; Snayx live at TGE ‘23" loading="lazy">
       <div class="meta">THE GREAT ESCAPE &middot; Sophie Bingham &middot; 2023-05-14</div>
       <h1>Exploding out of the scene:&amp;nbsp; Snayx live at TGE ‘23</h1>
       <p style="white-space:pre-wrap;">Snayx, a name that you are guaranteed to remember after seeing them live, across The Great Escape Weekend Snayx had their hands full playing a total four shows from packed out sweat-box pubs to filling out Brighton’s iconic Chalk. This duo, Ollie Horner &amp; Charlie Henridge: they’re no strangers to a rowdy show coming off of a tour with Kid Kapichi, Snayx are a band that puts on a show, they bring vigorous energy, they will have you moving no matter what. </p>
@@ -294,7 +292,6 @@
             .join(' &middot; ');
           if (!categories) categories = 'Article';
           var publishDate = escapeHtml(formatDate(String(article.publish_date || '').slice(0, 10)));
-          var coverUrl = escapeHtml(article.cover_url || ARTICLE_FALLBACK_COVER);
           var bodyHtml = article.body || '<p></p>';
           var writerPhotoUrl = escapeHtml(article.writer_photo_url || '');
           var writerBio = escapeHtml(article.writer_bio || '');
@@ -304,8 +301,7 @@
             + (writerBio ? '<p>' + writerBio + '</p>' : '')
             + '</div></div>';
           container.innerHTML =
-            '<img class="featured-img" src="' + coverUrl + '" alt="' + articleTitle + '" loading="lazy">' +
-            '<div class="meta">' + categories + ' &middot; ' + articleAuthor + ' &middot; ' + publishDate + '</div>' +
+            '<div class=\"meta\">' + categories + ' &middot; ' + articleAuthor + ' &middot; ' + publishDate + '</div>' +
             '<h1>' + articleTitle + '</h1>' +
             bodyHtml +
             writerCreditHtml;

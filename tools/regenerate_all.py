@@ -39,9 +39,8 @@ DYNAMIC_ARTICLE_ROUTE_SEGMENT = "article"
 RESERVED_MUSIC_DIRS = {DYNAMIC_ARTICLE_ROUTE_SEGMENT}
 
 ARTICLE_STYLE = """  <style>
-    .article-body{max-width:750px;margin:0 auto;padding:3rem 2rem}
+    .article-body{max-width:980px;margin:0 auto;padding:3rem 2rem}
     .article-body::after{content:'';display:block;clear:both}
-    .article-body .featured-img{width:100%;height:auto;margin-bottom:2rem}
     .article-body h1{font-size:2.2rem;margin-bottom:.5rem;line-height:1.2}
     .article-body .meta{font-size:.8rem;opacity:.5;text-transform:uppercase;letter-spacing:1px;margin-bottom:2rem}
     .article-body p{font-size:1.05rem;opacity:.85;margin-bottom:1.5rem;line-height:1.8}
@@ -671,7 +670,6 @@ def render_article_page(article: dict) -> str:
     slug = html.escape(article["url_id"], quote=True)
     cats_raw = [part.strip() for part in str(article["categories"]).split(",") if part.strip()]
     cats = " &middot; ".join(html.escape(part, quote=True) for part in cats_raw[:5]) if cats_raw else "Article"
-    cover = html.escape(article["cover_url"] or DEFAULT_COVER, quote=True)
     body = article["body"] or "<p></p>"
     writer_photo_url = html.escape(str(article.get("writer_photo_url", "")).strip(), quote=True)
     writer_bio = html.escape(str(article.get("writer_bio", "")).strip())
@@ -706,7 +704,6 @@ def render_article_page(article: dict) -> str:
 {render_header(music_active=True)}
   <main class="page-wrap">
     <article class="article-body" id="articleBody" data-article-slug="{slug}" data-hydrate-from-api="{hydrate_from_api}">
-      <img class="featured-img" src="{cover}" alt="{title}" loading="lazy">
       <div class="meta">{cats} &middot; {author} &middot; {publish_day}</div>
       <h1>{title}</h1>
       {body}
@@ -893,7 +890,6 @@ def render_article_page(article: dict) -> str:
             .join(' &middot; ');
           if (!categories) categories = 'Article';
           var publishDate = escapeHtml(formatDate(String(article.publish_date || '').slice(0, 10)));
-          var coverUrl = escapeHtml(article.cover_url || ARTICLE_FALLBACK_COVER);
           var bodyHtml = article.body || '<p></p>';
           var writerPhotoUrl = escapeHtml(article.writer_photo_url || '');
           var writerBio = escapeHtml(article.writer_bio || '');
@@ -903,8 +899,7 @@ def render_article_page(article: dict) -> str:
             + (writerBio ? '<p>' + writerBio + '</p>' : '')
             + '</div></div>';
           container.innerHTML =
-            '<img class=\"featured-img\" src=\"' + coverUrl + '\" alt=\"' + articleTitle + '\" loading=\"lazy\">' +
-            '<div class=\"meta\">' + categories + ' &middot; ' + articleAuthor + ' &middot; ' + publishDate + '</div>' +
+            '<div class=\\\"meta\\\">' + categories + ' &middot; ' + articleAuthor + ' &middot; ' + publishDate + '</div>' +
             '<h1>' + articleTitle + '</h1>' +
             bodyHtml +
             writerCreditHtml;
@@ -1203,7 +1198,6 @@ def render_music_listing_query_mode() -> str:
             .join(' &middot; ');
           if (!categories) categories = 'Article';
           const publishDate = escapeHtml(formatDate(String(article.publish_date || '').slice(0, 10)));
-          const coverUrl = escapeHtml(article.cover_url || ARTICLE_FALLBACK_COVER);
           const bodyHtml = article.body || '<p></p>';
           const writerPhotoUrl = escapeHtml(article.writer_photo_url || '');
           const writerBio = escapeHtml(article.writer_bio || '');
@@ -1213,8 +1207,7 @@ def render_music_listing_query_mode() -> str:
             + (writerBio ? '<p>' + writerBio + '</p>' : '')
             + '</div></div>';
           articleBody.innerHTML =
-            '<img class=\\\"featured-img\\\" src=\\\"' + coverUrl + '\\\" alt=\\\"' + articleTitle + '\\\" loading=\\\"lazy\\\">' +
-            '<div class=\\\"meta\\\">' + categories + ' &middot; ' + articleAuthor + ' &middot; ' + publishDate + '</div>' +
+            '<div class=\\\\\\\"meta\\\\\\\">' + categories + ' &middot; ' + articleAuthor + ' &middot; ' + publishDate + '</div>' +
             '<h1>' + articleTitle + '</h1>' +
             bodyHtml +
             writerCreditHtml;

@@ -11,9 +11,8 @@
   <link rel="stylesheet" href="/css/style.css">
   <link rel="icon" type="image/x-icon" href="/favicon.ico">
   <style>
-    .article-body{max-width:750px;margin:0 auto;padding:3rem 2rem}
+    .article-body{max-width:980px;margin:0 auto;padding:3rem 2rem}
     .article-body::after{content:'';display:block;clear:both}
-    .article-body .featured-img{width:100%;height:auto;margin-bottom:2rem}
     .article-body h1{font-size:2.2rem;margin-bottom:.5rem;line-height:1.2}
     .article-body .meta{font-size:.8rem;opacity:.5;text-transform:uppercase;letter-spacing:1px;margin-bottom:2rem}
     .article-body p{font-size:1.05rem;opacity:.85;margin-bottom:1.5rem;line-height:1.8}
@@ -78,7 +77,6 @@
   </header>
   <main class="page-wrap">
     <article class="article-body" id="articleBody" data-article-slug="twenty-one-pilots-clancy-tour-review-recap" data-hydrate-from-api="0">
-      <img class="featured-img" src="https://feats-live.louishitchcock.xyz/images/articles/491440710_18045906593579740_3488338911094287523_n.jpg" alt="Twenty One Pilots Clancy Tour Review &amp;amp; Recap" loading="lazy">
       <div class="meta">Gig Review &middot; Album Review &middot; Tour &middot; Tour Review &middot; Artist Showcase &middot; Louis Hitchcock &middot; 2025-05-23</div>
       <h1>Twenty One Pilots Clancy Tour Review &amp;amp; Recap</h1>
       <p style="white-space:pre-wrap;"><strong>Editorial Note:</strong></p><p style="white-space:pre-wrap;">Since the writing of this article Twenty One Pilots have Announced their up-coming album “Breach” coming out in September, with the first song “Contract” releasing June 12th 2025.</p>
@@ -307,7 +305,6 @@
             .join(' &middot; ');
           if (!categories) categories = 'Article';
           var publishDate = escapeHtml(formatDate(String(article.publish_date || '').slice(0, 10)));
-          var coverUrl = escapeHtml(article.cover_url || ARTICLE_FALLBACK_COVER);
           var bodyHtml = article.body || '<p></p>';
           var writerPhotoUrl = escapeHtml(article.writer_photo_url || '');
           var writerBio = escapeHtml(article.writer_bio || '');
@@ -317,8 +314,7 @@
             + (writerBio ? '<p>' + writerBio + '</p>' : '')
             + '</div></div>';
           container.innerHTML =
-            '<img class="featured-img" src="' + coverUrl + '" alt="' + articleTitle + '" loading="lazy">' +
-            '<div class="meta">' + categories + ' &middot; ' + articleAuthor + ' &middot; ' + publishDate + '</div>' +
+            '<div class=\"meta\">' + categories + ' &middot; ' + articleAuthor + ' &middot; ' + publishDate + '</div>' +
             '<h1>' + articleTitle + '</h1>' +
             bodyHtml +
             writerCreditHtml;

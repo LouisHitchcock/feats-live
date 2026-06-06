@@ -11,9 +11,8 @@
   <link rel="stylesheet" href="/css/style.css">
   <link rel="icon" type="image/x-icon" href="/favicon.ico">
   <style>
-    .article-body{max-width:750px;margin:0 auto;padding:3rem 2rem}
+    .article-body{max-width:980px;margin:0 auto;padding:3rem 2rem}
     .article-body::after{content:'';display:block;clear:both}
-    .article-body .featured-img{width:100%;height:auto;margin-bottom:2rem}
     .article-body h1{font-size:2.2rem;margin-bottom:.5rem;line-height:1.2}
     .article-body .meta{font-size:.8rem;opacity:.5;text-transform:uppercase;letter-spacing:1px;margin-bottom:2rem}
     .article-body p{font-size:1.05rem;opacity:.85;margin-bottom:1.5rem;line-height:1.8}
@@ -78,7 +77,6 @@
   </header>
   <main class="page-wrap">
     <article class="article-body" id="articleBody" data-article-slug="sad-night-dynamic-tge23" data-hydrate-from-api="0">
-      <img class="featured-img" src="https://feats-live.louishitchcock.xyz/images/articles/SND_CREDIT_Angus-Steele_0.jpeg" alt="Sad Night Dynamic played their most intimate shows to Date." loading="lazy">
       <div class="meta">THE GREAT ESCAPE &middot; Gig Review &middot; Live Music &middot; Interview &middot; Flore Ghulam &middot; 2023-05-18</div>
       <h1>Sad Night Dynamic played their most intimate shows to Date.</h1>
       <p style="white-space:pre-wrap;">Following the release of their new single <a href="https://open.spotify.com/album/7xUfvvjZ4xx2GjLymbVz1V?si=CwUNo05XR4qWu8yJch7bcA"><strong>Sick of Your Sound</strong></a> the duo took over the beloved East London venue, the George Tavern for two consecutive Nights. The secondary school best friends hailing from Somerset -Archie and Josh- have already made their stamp on the hip-hop/ alternative scene. With tracks such as <strong>Krunk</strong> and <strong>Demon</strong> accumulating over 12M streams on spotify. </p>
@@ -297,7 +295,6 @@
             .join(' &middot; ');
           if (!categories) categories = 'Article';
           var publishDate = escapeHtml(formatDate(String(article.publish_date || '').slice(0, 10)));
-          var coverUrl = escapeHtml(article.cover_url || ARTICLE_FALLBACK_COVER);
           var bodyHtml = article.body || '<p></p>';
           var writerPhotoUrl = escapeHtml(article.writer_photo_url || '');
           var writerBio = escapeHtml(article.writer_bio || '');
@@ -307,8 +304,7 @@
             + (writerBio ? '<p>' + writerBio + '</p>' : '')
             + '</div></div>';
           container.innerHTML =
-            '<img class="featured-img" src="' + coverUrl + '" alt="' + articleTitle + '" loading="lazy">' +
-            '<div class="meta">' + categories + ' &middot; ' + articleAuthor + ' &middot; ' + publishDate + '</div>' +
+            '<div class=\"meta\">' + categories + ' &middot; ' + articleAuthor + ' &middot; ' + publishDate + '</div>' +
             '<h1>' + articleTitle + '</h1>' +
             bodyHtml +
             writerCreditHtml;
