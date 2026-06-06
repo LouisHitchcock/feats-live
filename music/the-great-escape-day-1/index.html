@@ -50,9 +50,11 @@
     .article-carousel .carousel-thumb{border:none;padding:0;background:transparent;opacity:.52;cursor:pointer;flex:0 0 auto}
     .article-carousel .carousel-thumb.is-active{opacity:1}
     .article-carousel .carousel-thumb img{width:58px;height:40px;object-fit:cover;border-radius:0}
+    .article-embed iframe{display:block;width:100%;min-height:320px;border:0}
     @media(max-width:600px){
       .article-media--float-right,.article-media--float-left{float:none;width:100%;margin:1rem 0}
       .article-carousel .carousel-nav{width:36px;height:36px;font-size:1.65rem}
+      .article-embed iframe{min-height:220px}
     }
   </style>
 </head>
@@ -75,21 +77,22 @@
     </nav>
   </header>
   <main class="page-wrap">
-    <article class="article-body" id="articleBody" data-article-slug="the-great-escape-day-1">
+    <article class="article-body" id="articleBody" data-article-slug="the-great-escape-day-1" data-hydrate-from-api="0">
       <img class="featured-img" src="https://feats-live.louishitchcock.xyz/images/articles/The+Great+Escape+2023-02-min.JPG" alt="The Great Escape Wednesday - The Kick Off" loading="lazy">
-      <div class="meta">THE GREAT ESCAPE &middot; Festival &middot; Feats. &middot; 2023-05-11</div>
+      <div class="meta">THE GREAT ESCAPE &middot; Festival &middot; Flore Ghulam &middot; 2023-05-11</div>
       <h1>The Great Escape Wednesday - The Kick Off</h1>
-      <p>The Wednesday of the great escape festival is mainly about socialising, collecting your wristband and lanyard and just getting the lay of the land.</p><p>After arriving at Brighton station at around 17:00 pm we headed to get our wristbands and then to the beach stage after for some drinks and chit-chats. </p>
+      <p style="white-space:pre-wrap;">The Wednesday of the great escape festival is mainly about socialising, collecting your wristband and lanyard and just getting the lay of the land.</p><p style="white-space:pre-wrap;">After arriving at Brighton station at around 17:00 pm we headed to get our wristbands and then to the beach stage after for some drinks and chit-chats. </p>
 <figure class="article-media article-media--full">
   <img src="https://feats-live.louishitchcock.xyz/images/articles/The+Great+Escape+2023-02-min.JPG" alt="" loading="lazy">
   <figcaption>Credit: Louis Hitchcock (LouisHitchPhotos/Feats)</figcaption>
 </figure>
-<p>Kicking off the weekend COWZ performed their first set, the Brighton based pop-duo with their amazing stage presence and interactive energy had the crowd bopping and swaying which is very hard for a first act of a festival (believe us, we’ve been to enough festivals). </p><p>After COWZ we headed back to the bar for some refreshing craft beers. With a craving for more live music we went to the village pub to catch SNAYX with their introductory gig.  Even though the show wasn’t a part of the great escape line-up it was the perfect way to end the first night in brighton. </p>
+<p style="white-space:pre-wrap;">Kicking off the weekend COWZ performed their first set, the Brighton based pop-duo with their amazing stage presence and interactive energy had the crowd bopping and swaying which is very hard for a first act of a festival (believe us, we’ve been to enough festivals). </p><p style="white-space:pre-wrap;">After COWZ we headed back to the bar for some refreshing craft beers. With a craving for more live music we went to the village pub to catch SNAYX with their introductory gig.  Even though the show wasn’t a part of the great escape line-up it was the perfect way to end the first night in brighton. </p>
 <figure class="article-media article-media--full">
   <img src="https://feats-live.louishitchcock.xyz/images/articles/DSC09548.jpg" alt="" loading="lazy">
   <figcaption>Photo Credit: Tom Ellis (TJEPhotos/Feats)</figcaption>
 </figure>
-<p>Punk-rock duo Snayx controlled our night at Brighton’s own ‘The Village’, an old time pub filled to the brim with kooky and creepy dolls decorated around the room, filled up to the brim, everyone a pint in hand. Beach riot, Brighton’s own kicked it off for us with their electric set. Snayx came in with their high energy riling everyone up, playing the Venga boys’ we like to party and they couldn’t be more right.</p><p>With such an amazing first day by the beach it only made us more excited to kick off the festival today with some of the most anticipated acts such as Hot Wax, Coach Party, VLURE, Grove and Noisy.</p>
+<p style="white-space:pre-wrap;">Punk-rock duo Snayx controlled our night at Brighton’s own ‘The Village’, an old time pub filled to the brim with kooky and creepy dolls decorated around the room, filled up to the brim, everyone a pint in hand. Beach riot, Brighton’s own kicked it off for us with their electric set. Snayx came in with their high energy riling everyone up, playing the Venga boys’ we like to party and they couldn’t be more right.</p><p style="white-space:pre-wrap;">With such an amazing first day by the beach it only made us more excited to kick off the festival today with some of the most anticipated acts such as Hot Wax, Coach Party, VLURE, Grove and Noisy.</p>
+      <div class="writer-credit" id="writerCredit"><img class="writer-credit-photo" src="https://images.squarespace-cdn.com/content/v2/namespaces/memberAccountAvatars/libraries/6276f0f0a2123935bc756433/30bcd94e-6560-49fc-bfe9-69e8d6801c98/Flore.jpeg" alt="Flore Ghulam" loading="lazy"><div class="writer-credit-info"><h4>Written by Flore Ghulam</h4><p>Writer and editorial contributor covering festivals, live music, and emerging artists.</p></div></div>
     </article>
   </main>
 <footer class="site-footer">
@@ -108,6 +111,17 @@
   <script>
     const ARTICLE_API_BASE = 'https://feats-live.louishitchcock.xyz';
     const ARTICLE_FALLBACK_COVER = 'https://feats-live.louishitchcock.xyz/images/hero-3.jpg';
+    (function enforceCanonicalArticlePath() {
+      var container = document.getElementById('articleBody');
+      if (!container) return;
+      var slug = String(container.getAttribute('data-article-slug') || '').trim().replace(/^[/]+/g, '').replace(/[/]+$/g, '');
+      if (!slug) return;
+      var canonicalUrl = '/music/?article=' + encodeURIComponent(slug);
+      var currentUrl = window.location.pathname + window.location.search;
+      if (currentUrl !== canonicalUrl) {
+        window.location.replace(canonicalUrl);
+      }
+    })();
     document.getElementById('navToggle').addEventListener('click', function(){
       document.getElementById('navLinks').classList.toggle('open');
     });
@@ -130,6 +144,23 @@
       var day = parseInt(pieces[2], 10);
       if (monthIdx < 0 || monthIdx > 11 || Number.isNaN(day)) return value;
       return day + ' ' + months[monthIdx] + ' ' + pieces[0];
+    }
+    function fetchLocalArticleFallback(slug) {
+      return fetch('/api/articles_clean.json', { cache: 'no-store' })
+        .then(function(response) {
+          if (!response.ok) throw new Error('Local fallback fetch failed: ' + response.status);
+          return response.json();
+        })
+        .then(function(rows) {
+          if (!Array.isArray(rows)) return null;
+          var normalizedSlug = String(slug || '').trim().replace(/^[/]+/g, '').replace(/[/]+$/g, '');
+          for (var i = 0; i < rows.length; i++) {
+            var candidate = rows[i] || {};
+            var candidateSlug = String(candidate.url_id || '').trim().replace(/^[/]+/g, '').replace(/[/]+$/g, '');
+            if (candidateSlug === normalizedSlug) return candidate;
+          }
+          return null;
+        });
     }
 
     function getCarouselNodes(carousel) {
@@ -218,6 +249,7 @@
     function hydrateArticleFromApi() {
       var container = document.getElementById('articleBody');
       if (!container) return;
+      if (container.getAttribute('data-hydrate-from-api') !== '1') return;
       var currentSlug = container.getAttribute('data-article-slug');
       if (!currentSlug) return;
       fetch(ARTICLE_API_BASE + '/api/articles/' + encodeURIComponent(currentSlug), { cache: 'no-store' })
@@ -227,6 +259,22 @@
         })
         .then(function(payload){
           var article = payload && payload.article ? payload.article : null;
+          if (!article) return;
+          return fetchLocalArticleFallback(currentSlug)
+            .then(function(localArticle) {
+              if (localArticle && String(localArticle.body || '').trim()) {
+                article.body = localArticle.body;
+                if (!article.excerpt && localArticle.excerpt) article.excerpt = localArticle.excerpt;
+                if (!article.cover_url && localArticle.cover_url) article.cover_url = localArticle.cover_url;
+                if (!article.categories && localArticle.categories) article.categories = localArticle.categories;
+                if (!article.publish_date && localArticle.publish_date) article.publish_date = localArticle.publish_date;
+                if ((!article.author || article.author === 'Feats.') && localArticle.author) article.author = localArticle.author;
+              }
+              return article;
+            })
+            .catch(function() { return article; });
+        })
+        .then(function(article){
           if (!article) return;
           var articleTitle = escapeHtml(article.title || 'Untitled Article');
           var articleAuthor = escapeHtml(article.author || 'Feats.');
@@ -241,11 +289,19 @@
           var publishDate = escapeHtml(formatDate(String(article.publish_date || '').slice(0, 10)));
           var coverUrl = escapeHtml(article.cover_url || ARTICLE_FALLBACK_COVER);
           var bodyHtml = article.body || '<p></p>';
+          var writerPhotoUrl = escapeHtml(article.writer_photo_url || '');
+          var writerBio = escapeHtml(article.writer_bio || '');
+          var writerCreditHtml = '<div class=\"writer-credit\" id=\"writerCredit\">'
+            + (writerPhotoUrl ? '<img class=\"writer-credit-photo\" src=\"' + writerPhotoUrl + '\" alt=\"' + articleAuthor + '\" loading=\"lazy\">' : '')
+            + '<div class=\"writer-credit-info\"><h4>Written by ' + articleAuthor + '</h4>'
+            + (writerBio ? '<p>' + writerBio + '</p>' : '')
+            + '</div></div>';
           container.innerHTML =
             '<img class="featured-img" src="' + coverUrl + '" alt="' + articleTitle + '" loading="lazy">' +
             '<div class="meta">' + categories + ' &middot; ' + articleAuthor + ' &middot; ' + publishDate + '</div>' +
             '<h1>' + articleTitle + '</h1>' +
-            bodyHtml;
+            bodyHtml +
+            writerCreditHtml;
           document.title = (article.title || 'Article') + ' — Feats.';
           var description = document.querySelector('meta[name="description"]');
           if (description) {

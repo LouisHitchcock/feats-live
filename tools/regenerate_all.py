@@ -4,6 +4,7 @@ import argparse
 import html
 import json
 import re
+import sqlite3
 import shutil
 from datetime import datetime
 from pathlib import Path
@@ -16,11 +17,14 @@ REPO_ROOT = Path(__file__).resolve().parents[1]
 MUSIC_DIR = REPO_ROOT / "music"
 INDEX_JSON_PATH = REPO_ROOT / "article_index.json"
 API_ARTICLES_PATH = REPO_ROOT / "api" / "articles_clean.json"
+WRITER_SEED_PATH = REPO_ROOT / "api" / "src" / "seed_writers.sql"
+WRITER_PHOTOS_SEED_PATH = REPO_ROOT / "api" / "src" / "seed_writer_photos.sql"
 PUBLIC_API_BASE = "https://feats-live.louishitchcock.xyz"
 DEFAULT_API_URL = PUBLIC_API_BASE + "/api/articles"
 DEFAULT_COVER = PUBLIC_API_BASE + "/images/hero-3.jpg"
 IMAGE_PROXY_BASE = PUBLIC_API_BASE + "/images/articles/"
 LEGACY_LAYOUT_URL_TEMPLATE = "https://feats.live/music/{url_id}?format=json-pretty"
+DUPLICATE_SUFFIX_PATTERN = re.compile(r"^(?P<base>.+)-(?P<suffix>[a-z0-9]{5})$")
 
 EXCLUDED_URL_IDS = {
     "about",
@@ -74,9 +78,11 @@ ARTICLE_STYLE = """  <style>
     .article-carousel .carousel-thumb{border:none;padding:0;background:transparent;opacity:.52;cursor:pointer;flex:0 0 auto}
     .article-carousel .carousel-thumb.is-active{opacity:1}
     .article-carousel .carousel-thumb img{width:58px;height:40px;object-fit:cover;border-radius:0}
+    .article-embed iframe{display:block;width:100%;min-height:320px;border:0}
     @media(max-width:600px){
       .article-media--float-right,.article-media--float-left{float:none;width:100%;margin:1rem 0}
       .article-carousel .carousel-nav{width:36px;height:36px;font-size:1.65rem}
+      .article-embed iframe{min-height:220px}
     }
   </style>"""
 
@@ -136,6 +142,61 @@ def normalize_publish_date(raw_value: str) -> str:
     return value
 
 
+def extract_author_name(raw_author) -> str:
+    if isinstance(raw_author, dict):
+        display_name = str(raw_author.get("displayName", "")).strip()
+        if display_name:
+            return display_name
+        first_name = str(raw_author.get("firstName", "")).strip()
+        last_name = str(raw_author.get("lastName", "")).strip()
+        combined = " ".join(part for part in [first_name, last_name] if part).strip()
+        return combined
+    return str(raw_author or "").strip()
+
+
+def normalize_author_key(author_name: str) -> str:
+    return re.sub(r"\s+", " ", str(author_name or "").strip()).lower()
+
+
+def load_writer_profiles() -> dict[str, dict[str, str]]:
+    if not WRITER_SEED_PATH.exists():
+        return {}
+
+    connection = sqlite3.connect(":memory:")
+    try:
+        connection.executescript(
+            """
+            CREATE TABLE IF NOT EXISTS writers (
+              id INTEGER PRIMARY KEY AUTOINCREMENT,
+              name TEXT UNIQUE NOT NULL,
+              photo_url TEXT DEFAULT '',
+              bio TEXT DEFAULT '',
+              created_at TEXT DEFAULT (datetime('now'))
+            );
+            """
+        )
+        connection.executescript(WRITER_SEED_PATH.read_text(encoding="cp1252", errors="ignore"))
+        if WRITER_PHOTOS_SEED_PATH.exists():
+            connection.executescript(WRITER_PHOTOS_SEED_PATH.read_text(encoding="cp1252", errors="ignore"))
+
+        cursor = connection.execute("SELECT name, photo_url, bio FROM writers")
+        profiles: dict[str, dict[str, str]] = {}
+        for name, photo_url, bio in cursor.fetchall():
+            author_name = str(name or "").strip()
+            if not author_name:
+                continue
+            profiles[normalize_author_key(author_name)] = {
+                "name": author_name,
+                "photo_url": str(photo_url or "").strip(),
+                "bio": str(bio or "").strip(),
+            }
+        return profiles
+    except Exception:
+        return {}
+    finally:
+        connection.close()
+
+
 def clean_body(raw_body: str) -> str:
     body = str(raw_body or "")
     if not body:
@@ -180,10 +241,15 @@ def sanitize_fragment_html(fragment: str) -> str:
         invalid.decompose()
 
     allowed_attrs = {
+        "class",
+        "style",
+        "id",
         "href",
         "target",
         "rel",
         "src",
+        "srcset",
+        "sizes",
         "alt",
         "title",
         "loading",
@@ -192,13 +258,20 @@ def sanitize_fragment_html(fragment: str) -> str:
         "frameborder",
         "allow",
         "allowfullscreen",
+        "referrerpolicy",
     }
 
     for tag in soup.find_all(True):
         cleaned_attrs = {}
         for key, value in tag.attrs.items():
             normalized_key = key.lower()
+            if normalized_key.startswith("on"):
+                continue
+            if normalized_key == "href" and str(value).strip().lower().startswith("javascript:"):
+                continue
             if normalized_key.startswith("data-"):
+                if normalized_key.startswith("data-article-"):
+                    cleaned_attrs[normalized_key] = value
                 continue
             if normalized_key in allowed_attrs:
                 cleaned_attrs[normalized_key] = value
@@ -240,6 +313,38 @@ def convert_html_block(block) -> str:
         return ""
     fragment = "".join(str(child) for child in content.contents)
     return sanitize_fragment_html(fragment)
+
+
+def extract_iframe_html(block) -> str:
+    iframe = block.find("iframe")
+    if iframe is not None:
+        return sanitize_fragment_html(str(iframe))
+
+    video_wrapper = block.select_one(".sqs-video-wrapper")
+    encoded_html = str(video_wrapper.get("data-html", "")).strip() if video_wrapper is not None else ""
+    if encoded_html:
+        decoded = html.unescape(encoded_html)
+        decoded_soup = BeautifulSoup(decoded, "html.parser")
+        decoded_iframe = decoded_soup.find("iframe")
+        if decoded_iframe is not None:
+            return sanitize_fragment_html(str(decoded_iframe))
+
+    return ""
+
+
+def convert_embed_block(block) -> str:
+    classes = set(block.get("class", []))
+    float_direction = extract_float_direction(classes)
+    iframe_html = extract_iframe_html(block)
+    if not iframe_html:
+        return convert_html_block(block)
+    return "\n".join(
+        [
+            f'<div class="{media_class(float_direction)} article-embed">',
+            f"  {iframe_html}",
+            "</div>",
+        ]
+    )
 
 
 def convert_image_block(block) -> str:
@@ -380,6 +485,10 @@ def convert_legacy_squarespace_body(body_html: str) -> str:
             converted = convert_gallery_block(block, f"carousel-{gallery_counter}")
         elif "image-block" in classes or "sqs-block-image" in classes:
             converted = convert_image_block(block)
+        elif "embed-block" in classes or "sqs-block-embed" in classes:
+            converted = convert_embed_block(block)
+        elif "video-block" in classes or "sqs-block-video" in classes:
+            converted = convert_embed_block(block)
         elif "horizontalrule-block" in classes or "sqs-block-horizontalrule" in classes:
             converted = '<hr class="article-rule">'
         elif "html-block" in classes or "sqs-block-html" in classes:
@@ -395,18 +504,21 @@ def convert_legacy_squarespace_body(body_html: str) -> str:
     return "\n".join(converted_parts).strip()
 
 
-def fetch_legacy_layout_body(url_id: str) -> str | None:
+def fetch_legacy_layout_record(url_id: str) -> dict | None:
     try:
         response = requests.get(LEGACY_LAYOUT_URL_TEMPLATE.format(url_id=url_id), timeout=20)
         if response.status_code != 200:
             return None
         payload = response.json()
-        body = payload.get("item", {}).get("body", "")
-        if isinstance(body, str) and body.strip():
-            return body
+        item = payload.get("item", {}) if isinstance(payload, dict) else {}
+        body = item.get("body", "")
+        author = extract_author_name(item.get("author", ""))
+        return {
+            "body": body if isinstance(body, str) else "",
+            "author": author,
+        }
     except Exception:
         return None
-    return None
 
 
 def load_articles_from_local() -> list[dict]:
@@ -425,30 +537,48 @@ def load_articles_from_api(api_url: str) -> list[dict]:
     return payload["articles"]
 
 
-def normalize_articles(raw_articles: list[dict]) -> list[dict]:
+def duplicate_variant_base_slug(url_id: str) -> str | None:
+    match = DUPLICATE_SUFFIX_PATTERN.match(url_id)
+    if not match:
+        return None
+    return match.group("base")
+
+
+def normalize_articles(raw_articles: list[dict], writer_profiles: dict[str, dict[str, str]] | None = None) -> list[dict]:
+    profiles = writer_profiles or {}
     normalized = []
     for article in raw_articles:
         url_id = str(article.get("url_id", "")).strip().strip("/")
         title = str(article.get("title", "")).strip()
         if not url_id or not title or url_id in EXCLUDED_URL_IDS:
             continue
+        if title.lower().endswith("(copy)"):
+            continue
+        author_name = extract_author_name(article.get("author", "Feats.")) or "Feats."
+        writer_profile = profiles.get(normalize_author_key(author_name), {})
         normalized.append(
             {
                 "url_id": url_id,
                 "title": title,
                 "excerpt": str(article.get("excerpt", "")).strip(),
-                "author": str(article.get("author", "Feats.")).strip() or "Feats.",
+                "author": author_name,
                 "publish_date": normalize_publish_date(article.get("publish_date", "")),
                 "categories": str(article.get("categories", "")).strip(),
                 "cover_url": str(article.get("cover_url", "")).strip() or DEFAULT_COVER,
                 "body": clean_body(article.get("body", "")),
+                "writer_photo_url": str(writer_profile.get("photo_url", "")).strip(),
+                "writer_bio": str(writer_profile.get("bio", "")).strip(),
             }
         )
 
     normalized.sort(key=lambda item: parse_publish_date(item["publish_date"]), reverse=True)
+    all_slugs = {article["url_id"] for article in normalized}
     deduped = []
     seen = set()
     for article in normalized:
+        base_slug = duplicate_variant_base_slug(article["url_id"])
+        if base_slug and base_slug in all_slugs:
+            continue
         if article["url_id"] in seen:
             continue
         seen.add(article["url_id"])
@@ -456,17 +586,37 @@ def normalize_articles(raw_articles: list[dict]) -> list[dict]:
     return deduped
 
 
-def enrich_articles_with_legacy_layouts(articles: list[dict]) -> int:
+def enrich_articles_with_legacy_layouts(
+    articles: list[dict], writer_profiles: dict[str, dict[str, str]] | None = None
+) -> int:
+    profiles = writer_profiles or {}
     updated = 0
     for index, article in enumerate(articles, 1):
-        legacy_body = fetch_legacy_layout_body(article["url_id"])
-        if not legacy_body:
+        legacy_record = fetch_legacy_layout_record(article["url_id"])
+        if not legacy_record:
             continue
-        converted = convert_legacy_squarespace_body(legacy_body)
+        legacy_body = str(legacy_record.get("body", "") or "")
+        converted = convert_legacy_squarespace_body(legacy_body) if legacy_body else ""
+        legacy_author = extract_author_name(legacy_record.get("author", ""))
+        changed = False
         if not converted:
-            continue
-        if converted != article.get("body", ""):
+            converted = article.get("body", "")
+        if converted and converted != article.get("body", ""):
             article["body"] = converted
+            changed = True
+        if legacy_author and legacy_author != article.get("author", ""):
+            article["author"] = legacy_author
+            changed = True
+        writer_profile = profiles.get(normalize_author_key(article.get("author", "")), {})
+        writer_photo_url = str(writer_profile.get("photo_url", "")).strip()
+        writer_bio = str(writer_profile.get("bio", "")).strip()
+        if writer_photo_url != article.get("writer_photo_url", ""):
+            article["writer_photo_url"] = writer_photo_url
+            changed = True
+        if writer_bio != article.get("writer_bio", ""):
+            article["writer_bio"] = writer_bio
+            changed = True
+        if changed:
             updated += 1
         if index % 20 == 0:
             print(f"  scraped layouts {index}/{len(articles)} ({updated} updated)")
@@ -476,13 +626,22 @@ def enrich_articles_with_legacy_layouts(articles: list[dict]) -> int:
 def persist_scraped_layouts(raw_articles: list[dict], normalized_articles: list[dict]) -> int:
     updated = 0
     body_by_slug = {article["url_id"]: article.get("body", "") for article in normalized_articles if article.get("body")}
+    author_by_slug = {article["url_id"]: article.get("author", "") for article in normalized_articles if article.get("author")}
 
     for raw in raw_articles:
         slug = str(raw.get("url_id", "")).strip().strip("/")
+        changed = False
         if slug in body_by_slug and body_by_slug[slug]:
             if raw.get("body", "") != body_by_slug[slug]:
                 raw["body"] = body_by_slug[slug]
-                updated += 1
+                changed = True
+        if slug in author_by_slug and author_by_slug[slug]:
+            normalized_raw_author = extract_author_name(raw.get("author", ""))
+            if normalized_raw_author != author_by_slug[slug]:
+                raw["author"] = author_by_slug[slug]
+                changed = True
+        if changed:
+            updated += 1
 
     API_ARTICLES_PATH.write_text(json.dumps(raw_articles, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
     return updated
@@ -514,6 +673,20 @@ def render_article_page(article: dict) -> str:
     cats = " &middot; ".join(html.escape(part, quote=True) for part in cats_raw[:5]) if cats_raw else "Article"
     cover = html.escape(article["cover_url"] or DEFAULT_COVER, quote=True)
     body = article["body"] or "<p></p>"
+    writer_photo_url = html.escape(str(article.get("writer_photo_url", "")).strip(), quote=True)
+    writer_bio = html.escape(str(article.get("writer_bio", "")).strip())
+    writer_photo_markup = f'<img class="writer-credit-photo" src="{writer_photo_url}" alt="{author}" loading="lazy">' if writer_photo_url else ""
+    writer_bio_markup = f"<p>{writer_bio}</p>" if writer_bio else ""
+    writer_credit_markup = (
+        '<div class="writer-credit" id="writerCredit">'
+        + writer_photo_markup
+        + '<div class="writer-credit-info"><h4>Written by '
+        + author
+        + "</h4>"
+        + writer_bio_markup
+        + "</div></div>"
+    )
+    hydrate_from_api = "1" if body.strip() in {"<p></p>", "<p>Loading article...</p>"} else "0"
 
     return f"""<!DOCTYPE html>
 <html lang="en">
@@ -532,17 +705,29 @@ def render_article_page(article: dict) -> str:
 <body>
 {render_header(music_active=True)}
   <main class="page-wrap">
-    <article class="article-body" id="articleBody" data-article-slug="{slug}">
+    <article class="article-body" id="articleBody" data-article-slug="{slug}" data-hydrate-from-api="{hydrate_from_api}">
       <img class="featured-img" src="{cover}" alt="{title}" loading="lazy">
       <div class="meta">{cats} &middot; {author} &middot; {publish_day}</div>
       <h1>{title}</h1>
       {body}
+      {writer_credit_markup}
     </article>
   </main>
 {FOOTER}
   <script>
     const ARTICLE_API_BASE = '{PUBLIC_API_BASE}';
     const ARTICLE_FALLBACK_COVER = '{DEFAULT_COVER}';
+    (function enforceCanonicalArticlePath() {{
+      var container = document.getElementById('articleBody');
+      if (!container) return;
+      var slug = String(container.getAttribute('data-article-slug') || '').trim().replace(/^[/]+/g, '').replace(/[/]+$/g, '');
+      if (!slug) return;
+      var canonicalUrl = '/music/?article=' + encodeURIComponent(slug);
+      var currentUrl = window.location.pathname + window.location.search;
+      if (currentUrl !== canonicalUrl) {{
+        window.location.replace(canonicalUrl);
+      }}
+    }})();
     document.getElementById('navToggle').addEventListener('click', function(){{
       document.getElementById('navLinks').classList.toggle('open');
     }});
@@ -565,6 +750,23 @@ def render_article_page(article: dict) -> str:
       var day = parseInt(pieces[2], 10);
       if (monthIdx < 0 || monthIdx > 11 || Number.isNaN(day)) return value;
       return day + ' ' + months[monthIdx] + ' ' + pieces[0];
+    }}
+    function fetchLocalArticleFallback(slug) {{
+      return fetch('/api/articles_clean.json', {{ cache: 'no-store' }})
+        .then(function(response) {{
+          if (!response.ok) throw new Error('Local fallback fetch failed: ' + response.status);
+          return response.json();
+        }})
+        .then(function(rows) {{
+          if (!Array.isArray(rows)) return null;
+          var normalizedSlug = String(slug || '').trim().replace(/^[/]+/g, '').replace(/[/]+$/g, '');
+          for (var i = 0; i < rows.length; i++) {{
+            var candidate = rows[i] || {{}};
+            var candidateSlug = String(candidate.url_id || '').trim().replace(/^[/]+/g, '').replace(/[/]+$/g, '');
+            if (candidateSlug === normalizedSlug) return candidate;
+          }}
+          return null;
+        }});
     }}
 
     function getCarouselNodes(carousel) {{
@@ -653,6 +855,7 @@ def render_article_page(article: dict) -> str:
     function hydrateArticleFromApi() {{
       var container = document.getElementById('articleBody');
       if (!container) return;
+      if (container.getAttribute('data-hydrate-from-api') !== '1') return;
       var currentSlug = container.getAttribute('data-article-slug');
       if (!currentSlug) return;
       fetch(ARTICLE_API_BASE + '/api/articles/' + encodeURIComponent(currentSlug), {{ cache: 'no-store' }})
@@ -662,6 +865,22 @@ def render_article_page(article: dict) -> str:
         }})
         .then(function(payload){{
           var article = payload && payload.article ? payload.article : null;
+          if (!article) return;
+          return fetchLocalArticleFallback(currentSlug)
+            .then(function(localArticle) {{
+              if (localArticle && String(localArticle.body || '').trim()) {{
+                article.body = localArticle.body;
+                if (!article.excerpt && localArticle.excerpt) article.excerpt = localArticle.excerpt;
+                if (!article.cover_url && localArticle.cover_url) article.cover_url = localArticle.cover_url;
+                if (!article.categories && localArticle.categories) article.categories = localArticle.categories;
+                if (!article.publish_date && localArticle.publish_date) article.publish_date = localArticle.publish_date;
+                if ((!article.author || article.author === 'Feats.') && localArticle.author) article.author = localArticle.author;
+              }}
+              return article;
+            }})
+            .catch(function() {{ return article; }});
+        }})
+        .then(function(article){{
           if (!article) return;
           var articleTitle = escapeHtml(article.title || 'Untitled Article');
           var articleAuthor = escapeHtml(article.author || 'Feats.');
@@ -676,13 +895,21 @@ def render_article_page(article: dict) -> str:
           var publishDate = escapeHtml(formatDate(String(article.publish_date || '').slice(0, 10)));
           var coverUrl = escapeHtml(article.cover_url || ARTICLE_FALLBACK_COVER);
           var bodyHtml = article.body || '<p></p>';
+          var writerPhotoUrl = escapeHtml(article.writer_photo_url || '');
+          var writerBio = escapeHtml(article.writer_bio || '');
+          var writerCreditHtml = '<div class=\\\"writer-credit\\\" id=\\\"writerCredit\\\">'
+            + (writerPhotoUrl ? '<img class=\\\"writer-credit-photo\\\" src=\\\"' + writerPhotoUrl + '\\\" alt=\\\"' + articleAuthor + '\\\" loading=\\\"lazy\\\">' : '')
+            + '<div class=\\\"writer-credit-info\\\"><h4>Written by ' + articleAuthor + '</h4>'
+            + (writerBio ? '<p>' + writerBio + '</p>' : '')
+            + '</div></div>';
           container.innerHTML =
-            '<img class="featured-img" src="' + coverUrl + '" alt="' + articleTitle + '" loading="lazy">' +
-            '<div class="meta">' + categories + ' &middot; ' + articleAuthor + ' &middot; ' + publishDate + '</div>' +
+            '<img class=\"featured-img\" src=\"' + coverUrl + '\" alt=\"' + articleTitle + '\" loading=\"lazy\">' +
+            '<div class=\"meta\">' + categories + ' &middot; ' + articleAuthor + ' &middot; ' + publishDate + '</div>' +
             '<h1>' + articleTitle + '</h1>' +
-            bodyHtml;
+            bodyHtml +
+            writerCreditHtml;
           document.title = (article.title || 'Article') + ' — Feats.';
-          var description = document.querySelector('meta[name="description"]');
+          var description = document.querySelector('meta[name=\"description\"]');
           if (description) {{
             description.setAttribute('content', String(article.excerpt || '').slice(0, 160));
           }}
@@ -769,17 +996,18 @@ def render_music_listing_query_mode() -> str:
 
     function getRequestedArticleSlug() {{
       const searchParams = new URLSearchParams(window.location.search || '');
-      return normalizeSlug(searchParams.get('article') || searchParams.get('slug') || '');
+      return normalizeSlug(searchParams.get('article') || '');
+    }}
+
+    function getLegacyRequestedArticleSlug() {{
+      const searchParams = new URLSearchParams(window.location.search || '');
+      return normalizeSlug(searchParams.get('slug') || searchParams.get('') || '');
     }}
 
     function normalizeLegacyArticleQuery(articleSlug) {{
       const normalizedSlug = normalizeSlug(articleSlug);
       if (!normalizedSlug) return;
-      const searchParams = new URLSearchParams(window.location.search || '');
-      searchParams.set('article', normalizedSlug);
-      searchParams.delete('slug');
-      const nextQuery = searchParams.toString();
-      const nextUrl = '/music/' + (nextQuery ? '?' + nextQuery : '');
+      const nextUrl = '/music/?article=' + encodeURIComponent(normalizedSlug);
       const currentUrl = window.location.pathname + window.location.search;
       if (currentUrl !== nextUrl) {{
         history.replaceState(null, '', nextUrl);
@@ -792,6 +1020,23 @@ def render_music_listing_query_mode() -> str:
         .filter(a => a && typeof a === 'object')
         .filter(a => typeof a.url_id === 'string' && a.url_id.trim().length > 0)
         .filter(a => !EXCLUDED_URL_IDS.has(a.url_id.trim()));
+    }}
+
+    function fetchLocalArticleFallback(slug) {{
+      return fetch('/api/articles_clean.json', {{ cache: 'no-store' }})
+        .then(function(response) {{
+          if (!response.ok) throw new Error('Local fallback fetch failed: ' + response.status);
+          return response.json();
+        }})
+        .then(function(rows) {{
+          if (!Array.isArray(rows)) return null;
+          const normalizedSlug = normalizeSlug(slug);
+          for (let i = 0; i < rows.length; i += 1) {{
+            const candidate = rows[i] || {{}};
+            if (normalizeSlug(candidate.url_id || '') === normalizedSlug) return candidate;
+          }}
+          return null;
+        }});
     }}
 
     function renderArticles(articles) {{
@@ -807,8 +1052,8 @@ def render_music_listing_query_mode() -> str:
         const formattedDate = escapeHtml(formatDate(a.publish_date));
         card.className = 'music-card';
         card.innerHTML = '<a href=\\\"/music/?article=' + slug + '\\\">'
-          + '<img src=\"' + cover + '\" alt=\"' + title + '\" loading=\"lazy\">'
-          + '<div class=\"meta\"><span>' + categories + '</span><span>' + author + '</span><span>' + formattedDate + '</span></div>'
+          + '<img src="' + cover + '" alt="' + title + '" loading="lazy">'
+          + '<div class="meta"><span>' + categories + '</span><span>' + author + '</span><span>' + formattedDate + '</span></div>'
           + '<h2>' + title + '</h2>'
           + '<p>' + description + '</p>'
           + '<span class=\"read-more\">Read More</span></a>';
@@ -931,6 +1176,22 @@ def render_music_listing_query_mode() -> str:
         .then(function(payload) {{
           const article = payload && payload.article ? payload.article : null;
           if (!article) throw new Error('Article payload missing');
+          return fetchLocalArticleFallback(articleSlug)
+            .then(function(localArticle) {{
+              if (localArticle && String(localArticle.body || '').trim()) {{
+                article.body = localArticle.body;
+                if (!article.excerpt && localArticle.excerpt) article.excerpt = localArticle.excerpt;
+                if (!article.cover_url && localArticle.cover_url) article.cover_url = localArticle.cover_url;
+                if (!article.categories && localArticle.categories) article.categories = localArticle.categories;
+                if (!article.publish_date && localArticle.publish_date) article.publish_date = localArticle.publish_date;
+                if ((!article.author || article.author === 'Feats.') && localArticle.author) article.author = localArticle.author;
+              }}
+              return article;
+            }})
+            .catch(function() {{ return article; }});
+        }})
+        .then(function(article) {{
+          if (!article) return;
           const articleTitle = escapeHtml(article.title || 'Untitled Article');
           const articleAuthor = escapeHtml(article.author || 'Feats.');
           let categories = String(article.categories || '')
@@ -944,13 +1205,21 @@ def render_music_listing_query_mode() -> str:
           const publishDate = escapeHtml(formatDate(String(article.publish_date || '').slice(0, 10)));
           const coverUrl = escapeHtml(article.cover_url || ARTICLE_FALLBACK_COVER);
           const bodyHtml = article.body || '<p></p>';
+          const writerPhotoUrl = escapeHtml(article.writer_photo_url || '');
+          const writerBio = escapeHtml(article.writer_bio || '');
+          const writerCreditHtml = '<div class=\"writer-credit\" id=\"writerCredit\">'
+            + (writerPhotoUrl ? '<img class=\"writer-credit-photo\" src=\"' + writerPhotoUrl + '\" alt=\"' + articleAuthor + '\" loading=\"lazy\">' : '')
+            + '<div class=\"writer-credit-info\"><h4>Written by ' + articleAuthor + '</h4>'
+            + (writerBio ? '<p>' + writerBio + '</p>' : '')
+            + '</div></div>';
           articleBody.innerHTML =
-            '<img class=\"featured-img\" src=\"' + coverUrl + '\" alt=\"' + articleTitle + '\" loading=\"lazy\">' +
-            '<div class=\"meta\">' + categories + ' &middot; ' + articleAuthor + ' &middot; ' + publishDate + '</div>' +
+            '<img class=\\\"featured-img\\\" src=\\\"' + coverUrl + '\\\" alt=\\\"' + articleTitle + '\\\" loading=\\\"lazy\\\">' +
+            '<div class=\\\"meta\\\">' + categories + ' &middot; ' + articleAuthor + ' &middot; ' + publishDate + '</div>' +
             '<h1>' + articleTitle + '</h1>' +
-            bodyHtml;
+            bodyHtml +
+            writerCreditHtml;
           document.title = (article.title || 'Article') + ' - Feats.';
-          const description = document.querySelector('meta[name=\"description\"]');
+          const description = document.querySelector('meta[name=\\\"description\\\"]');
           if (description) {{
             const excerpt = String(article.excerpt || '').slice(0, 160);
             description.setAttribute('content', excerpt || MUSIC_PAGE_DESCRIPTION);
@@ -991,9 +1260,11 @@ def render_music_listing_query_mode() -> str:
     }}
 
     const requestedArticleSlug = getRequestedArticleSlug();
-    if (requestedArticleSlug) {{
-      normalizeLegacyArticleQuery(requestedArticleSlug);
-      showArticleMode(requestedArticleSlug);
+    const legacyRequestedArticleSlug = getLegacyRequestedArticleSlug();
+    const canonicalArticleSlug = requestedArticleSlug || legacyRequestedArticleSlug;
+    if (canonicalArticleSlug) {{
+      normalizeLegacyArticleQuery(canonicalArticleSlug);
+      showArticleMode(canonicalArticleSlug);
     }} else {{
       showListingMode();
       loadArticles()
@@ -1025,27 +1296,31 @@ def write_article_pages(articles: list[dict]) -> int:
     return generated
 
 def render_dynamic_article_shell() -> str:
-    page = render_article_page(
-        {
-            "url_id": "",
-            "title": "Article",
-            "excerpt": "Loading article...",
-            "author": "Feats.",
-            "publish_date": "1970-01-01 00:00:00",
-            "categories": "Article",
-            "cover_url": DEFAULT_COVER,
-            "body": "<p>Loading article...</p>",
-        }
-    )
-    page = page.replace(
-        "      var currentSlug = container.getAttribute('data-article-slug');\n      if (!currentSlug) return;\n",
-        "      var searchParams = new URLSearchParams(window.location.search || '');\n      var currentSlug = String((searchParams.get('slug') || container.getAttribute('data-article-slug') || '')).trim().replace(/^\\/+/g, '').replace(/\\/+$/g, '');\n      if (!currentSlug) {\n        container.innerHTML = '<h1>Article not found</h1><p>Missing article slug.</p>';\n        return;\n      }\n",
-    )
-    page = page.replace(
-        "          console.warn('Using static article fallback for', currentSlug, error);\n",
-        "          console.warn('Unable to hydrate article for', currentSlug, error);\n          container.innerHTML = '<h1>Article unavailable</h1><p>We could not load that article right now.</p>';\n",
-    )
-    return page
+    return """<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Redirecting…</title>
+</head>
+<body>
+  <script>
+    (function() {
+      function normalizeSlug(raw) {
+        return String(raw || '').trim().replace(/^[/]+/g, '').replace(/[/]+$/g, '');
+      }
+      var searchParams = new URLSearchParams(window.location.search || '');
+      var slug = normalizeSlug(searchParams.get('article') || searchParams.get('slug') || searchParams.get('') || '');
+      if (slug) {
+        window.location.replace('/music/?article=' + encodeURIComponent(slug));
+      } else {
+        window.location.replace('/music/');
+      }
+    })();
+  </script>
+</body>
+</html>
+"""
 
 
 def write_dynamic_article_shell() -> Path:
@@ -1135,7 +1410,7 @@ def render_music_listing() -> str:
         const cover = escapeHtml(a.cover_url || '{DEFAULT_COVER}');
         const formattedDate = escapeHtml(formatDate(a.publish_date));
         card.className = 'music-card';
-        card.innerHTML = '<a href=\"/music/{DYNAMIC_ARTICLE_ROUTE_SEGMENT}/?slug=' + slug + '\">'
+        card.innerHTML = '<a href=\\\"/music/?article=' + slug + '\\\">'
           + '<img src="' + cover + '" alt="' + title + '" loading="lazy">'
           + '<div class="meta"><span>' + categories + '</span><span>' + author + '</span><span>' + formattedDate + '</span></div>'
           + '<h2>' + title + '</h2>'
@@ -1284,11 +1559,14 @@ def main() -> int:
         raw_articles = load_articles_from_api(args.api_url)
         print(f"Loaded {len(raw_articles)} raw articles from {args.api_url}")
 
-    articles = normalize_articles(raw_articles)
+    writer_profiles = load_writer_profiles()
+    print(f"Loaded {len(writer_profiles)} writer manager profiles")
+
+    articles = normalize_articles(raw_articles, writer_profiles=writer_profiles)
     print(f"Normalized to {len(articles)} published article records")
 
     if args.scrape_layouts:
-        updated_layouts = enrich_articles_with_legacy_layouts(articles)
+        updated_layouts = enrich_articles_with_legacy_layouts(articles, writer_profiles=writer_profiles)
         print(f"Applied scraped layouts to {updated_layouts} articles")
         if args.persist_scraped_layouts and args.source == "local":
             persisted = persist_scraped_layouts(raw_articles, articles)

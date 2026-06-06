@@ -50,9 +50,11 @@
     .article-carousel .carousel-thumb{border:none;padding:0;background:transparent;opacity:.52;cursor:pointer;flex:0 0 auto}
     .article-carousel .carousel-thumb.is-active{opacity:1}
     .article-carousel .carousel-thumb img{width:58px;height:40px;object-fit:cover;border-radius:0}
+    .article-embed iframe{display:block;width:100%;min-height:320px;border:0}
     @media(max-width:600px){
       .article-media--float-right,.article-media--float-left{float:none;width:100%;margin:1rem 0}
       .article-carousel .carousel-nav{width:36px;height:36px;font-size:1.65rem}
+      .article-embed iframe{min-height:220px}
     }
   </style>
 </head>
@@ -75,20 +77,20 @@
     </nav>
   </header>
   <main class="page-wrap">
-    <article class="article-body" id="articleBody" data-article-slug="the-chainsmokers-live-the-cause-london-05-06-2025">
+    <article class="article-body" id="articleBody" data-article-slug="the-chainsmokers-live-the-cause-london-05-06-2025" data-hydrate-from-api="0">
       <img class="featured-img" src="https://feats-live.louishitchcock.xyz/images/articles/%40snaptastic__+-+The+Chain+Smokers+-+The+Cause+London+-+05-06-2025+-+022.jpeg" alt="The Chainsmokers Live @ The Cause London 05.06.2025" loading="lazy">
-      <div class="meta">Live Music &middot; Gig Review &middot; Feats. &middot; 2025-06-25</div>
+      <div class="meta">Live Music &middot; Gig Review &middot; Dave White &middot; 2025-06-25</div>
       <h1>The Chainsmokers Live @ The Cause London 05.06.2025</h1>
       <figure class="article-media article-media--float-right">
   <img src="https://feats-live.louishitchcock.xyz/images/articles/%40snaptastic__+-+The+Chain+Smokers+-+The+Cause+London+-+05-06-2025+-+022.jpeg" alt="" loading="lazy">
   <figcaption>Image Credit: Dave White - @snaptastic__</figcaption>
 </figure>
-<p>The Chainsmokers deliver a high-octane live experience, that blurs the line between a concert and a full-blown party. Known for their seamless fusion of EDM and pop, the duo keeps the energy soaring from start to finish, constantly engaging with the crowd and turning the venue into one giant singalong—especially during massive hits like “Closer,” “Selfie,” and “Paris.”</p>
+<p style="white-space:pre-wrap;">The Chainsmokers deliver a high-octane live experience, that blurs the line between a concert and a full-blown party. Known for their seamless fusion of EDM and pop, the duo keeps the energy soaring from start to finish, constantly engaging with the crowd and turning the venue into one giant singalong—especially during massive hits like “Closer,” “Selfie,” and “Paris.”</p>
 <figure class="article-media article-media--float-left">
   <img src="https://feats-live.louishitchcock.xyz/images/articles/%40snaptastic__+-+The+Chain+Smokers+-+The+Cause+London+-+05-06-2025+-+009.JPG" alt="" loading="lazy">
   <figcaption>Image Credit: Dave White - @snaptastic__</figcaption>
 </figure>
-<p>What truly sets their performance apart is their ability to craft insane, high-energy mixes of today’s most upbeat and recognizable tracks. They expertly twist and rework popular anthems into fresh, explosive renditions that keep the crowd in a state of frenzy. Every drop hits with precision, creating an atmosphere that’s spontaneous, immersive, and euphoric.</p><p>Despite “The Cause” venue being in such an ideal location, silhouetted by iconic O2 Arena in the background, the band played in an intimate club setting, The Chainsmokers manage to deliver the full-scale arena experience. With thunderous sound, synchronized visuals, and stage production that includes roaring flames and eco2 jets, the show feels anything but small. The lighting, effects, and pyrotechnics are on par with their biggest festival performances, proving that no matter the venue, they know how to go big.</p>
+<p style="white-space:pre-wrap;">What truly sets their performance apart is their ability to craft insane, high-energy mixes of today’s most upbeat and recognizable tracks. They expertly twist and rework popular anthems into fresh, explosive renditions that keep the crowd in a state of frenzy. Every drop hits with precision, creating an atmosphere that’s spontaneous, immersive, and euphoric.</p><p style="white-space:pre-wrap;">Despite “The Cause” venue being in such an ideal location, silhouetted by iconic O2 Arena in the background, the band played in an intimate club setting, The Chainsmokers manage to deliver the full-scale arena experience. With thunderous sound, synchronized visuals, and stage production that includes roaring flames and eco2 jets, the show feels anything but small. The lighting, effects, and pyrotechnics are on par with their biggest festival performances, proving that no matter the venue, they know how to go big.</p>
 <div class="article-carousel article-media article-media--full" data-article-carousel="carousel-1">
   <div class="article-carousel-main">
     <button type="button" class="carousel-nav prev" aria-label="Previous image">&#10094;</button>
@@ -599,7 +601,8 @@
     </button>
   </div>
 </div>
-<p>Whether you're in the front row of a packed club or at the back of a massive arena, a Chainsmokers show is an unforgettable experience. It’s not just a set—it’s a full-blown spectacle that leaves fans breathless, energized, and craving more.</p>
+<p style="white-space:pre-wrap;">Whether you're in the front row of a packed club or at the back of a massive arena, a Chainsmokers show is an unforgettable experience. It’s not just a set—it’s a full-blown spectacle that leaves fans breathless, energized, and craving more.</p>
+      <div class="writer-credit" id="writerCredit"><img class="writer-credit-photo" src="https://images.squarespace-cdn.com/content/v2/namespaces/memberAccountAvatars/libraries/6831ac7e91e11455764b9e2e/f3d627b4-bbdb-4ca5-9ab4-5b764809ecba/Dave+White.jpg" alt="Dave White" loading="lazy"><div class="writer-credit-info"><h4>Written by Dave White</h4><p>Live music reviewer covering electronic and pop gigs across London.</p></div></div>
     </article>
   </main>
 <footer class="site-footer">
@@ -618,6 +621,17 @@
   <script>
     const ARTICLE_API_BASE = 'https://feats-live.louishitchcock.xyz';
     const ARTICLE_FALLBACK_COVER = 'https://feats-live.louishitchcock.xyz/images/hero-3.jpg';
+    (function enforceCanonicalArticlePath() {
+      var container = document.getElementById('articleBody');
+      if (!container) return;
+      var slug = String(container.getAttribute('data-article-slug') || '').trim().replace(/^[/]+/g, '').replace(/[/]+$/g, '');
+      if (!slug) return;
+      var canonicalUrl = '/music/?article=' + encodeURIComponent(slug);
+      var currentUrl = window.location.pathname + window.location.search;
+      if (currentUrl !== canonicalUrl) {
+        window.location.replace(canonicalUrl);
+      }
+    })();
     document.getElementById('navToggle').addEventListener('click', function(){
       document.getElementById('navLinks').classList.toggle('open');
     });
@@ -640,6 +654,23 @@
       var day = parseInt(pieces[2], 10);
       if (monthIdx < 0 || monthIdx > 11 || Number.isNaN(day)) return value;
       return day + ' ' + months[monthIdx] + ' ' + pieces[0];
+    }
+    function fetchLocalArticleFallback(slug) {
+      return fetch('/api/articles_clean.json', { cache: 'no-store' })
+        .then(function(response) {
+          if (!response.ok) throw new Error('Local fallback fetch failed: ' + response.status);
+          return response.json();
+        })
+        .then(function(rows) {
+          if (!Array.isArray(rows)) return null;
+          var normalizedSlug = String(slug || '').trim().replace(/^[/]+/g, '').replace(/[/]+$/g, '');
+          for (var i = 0; i < rows.length; i++) {
+            var candidate = rows[i] || {};
+            var candidateSlug = String(candidate.url_id || '').trim().replace(/^[/]+/g, '').replace(/[/]+$/g, '');
+            if (candidateSlug === normalizedSlug) return candidate;
+          }
+          return null;
+        });
     }
 
     function getCarouselNodes(carousel) {
@@ -728,6 +759,7 @@
     function hydrateArticleFromApi() {
       var container = document.getElementById('articleBody');
       if (!container) return;
+      if (container.getAttribute('data-hydrate-from-api') !== '1') return;
       var currentSlug = container.getAttribute('data-article-slug');
       if (!currentSlug) return;
       fetch(ARTICLE_API_BASE + '/api/articles/' + encodeURIComponent(currentSlug), { cache: 'no-store' })
@@ -737,6 +769,22 @@
         })
         .then(function(payload){
           var article = payload && payload.article ? payload.article : null;
+          if (!article) return;
+          return fetchLocalArticleFallback(currentSlug)
+            .then(function(localArticle) {
+              if (localArticle && String(localArticle.body || '').trim()) {
+                article.body = localArticle.body;
+                if (!article.excerpt && localArticle.excerpt) article.excerpt = localArticle.excerpt;
+                if (!article.cover_url && localArticle.cover_url) article.cover_url = localArticle.cover_url;
+                if (!article.categories && localArticle.categories) article.categories = localArticle.categories;
+                if (!article.publish_date && localArticle.publish_date) article.publish_date = localArticle.publish_date;
+                if ((!article.author || article.author === 'Feats.') && localArticle.author) article.author = localArticle.author;
+              }
+              return article;
+            })
+            .catch(function() { return article; });
+        })
+        .then(function(article){
           if (!article) return;
           var articleTitle = escapeHtml(article.title || 'Untitled Article');
           var articleAuthor = escapeHtml(article.author || 'Feats.');
@@ -751,11 +799,19 @@
           var publishDate = escapeHtml(formatDate(String(article.publish_date || '').slice(0, 10)));
           var coverUrl = escapeHtml(article.cover_url || ARTICLE_FALLBACK_COVER);
           var bodyHtml = article.body || '<p></p>';
+          var writerPhotoUrl = escapeHtml(article.writer_photo_url || '');
+          var writerBio = escapeHtml(article.writer_bio || '');
+          var writerCreditHtml = '<div class=\"writer-credit\" id=\"writerCredit\">'
+            + (writerPhotoUrl ? '<img class=\"writer-credit-photo\" src=\"' + writerPhotoUrl + '\" alt=\"' + articleAuthor + '\" loading=\"lazy\">' : '')
+            + '<div class=\"writer-credit-info\"><h4>Written by ' + articleAuthor + '</h4>'
+            + (writerBio ? '<p>' + writerBio + '</p>' : '')
+            + '</div></div>';
           container.innerHTML =
             '<img class="featured-img" src="' + coverUrl + '" alt="' + articleTitle + '" loading="lazy">' +
             '<div class="meta">' + categories + ' &middot; ' + articleAuthor + ' &middot; ' + publishDate + '</div>' +
             '<h1>' + articleTitle + '</h1>' +
-            bodyHtml;
+            bodyHtml +
+            writerCreditHtml;
           document.title = (article.title || 'Article') + ' — Feats.';
           var description = document.querySelector('meta[name="description"]');
           if (description) {

@@ -50,9 +50,11 @@
     .article-carousel .carousel-thumb{border:none;padding:0;background:transparent;opacity:.52;cursor:pointer;flex:0 0 auto}
     .article-carousel .carousel-thumb.is-active{opacity:1}
     .article-carousel .carousel-thumb img{width:58px;height:40px;object-fit:cover;border-radius:0}
+    .article-embed iframe{display:block;width:100%;min-height:320px;border:0}
     @media(max-width:600px){
       .article-media--float-right,.article-media--float-left{float:none;width:100%;margin:1rem 0}
       .article-carousel .carousel-nav{width:36px;height:36px;font-size:1.65rem}
+      .article-embed iframe{min-height:220px}
     }
   </style>
 </head>
@@ -104,6 +106,7 @@
   </script>
   <script>
     const ARTICLE_API_BASE = 'https://feats-live.louishitchcock.xyz';
+    const ARTICLE_FALLBACK_COVER = 'https://feats-live.louishitchcock.xyz/images/hero-3.jpg';
     const MUSIC_PAGE_TITLE = 'Music | Discover Gig Highlights - Feats.';
     const MUSIC_PAGE_DESCRIPTION = 'Browse Feats. music articles: live gig reviews, interviews, artist showcases, festival coverage, and editorial content.';
     const EXCLUDED_URL_IDS = new Set(["about", "contact", "member-site-homepage-1", "membersite-home-page-1", "privacy-policy", "work-v2", "youth-development"]);
@@ -136,17 +139,18 @@
 
     function getRequestedArticleSlug() {
       const searchParams = new URLSearchParams(window.location.search || '');
-      return normalizeSlug(searchParams.get('article') || searchParams.get('slug') || '');
+      return normalizeSlug(searchParams.get('article') || '');
+    }
+
+    function getLegacyRequestedArticleSlug() {
+      const searchParams = new URLSearchParams(window.location.search || '');
+      return normalizeSlug(searchParams.get('slug') || searchParams.get('') || '');
     }
 
     function normalizeLegacyArticleQuery(articleSlug) {
       const normalizedSlug = normalizeSlug(articleSlug);
       if (!normalizedSlug) return;
-      const searchParams = new URLSearchParams(window.location.search || '');
-      searchParams.set('article', normalizedSlug);
-      searchParams.delete('slug');
-      const nextQuery = searchParams.toString();
-      const nextUrl = '/music/' + (nextQuery ? '?' + nextQuery : '');
+      const nextUrl = '/music/?article=' + encodeURIComponent(normalizedSlug);
       const currentUrl = window.location.pathname + window.location.search;
       if (currentUrl !== nextUrl) {
         history.replaceState(null, '', nextUrl);
@@ -161,6 +165,23 @@
         .filter(a => !EXCLUDED_URL_IDS.has(a.url_id.trim()));
     }
 
+    function fetchLocalArticleFallback(slug) {
+      return fetch('/api/articles_clean.json', { cache: 'no-store' })
+        .then(function(response) {
+          if (!response.ok) throw new Error('Local fallback fetch failed: ' + response.status);
+          return response.json();
+        })
+        .then(function(rows) {
+          if (!Array.isArray(rows)) return null;
+          const normalizedSlug = normalizeSlug(slug);
+          for (let i = 0; i < rows.length; i += 1) {
+            const candidate = rows[i] || {};
+            if (normalizeSlug(candidate.url_id || '') === normalizedSlug) return candidate;
+          }
+          return null;
+        });
+    }
+
     function renderArticles(articles) {
       const grid = document.getElementById('music-grid');
       articles.forEach(function(a) {
@@ -170,12 +191,12 @@
         const author = escapeHtml(a.author || 'Feats.');
         const categories = escapeHtml(a.categories || 'Article');
         const description = escapeHtml((a.excerpt || '').substring(0, 200));
-        const cover = escapeHtml(a.cover_url || '');
+        const cover = escapeHtml(a.cover_url || 'https://feats-live.louishitchcock.xyz/images/hero-3.jpg');
         const formattedDate = escapeHtml(formatDate(a.publish_date));
         card.className = 'music-card';
-          card.innerHTML = '<a href=\"/music/?article=' + slug + '\">'
-          + (cover ? '<img src="' + cover + '" alt="' + title + '" loading="lazy">' : '')
-          + '<div class="meta">'
+        card.innerHTML = '<a href=\"/music/?article=' + slug + '\">'
+          + '<img src="' + cover + '" alt="' + title + '" loading="lazy">'
+          + '<div class="meta"><span>' + categories + '</span><span>' + author + '</span><span>' + formattedDate + '</span></div>'
           + '<h2>' + title + '</h2>'
           + '<p>' + description + '</p>'
           + '<span class="read-more">Read More</span></a>';
@@ -298,6 +319,22 @@
         .then(function(payload) {
           const article = payload && payload.article ? payload.article : null;
           if (!article) throw new Error('Article payload missing');
+          return fetchLocalArticleFallback(articleSlug)
+            .then(function(localArticle) {
+              if (localArticle && String(localArticle.body || '').trim()) {
+                article.body = localArticle.body;
+                if (!article.excerpt && localArticle.excerpt) article.excerpt = localArticle.excerpt;
+                if (!article.cover_url && localArticle.cover_url) article.cover_url = localArticle.cover_url;
+                if (!article.categories && localArticle.categories) article.categories = localArticle.categories;
+                if (!article.publish_date && localArticle.publish_date) article.publish_date = localArticle.publish_date;
+                if ((!article.author || article.author === 'Feats.') && localArticle.author) article.author = localArticle.author;
+              }
+              return article;
+            })
+            .catch(function() { return article; });
+        })
+        .then(function(article) {
+          if (!article) return;
           const articleTitle = escapeHtml(article.title || 'Untitled Article');
           const articleAuthor = escapeHtml(article.author || 'Feats.');
           let categories = String(article.categories || '')
@@ -309,15 +346,23 @@
             .join(' &middot; ');
           if (!categories) categories = 'Article';
           const publishDate = escapeHtml(formatDate(String(article.publish_date || '').slice(0, 10)));
-          const coverUrl = escapeHtml(article.cover_url || '');
-          const bodyHtml = article.body || '';
-          var featuredImgHtml = coverUrl ? '<img class="featured-img" src="' + coverUrl + '" alt="' + articleTitle + '" loading="lazy">' : '';
+          const coverUrl = escapeHtml(article.cover_url || ARTICLE_FALLBACK_COVER);
+          const bodyHtml = article.body || '<p></p>';
+          const writerPhotoUrl = escapeHtml(article.writer_photo_url || '');
+          const writerBio = escapeHtml(article.writer_bio || '');
+          const writerCreditHtml = '<div class="writer-credit" id="writerCredit">'
+            + (writerPhotoUrl ? '<img class="writer-credit-photo" src="' + writerPhotoUrl + '" alt="' + articleAuthor + '" loading="lazy">' : '')
+            + '<div class="writer-credit-info"><h4>Written by ' + articleAuthor + '</h4>'
+            + (writerBio ? '<p>' + writerBio + '</p>' : '')
+            + '</div></div>';
           articleBody.innerHTML =
-            '<div class="meta">' + categories + ' &middot; ' + articleAuthor + ' &middot; ' + publishDate + '</div>' +
+            '<img class=\"featured-img\" src=\"' + coverUrl + '\" alt=\"' + articleTitle + '\" loading=\"lazy\">' +
+            '<div class=\"meta\">' + categories + ' &middot; ' + articleAuthor + ' &middot; ' + publishDate + '</div>' +
             '<h1>' + articleTitle + '</h1>' +
-            bodyHtml;
+            bodyHtml +
+            writerCreditHtml;
           document.title = (article.title || 'Article') + ' - Feats.';
-          const description = document.querySelector('meta[name="description"]');
+          const description = document.querySelector('meta[name=\"description\"]');
           if (description) {
             const excerpt = String(article.excerpt || '').slice(0, 160);
             description.setAttribute('content', excerpt || MUSIC_PAGE_DESCRIPTION);
@@ -358,9 +403,11 @@
     }
 
     const requestedArticleSlug = getRequestedArticleSlug();
-    if (requestedArticleSlug) {
-      normalizeLegacyArticleQuery(requestedArticleSlug);
-      showArticleMode(requestedArticleSlug);
+    const legacyRequestedArticleSlug = getLegacyRequestedArticleSlug();
+    const canonicalArticleSlug = requestedArticleSlug || legacyRequestedArticleSlug;
+    if (canonicalArticleSlug) {
+      normalizeLegacyArticleQuery(canonicalArticleSlug);
+      showArticleMode(canonicalArticleSlug);
     } else {
       showListingMode();
       loadArticles()

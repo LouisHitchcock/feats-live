@@ -50,9 +50,11 @@
     .article-carousel .carousel-thumb{border:none;padding:0;background:transparent;opacity:.52;cursor:pointer;flex:0 0 auto}
     .article-carousel .carousel-thumb.is-active{opacity:1}
     .article-carousel .carousel-thumb img{width:58px;height:40px;object-fit:cover;border-radius:0}
+    .article-embed iframe{display:block;width:100%;min-height:320px;border:0}
     @media(max-width:600px){
       .article-media--float-right,.article-media--float-left{float:none;width:100%;margin:1rem 0}
       .article-carousel .carousel-nav{width:36px;height:36px;font-size:1.65rem}
+      .article-embed iframe{min-height:220px}
     }
   </style>
 </head>
@@ -75,20 +77,15 @@
     </nav>
   </header>
   <main class="page-wrap">
-    <article class="article-body" id="articleBody" data-article-slug="christian-loffler-live-at-chalk-brighton">
+    <article class="article-body" id="articleBody" data-article-slug="christian-loffler-live-at-chalk-brighton" data-hydrate-from-api="0">
       <img class="featured-img" src="https://feats-live.louishitchcock.xyz/images/articles/DSC00126.jpg" alt="Christian Löffler - Live at Chalk, Brighton 19.04.25" loading="lazy">
-      <div class="meta">Gig Review &middot; Live Music &middot; Artist Showcase &middot; Feats. &middot; 2025-04-21</div>
+      <div class="meta">Gig Review &middot; Live Music &middot; Artist Showcase &middot; M Carty &middot; 2025-04-21</div>
       <h1>Christian Löffler - Live at Chalk, Brighton 19.04.25</h1>
-      <p>Christian Löffler’s live performance really encapsulates the calmness and beauty that can be found in ambient and progressive house music, whilst also bringing his own unique sound. It was really refreshing to experience! Performing in such an intimate venue made the whole experience feel very unifying; like a safe space. It was impossible to not sway to the beat like the rest of the crowd.</p>
-<div>
-
-<div>
-<div>
-<p>Video Credit: M Carty (@melatonical)</p>
+      <p style="white-space:pre-wrap;">Christian Löffler’s live performance really encapsulates the calmness and beauty that can be found in ambient and progressive house music, whilst also bringing his own unique sound. It was really refreshing to experience! Performing in such an intimate venue made the whole experience feel very unifying; like a safe space. It was impossible to not sway to the beat like the rest of the crowd.</p>
+<div class="article-media article-media--full article-embed">
+  <iframe allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen="" frameborder="0" height="113" referrerpolicy="strict-origin-when-cross-origin" src="https://www.youtube.com/embed/CxyGmfkbZDA?feature=oembed" title="Christian Löffler - Live at Chalk, Brighton 19.04.25" width="200"></iframe>
 </div>
-</div>
-</div>
-<p>Something I loved about his set was how, over the course of an hour and a half, Löffler was able to build the energy in such subtle yet effective ways, gradually building the music to a euphoric conclusion.</p><p>Christian Löffler is a force to be reckoned with within the ambient scene, and I highly recommend seeing him live for a taste of euphoria.</p>
+<p style="white-space:pre-wrap;">Something I loved about his set was how, over the course of an hour and a half, Löffler was able to build the energy in such subtle yet effective ways, gradually building the music to a euphoric conclusion.</p><p style="white-space:pre-wrap;">Christian Löffler is a force to be reckoned with within the ambient scene, and I highly recommend seeing him live for a taste of euphoria.</p>
 <div class="article-carousel article-media article-media--full" data-article-carousel="carousel-1">
   <div class="article-carousel-main">
     <button type="button" class="carousel-nav prev" aria-label="Previous image">&#10094;</button>
@@ -167,7 +164,8 @@
     </button>
   </div>
 </div>
-<p>Photo Credit: M Carty (@melatonical)</p>
+<p style="white-space:pre-wrap;">Photo Credit: M Carty (@melatonical)</p>
+      <div class="writer-credit" id="writerCredit"><img class="writer-credit-photo" src="https://images.squarespace-cdn.com/content/v2/namespaces/memberAccountAvatars/libraries/6276f0f0a2123935bc756433/3147d4b6-4be3-4aaa-a3b4-7f66f9b256d5/image.jpeg" alt="M Carty" loading="lazy"><div class="writer-credit-info"><h4>Written by M Carty</h4><p>Music writer covering live reviews and electronic music.</p></div></div>
     </article>
   </main>
 <footer class="site-footer">
@@ -186,6 +184,17 @@
   <script>
     const ARTICLE_API_BASE = 'https://feats-live.louishitchcock.xyz';
     const ARTICLE_FALLBACK_COVER = 'https://feats-live.louishitchcock.xyz/images/hero-3.jpg';
+    (function enforceCanonicalArticlePath() {
+      var container = document.getElementById('articleBody');
+      if (!container) return;
+      var slug = String(container.getAttribute('data-article-slug') || '').trim().replace(/^[/]+/g, '').replace(/[/]+$/g, '');
+      if (!slug) return;
+      var canonicalUrl = '/music/?article=' + encodeURIComponent(slug);
+      var currentUrl = window.location.pathname + window.location.search;
+      if (currentUrl !== canonicalUrl) {
+        window.location.replace(canonicalUrl);
+      }
+    })();
     document.getElementById('navToggle').addEventListener('click', function(){
       document.getElementById('navLinks').classList.toggle('open');
     });
@@ -208,6 +217,23 @@
       var day = parseInt(pieces[2], 10);
       if (monthIdx < 0 || monthIdx > 11 || Number.isNaN(day)) return value;
       return day + ' ' + months[monthIdx] + ' ' + pieces[0];
+    }
+    function fetchLocalArticleFallback(slug) {
+      return fetch('/api/articles_clean.json', { cache: 'no-store' })
+        .then(function(response) {
+          if (!response.ok) throw new Error('Local fallback fetch failed: ' + response.status);
+          return response.json();
+        })
+        .then(function(rows) {
+          if (!Array.isArray(rows)) return null;
+          var normalizedSlug = String(slug || '').trim().replace(/^[/]+/g, '').replace(/[/]+$/g, '');
+          for (var i = 0; i < rows.length; i++) {
+            var candidate = rows[i] || {};
+            var candidateSlug = String(candidate.url_id || '').trim().replace(/^[/]+/g, '').replace(/[/]+$/g, '');
+            if (candidateSlug === normalizedSlug) return candidate;
+          }
+          return null;
+        });
     }
 
     function getCarouselNodes(carousel) {
@@ -296,6 +322,7 @@
     function hydrateArticleFromApi() {
       var container = document.getElementById('articleBody');
       if (!container) return;
+      if (container.getAttribute('data-hydrate-from-api') !== '1') return;
       var currentSlug = container.getAttribute('data-article-slug');
       if (!currentSlug) return;
       fetch(ARTICLE_API_BASE + '/api/articles/' + encodeURIComponent(currentSlug), { cache: 'no-store' })
@@ -305,6 +332,22 @@
         })
         .then(function(payload){
           var article = payload && payload.article ? payload.article : null;
+          if (!article) return;
+          return fetchLocalArticleFallback(currentSlug)
+            .then(function(localArticle) {
+              if (localArticle && String(localArticle.body || '').trim()) {
+                article.body = localArticle.body;
+                if (!article.excerpt && localArticle.excerpt) article.excerpt = localArticle.excerpt;
+                if (!article.cover_url && localArticle.cover_url) article.cover_url = localArticle.cover_url;
+                if (!article.categories && localArticle.categories) article.categories = localArticle.categories;
+                if (!article.publish_date && localArticle.publish_date) article.publish_date = localArticle.publish_date;
+                if ((!article.author || article.author === 'Feats.') && localArticle.author) article.author = localArticle.author;
+              }
+              return article;
+            })
+            .catch(function() { return article; });
+        })
+        .then(function(article){
           if (!article) return;
           var articleTitle = escapeHtml(article.title || 'Untitled Article');
           var articleAuthor = escapeHtml(article.author || 'Feats.');
@@ -319,11 +362,19 @@
           var publishDate = escapeHtml(formatDate(String(article.publish_date || '').slice(0, 10)));
           var coverUrl = escapeHtml(article.cover_url || ARTICLE_FALLBACK_COVER);
           var bodyHtml = article.body || '<p></p>';
+          var writerPhotoUrl = escapeHtml(article.writer_photo_url || '');
+          var writerBio = escapeHtml(article.writer_bio || '');
+          var writerCreditHtml = '<div class=\"writer-credit\" id=\"writerCredit\">'
+            + (writerPhotoUrl ? '<img class=\"writer-credit-photo\" src=\"' + writerPhotoUrl + '\" alt=\"' + articleAuthor + '\" loading=\"lazy\">' : '')
+            + '<div class=\"writer-credit-info\"><h4>Written by ' + articleAuthor + '</h4>'
+            + (writerBio ? '<p>' + writerBio + '</p>' : '')
+            + '</div></div>';
           container.innerHTML =
             '<img class="featured-img" src="' + coverUrl + '" alt="' + articleTitle + '" loading="lazy">' +
             '<div class="meta">' + categories + ' &middot; ' + articleAuthor + ' &middot; ' + publishDate + '</div>' +
             '<h1>' + articleTitle + '</h1>' +
-            bodyHtml;
+            bodyHtml +
+            writerCreditHtml;
           document.title = (article.title || 'Article') + ' — Feats.';
           var description = document.querySelector('meta[name="description"]');
           if (description) {

@@ -50,9 +50,11 @@
     .article-carousel .carousel-thumb{border:none;padding:0;background:transparent;opacity:.52;cursor:pointer;flex:0 0 auto}
     .article-carousel .carousel-thumb.is-active{opacity:1}
     .article-carousel .carousel-thumb img{width:58px;height:40px;object-fit:cover;border-radius:0}
+    .article-embed iframe{display:block;width:100%;min-height:320px;border:0}
     @media(max-width:600px){
       .article-media--float-right,.article-media--float-left{float:none;width:100%;margin:1rem 0}
       .article-carousel .carousel-nav{width:36px;height:36px;font-size:1.65rem}
+      .article-embed iframe{min-height:220px}
     }
   </style>
 </head>
@@ -75,11 +77,11 @@
     </nav>
   </header>
   <main class="page-wrap">
-    <article class="article-body" id="articleBody" data-article-slug="zimmer90-live-gorilla-manchester-09-05-2025">
+    <article class="article-body" id="articleBody" data-article-slug="zimmer90-live-gorilla-manchester-09-05-2025" data-hydrate-from-api="0">
       <img class="featured-img" src="https://feats-live.louishitchcock.xyz/images/articles/%40annarfilms+-+Gorilla+-+Zimmer90+-+09-05-2025+%289%29.JPG" alt="Zimmer90 Live @ Gorilla Manchester 09.05.2025" loading="lazy">
-      <div class="meta">Gig Review &middot; Live Music &middot; Feats. &middot; 2025-05-30</div>
+      <div class="meta">Gig Review &middot; Live Music &middot; Anna R &middot; 2025-05-30</div>
       <h1>Zimmer90 Live @ Gorilla Manchester 09.05.2025</h1>
-      <p>Zimmer90's performance at Manchester's Gorilla on May 9, 2025, was a captivating blend of electronic and acoustic sounds that transformed the venue into an immersive acoustic journey. The duo's dynamic stage presence and seamless transitions from melodic melodies to energetic dance beats kept the audience engaged throughout the evening. Fans praised the show as "very upbeat and loud," highlighting the vibrant atmosphere and the crowd's enthusiastic response.</p>
+      <p style="white-space:pre-wrap;">Zimmer90's performance at Manchester's Gorilla on May 9, 2025, was a captivating blend of electronic and acoustic sounds that transformed the venue into an immersive acoustic journey. The duo's dynamic stage presence and seamless transitions from melodic melodies to energetic dance beats kept the audience engaged throughout the evening. Fans praised the show as "very upbeat and loud," highlighting the vibrant atmosphere and the crowd's enthusiastic response.</p>
 <div class="article-carousel article-media article-media--full" data-article-carousel="carousel-1">
   <div class="article-carousel-main">
     <button type="button" class="carousel-nav prev" aria-label="Previous image">&#10094;</button>
@@ -170,6 +172,7 @@
     </button>
   </div>
 </div>
+      <div class="writer-credit" id="writerCredit"><img class="writer-credit-photo" src="https://images.squarespace-cdn.com/content/v2/namespaces/memberAccountAvatars/libraries/6831ac7e91e11455764b9e2e/63fa6afb-658b-4761-ac89-55b7fe12c777/WhatsApp+Image+2025-05-28+at+14.00.39_55d79907.jpg" alt="Anna R" loading="lazy"><div class="writer-credit-info"><h4>Written by Anna R</h4><p>Live music photographer and writer covering gigs across the UK.</p></div></div>
     </article>
   </main>
 <footer class="site-footer">
@@ -188,6 +191,17 @@
   <script>
     const ARTICLE_API_BASE = 'https://feats-live.louishitchcock.xyz';
     const ARTICLE_FALLBACK_COVER = 'https://feats-live.louishitchcock.xyz/images/hero-3.jpg';
+    (function enforceCanonicalArticlePath() {
+      var container = document.getElementById('articleBody');
+      if (!container) return;
+      var slug = String(container.getAttribute('data-article-slug') || '').trim().replace(/^[/]+/g, '').replace(/[/]+$/g, '');
+      if (!slug) return;
+      var canonicalUrl = '/music/?article=' + encodeURIComponent(slug);
+      var currentUrl = window.location.pathname + window.location.search;
+      if (currentUrl !== canonicalUrl) {
+        window.location.replace(canonicalUrl);
+      }
+    })();
     document.getElementById('navToggle').addEventListener('click', function(){
       document.getElementById('navLinks').classList.toggle('open');
     });
@@ -210,6 +224,23 @@
       var day = parseInt(pieces[2], 10);
       if (monthIdx < 0 || monthIdx > 11 || Number.isNaN(day)) return value;
       return day + ' ' + months[monthIdx] + ' ' + pieces[0];
+    }
+    function fetchLocalArticleFallback(slug) {
+      return fetch('/api/articles_clean.json', { cache: 'no-store' })
+        .then(function(response) {
+          if (!response.ok) throw new Error('Local fallback fetch failed: ' + response.status);
+          return response.json();
+        })
+        .then(function(rows) {
+          if (!Array.isArray(rows)) return null;
+          var normalizedSlug = String(slug || '').trim().replace(/^[/]+/g, '').replace(/[/]+$/g, '');
+          for (var i = 0; i < rows.length; i++) {
+            var candidate = rows[i] || {};
+            var candidateSlug = String(candidate.url_id || '').trim().replace(/^[/]+/g, '').replace(/[/]+$/g, '');
+            if (candidateSlug === normalizedSlug) return candidate;
+          }
+          return null;
+        });
     }
 
     function getCarouselNodes(carousel) {
@@ -298,6 +329,7 @@
     function hydrateArticleFromApi() {
       var container = document.getElementById('articleBody');
       if (!container) return;
+      if (container.getAttribute('data-hydrate-from-api') !== '1') return;
       var currentSlug = container.getAttribute('data-article-slug');
       if (!currentSlug) return;
       fetch(ARTICLE_API_BASE + '/api/articles/' + encodeURIComponent(currentSlug), { cache: 'no-store' })
@@ -307,6 +339,22 @@
         })
         .then(function(payload){
           var article = payload && payload.article ? payload.article : null;
+          if (!article) return;
+          return fetchLocalArticleFallback(currentSlug)
+            .then(function(localArticle) {
+              if (localArticle && String(localArticle.body || '').trim()) {
+                article.body = localArticle.body;
+                if (!article.excerpt && localArticle.excerpt) article.excerpt = localArticle.excerpt;
+                if (!article.cover_url && localArticle.cover_url) article.cover_url = localArticle.cover_url;
+                if (!article.categories && localArticle.categories) article.categories = localArticle.categories;
+                if (!article.publish_date && localArticle.publish_date) article.publish_date = localArticle.publish_date;
+                if ((!article.author || article.author === 'Feats.') && localArticle.author) article.author = localArticle.author;
+              }
+              return article;
+            })
+            .catch(function() { return article; });
+        })
+        .then(function(article){
           if (!article) return;
           var articleTitle = escapeHtml(article.title || 'Untitled Article');
           var articleAuthor = escapeHtml(article.author || 'Feats.');
@@ -321,11 +369,19 @@
           var publishDate = escapeHtml(formatDate(String(article.publish_date || '').slice(0, 10)));
           var coverUrl = escapeHtml(article.cover_url || ARTICLE_FALLBACK_COVER);
           var bodyHtml = article.body || '<p></p>';
+          var writerPhotoUrl = escapeHtml(article.writer_photo_url || '');
+          var writerBio = escapeHtml(article.writer_bio || '');
+          var writerCreditHtml = '<div class=\"writer-credit\" id=\"writerCredit\">'
+            + (writerPhotoUrl ? '<img class=\"writer-credit-photo\" src=\"' + writerPhotoUrl + '\" alt=\"' + articleAuthor + '\" loading=\"lazy\">' : '')
+            + '<div class=\"writer-credit-info\"><h4>Written by ' + articleAuthor + '</h4>'
+            + (writerBio ? '<p>' + writerBio + '</p>' : '')
+            + '</div></div>';
           container.innerHTML =
             '<img class="featured-img" src="' + coverUrl + '" alt="' + articleTitle + '" loading="lazy">' +
             '<div class="meta">' + categories + ' &middot; ' + articleAuthor + ' &middot; ' + publishDate + '</div>' +
             '<h1>' + articleTitle + '</h1>' +
-            bodyHtml;
+            bodyHtml +
+            writerCreditHtml;
           document.title = (article.title || 'Article') + ' — Feats.';
           var description = document.querySelector('meta[name="description"]');
           if (description) {

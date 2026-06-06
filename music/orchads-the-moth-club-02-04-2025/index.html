@@ -50,9 +50,11 @@
     .article-carousel .carousel-thumb{border:none;padding:0;background:transparent;opacity:.52;cursor:pointer;flex:0 0 auto}
     .article-carousel .carousel-thumb.is-active{opacity:1}
     .article-carousel .carousel-thumb img{width:58px;height:40px;object-fit:cover;border-radius:0}
+    .article-embed iframe{display:block;width:100%;min-height:320px;border:0}
     @media(max-width:600px){
       .article-media--float-right,.article-media--float-left{float:none;width:100%;margin:1rem 0}
       .article-carousel .carousel-nav{width:36px;height:36px;font-size:1.65rem}
+      .article-embed iframe{min-height:220px}
     }
   </style>
 </head>
@@ -75,9 +77,9 @@
     </nav>
   </header>
   <main class="page-wrap">
-    <article class="article-body" id="articleBody" data-article-slug="orchads-the-moth-club-02-04-2025">
+    <article class="article-body" id="articleBody" data-article-slug="orchads-the-moth-club-02-04-2025" data-hydrate-from-api="0">
       <img class="featured-img" src="https://feats-live.louishitchcock.xyz/images/articles/%40c.shoots.shows+-+Hilang+Child-+MothClub+-+02-05-2025-4++%281%29.jpg" alt="Orchads @ The Moth Club - 02.04.2025" loading="lazy">
-      <div class="meta">Live Music &middot; Gig Review &middot; London Music &middot; Feats. &middot; 2025-05-09</div>
+      <div class="meta">Live Music &middot; Gig Review &middot; London Music &middot; C.  Wilkinson &middot; 2025-05-09</div>
       <h1>Orchads @ The Moth Club - 02.04.2025</h1>
       <div class="article-carousel article-media article-media--float-right" data-article-carousel="carousel-1">
   <div class="article-carousel-main">
@@ -113,7 +115,7 @@
     </button>
   </div>
 </div>
-<p>It's the penultimate night of Orchards UK tour, celebrating the release of their recent album Bicker which has taken them up and down the UK. Tonights show being at The Moth Club in Hackney</p><p>Opening up the night is Hilang Child, recently joining Orchards as their new drummer tonights show gives him a chance to showcase his own music to the crowd. With the room starting to fill up it gave a more mellow calmer start to the night. With an accompanying track, he showed off both his drumming and vocal abilities to the crowd who started to make their way towards the stage. Playing a few unreleased tracks it was a solid start to the night.</p><p>Up next Congratulations, with more of a lively and upbeat sound. With a lot of energy from the band on stage it wasn’t too hard for them to get the crowd engaged and moving as well. With a ton of personality radiating from the band and a mix of bouncy songs it had spirits and energy high.</p>
+<p style="white-space:pre-wrap;">It's the penultimate night of Orchards UK tour, celebrating the release of their recent album Bicker which has taken them up and down the UK. Tonights show being at The Moth Club in Hackney</p><p style="white-space:pre-wrap;">Opening up the night is Hilang Child, recently joining Orchards as their new drummer tonights show gives him a chance to showcase his own music to the crowd. With the room starting to fill up it gave a more mellow calmer start to the night. With an accompanying track, he showed off both his drumming and vocal abilities to the crowd who started to make their way towards the stage. Playing a few unreleased tracks it was a solid start to the night.</p><p style="white-space:pre-wrap;">Up next Congratulations, with more of a lively and upbeat sound. With a lot of energy from the band on stage it wasn’t too hard for them to get the crowd engaged and moving as well. With a ton of personality radiating from the band and a mix of bouncy songs it had spirits and energy high.</p>
 <div class="article-carousel article-media article-media--full" data-article-carousel="carousel-2">
   <div class="article-carousel-main">
     <button type="button" class="carousel-nav prev" aria-label="Previous image">&#10094;</button>
@@ -184,7 +186,7 @@
     </button>
   </div>
 </div>
-<p>Before Orchards took the stage the room had filled out with a crowd of fans right by the stage. Opening with the first track of the new album ‘Say It’, it had people immediately moving and singing along. While the set was a celebration of the new album the band made sure to play older fan favourites as well. With energy high on and off stage, there was a more mellow and emotional moment during song ‘Bethnal Green’ before they picked the energy right back up. </p>
+<p style="white-space:pre-wrap;">Before Orchards took the stage the room had filled out with a crowd of fans right by the stage. Opening with the first track of the new album ‘Say It’, it had people immediately moving and singing along. While the set was a celebration of the new album the band made sure to play older fan favourites as well. With energy high on and off stage, there was a more mellow and emotional moment during song ‘Bethnal Green’ before they picked the energy right back up. </p>
 <div class="article-carousel article-media article-media--full" data-article-carousel="carousel-3">
   <div class="article-carousel-main">
     <button type="button" class="carousel-nav prev" aria-label="Previous image">&#10094;</button>
@@ -303,7 +305,8 @@
     </button>
   </div>
 </div>
-<p>The night was not only a celebration of the new album, but the band, their fans and the importance of independent live music. </p>
+<p style="white-space:pre-wrap;">The night was not only a celebration of the new album, but the band, their fans and the importance of independent live music. </p>
+      <div class="writer-credit" id="writerCredit"><img class="writer-credit-photo" src="https://images.squarespace-cdn.com/content/v2/namespaces/memberAccountAvatars/libraries/6831ac7e91e11455764b9e2e/c15f9f27-68af-418e-aaa5-92cfd8efe33a/343098504_932638237787474_5968261007927703636_n.jpg" alt="C.  Wilkinson" loading="lazy"><div class="writer-credit-info"><h4>Written by C.  Wilkinson</h4><p>Live music photographer and writer covering punk and alternative shows.</p></div></div>
     </article>
   </main>
 <footer class="site-footer">
@@ -322,6 +325,17 @@
   <script>
     const ARTICLE_API_BASE = 'https://feats-live.louishitchcock.xyz';
     const ARTICLE_FALLBACK_COVER = 'https://feats-live.louishitchcock.xyz/images/hero-3.jpg';
+    (function enforceCanonicalArticlePath() {
+      var container = document.getElementById('articleBody');
+      if (!container) return;
+      var slug = String(container.getAttribute('data-article-slug') || '').trim().replace(/^[/]+/g, '').replace(/[/]+$/g, '');
+      if (!slug) return;
+      var canonicalUrl = '/music/?article=' + encodeURIComponent(slug);
+      var currentUrl = window.location.pathname + window.location.search;
+      if (currentUrl !== canonicalUrl) {
+        window.location.replace(canonicalUrl);
+      }
+    })();
     document.getElementById('navToggle').addEventListener('click', function(){
       document.getElementById('navLinks').classList.toggle('open');
     });
@@ -344,6 +358,23 @@
       var day = parseInt(pieces[2], 10);
       if (monthIdx < 0 || monthIdx > 11 || Number.isNaN(day)) return value;
       return day + ' ' + months[monthIdx] + ' ' + pieces[0];
+    }
+    function fetchLocalArticleFallback(slug) {
+      return fetch('/api/articles_clean.json', { cache: 'no-store' })
+        .then(function(response) {
+          if (!response.ok) throw new Error('Local fallback fetch failed: ' + response.status);
+          return response.json();
+        })
+        .then(function(rows) {
+          if (!Array.isArray(rows)) return null;
+          var normalizedSlug = String(slug || '').trim().replace(/^[/]+/g, '').replace(/[/]+$/g, '');
+          for (var i = 0; i < rows.length; i++) {
+            var candidate = rows[i] || {};
+            var candidateSlug = String(candidate.url_id || '').trim().replace(/^[/]+/g, '').replace(/[/]+$/g, '');
+            if (candidateSlug === normalizedSlug) return candidate;
+          }
+          return null;
+        });
     }
 
     function getCarouselNodes(carousel) {
@@ -432,6 +463,7 @@
     function hydrateArticleFromApi() {
       var container = document.getElementById('articleBody');
       if (!container) return;
+      if (container.getAttribute('data-hydrate-from-api') !== '1') return;
       var currentSlug = container.getAttribute('data-article-slug');
       if (!currentSlug) return;
       fetch(ARTICLE_API_BASE + '/api/articles/' + encodeURIComponent(currentSlug), { cache: 'no-store' })
@@ -441,6 +473,22 @@
         })
         .then(function(payload){
           var article = payload && payload.article ? payload.article : null;
+          if (!article) return;
+          return fetchLocalArticleFallback(currentSlug)
+            .then(function(localArticle) {
+              if (localArticle && String(localArticle.body || '').trim()) {
+                article.body = localArticle.body;
+                if (!article.excerpt && localArticle.excerpt) article.excerpt = localArticle.excerpt;
+                if (!article.cover_url && localArticle.cover_url) article.cover_url = localArticle.cover_url;
+                if (!article.categories && localArticle.categories) article.categories = localArticle.categories;
+                if (!article.publish_date && localArticle.publish_date) article.publish_date = localArticle.publish_date;
+                if ((!article.author || article.author === 'Feats.') && localArticle.author) article.author = localArticle.author;
+              }
+              return article;
+            })
+            .catch(function() { return article; });
+        })
+        .then(function(article){
           if (!article) return;
           var articleTitle = escapeHtml(article.title || 'Untitled Article');
           var articleAuthor = escapeHtml(article.author || 'Feats.');
@@ -455,11 +503,19 @@
           var publishDate = escapeHtml(formatDate(String(article.publish_date || '').slice(0, 10)));
           var coverUrl = escapeHtml(article.cover_url || ARTICLE_FALLBACK_COVER);
           var bodyHtml = article.body || '<p></p>';
+          var writerPhotoUrl = escapeHtml(article.writer_photo_url || '');
+          var writerBio = escapeHtml(article.writer_bio || '');
+          var writerCreditHtml = '<div class=\"writer-credit\" id=\"writerCredit\">'
+            + (writerPhotoUrl ? '<img class=\"writer-credit-photo\" src=\"' + writerPhotoUrl + '\" alt=\"' + articleAuthor + '\" loading=\"lazy\">' : '')
+            + '<div class=\"writer-credit-info\"><h4>Written by ' + articleAuthor + '</h4>'
+            + (writerBio ? '<p>' + writerBio + '</p>' : '')
+            + '</div></div>';
           container.innerHTML =
             '<img class="featured-img" src="' + coverUrl + '" alt="' + articleTitle + '" loading="lazy">' +
             '<div class="meta">' + categories + ' &middot; ' + articleAuthor + ' &middot; ' + publishDate + '</div>' +
             '<h1>' + articleTitle + '</h1>' +
-            bodyHtml;
+            bodyHtml +
+            writerCreditHtml;
           document.title = (article.title || 'Article') + ' — Feats.';
           var description = document.querySelector('meta[name="description"]');
           if (description) {
