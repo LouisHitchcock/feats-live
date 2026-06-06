@@ -112,10 +112,17 @@ body{font-family:'Work Sans',-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,
 .article-input,.article-textarea,.article-select{width:100%;padding:.6rem .75rem;border:1px solid #ddd;border-radius:0;font-size:.85rem;font-family:'Work Sans',sans-serif}
 .article-textarea{min-height:90px;resize:vertical}
 .article-properties-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:.75rem}
+.article-editor-mode-toggle{display:flex;align-items:center;gap:.4rem;margin-bottom:.55rem}
+.article-editor-mode-toggle button{border:1px solid #ddd;background:#fff;color:#555;padding:.35rem .65rem;font-size:.68rem;text-transform:uppercase;letter-spacing:.7px;cursor:pointer;font-family:'Work Sans',sans-serif}
+.article-editor-mode-toggle button.active{border-color:#444;background:#444;color:#fff}
 .editor-canvas{border:1px solid #ddd;min-height:340px;padding:.85rem;line-height:1.6;font-size:.92rem;background:#fff;padding-bottom:3.5rem}
 .editor-canvas:focus{outline:none;border-color:#444}
+.editor-canvas.is-hidden{display:none}
+.article-markdown-input{display:none;min-height:380px;line-height:1.55;font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,'Liberation Mono',monospace;white-space:pre;tab-size:2}
+.article-markdown-input.active{display:block}
 .article-empty-state{padding:2rem 1rem;color:#777;text-align:center;font-size:.85rem;text-transform:uppercase;letter-spacing:1px}
 .editor-floating-toolbar{position:fixed;bottom:1.5rem;left:50%;transform:translateX(-50%);z-index:100;display:flex;gap:.35rem;flex-wrap:nowrap;overflow-x:auto;align-items:center;border:1px solid #ddd;background:#fff;padding:.45rem .65rem;min-height:2.6rem;scrollbar-width:thin;border-radius:0;box-shadow:0 2px 12px rgba(0,0,0,.12)}
+.editor-floating-toolbar.is-hidden{display:none}
 .editor-floating-toolbar button{border:1px solid #ddd;background:#fff;padding:.3rem .5rem;font-size:.7rem;text-transform:uppercase;letter-spacing:.7px;cursor:pointer;font-family:'Work Sans',sans-serif;white-space:nowrap;flex-shrink:0}
 .editor-floating-toolbar button:hover{background:#f4f4f4}
 .editor-floating-toolbar button.btn-insert-image{border-color:#444;color:#444;font-weight:600}
@@ -258,6 +265,9 @@ body{font-family:'Work Sans',-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,
 [data-theme="dark"] .article-save-status.success{color:#80cbc4;background:#1a3330}
 [data-theme="dark"] .article-field label{color:#999}
 [data-theme="dark"] .article-input,[data-theme="dark"] .article-textarea,[data-theme="dark"] .article-select{background:#1a1a1a;border-color:#444;color:#ccc}
+[data-theme="dark"] .article-editor-mode-toggle button{background:#1a1a1a;border-color:#444;color:#999}
+[data-theme="dark"] .article-editor-mode-toggle button.active{background:#555;border-color:#555;color:#fff}
+[data-theme="dark"] .article-markdown-input{background:#141414;border-color:#444;color:#d0d0d0}
 [data-theme="dark"] .editor-floating-toolbar{background:#262626;border-color:#444}
 [data-theme="dark"] .editor-floating-toolbar button{background:#1a1a1a;border-color:#444;color:#888}
 [data-theme="dark"] .editor-floating-toolbar button:hover{background:#333;color:#ccc}
@@ -501,7 +511,9 @@ var articleState = {
   listCollapsed: false,
   savedRange: null,
   recentImages: [],
-  carouselSeed: 0
+  carouselSeed: 0,
+  editorMode: 'rich',
+  markdownDraft: ''
 };
 
 function escAttr(s) {
@@ -548,6 +560,8 @@ main.innerHTML = '<h1>Articles</h1><div class="article-workspace" id="articleWor
   articleState.savedRange = null;
   articleState.recentImages = [];
   articleState.carouselSeed = 0;
+  articleState.editorMode = 'rich';
+  articleState.markdownDraft = '';
   refreshArticleListPaneState();
 
   Promise.all([
@@ -646,6 +660,7 @@ function startNewArticle() {
     publish_date: nowAsLocalDateTime(),
     status: 'draft'
   });
+  articleState.markdownDraft = '';
   articleState.panel = 'editor';
   renderArticleList();
   renderArticleWorkspace();
@@ -662,6 +677,7 @@ function selectArticleFromList(id) {
   document.getElementById('articleEditorBody').innerHTML = '<div class="article-empty-state">Loading selected article...</div>';
   apiGet('/admin/articles/' + id).then(function(data) {
     articleState.current = normalizeArticle(data.article || {});
+    articleState.markdownDraft = '';
     articleState.selectedId = articleState.current.id;
     renderArticleList();
     renderArticleWorkspace();
@@ -684,6 +700,7 @@ function captureCurrentArticleDraft() {
   var slugEl = document.getElementById('articleSlugInput');
   var excerptEl = document.getElementById('articleExcerptInput');
   var bodyEl = document.getElementById('articleBodyEditor');
+  var markdownEl = document.getElementById('articleBodyMarkdownInput');
   var authorEl = document.getElementById('articleAuthorInput');
   var categoriesEl = document.getElementById('articleCategoriesInput');
   var tagsEl = document.getElementById('articleTagsInput');
@@ -694,7 +711,15 @@ function captureCurrentArticleDraft() {
   if (titleEl) articleState.current.title = titleEl.value;
   if (slugEl) articleState.current.url_id = slugEl.value.trim();
   if (excerptEl) articleState.current.excerpt = excerptEl.value;
-  if (bodyEl) articleState.current.body = bodyEl.innerHTML;
+  if (isArticleMarkdownMode() && markdownEl) {
+    articleState.markdownDraft = markdownEl.value;
+    articleState.current.body = markdownToArticleHtml(markdownEl.value);
+    if (bodyEl) bodyEl.innerHTML = articleState.current.body || '<p></p>';
+  } else if (bodyEl) {
+    articleState.current.body = bodyEl.innerHTML;
+    articleState.markdownDraft = articleHtmlToMarkdown(articleState.current.body);
+    if (markdownEl) markdownEl.value = articleState.markdownDraft;
+  }
   if (authorEl) articleState.current.author = authorEl.value;
   if (categoriesEl) articleState.current.categories = categoriesEl.value;
   if (tagsEl) articleState.current.tags = tagsEl.value;
@@ -754,10 +779,436 @@ function getArticlePropertiesHtml(article) {
   return '<div class="article-properties-grid"><div class="article-field"><label>Slug (URL ID)</label><input id="articleSlugInput" class="article-input" value="' + escAttr(article.url_id) + '" placeholder="your-article-slug"></div><div class="article-field"><label>Status</label><select id="articleStatusInput" class="article-select"><option value="publish"' + (article.status === 'publish' ? ' selected' : '') + '>Published</option><option value="draft"' + (article.status !== 'publish' ? ' selected' : '') + '>Draft</option></select></div><div class="article-field"><label>Publish Date</label><input id="articlePublishInput" class="article-input" type="datetime-local" value="' + escAttr(article.publish_date || nowAsLocalDateTime()) + '"></div><div class="article-field"><label>Writer(s)</label><select id="articleWritersSelect" class="article-select" multiple size="5" onchange="syncArticleAuthorFromSelection()">' + options + '</select></div><div class="article-field"><label>Author Field (stored)</label><input id="articleAuthorInput" class="article-input" value="' + escAttr(article.author) + '" placeholder="Comma-separated writer names"></div><div class="article-field"><label>Tags</label><input id="articleTagsInput" class="article-input" value="' + escAttr(article.tags) + '" placeholder="news, live-review, interview"></div><div class="article-field"><label>Categories</label><input id="articleCategoriesInput" class="article-input" value="' + escAttr(article.categories) + '" placeholder="Rock, Live Reviews"></div><div class="article-field" style="grid-column:1 / -1"><label>Excerpt</label><textarea id="articleExcerptInput" class="article-textarea" placeholder="Short summary for cards and metadata">' + esc(article.excerpt) + '</textarea></div><div class="article-field" style="grid-column:1 / -1"><label>Thumbnail / Cover URL</label><input id="articleCoverInput" class="article-input" value="' + escAttr(article.cover_url) + '" placeholder="https://..."></div></div>' + (article.id ? '<div style="margin-top:1rem"><button class="btn btn-danger" onclick="deleteCurrentArticle()">Delete Article</button></div>' : '');
 }
 
+function isArticleMarkdownMode() {
+  return articleState.editorMode === 'markdown';
+}
+
+function ensureArticleEditorModeUi(editor, toolbar) {
+  var field = editor.parentElement;
+  if (!field) return;
+  var modeToggle = document.getElementById('articleEditorModeToggle');
+  if (!modeToggle) {
+    modeToggle = document.createElement('div');
+    modeToggle.id = 'articleEditorModeToggle';
+    modeToggle.className = 'article-editor-mode-toggle';
+    modeToggle.innerHTML = '<button type="button" data-mode="rich">Rich Text</button><button type="button" data-mode="markdown">Markdown</button>';
+    var label = field.querySelector('label');
+    if (label && label.nextSibling) field.insertBefore(modeToggle, label.nextSibling);
+    else field.insertBefore(modeToggle, editor);
+    modeToggle.addEventListener('click', function(e) {
+      var btn = e.target.closest('button[data-mode]');
+      if (!btn) return;
+      setArticleEditorMode(btn.getAttribute('data-mode'));
+    });
+  }
+  var markdownInput = document.getElementById('articleBodyMarkdownInput');
+  if (!markdownInput) {
+    markdownInput = document.createElement('textarea');
+    markdownInput.id = 'articleBodyMarkdownInput';
+    markdownInput.className = 'article-textarea article-markdown-input';
+    markdownInput.placeholder = 'Write Markdown here...';
+    markdownInput.setAttribute('spellcheck', 'false');
+    editor.insertAdjacentElement('afterend', markdownInput);
+  }
+  if (!markdownInput.dataset.modeBound) {
+    markdownInput.addEventListener('input', function() {
+      if (!isArticleMarkdownMode()) return;
+      articleState.markdownDraft = markdownInput.value;
+      articleState.current.body = markdownToArticleHtml(markdownInput.value);
+    });
+    markdownInput.dataset.modeBound = '1';
+  }
+  if (!articleState.markdownDraft) {
+    articleState.markdownDraft = articleHtmlToMarkdown(editor.innerHTML);
+  }
+  markdownInput.value = articleState.markdownDraft;
+  applyArticleEditorModeUI();
+}
+
+function setArticleEditorMode(mode) {
+  mode = mode === 'markdown' ? 'markdown' : 'rich';
+  if (articleState.editorMode === mode) return;
+  var editor = document.getElementById('articleBodyEditor');
+  var markdownInput = document.getElementById('articleBodyMarkdownInput');
+  if (!editor || !markdownInput) return;
+  if (mode === 'markdown') {
+    articleState.markdownDraft = articleHtmlToMarkdown(editor.innerHTML);
+    markdownInput.value = articleState.markdownDraft;
+    articleState.editorMode = 'markdown';
+    applyArticleEditorModeUI();
+    markdownInput.focus();
+  } else {
+    articleState.markdownDraft = markdownInput.value;
+    editor.innerHTML = markdownToArticleHtml(markdownInput.value);
+    articleState.current.body = editor.innerHTML;
+    articleState.editorMode = 'rich';
+    applyArticleEditorModeUI();
+    editor.focus();
+    saveEditorSelection();
+  }
+  captureCurrentArticleDraft();
+}
+
+function applyArticleEditorModeUI() {
+  var mode = isArticleMarkdownMode() ? 'markdown' : 'rich';
+  var editor = document.getElementById('articleBodyEditor');
+  var markdownInput = document.getElementById('articleBodyMarkdownInput');
+  var toolbar = document.querySelector('.editor-floating-toolbar');
+  var modeToggle = document.getElementById('articleEditorModeToggle');
+  if (modeToggle) {
+    var buttons = modeToggle.querySelectorAll('button[data-mode]');
+    for (var i = 0; i < buttons.length; i++) {
+      buttons[i].classList.toggle('active', buttons[i].getAttribute('data-mode') === mode);
+    }
+  }
+  if (editor) {
+    editor.classList.toggle('is-hidden', mode === 'markdown');
+    editor.setAttribute('contenteditable', mode === 'markdown' ? 'false' : 'true');
+  }
+  if (markdownInput) markdownInput.classList.toggle('active', mode === 'markdown');
+  if (toolbar) toolbar.classList.toggle('is-hidden', mode === 'markdown');
+  if (mode === 'markdown') {
+    closeArticleContextMenu();
+    toggleArticleImagePanel(false);
+  }
+}
+
+function escapeMarkdownText(value) {
+  return String(value || '')
+    .replace(/\u00a0/g, ' ')
+    .replace(/\\/g, '\\\\')
+    .replace(/([`*_{}\[\]()#+!|>])/g, '\\$1');
+}
+
+function escapeHtmlText(value) {
+  return String(value == null ? '' : value)
+    .replace(/&/g, '&amp;')
+    .replace(/</g, '&lt;')
+    .replace(/>/g, '&gt;');
+}
+
+function sanitizeArticleMarkdownUrl(url) {
+  var value = String(url || '').trim();
+  if (!value) return '#';
+  if ((value.startsWith('<') && value.endsWith('>')) || (value.startsWith('(') && value.endsWith(')'))) {
+    value = value.slice(1, -1).trim();
+  }
+  if (/^(javascript|vbscript|data):/i.test(value)) return '#';
+  return value;
+}
+
+function isArticleCustomBlockElement(node) {
+  if (!node || node.nodeType !== 1) return false;
+  if (node.hasAttribute('data-article-carousel')) return true;
+  return node.matches('.article-media,.article-carousel,.article-callout,.article-spacer,.article-cta,.article-pullquote,.article-divider');
+}
+
+function articleInlineNodeToMarkdown(node) {
+  if (!node) return '';
+  if (node.nodeType === Node.TEXT_NODE) return escapeMarkdownText(node.textContent);
+  if (node.nodeType !== Node.ELEMENT_NODE) return '';
+  var tag = node.tagName.toLowerCase();
+  if (isArticleCustomBlockElement(node)) return node.outerHTML.trim();
+  if (tag === 'strong' || tag === 'b') return '**' + articleInlineNodesToMarkdown(node.childNodes) + '**';
+  if (tag === 'em' || tag === 'i') return '*' + articleInlineNodesToMarkdown(node.childNodes) + '*';
+  if (tag === 'del' || tag === 's') return '~~' + articleInlineNodesToMarkdown(node.childNodes) + '~~';
+  if (tag === 'code') return '`' + String(node.textContent || '').replace(/`/g, '\\`') + '`';
+  if (tag === 'a') {
+    if (node.classList.contains('article-cta')) return node.outerHTML.trim();
+    var href = sanitizeArticleMarkdownUrl(node.getAttribute('href') || '#');
+    var label = articleInlineNodesToMarkdown(node.childNodes).trim() || href;
+    return '[' + label + '](' + href + ')';
+  }
+  if (tag === 'img') {
+    var src = sanitizeArticleMarkdownUrl(node.getAttribute('src') || '');
+    var alt = String(node.getAttribute('alt') || '');
+    return '![' + alt.replace(/\]/g, '\\]') + '](' + src + ')';
+  }
+  if (tag === 'br') return '  \n';
+  return articleInlineNodesToMarkdown(node.childNodes);
+}
+
+function articleInlineNodesToMarkdown(nodes) {
+  var out = '';
+  for (var i = 0; i < nodes.length; i++) {
+    out += articleInlineNodeToMarkdown(nodes[i]);
+  }
+  return out;
+}
+
+function articleListToMarkdown(listNode, ordered, depth) {
+  var rows = [];
+  var index = 1;
+  for (var i = 0; i < listNode.children.length; i++) {
+    var li = listNode.children[i];
+    if (!li || li.tagName.toLowerCase() !== 'li') continue;
+    var prefix = ordered ? (index + '. ') : '- ';
+    var line = new Array(depth + 1).join('  ') + prefix;
+    var inlineNodes = [];
+    var nestedRows = [];
+    for (var n = 0; n < li.childNodes.length; n++) {
+      var child = li.childNodes[n];
+      if (child.nodeType === Node.ELEMENT_NODE) {
+        var childTag = child.tagName.toLowerCase();
+        if (childTag === 'ul' || childTag === 'ol') {
+          nestedRows.push(articleListToMarkdown(child, childTag === 'ol', depth + 1));
+          continue;
+        }
+      }
+      inlineNodes.push(child);
+    }
+    line += articleInlineNodesToMarkdown(inlineNodes).trim();
+    rows.push(line.trimEnd());
+    if (nestedRows.length) rows.push(nestedRows.join('\n'));
+    index += 1;
+  }
+  return rows.join('\n');
+}
+
+function articleNodeToMarkdown(node) {
+  if (!node) return '';
+  if (node.nodeType === Node.TEXT_NODE) {
+    var raw = String(node.textContent || '').trim();
+    return raw ? escapeMarkdownText(raw) : '';
+  }
+  if (node.nodeType !== Node.ELEMENT_NODE) return '';
+  if (isArticleCustomBlockElement(node)) return node.outerHTML.trim();
+  var tag = node.tagName.toLowerCase();
+  if (tag === 'p') {
+    if (node.querySelector && node.querySelector('.article-cta')) return node.outerHTML.trim();
+    return articleInlineNodesToMarkdown(node.childNodes).trim();
+  }
+  if (/^h[1-6]$/.test(tag)) {
+    var level = parseInt(tag.slice(1), 10);
+    return new Array(level + 1).join('#') + ' ' + articleInlineNodesToMarkdown(node.childNodes).trim();
+  }
+  if (tag === 'hr') return '---';
+  if (tag === 'pre') {
+    var codeText = String(node.textContent || '').replace(/\n+$/, '');
+    return '```\n' + codeText + '\n```';
+  }
+  if (tag === 'blockquote') {
+    if (node.classList.contains('article-pullquote')) return node.outerHTML.trim();
+    var quoteBody = articleNodesToMarkdown(node.childNodes);
+    if (!quoteBody) return '';
+    return quoteBody.split('\n').map(function(line) { return line ? '> ' + line : '>'; }).join('\n');
+  }
+  if (tag === 'ul' || tag === 'ol') return articleListToMarkdown(node, tag === 'ol', 0);
+  if (tag === 'div' || tag === 'figure' || tag === 'aside' || tag === 'table' || tag === 'section') return node.outerHTML.trim();
+  return articleInlineNodesToMarkdown(node.childNodes).trim();
+}
+
+function articleNodesToMarkdown(nodes) {
+  var blocks = [];
+  for (var i = 0; i < nodes.length; i++) {
+    var piece = articleNodeToMarkdown(nodes[i]);
+    if (!piece) continue;
+    blocks.push(piece.trim());
+  }
+  return blocks.join('\n\n').replace(/\n{3,}/g, '\n\n').trim();
+}
+
+function articleHtmlToMarkdown(html) {
+  var source = String(html || '');
+  if (!source.trim()) return '';
+  var container = document.createElement('div');
+  container.innerHTML = source;
+  return articleNodesToMarkdown(container.childNodes);
+}
+
+function articleInlineMarkdownToHtml(value) {
+  var source = String(value || '');
+  var codeStore = [];
+  source = source.replace(/`([^`]+)`/g, function(_, code) {
+    var token = '@@CODE' + codeStore.length + '@@';
+    codeStore.push('<code>' + escapeHtmlText(code) + '</code>');
+    return token;
+  });
+  var html = escapeHtmlText(source);
+  html = html.replace(/!\[([^\]]*)\]\(([^)\s]+)(?:\s+\"([^\"]*)\")?\)/g, function(_, alt, rawUrl, title) {
+    var safeUrl = sanitizeArticleMarkdownUrl(rawUrl);
+    var titleAttr = title ? ' title="' + escAttr(title) + '"' : '';
+    return '<img src="' + escAttr(safeUrl) + '" alt="' + escAttr(alt) + '"' + titleAttr + '>';
+  });
+  html = html.replace(/\[([^\]]+)\]\(([^)\s]+)(?:\s+\"([^\"]*)\")?\)/g, function(_, text, rawUrl, title) {
+    var safeUrl = sanitizeArticleMarkdownUrl(rawUrl);
+    var titleAttr = title ? ' title="' + escAttr(title) + '"' : '';
+    return '<a href="' + escAttr(safeUrl) + '"' + titleAttr + '>' + text + '</a>';
+  });
+  html = html.replace(/\*\*\*([^*]+)\*\*\*/g, '<strong><em>$1</em></strong>');
+  html = html.replace(/___([^_]+)___/g, '<strong><em>$1</em></strong>');
+  html = html.replace(/\*\*([^*]+)\*\*/g, '<strong>$1</strong>');
+  html = html.replace(/__([^_]+)__/g, '<strong>$1</strong>');
+  html = html.replace(/\*([^*\n]+)\*/g, '<em>$1</em>');
+  html = html.replace(/_([^_\n]+)_/g, '<em>$1</em>');
+  html = html.replace(/~~([^~]+)~~/g, '<del>$1</del>');
+  for (var i = 0; i < codeStore.length; i++) {
+    html = html.replace('@@CODE' + i + '@@', codeStore[i]);
+  }
+  return html;
+}
+
+function isArticleRawHtmlLine(line) {
+  return /^<\/?[a-z][\s\S]*>$/i.test(line);
+}
+
+function markdownToArticleHtml(markdown) {
+  var source = String(markdown || '').replace(/\r\n?/g, '\n');
+  if (!source.trim()) return '<p></p>';
+  var lines = source.split('\n');
+  var htmlParts = [];
+  var paragraphLines = [];
+  var quoteLines = [];
+  var listItems = [];
+  var listOrdered = false;
+  var codeLines = null;
+  var rawHtmlLines = [];
+
+  function flushParagraph() {
+    if (!paragraphLines.length) return;
+    var text = paragraphLines.join('\n').trim();
+    paragraphLines = [];
+    if (!text) return;
+    htmlParts.push('<p>' + articleInlineMarkdownToHtml(text).replace(/\n/g, '<br>') + '</p>');
+  }
+
+  function flushList() {
+    if (!listItems.length) return;
+    htmlParts.push((listOrdered ? '<ol>' : '<ul>') + listItems.map(function(item) { return '<li>' + item + '</li>'; }).join('') + (listOrdered ? '</ol>' : '</ul>'));
+    listItems = [];
+  }
+
+  function flushQuotes() {
+    if (!quoteLines.length) return;
+    var quotedHtml = markdownToArticleHtml(quoteLines.join('\n'));
+    quoteLines = [];
+    htmlParts.push('<blockquote>' + quotedHtml + '</blockquote>');
+  }
+
+  function flushRawHtml() {
+    if (!rawHtmlLines.length) return;
+    htmlParts.push(rawHtmlLines.join('\n'));
+    rawHtmlLines = [];
+  }
+
+  for (var i = 0; i < lines.length; i++) {
+    var line = lines[i];
+    var trimmed = line.trim();
+
+    if (codeLines !== null) {
+      if (/^```/.test(trimmed)) {
+        htmlParts.push('<pre><code>' + escapeHtmlText(codeLines.join('\n')) + '</code></pre>');
+        codeLines = null;
+      } else {
+        codeLines.push(line);
+      }
+      continue;
+    }
+
+    if (rawHtmlLines.length) {
+      if (!trimmed) {
+        flushRawHtml();
+        continue;
+      }
+      if (isArticleRawHtmlLine(trimmed)) {
+        rawHtmlLines.push(line);
+        continue;
+      }
+      flushRawHtml();
+    }
+
+    if (/^```/.test(trimmed)) {
+      flushParagraph();
+      flushList();
+      flushQuotes();
+      codeLines = [];
+      continue;
+    }
+
+    if (!trimmed) {
+      flushParagraph();
+      flushList();
+      flushQuotes();
+      continue;
+    }
+
+    if (isArticleRawHtmlLine(trimmed)) {
+      flushParagraph();
+      flushList();
+      flushQuotes();
+      rawHtmlLines.push(line);
+      continue;
+    }
+
+    var quoteMatch = line.match(/^>\s?(.*)$/);
+    if (quoteMatch) {
+      flushParagraph();
+      flushList();
+      quoteLines.push(quoteMatch[1]);
+      continue;
+    }
+
+    flushQuotes();
+
+    var headingMatch = trimmed.match(/^(#{1,6})\s+(.+)$/);
+    if (headingMatch) {
+      flushParagraph();
+      flushList();
+      var headingLevel = headingMatch[1].length;
+      htmlParts.push('<h' + headingLevel + '>' + articleInlineMarkdownToHtml(headingMatch[2].trim()) + '</h' + headingLevel + '>');
+      continue;
+    }
+
+    if (/^(\*\s*\*\s*\*|-{3,}|_{3,})$/.test(trimmed)) {
+      flushParagraph();
+      flushList();
+      htmlParts.push('<hr>');
+      continue;
+    }
+
+    var listMatch = line.match(/^\s*([-+*]|\d+\.)\s+(.+)$/);
+    if (listMatch) {
+      var itemOrdered = /\d+\./.test(listMatch[1]);
+      if (!listItems.length) listOrdered = itemOrdered;
+      if (listItems.length && itemOrdered !== listOrdered) {
+        flushList();
+        listOrdered = itemOrdered;
+      }
+      listItems.push(articleInlineMarkdownToHtml(listMatch[2].trim()));
+      continue;
+    }
+
+    if (listItems.length) flushList();
+    paragraphLines.push(line);
+  }
+
+  if (codeLines !== null) htmlParts.push('<pre><code>' + escapeHtmlText(codeLines.join('\n')) + '</code></pre>');
+  flushRawHtml();
+  flushQuotes();
+  flushList();
+  flushParagraph();
+
+  var html = htmlParts.join('\n').trim();
+  return html || '<p></p>';
+}
+
+function insertTextIntoTextarea(textarea, text) {
+  if (!textarea) return;
+  var start = textarea.selectionStart != null ? textarea.selectionStart : textarea.value.length;
+  var end = textarea.selectionEnd != null ? textarea.selectionEnd : textarea.value.length;
+  var current = textarea.value || '';
+  textarea.value = current.slice(0, start) + text + current.slice(end);
+  var cursor = start + text.length;
+  textarea.selectionStart = cursor;
+  textarea.selectionEnd = cursor;
+  textarea.focus();
+}
+
 function initializeArticleEditor() {
   var editor = document.getElementById('articleBodyEditor');
   if (!editor) return;
   var toolbar = document.querySelector('.editor-floating-toolbar');
+  ensureArticleEditorModeUi(editor, toolbar);
   if (toolbar && !toolbar.dataset.selectionGuard) {
     toolbar.addEventListener('mousedown', function(e) {
       if (e.target.closest('button')) e.preventDefault();
@@ -773,6 +1224,7 @@ function initializeArticleEditor() {
   ensureArticleContextMenu();
   if (!editor.dataset.contextMenuBound) {
     editor.addEventListener('contextmenu', function(e) {
+      if (isArticleMarkdownMode()) return;
       e.preventDefault();
       if (!moveEditorSelectionToPoint(editor, e.clientX, e.clientY)) saveEditorSelection();
       openArticleContextMenu(e.clientX, e.clientY);
@@ -813,6 +1265,7 @@ function restoreEditorSelection() {
 }
 
 function executeArticleEditorCommand(command, value) {
+  if (isArticleMarkdownMode()) return;
   var editor = document.getElementById('articleBodyEditor');
   if (!editor) return;
   editor.focus();
@@ -919,6 +1372,10 @@ function moveEditorSelectionToPoint(editor, clientX, clientY) {
 }
 
 function openArticleImageOverlayWithLayout(layout) {
+  if (isArticleMarkdownMode()) {
+    setArticleSaveStatus('Switch to Rich Text mode to use image overlays', true);
+    return;
+  }
   restoreEditorSelection();
   saveEditorSelection();
   toggleArticleImagePanel(true);
@@ -1012,6 +1469,10 @@ function toggleArticleImagePanel(forceOpen) {
   var backdrop = document.getElementById('articleImageOverlayBackdrop');
   if (!panel) return;
   var shouldOpen = typeof forceOpen === 'boolean' ? forceOpen : !panel.classList.contains('active');
+  if (shouldOpen && isArticleMarkdownMode()) {
+    setArticleSaveStatus('Switch to Rich Text mode to insert media', true);
+    return;
+  }
   if (shouldOpen) {
     saveEditorSelection();
     toggleArticleCarouselInput();
@@ -1171,6 +1632,15 @@ function moveCarouselSlide(carouselId, delta) {
 }
 
 function insertArticleHtmlAtCursor(html) {
+  if (isArticleMarkdownMode()) {
+    var markdownInput = document.getElementById('articleBodyMarkdownInput');
+    if (!markdownInput) return false;
+    var markdownChunk = articleHtmlToMarkdown(html);
+    if (markdownChunk) insertTextIntoTextarea(markdownInput, markdownChunk + '\n\n');
+    articleState.markdownDraft = markdownInput.value;
+    articleState.current.body = markdownToArticleHtml(markdownInput.value);
+    return true;
+  }
   var editor = document.getElementById('articleBodyEditor');
   if (!editor) return false;
   editor.focus();
