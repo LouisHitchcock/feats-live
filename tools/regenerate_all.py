@@ -31,6 +31,8 @@ EXCLUDED_URL_IDS = {
     "member-site-homepage-1",
     "membersite-home-page-1",
 }
+DYNAMIC_ARTICLE_ROUTE_SEGMENT = "article"
+RESERVED_MUSIC_DIRS = {DYNAMIC_ARTICLE_ROUTE_SEGMENT}
 
 ARTICLE_STYLE = """  <style>
     .article-body{max-width:750px;margin:0 auto;padding:3rem 2rem}
@@ -709,6 +711,37 @@ def write_article_pages(articles: list[dict]) -> int:
         generated += 1
     return generated
 
+def render_dynamic_article_shell() -> str:
+    page = render_article_page(
+        {
+            "url_id": "",
+            "title": "Article",
+            "excerpt": "Loading article...",
+            "author": "Feats.",
+            "publish_date": "1970-01-01 00:00:00",
+            "categories": "Article",
+            "cover_url": DEFAULT_COVER,
+            "body": "<p>Loading article...</p>",
+        }
+    )
+    page = page.replace(
+        "      var currentSlug = container.getAttribute('data-article-slug');\n      if (!currentSlug) return;\n",
+        "      var searchParams = new URLSearchParams(window.location.search || '');\n      var currentSlug = String((searchParams.get('slug') || container.getAttribute('data-article-slug') || '')).trim().replace(/^\\/+/g, '').replace(/\\/+$/g, '');\n      if (!currentSlug) {\n        container.innerHTML = '<h1>Article not found</h1><p>Missing article slug.</p>';\n        return;\n      }\n",
+    )
+    page = page.replace(
+        "          console.warn('Using static article fallback for', currentSlug, error);\n",
+        "          console.warn('Unable to hydrate article for', currentSlug, error);\n          container.innerHTML = '<h1>Article unavailable</h1><p>We could not load that article right now.</p>';\n",
+    )
+    return page
+
+
+def write_dynamic_article_shell() -> Path:
+    dynamic_dir = MUSIC_DIR / DYNAMIC_ARTICLE_ROUTE_SEGMENT
+    dynamic_dir.mkdir(parents=True, exist_ok=True)
+    destination = dynamic_dir / "index.html"
+    destination.write_text(render_dynamic_article_shell(), encoding="utf-8")
+    return destination
+
 
 def render_music_listing() -> str:
     excluded_list = ", ".join(f'"{value}"' for value in sorted(EXCLUDED_URL_IDS))
@@ -789,7 +822,7 @@ def render_music_listing() -> str:
         const cover = escapeHtml(a.cover_url || '{DEFAULT_COVER}');
         const formattedDate = escapeHtml(formatDate(a.publish_date));
         card.className = 'music-card';
-        card.innerHTML = '<a href="/music/' + slug + '">'
+        card.innerHTML = '<a href=\"/music/{DYNAMIC_ARTICLE_ROUTE_SEGMENT}/?slug=' + slug + '\">'
           + '<img src="' + cover + '" alt="' + title + '" loading="lazy">'
           + '<div class="meta"><span>' + categories + '</span><span>' + author + '</span><span>' + formattedDate + '</span></div>'
           + '<h2>' + title + '</h2>'
@@ -892,6 +925,8 @@ def stale_article_dirs(valid_slugs: set[str]) -> list[Path]:
     for child in MUSIC_DIR.iterdir():
         if not child.is_dir():
             continue
+        if child.name in RESERVED_MUSIC_DIRS:
+            continue
         if child.name in valid_slugs:
             continue
         stale.append(child)
@@ -954,6 +989,8 @@ def main() -> int:
 
     write_music_listing()
     print(f"Wrote {MUSIC_DIR / 'index.html'}")
+    dynamic_shell = write_dynamic_article_shell()
+    print(f"Wrote {dynamic_shell}")
 
     normalized = normalize_legacy_paths()
     print(f"Normalized legacy routes in {normalized} existing music pages")

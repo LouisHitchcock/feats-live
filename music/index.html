@@ -103,7 +103,7 @@
         const cover = escapeHtml(a.cover_url || 'https://feats-live.louishitchcock.xyz/images/hero-3.jpg');
         const formattedDate = escapeHtml(formatDate(a.publish_date));
         card.className = 'music-card';
-        card.innerHTML = '<a href="/music/' + slug + '">'
+        card.innerHTML = '<a href="/music/article/?slug=' + slug + '">'
           + '<img src="' + cover + '" alt="' + title + '" loading="lazy">'
           + '<div class="meta"><span>' + categories + '</span><span>' + author + '</span><span>' + formattedDate + '</span></div>'
           + '<h2>' + title + '</h2>'
