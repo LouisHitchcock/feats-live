@@ -1,6 +1,6 @@
 /* === ADMIN STYLES === */
 *{margin:0;padding:0;box-sizing:border-box}
-body{font-family:'Work Sans',-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;background:#fff;color:#444;-webkit-font-smoothing:antialiased}
+body{font-family:'Work Sans',-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;background:#fff;color:#444;-webkit-font-smoothing:antialiased;overflow-x:hidden}
 
 /* Login */
 .login-page{display:flex;align-items:center;justify-content:center;min-height:100vh;background:#fff}
@@ -33,7 +33,7 @@ body{font-family:'Work Sans',-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,
 .sidebar-nav-actions{margin-top:auto;padding-top:.75rem;border-top:1px solid rgba(255,255,255,.12)}
 .sidebar .user-info{margin-top:auto;padding-top:.65rem;border-top:1px solid rgba(255,255,255,.1);font-size:.75rem;opacity:.5;display:none}
 .sidebar.is-expanded .user-info,.sidebar:hover .user-info{display:block}
-.main{flex:1;padding:2.5rem;overflow:hidden;display:flex;flex-direction:column;min-height:0}
+.main{flex:1;padding:2.5rem;overflow-y:auto;max-height:100vh;overflow-x:hidden}
 .main h1{font-size:1.1rem;font-weight:700;text-transform:uppercase;letter-spacing:2px;margin-bottom:2rem}
 
 .stats-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:1.5rem;margin-bottom:2rem}
@@ -97,7 +97,7 @@ body{font-family:'Work Sans',-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,
 .article-save-status{padding:.55rem 1rem;border-bottom:1px solid #eee;font-size:.72rem;letter-spacing:.4px;color:#777;min-height:2rem;text-transform:uppercase}
 .article-save-status.error{color:#b42318;background:#fff5f5}
 .article-save-status.success{color:#0f766e;background:#f0fdfa}
-.article-editor-body{padding:1rem;overflow-y:auto;overflow-x:hidden;flex:1;min-height:0}
+.article-editor-body{padding:1rem;overflow-x:hidden;flex:1;min-height:0}
 .article-field{margin-bottom:.85rem}
 .article-field label{display:block;font-size:.72rem;font-weight:600;text-transform:uppercase;letter-spacing:1px;color:#888;margin-bottom:.35rem}
 .article-input,.article-textarea,.article-select{width:100%;padding:.6rem .75rem;border:1px solid #ddd;border-radius:0;font-size:.85rem;font-family:'Work Sans',sans-serif}
@@ -131,7 +131,7 @@ body.editor-fullscreen .editor-canvas{min-height:calc(100vh - 160px)}
 .article-markdown-input{display:none;min-height:380px;line-height:1.55;font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,'Liberation Mono',monospace;white-space:pre;tab-size:2}
 .article-markdown-input.active{display:block}
 .article-empty-state{padding:2rem 1rem;color:#777;text-align:center;font-size:.85rem;text-transform:uppercase;letter-spacing:1px}
-.editor-toolbar{position:sticky;top:0;z-index:100;display:flex;gap:.25rem;flex-wrap:nowrap;overflow-x:auto;align-items:center;border-bottom:1px solid #ddd;background:#fff;padding:.35rem .55rem;min-height:2.4rem;scrollbar-width:thin;margin:-1rem -1rem 1rem -1rem}
+.editor-toolbar{position:sticky;top:0;z-index:101;display:flex;gap:.25rem;flex-wrap:nowrap;overflow-x:auto;align-items:center;border-bottom:1px solid #ddd;background:#fff;padding:.35rem .55rem;min-height:2.4rem;scrollbar-width:thin;margin:-1rem -1rem 1rem -1rem}
 .editor-toolbar.is-hidden{display:none}
 .editor-toolbar button{border:1px solid transparent;background:transparent;padding:.25rem .42rem;font-size:.7rem;cursor:pointer;font-family:'Work Sans',sans-serif;white-space:nowrap;flex-shrink:0;color:#555;border-radius:0;min-width:26px;text-align:center;line-height:1}
 .editor-toolbar button:hover{background:#e8e8e8;border-color:#ccc}
