@@ -106,7 +106,9 @@ ul{list-style:none}
 .btn:hover{background:#0a0a0a;color:#fff}
 
 /* === MUSIC LISTING === */
-.music-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(340px,1fr));gap:2.5rem}
+.music-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:2rem}
+@media(max-width:1200px){.music-grid{grid-template-columns:repeat(3,minmax(0,1fr))}}
+@media(max-width:992px){.music-grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
 .music-card{opacity:0;transform:translateY(24px);transition:opacity .5s ease,transform .5s ease;border-bottom:1px solid rgba(0,0,0,.08);padding-bottom:2rem}
 .music-card.visible{opacity:1;transform:translateY(0)}
 .music-card:hover{opacity:.8}

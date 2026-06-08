@@ -151,6 +151,7 @@
     <p class="footer-links"><a href="/youth-development" target="_blank">Youth Development Programme</a> ｜<a href="/s/Feats-Contributor-Code-of-Conduct-V3.pdf" target="_blank">Contributor Code of Conduct</a><br><br><a href="/privacy-policy" target="_blank">Privacy Policy</a> ｜<a href="/sitemap.xml">Sitemap</a>｜<a href="/robots.txt">Robots.txt</a></p>
   </footer>
 
+  <script src="js/nav.js"></script>
   <script>
     // Mobile nav toggle
     document.getElementById('navToggle').addEventListener('click', function(){
@@ -158,45 +159,8 @@
       document.getElementById('navLinks').classList.toggle('open');
       document.body.style.overflow = document.getElementById('navLinks').classList.contains('open') ? 'hidden' : '';
     });
-
-    // Carousel
-    const carousel = document.getElementById('carousel');
-    const slides = carousel.querySelectorAll('.carousel-slide');
-    const dotsContainer = document.getElementById('carouselDots');
-    let currentIndex = 0;
-
-    slides.forEach((_, i) => {
-      const dot = document.createElement('div');
-      dot.className = 'dot' + (i === 0 ? ' active' : '');
-      dot.addEventListener('click', () => goToSlide(i));
-      dotsContainer.appendChild(dot);
-    });
-
-    function goToSlide(index) {
-      currentIndex = index;
-      carousel.style.transform = 'translateX(-' + (index * 100) + '%)';
-      dotsContainer.querySelectorAll('.dot').forEach((d, i) => d.classList.toggle('active', i === index));
-    }
-
-
-    // Auto-advance carousel
-    setInterval(function() {
-      goToSlide((currentIndex + 1) % slides.length);
-    }, 5000);
-
-    // Intersection Observer for fade-in on scroll
-    var fadeObserver = new IntersectionObserver(function(entries) {
-      entries.forEach(function(entry) {
-        if (entry.isIntersecting) {
-          entry.target.classList.add('visible');
-          fadeObserver.unobserve(entry.target);
-        }
-      });
-    }, { rootMargin: '0px 0px 80px 0px' });
-
-    document.querySelectorAll('.recent-card').forEach(function(card) {
-      fadeObserver.observe(card);
-    });
   </script>
+  <script src="js/carousel.js"></script>
+  <script src="js/home.js"></script>
 </body>
 </html>
