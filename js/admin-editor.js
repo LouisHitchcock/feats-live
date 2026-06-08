@@ -1304,7 +1304,8 @@ function insertArticleHtmlAtCursor(html) {
   editor.focus();
   restoreEditorSelection();
   var inserted = false;
-  if (document.queryCommandSupported && document.queryCommandSupported('insertHTML')) {
+  var isComplex = html.indexOf('article-carousel') !== -1 || html.indexOf('data-article') !== -1 || html.indexOf('onclick=') !== -1;
+  if (!isComplex && document.queryCommandSupported && document.queryCommandSupported('insertHTML')) {
     inserted = document.execCommand('insertHTML', false, html);
   }
   if (!inserted) {

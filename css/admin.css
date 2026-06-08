@@ -243,9 +243,9 @@ body.editor-fullscreen .editor-canvas{min-height:calc(100vh - 160px)}
 .article-carousel-main{position:relative;background:#0a0a0a;overflow:hidden;border-radius:4px}
 .article-carousel-main img{max-width:100% !important;height:auto;display:block}
 .article-carousel-slides{position:relative}
-.article-carousel .carousel-slide{display:none}
-.article-carousel .carousel-slide.is-active{display:block}
-.article-carousel .carousel-nav{position:absolute;top:50%;transform:translateY(-50%);z-index:3;width:42px;height:42px;border:none;background:rgba(0,0,0,.33);color:#fff;font-size:1.5rem;line-height:1;cursor:pointer;display:flex;align-items:center;justify-content:center}
+#articleBodyEditor .article-carousel .carousel-slide{display:none !important}
+#articleBodyEditor .article-carousel .carousel-slide.is-active{display:block !important}
+#articleBodyEditor .article-carousel .carousel-nav{position:absolute;top:50%;transform:translateY(-50%);z-index:3;width:42px;height:42px;border:none;background:rgba(0,0,0,.33);color:#fff;font-size:1.5rem;line-height:1;cursor:pointer;display:flex !important;align-items:center;justify-content:center}
 .article-carousel .carousel-nav.prev{left:.65rem}
 .article-carousel .carousel-nav.next{right:.65rem}
 .article-carousel .carousel-nav:hover{background:rgba(0,0,0,.55)}
