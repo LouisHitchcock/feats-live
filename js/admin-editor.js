@@ -215,14 +215,17 @@ function captureCurrentArticleDraft() {
   if (titleEl) articleState.current.title = titleEl.value;
   if (slugEl) articleState.current.url_id = slugEl.value.trim();
   if (excerptEl) articleState.current.excerpt = excerptEl.value;
-  if (isArticleMarkdownMode() && markdownEl) {
-    articleState.markdownDraft = markdownEl.value;
-    articleState.current.body = markdownToArticleHtml(markdownEl.value);
-    if (bodyEl) bodyEl.innerHTML = articleState.current.body || '';
-  } else if (bodyEl) {
-    articleState.current.body = bodyEl.innerHTML;
-    articleState.markdownDraft = articleHtmlToMarkdown(articleState.current.body);
-    if (markdownEl) markdownEl.value = articleState.markdownDraft;
+  /* Body may not exist when saving from Properties tab — use last-captured draft */
+  if (bodyEl) {
+    if (isArticleMarkdownMode() && markdownEl) {
+      articleState.markdownDraft = markdownEl.value;
+      articleState.current.body = markdownToArticleHtml(markdownEl.value);
+      bodyEl.innerHTML = articleState.current.body || '';
+    } else {
+      articleState.current.body = bodyEl.innerHTML;
+      articleState.markdownDraft = articleHtmlToMarkdown(articleState.current.body);
+      if (markdownEl) markdownEl.value = articleState.markdownDraft;
+    }
   }
   if (authorEl) articleState.current.author = authorEl.value;
   if (categoriesEl) articleState.current.categories = categoriesEl.value;
