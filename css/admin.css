@@ -201,23 +201,39 @@ body.editor-fullscreen .editor-canvas{min-height:calc(100vh - 160px)}
 .editor-link-popover button{border:1px solid #ddd;background:#fff;padding:.25rem .5rem;font-size:.68rem;cursor:pointer;font-family:'Work Sans',sans-serif;white-space:nowrap}
 .editor-link-popover button:hover{background:#f4f4f4}
 
-/* Image resize handles */
-.image-resize-handle{position:absolute;width:10px;height:10px;background:#4285f4;border:2px solid #fff;z-index:50;cursor:pointer}
-.image-resize-nw{top:-5px;left:-5px;cursor:nw-resize}
-.image-resize-n{top:-5px;left:50%;margin-left:-5px;cursor:n-resize}
-.image-resize-ne{top:-5px;right:-5px;cursor:ne-resize}
-.image-resize-e{top:50%;margin-top:-5px;right:-5px;cursor:e-resize}
-.image-resize-se{bottom:-5px;right:-5px;cursor:se-resize}
-.image-resize-s{bottom:-5px;left:50%;margin-left:-5px;cursor:s-resize}
-.image-resize-sw{bottom:-5px;left:-5px;cursor:sw-resize}
-.image-resize-w{top:50%;margin-top:-5px;left:-5px;cursor:w-resize}
-.image-alignment-bar{position:absolute;top:-32px;left:0;display:flex;gap:.25rem;z-index:50;background:#fff;border:1px solid #ddd;padding:.2rem .3rem;box-shadow:0 2px 8px rgba(0,0,0,.1)}
-.image-alignment-bar button{border:1px solid #ddd;background:#fff;padding:.15rem .4rem;font-size:.6rem;text-transform:uppercase;letter-spacing:.5px;cursor:pointer;font-family:'Work Sans',sans-serif;white-space:nowrap}
-.image-alignment-bar button:hover{background:#e8e8e8}
-.image-alt-input{position:absolute;bottom:-28px;left:0;width:calc(100% - 14px);padding:.15rem .35rem;font-size:.65rem;border:1px solid #ddd;font-family:'Work Sans',sans-serif;z-index:50}
-#articleBodyEditor .article-media{position:relative}
+/* Image resize handles — Google Docs style */
+#articleBodyEditor .article-media{position:relative;display:inline-block}
+#articleBodyEditor .article-media img{max-width:100%;height:auto}
+#articleBodyEditor img{max-width:100%;height:auto}
+.editor-canvas img{max-width:100%;height:auto}
 
-/* Table styles */
+.article-media.editing{outline:2px solid #4285f4;outline-offset:2px}
+.article-media.editing .image-resize-overlay{display:block}
+
+.image-resize-overlay{display:none;position:absolute;inset:-2px;pointer-events:none;z-index:50}
+
+/* Resize dots */
+.image-resize-dot{position:absolute;width:8px;height:8px;background:#fff;border:2px solid #4285f4;pointer-events:auto;z-index:51}
+.image-resize-dot.nw{top:-5px;left:-5px;cursor:nw-resize}
+.image-resize-dot.n {top:-5px;left:50%;margin-left:-4px;cursor:n-resize}
+.image-resize-dot.ne{top:-5px;right:-5px;cursor:ne-resize}
+.image-resize-dot.e {top:50%;margin-top:-4px;right:-5px;cursor:e-resize}
+.image-resize-dot.se{bottom:-5px;right:-5px;cursor:se-resize}
+.image-resize-dot.s {bottom:-5px;left:50%;margin-left:-4px;cursor:s-resize}
+.image-resize-dot.sw{bottom:-5px;left:-5px;cursor:sw-resize}
+.image-resize-dot.w {top:50%;margin-top:-4px;left:-5px;cursor:w-resize}
+
+/* Rotation handle */
+.image-rotation-handle{position:absolute;top:-28px;left:50%;margin-left:-6px;width:12px;height:12px;background:#fff;border:2px solid #4285f4;z-index:51;cursor:grab;pointer-events:auto;display:flex;align-items:center;justify-content:center}
+.image-rotation-handle::after{content:'';display:block;width:2px;height:12px;background:#4285f4;position:absolute;bottom:-12px}
+.image-rotation-handle:active{cursor:grabbing}
+
+.image-alignment-bar{position:absolute;bottom:-36px;left:0;display:flex;gap:.2rem;z-index:51;background:#fff;border:1px solid #ddd;padding:.15rem .25rem;box-shadow:0 2px 6px rgba(0,0,0,.1);pointer-events:auto}
+.image-alignment-bar button{border:none;background:transparent;padding:.15rem .35rem;font-size:.6rem;text-transform:uppercase;letter-spacing:.5px;cursor:pointer;font-family:'Work Sans',sans-serif;white-space:nowrap;color:#555}
+.image-alignment-bar button:hover{color:#4285f4}
+.image-alt-input{position:absolute;bottom:-60px;left:0;width:160px;padding:.15rem .35rem;font-size:.65rem;border:1px solid #ddd;font-family:'Work Sans',sans-serif;z-index:51;pointer-events:auto}
+
+/* Dark mode */
 .article-table{width:100%;border-collapse:collapse;margin:1.5rem 0;font-size:.85rem}
 .article-table th{background:#f4f4f4;border:1px solid #ddd;padding:.4rem .6rem;text-align:left;font-weight:700;font-size:.75rem;text-transform:uppercase;letter-spacing:.5px}
 .article-table td{border:1px solid #ddd;padding:.35rem .6rem;min-width:60px}

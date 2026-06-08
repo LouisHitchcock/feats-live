@@ -1,0 +1,16 @@
+{
+  "name": "feats-editor-tests",
+  "private": true,
+  "scripts": {
+    "test": "npx playwright test",
+    "test:smoke": "npx playwright test smoke.spec.js",
+    "test:toolbar": "npx playwright test toolbar.spec.js",
+    "test:undo": "npx playwright test undo.spec.js",
+    "test:markdown": "npx playwright test markdown.spec.js",
+    "test:all": "npx playwright test",
+    "update-snapshots": "npx playwright test --update-snapshots"
+  },
+  "devDependencies": {
+    "@playwright/test": "^1.40.0"
+  }
+}

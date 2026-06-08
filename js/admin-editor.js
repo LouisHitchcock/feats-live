@@ -1701,16 +1701,23 @@ function setupImageClickToEdit(editor) {
 
 function showImageResizeHandles(fig) {
   removeImageResizeHandles();
+  fig.classList.add('editing');
   var handles = ['nw','n','ne','e','se','s','sw','w'];
   handles.forEach(function(pos) {
     var h = document.createElement('div');
-    h.className = 'image-resize-handle image-resize-' + pos;
+    h.className = 'image-resize-dot ' + pos;
     h.addEventListener('mousedown', function(e) { startImageResize(e, fig, pos); });
     fig.appendChild(h);
   });
+
+  var rotHandle = document.createElement('div');
+  rotHandle.className = 'image-rotation-handle';
+  rotHandle.addEventListener('mousedown', function(e) { startImageRotate(e, fig); });
+  fig.appendChild(rotHandle);
+
   var alignment = document.createElement('div');
   alignment.className = 'image-alignment-bar';
-  alignment.innerHTML = '<button onclick="setImageAlignment(this.parentElement.parentElement, &apos;full&apos;)">Full Width</button><button onclick="setImageAlignment(this.parentElement.parentElement, &apos;left&apos;)">Float Left</button><button onclick="setImageAlignment(this.parentElement.parentElement, &apos;right&apos;)">Float Right</button>';
+  alignment.innerHTML = '<button onclick="setImageAlignment(this.parentElement.parentElement, &apos;full&apos;)">Full</button><button onclick="setImageAlignment(this.parentElement.parentElement, &apos;left&apos;)">Left</button><button onclick="setImageAlignment(this.parentElement.parentElement, &apos;right&apos;)">Right</button>';
   fig.appendChild(alignment);
 
   var img = fig.querySelector('img');
@@ -1728,7 +1735,8 @@ function showImageResizeHandles(fig) {
 }
 
 function removeImageResizeHandles() {
-  document.querySelectorAll('.image-resize-handle,.image-alignment-bar,.image-alt-input').forEach(function(el) { el.remove(); });
+  document.querySelectorAll('#articleBodyEditor .editing').forEach(function(el) { el.classList.remove('editing'); });
+  document.querySelectorAll('#articleBodyEditor .image-resize-dot,#articleBodyEditor .image-rotation-handle,#articleBodyEditor .image-alignment-bar,#articleBodyEditor .image-alt-input').forEach(function(el) { el.remove(); });
   var captions = document.querySelectorAll('#articleBodyEditor figcaption');
   captions.forEach(function(c) { c.contentEditable = 'false'; });
 }
@@ -1780,6 +1788,40 @@ function onImageResizeEnd() {
   document.removeEventListener('mouseup', onImageResizeEnd);
   if (imageResizeState) { takeImmediateUndoSnapshot(); captureCurrentArticleDraft(); }
   imageResizeState = null;
+}
+
+// ===== IMAGE ROTATION =====
+var imageRotateState = null;
+function startImageRotate(e, fig) {
+  e.preventDefault();
+  e.stopPropagation();
+  var img = fig.querySelector('img');
+  if (!img) return;
+  var currentRot = parseFloat(img.dataset.rotation || '0');
+  var rect = img.getBoundingClientRect();
+  var cx = rect.left + rect.width / 2;
+  var cy = rect.top + rect.height / 2;
+  var startAngle = Math.atan2(e.clientY - cy, e.clientX - cx) * (180 / Math.PI);
+  imageRotateState = { img: img, cx: cx, cy: cy, startAngle: startAngle, currentRot: currentRot };
+  document.addEventListener('mousemove', onImageRotateMove);
+  document.addEventListener('mouseup', onImageRotateEnd);
+}
+
+function onImageRotateMove(e) {
+  if (!imageRotateState) return;
+  var s = imageRotateState;
+  var angle = Math.atan2(e.clientY - s.cy, e.clientX - s.cx) * (180 / Math.PI);
+  var delta = angle - s.startAngle;
+  var newRot = Math.round((s.currentRot + delta) / 15) * 15;
+  s.img.style.transform = 'rotate(' + newRot + 'deg)';
+  s.img.dataset.rotation = newRot;
+}
+
+function onImageRotateEnd() {
+  document.removeEventListener('mousemove', onImageRotateMove);
+  document.removeEventListener('mouseup', onImageRotateEnd);
+  if (imageRotateState) { takeImmediateUndoSnapshot(); captureCurrentArticleDraft(); }
+  imageRotateState = null;
 }
 
 // ===== EMBED DIALOG =====
