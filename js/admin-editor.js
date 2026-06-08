@@ -1236,14 +1236,20 @@ function buildArticleFigureHtml(url, layout, caption) {
 function buildArticleCarouselHtml(urls, caption) {
   articleState.carouselSeed += 1;
   var carouselId = 'article-carousel-' + Date.now() + '-' + articleState.carouselSeed;
+  var isSingle = urls.length <= 1;
   var slides = '';
   var thumbs = '';
   urls.forEach(function(url, idx) {
-    var activeClass = idx === 0 ? ' active' : '';
+    var activeClass = idx === 0 ? ' is-active' : '';
     slides += '<div class="carousel-slide' + activeClass + '"><img src="' + escAttr(url) + '" alt="' + escAttr(caption || ('Carousel image ' + (idx + 1))) + '"></div>';
     thumbs += '<button type="button" class="carousel-thumb' + activeClass + '" onclick="changeCarouselSlide(&quot;' + carouselId + '&quot;, ' + idx + ')"><img src="' + escAttr(url) + '" alt="Thumbnail ' + (idx + 1) + '"></button>';
   });
-  var html = '<div id="' + carouselId + '" class="article-carousel article-media article-media--full" data-article-carousel data-current-slide="0"><button type="button" class="carousel-nav carousel-nav-prev" onclick="moveCarouselSlide(&quot;' + carouselId + '&quot;, -1)">&#10094;</button><div class="carousel-slides">' + slides + '</div><button type="button" class="carousel-nav carousel-nav-next" onclick="moveCarouselSlide(&quot;' + carouselId + '&quot;, 1)">&#10095;</button><div class="carousel-thumbnails">' + thumbs + '</div>';
+  var navHtml = '';
+  if (!isSingle) {
+    navHtml = '<button type="button" class="carousel-nav prev" onclick="moveCarouselSlide(&quot;' + carouselId + '&quot;, -1)">&#10094;</button><button type="button" class="carousel-nav next" onclick="moveCarouselSlide(&quot;' + carouselId + '&quot;, 1)">&#10095;</button>';
+  }
+  var thumbHtml = !isSingle ? '<div class="article-carousel-thumbs">' + thumbs + '</div>' : '';
+  var html = '<div id="' + carouselId + '" class="article-carousel article-media article-media--full' + (isSingle ? ' is-single' : '') + '" data-article-carousel data-current-slide="0"><div class="article-carousel-main"><div class="article-carousel-slides">' + slides + '</div>' + navHtml + '</div>' + thumbHtml;
   if (caption) html += '<div class="carousel-caption">' + esc(caption) + '</div>';
   html += '</div><p></p>';
   return html;
@@ -1258,12 +1264,18 @@ function changeCarouselSlide(carouselId, newIndex) {
   var safeIndex = Math.max(0, Math.min(newIndex, slides.length - 1));
   carousel.setAttribute('data-current-slide', String(safeIndex));
   for (var i = 0; i < slides.length; i++) {
-    slides[i].classList.toggle('active', i === safeIndex);
+    slides[i].classList.toggle('is-active', i === safeIndex);
   }
   for (var j = 0; j < thumbs.length; j++) {
-    thumbs[j].classList.toggle('active', j === safeIndex);
+    thumbs[j].classList.toggle('is-active', j === safeIndex);
   }
 }
+
+// Intercept clicks on carousel buttons inside contenteditable
+document.addEventListener('mousedown', function(e) {
+  var btn = e.target.closest('.article-carousel .carousel-nav,.article-carousel .carousel-thumb');
+  if (btn) { e.preventDefault(); }
+});
 
 function moveCarouselSlide(carouselId, delta) {
   var carousel = document.getElementById(carouselId);

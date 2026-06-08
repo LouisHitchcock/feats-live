@@ -235,6 +235,30 @@ body.editor-fullscreen .editor-canvas{min-height:calc(100vh - 160px)}
 
 /* Dark mode */
 .article-table{width:100%;border-collapse:collapse;margin:1.5rem 0;font-size:.85rem}
+
+/* Article carousel — editor rendering */
+.article-carousel{position:relative;margin:1.5rem 0}
+.article-carousel.is-single .carousel-nav{display:none}
+.article-carousel.is-single .article-carousel-thumbs{display:none}
+.article-carousel-main{position:relative;background:#0a0a0a;overflow:hidden;border-radius:4px}
+.article-carousel-main img{max-width:100% !important;height:auto;display:block}
+.article-carousel-slides{position:relative}
+.article-carousel .carousel-slide{display:none}
+.article-carousel .carousel-slide.is-active{display:block}
+.article-carousel .carousel-nav{position:absolute;top:50%;transform:translateY(-50%);z-index:3;width:42px;height:42px;border:none;background:rgba(0,0,0,.33);color:#fff;font-size:1.5rem;line-height:1;cursor:pointer;display:flex;align-items:center;justify-content:center}
+.article-carousel .carousel-nav.prev{left:.65rem}
+.article-carousel .carousel-nav.next{right:.65rem}
+.article-carousel .carousel-nav:hover{background:rgba(0,0,0,.55)}
+.article-carousel-thumbs{display:flex;gap:2px;overflow-x:auto;margin-top:.55rem;padding-bottom:2px}
+.article-carousel .carousel-thumb{border:none;padding:0;background:transparent;opacity:.52;cursor:pointer;flex:0 0 auto}
+.article-carousel .carousel-thumb.is-active{opacity:1}
+.article-carousel .carousel-thumb img{width:58px;height:40px;object-fit:cover;border-radius:0;display:block}
+.carousel-caption{margin-top:.45rem;font-size:.78rem;opacity:.62;font-style:italic}
+
+/* Dark mode carousel */
+[data-theme="dark"] .article-carousel-main{background:#111}
+[data-theme="dark"] .article-carousel .carousel-nav{background:rgba(255,255,255,.15);color:#fff}
+[data-theme="dark"] .article-carousel .carousel-nav:hover{background:rgba(255,255,255,.25)}
 .article-table th{background:#f4f4f4;border:1px solid #ddd;padding:.4rem .6rem;text-align:left;font-weight:700;font-size:.75rem;text-transform:uppercase;letter-spacing:.5px}
 .article-table td{border:1px solid #ddd;padding:.35rem .6rem;min-width:60px}
 .article-table tr:hover td{background:#fafafa}
