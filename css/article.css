@@ -37,7 +37,7 @@
 .article-carousel .carousel-thumb.is-active{opacity:1}
 .article-carousel .carousel-thumb img{width:58px;height:40px;object-fit:cover;border-radius:0}
 .article-embed iframe{display:block;width:100%;min-height:320px;border:0}
-@media(max-width:600px){
+.article-table{width:100%;border-collapse:collapse;margin:1.5rem 0;font-size:.85rem}.article-table th{background:rgba(0,0,0,.06);border:1px solid rgba(0,0,0,.12);padding:.4rem .6rem;text-align:left;font-weight:700;font-size:.75rem;text-transform:uppercase;letter-spacing:.5px}.article-table td{border:1px solid rgba(0,0,0,.12);padding:.35rem .6rem}.article-table tr:nth-child(even) td{background:rgba(0,0,0,.02)}@media(max-width:600px){
   .article-media--float-right,.article-media--float-left{float:none;width:100%;margin:1rem 0}
   .article-carousel .carousel-nav{width:36px;height:36px;font-size:1.65rem}
   .article-embed iframe{min-height:220px}
