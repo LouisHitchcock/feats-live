@@ -716,6 +716,10 @@ function initializeArticleEditor() {
   editor.addEventListener('blur', saveEditorSelection);
   editor.addEventListener('input', function() { scheduleUndoSnapshot(); updateWordCountDebounced(); });
   editor.addEventListener('paste', function(e) { sanitizePastedContent(e); takeImmediateUndoSnapshot(); });
+  editor.addEventListener('keydown', function(e) {
+    if (e.key !== 'Backspace' || e.ctrlKey || e.metaKey) return;
+    handleBackspaceDeleteBlock(e);
+  });
 
   setupLinkPopover(editor);
   setupImageClickToEdit(editor);
@@ -1520,7 +1524,45 @@ function takeImmediateUndoSnapshot() {
   pushUndoSnapshot(true);
 }
 
-var undoScheduleTimer = null;
+function handleBackspaceDeleteBlock(e) {
+  var editor = document.getElementById('articleBodyEditor');
+  if (!editor) return;
+  restoreEditorSelection();
+  var sel = window.getSelection();
+  if (!sel || !sel.rangeCount) return;
+  var range = sel.getRangeAt(0);
+  if (!range.collapsed) return;
+  var node = range.startContainer;
+  var offset = range.startOffset;
+  if (node.nodeType === 3 && offset === 0) node = node.parentElement;
+  if (!node || node === editor) return;
+
+  /* If we're at the very start of an element (e.g., a <p> right after a carousel) */
+  var prev = node.previousElementSibling;
+  if (!prev) {
+    /* Check if node is a <p> that's first child after a carousel */
+    if (node.nodeType === 1 && node.tagName === 'P' && !node.textContent.trim()) {
+      prev = node.previousElementSibling;
+    }
+    if (!prev && node.parentElement && node.parentElement !== editor) {
+      prev = node.parentElement.previousElementSibling;
+    }
+  }
+
+  var block = prev && prev.closest ? prev.closest('.article-carousel,.article-media,.article-callout,.article-pullquote,.article-spacer,.article-cta,.article-divider,.article-table,.article-embed') : null;
+  if (!block) return;
+
+  e.preventDefault();
+  /* Delete the empty paragraph after the block too */
+  if (node.nodeType === 1 && node.tagName === 'P' && !node.textContent.trim() && node.previousElementSibling === block) {
+    node.parentElement.removeChild(node);
+  }
+  block.parentElement.removeChild(block);
+  takeImmediateUndoSnapshot();
+  captureCurrentArticleDraft();
+}
+
+function undo() {
 function scheduleUndoSnapshot() {
   if (undoScheduleTimer) clearTimeout(undoScheduleTimer);
   undoScheduleTimer = setTimeout(function() {
@@ -1766,12 +1808,13 @@ function setImageAlignment(fig, alignment) {
 var imageResizeState = null;
 function startImageResize(e, fig, pos) {
   e.preventDefault();
-  var img = fig.querySelector('img');
+  var img = fig.querySelector('.carousel-slide.is-active img') || fig.querySelector('img');
   if (!img) return;
   imageResizeState = {
     fig: fig, img: img, pos: pos,
     startX: e.clientX, startY: e.clientY,
-    startWidth: img.offsetWidth, startHeight: img.offsetHeight
+    startWidth: img.offsetWidth, startHeight: img.offsetHeight,
+    isCarousel: !!fig.classList.contains('article-carousel')
   };
   document.addEventListener('mousemove', onImageResizeMove);
   document.addEventListener('mouseup', onImageResizeEnd);
@@ -1791,9 +1834,17 @@ function onImageResizeMove(e) {
   if (pos.includes('s')) newHeight = Math.max(30, s.startHeight + dy);
   if (pos.includes('n')) newHeight = Math.max(30, s.startHeight - dy);
   if (['nw','ne','sw','se'].indexOf(pos) !== -1) newHeight = newWidth * aspect;
-  if (pos === 's' || pos === 'n') newWidth = newHeight / aspect;
   s.img.style.width = newWidth + 'px';
   s.img.style.height = newHeight + 'px';
+  if (s.isCarousel) {
+    var allImgs = s.fig.querySelectorAll('.carousel-slide img');
+    for (var k = 0; k < allImgs.length; k++) {
+      if (allImgs[k] !== s.img) {
+        allImgs[k].style.width = newWidth + 'px';
+        allImgs[k].style.height = newHeight + 'px';
+      }
+    }
+  }
 }
 
 function onImageResizeEnd() {
