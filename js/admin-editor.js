@@ -1693,7 +1693,7 @@ function setupImageClickToEdit(editor) {
   editor.addEventListener('click', function(e) {
     var fig = e.target.closest('.article-media');
     if (!fig) { removeImageResizeHandles(); return; }
-    if (e.target.closest('.image-resize-handle') || e.target.closest('.image-alignment-bar')) return;
+    if (e.target.closest('.image-resize-dot') || e.target.closest('.image-rotation-handle') || e.target.closest('.image-alignment-bar') || e.target.closest('.image-alt-input')) return;
     showImageResizeHandles(fig);
   });
   editor.dataset.imageEditBound = '1';
