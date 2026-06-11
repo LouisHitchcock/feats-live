@@ -10,6 +10,7 @@ if (carousel && slides.length && dotsContainer) {
     dot.addEventListener('click', function() { goToSlide(i); });
     dotsContainer.appendChild(dot);
   });
+  if (window.applyAccentPalette) window.applyAccentPalette(dotsContainer);
 
   function goToSlide(index) {
     currentIndex = index;

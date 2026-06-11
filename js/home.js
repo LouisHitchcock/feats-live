@@ -43,9 +43,11 @@
 
       grid.innerHTML = html;
       if (window.observeReveals) window.observeReveals(grid.querySelectorAll('.reveal'));
+      if (window.applyAccentPalette) window.applyAccentPalette(grid);
     })
     .catch(function() {
       grid.innerHTML = fallbackHtml;
+      if (window.applyAccentPalette) window.applyAccentPalette(grid);
     });
 })();
 

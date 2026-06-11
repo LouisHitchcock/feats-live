@@ -99,6 +99,7 @@ function renderArticles(articles) {
       + '<span class="read-more">Read More</span></a>';
     grid.appendChild(card);
   });
+  if (window.applyAccentPalette) window.applyAccentPalette(grid);
   setTimeout(function() {
     if (window.observeReveals) window.observeReveals(grid.querySelectorAll('.music-card:not(.visible)'));
   }, 50);
@@ -251,11 +252,13 @@ function showArticleMode(articleSlug) {
         const excerpt = String(article.excerpt || '').slice(0, 160);
         description.setAttribute('content', excerpt || MUSIC_PAGE_DESCRIPTION);
       }
+      if (window.applyAccentPalette) window.applyAccentPalette(articleBody);
       initArticleCarousels(articleBody);
     })
     .catch(function(error) {
       console.warn('Unable to hydrate article for', articleSlug, error);
       articleBody.innerHTML = '<h1>Article unavailable</h1><p>We could not load that article right now.</p><p><a href="/music/">Back to music</a></p>';
+      if (window.applyAccentPalette) window.applyAccentPalette(articleBody);
       document.title = 'Article unavailable - Feats.';
     });
 }
