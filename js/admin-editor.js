@@ -3994,96 +3994,56 @@ function importGdoc() {
 
 
 function sanitizeGdocHtml(html) {
-
   var container = document.createElement('div');
-
   container.innerHTML = html;
 
+  var metaNodes = container.querySelectorAll('meta, link, style, script, title, head');
+  for (var i = 0; i < metaNodes.length; i++) {
+    metaNodes[i].parentNode.removeChild(metaNodes[i]);
+  }
+
+  var fontNodes = container.querySelectorAll('font');
+  for (var j = 0; j < fontNodes.length; j++) {
+    var fn = fontNodes[j];
+    while (fn.firstChild) fn.parentNode.insertBefore(fn.firstChild, fn);
+    fn.parentNode.removeChild(fn);
+  }
+
   var walker = document.createTreeWalker(container, NodeFilter.SHOW_ELEMENT, null, false);
-
-  var nodesToUnwrap = [];
-
-  var nodesToRemove = [];
-
   while (walker.nextNode()) {
-
     var el = walker.currentNode;
-
     if (el.nodeType !== 1) continue;
-
-    el.removeAttribute('style');
-
     el.removeAttribute('id');
-
-    el.removeAttribute('data-*');
-
+    el.removeAttribute('lang');
+    el.removeAttribute('dir');
+    if (el.className) {
+      var classes = String(el.className).split(/\s+/);
+      var kept = [];
+      for (var c = 0; c < classes.length; c++) {
+        var cls = classes[c];
+        if (cls && /^c\d{1,3}$/.test(cls)) continue;
+        if (cls && cls.indexOf('title') >= 0) continue;
+        if (cls && cls.indexOf('subtitle') >= 0) continue;
+        kept.push(cls);
+      }
+      el.className = kept.join(' ');
+      if (!el.className) el.removeAttribute('class');
+    }
     var tag = el.tagName.toLowerCase();
-
-    if (tag === 'font' || tag === 'span') {
-
-      var hasAttrs = false;
-
-      for (var a = 0; a < (el.attributes || []).length; a++) {
-
-        if (el.attributes[a].name !== 'style') { hasAttrs = true; break; }
-
+    if (tag === 'span') {
+      var hasStyle = el.getAttribute('style') && el.getAttribute('style').trim();
+      var hasClass = el.className && el.className.trim();
+      if (!hasStyle && !hasClass) {
+        while (el.firstChild) el.parentNode.insertBefore(el.firstChild, el);
+        el.parentNode.removeChild(el);
       }
-
-      if (!hasAttrs || tag === 'font') {
-
-        nodesToUnwrap.push(el);
-
-        continue;
-
-      }
-
     }
-
-    if (tag === 'meta' || tag === 'link' || tag === 'style' || tag === 'script' || tag === 'title') {
-
-      nodesToRemove.push(el);
-
-      continue;
-
-    }
-
-    if (el.className && typeof el.className === 'string') {
-
-      el.className = '';
-
-    }
-
-  }
-
-  for (var i = 0; i < nodesToUnwrap.length; i++) {
-
-    var n = nodesToUnwrap[i];
-
-    if (!n.parentNode) continue;
-
-    while (n.firstChild) n.parentNode.insertBefore(n.firstChild, n);
-
-    n.parentNode.removeChild(n);
-
-  }
-
-  for (var j = 0; j < nodesToRemove.length; j++) {
-
-    var m = nodesToRemove[j];
-
-    if (m.parentNode) m.parentNode.removeChild(m);
-
   }
 
   var bodyEl = container.querySelector('body');
-
   if (bodyEl) return bodyEl.innerHTML;
-
   return container.innerHTML;
-
 }
-
-
 
 // ===== WORD COUNT =====
 
