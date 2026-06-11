@@ -7,14 +7,16 @@
   <meta name="description" content="Get in touch with Feats. for press, photo, and general enquiries.">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Work+Sans:ital,wght@0,500;0,700;1,500;1,700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,900;1,700&family=Work+Sans:ital,wght@0,400;0,500;0,700;1,500&display=swap" rel="stylesheet">
+  <script>(function(){var d=document.documentElement;d.className+=' js';var t;try{t=localStorage.getItem('theme')}catch(e){}if(!t)t=matchMedia('(prefers-color-scheme: dark)').matches?'dark':'light';d.setAttribute('data-theme',t)})()</script>
   <link rel="stylesheet" href="../css/style.css">
   <link rel="icon" type="image/x-icon" href="../favicon.ico">
 </head>
 <body>
   <header class="site-header">
     <a href="/" class="site-logo">Feats.</a>
-    <button class="nav-toggle" id="navToggle" aria-label="Toggle menu">☰</button>
+    <button class="theme-toggle" id="themeToggle" aria-label="Toggle dark mode"></button>
+    <button class="nav-toggle" id="navToggle" aria-label="Toggle menu"><span></span><span></span><span></span></button>
     <nav class="nav-links" id="navLinks">
       <a href="/music">Music</a>
       <a href="/about">About</a>
@@ -36,23 +38,23 @@
 
       <div class="contact-grid">
         <div>
-          <div class="contact-group">
+          <div class="contact-group reveal">
             <h3>Office Email</h3>
             <p><a href="mailto:Feats.Live@gmail.com">Feats.Live@gmail.com</a></p>
           </div>
-          <div class="contact-group">
+          <div class="contact-group reveal">
             <h3>Press Enquiries</h3>
             <p><a href="mailto:Sophie.Feats@gmail.com">Sophie.Feats@gmail.com</a></p>
             <p><a href="mailto:Flore12ghlam3@gmail.com">Flore12ghlam3@gmail.com</a></p>
           </div>
-          <div class="contact-group">
+          <div class="contact-group reveal">
             <h3>Photo Enquiries</h3>
             <p><a href="mailto:Tom@TJEPhotos.co.uk">Tom@TJEPhotos.co.uk</a></p>
             <p><a href="mailto:Louis@LouisHitchcock.Photos">Louis@LouisHitchcock.Photos</a></p>
           </div>
         </div>
         <div>
-          <div class="contact-group">
+          <div class="contact-group reveal">
             <h3>Follow Us</h3>
             <div class="contact-social">
               <a href="https://www.instagram.com/feats.live/" target="_blank" rel="noopener" aria-label="Instagram">
@@ -88,8 +90,11 @@
     </div>
   </footer>
 
+  <script src="/js/theme.js"></script>
+  <script src="/js/reveal.js"></script>
   <script>
     document.getElementById('navToggle').addEventListener('click', function(){
+      this.classList.toggle('open');
       document.getElementById('navLinks').classList.toggle('open');
     });
   </script>

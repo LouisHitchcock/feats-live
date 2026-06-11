@@ -1,17 +1,3 @@
-var fadeObserver = new IntersectionObserver(function(entries) {
-  entries.forEach(function(entry) {
-    if (entry.isIntersecting) {
-      entry.target.classList.add('visible');
-      fadeObserver.unobserve(entry.target);
-    }
-  });
-}, { rootMargin: '0px 0px 80px 0px' });
-
-document.querySelectorAll('.recent-card').forEach(function(card) {
-  fadeObserver.observe(card);
-});
-
-
 (function() {
   var grid = document.getElementById('recentGrid');
   if (!grid) return;
@@ -31,11 +17,10 @@ document.querySelectorAll('.recent-card').forEach(function(card) {
 
   var fallbackHtml = grid.innerHTML;
 
-  var apiUrl = 'https://feats-live.louishitchcock.xyz/api/articles';
-  fetch(apiUrl)
+  fetch('https://feats-live.louishitchcock.xyz/api/articles')
     .then(function(r) { return r.json(); })
     .then(function(data) {
-      var articles = (data.articles || []).slice(0, 4);
+      var articles = (data.articles || []).slice(0, 5);
       if (!articles.length) { grid.innerHTML = fallbackHtml; return; }
 
       var html = '';
@@ -46,21 +31,18 @@ document.querySelectorAll('.recent-card').forEach(function(card) {
         var excerpt = escapeHtml((a.excerpt || '').substring(0, 200));
         var date = formatDate(a.publish_date);
 
-        html += '<article class="recent-card">' +
+        html += '<article class="recent-card reveal">' +
           '<a href="' + href + '">' +
           (img ? '<img src="' + img + '" alt="' + title + '" loading="lazy">' : '') +
           '<h3>' + title + '</h3>' +
           '<p class="excerpt">' + excerpt + '</p>' +
-          '<span class="read-more">Read more →</span>' +
+          '<span class="read-more">Read more</span>' +
           '<div class="date">' + date + '</div>' +
           '</a></article>';
       });
 
       grid.innerHTML = html;
-
-      grid.querySelectorAll('.recent-card').forEach(function(card) {
-        fadeObserver.observe(card);
-      });
+      if (window.observeReveals) window.observeReveals(grid.querySelectorAll('.reveal'));
     })
     .catch(function() {
       grid.innerHTML = fallbackHtml;
