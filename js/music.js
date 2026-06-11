@@ -90,7 +90,7 @@ function renderArticles(articles) {
     const rawDate = (article.publish_date || '').slice(0, 10);
     const formattedDate = escapeHtml(formatDate(rawDate));
     const card = document.createElement('div');
-    card.className = 'music-card';
+    card.className = 'music-card reveal';
     card.innerHTML = '<a href="/music/?article=' + slug + '">'
       + '<img src="' + cover + '" alt="' + title + '" loading="lazy">'
       + '<div class="meta"><span>' + categories + '</span><span>' + author + '</span><span>' + formattedDate + '</span></div>'
@@ -100,20 +100,9 @@ function renderArticles(articles) {
     grid.appendChild(card);
   });
   setTimeout(function() {
-    grid.querySelectorAll('.music-card:not(.visible)').forEach(function(el) {
-      cardsObserver.observe(el);
-    });
+    if (window.observeReveals) window.observeReveals(grid.querySelectorAll('.music-card:not(.visible)'));
   }, 50);
 }
-
-var cardsObserver = new IntersectionObserver(function(entries) {
-  entries.forEach(function(entry) {
-    if (entry.isIntersecting) {
-      entry.target.classList.add('visible');
-      cardsObserver.unobserve(entry.target);
-    }
-  });
-}, { rootMargin: '0px 0px 80px 0px' });
 
 function getCarouselNodes(carousel) {
   return {

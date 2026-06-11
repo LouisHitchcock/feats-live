@@ -7,7 +7,8 @@
   <meta name="description" content="Feats. is an independent music publication covering upcoming and talented artists, live gigs, interviews, and music news. Brighton & London based.">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Work+Sans:ital,wght@0,500;0,700;1,500;1,700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;700&family=Work+Sans:ital,wght@0,400;0,500;0,700;1,500&display=swap" rel="stylesheet">
+  <script>(function(){var d=document.documentElement;d.className+=' js';var t;try{t=localStorage.getItem('theme')}catch(e){}if(!t)t=matchMedia('(prefers-color-scheme: dark)').matches?'dark':'light';d.setAttribute('data-theme',t)})()</script>
   <link rel="stylesheet" href="css/style.css">
   <link rel="icon" type="image/x-icon" href="favicon.ico">
 </head>
@@ -15,6 +16,7 @@
   <!-- HEADER -->
   <header class="site-header">
     <a href="/" class="site-logo">Feats.</a>
+    <button class="theme-toggle" id="themeToggle" aria-label="Toggle dark mode"></button>
     <button class="nav-toggle" id="navToggle" aria-label="Toggle menu"><span></span><span></span><span></span></button>
     <nav class="nav-links" id="navLinks">
       <a href="/music">Music</a>
@@ -36,10 +38,7 @@
     <section class="hero">
       <div class="carousel" id="carousel">
         <div class="carousel-slide">
-          <img src="https://feats-live.louishitchcock.xyz/images/hero-1.jpg" alt="DSC05708_1" loading="lazy">
-        </div>
-        <div class="carousel-slide">
-          <img src="https://feats-live.louishitchcock.xyz/images/hero-2.jpg" alt="SYNAX" loading="lazy">
+          <img src="https://feats-live.louishitchcock.xyz/images/hero-1.jpg" alt="Concert stage with dramatic lighting" fetchpriority="high">
         </div>
         <div class="carousel-slide">
           <img src="https://feats-live.louishitchcock.xyz/images/hero-3.jpg" alt="Crowd at a rock concert with raised hands and stage lighting" loading="lazy">
@@ -48,40 +47,37 @@
           <img src="https://feats-live.louishitchcock.xyz/images/hero-4.jpg" alt="Musician playing guitar on stage with orange lights" loading="lazy">
         </div>
         <div class="carousel-slide">
-          <img src="https://feats-live.louishitchcock.xyz/images/hero-5.jpg" alt="Singer with dreadlocks on stage" loading="lazy">
-        </div>
-        <div class="carousel-slide">
           <img src="https://feats-live.louishitchcock.xyz/images/hero-6.jpg" alt="YungBlud performing" loading="lazy">
-        </div>
-        <div class="carousel-slide">
-          <img src="https://feats-live.louishitchcock.xyz/images/hero-7.jpg" alt="Black and white concert photo" loading="lazy">
-        </div>
-        <div class="carousel-slide">
-          <img src="https://feats-live.louishitchcock.xyz/images/hero-8.jpg" alt="Concert crowd" loading="lazy">
         </div>
         <div class="carousel-slide">
           <img src="https://feats-live.louishitchcock.xyz/images/hero-9.jpg" alt="Tyler Joseph performing" loading="lazy">
         </div>
         <div class="carousel-slide">
-          <img src="https://feats-live.louishitchcock.xyz/images/hero-10.jpg" alt="Singer performing with microphone" loading="lazy">
-        </div>
-        <div class="carousel-slide">
-          <img src="https://feats-live.louishitchcock.xyz/images/hero-11.jpg" alt="NOISY performing" loading="lazy">
-        </div>
-        <div class="carousel-slide">
           <img src="https://feats-live.louishitchcock.xyz/images/hero-12.jpg" alt="VLURE performing" loading="lazy">
         </div>
-        <div class="carousel-slide">
-          <img src="https://feats-live.louishitchcock.xyz/images/hero-13.jpg" alt="TRASH BOAT performing" loading="lazy">
-        </div>
-        <div class="carousel-slide">
-          <img src="https://feats-live.louishitchcock.xyz/images/hero-14.jpg" alt="TOP concert" loading="lazy">
+      </div>
+      <div class="hero-overlay"></div>
+      <div class="hero-copy">
+        <span class="hero-kicker">Independent Music Publication</span>
+        <h1>Stories from the front&nbsp;row.</h1>
+        <p>Live gigs, interviews and the artists you're about to love, covered by the people in the pit.</p>
+        <div class="hero-actions">
+          <a href="/music" class="btn btn-solid">Read the latest</a>
+          <a href="/contact" class="btn btn-ghost">Work with us</a>
         </div>
       </div>
       <div class="carousel-dots" id="carouselDots"></div>
     </section>
+
+    <!-- MARQUEE -->
+    <div class="marquee" aria-hidden="true">
+      <div class="marquee-track">
+        <span>Live Music</span><span class="mq-dot">&bull;</span><span>Interviews</span><span class="mq-dot">&bull;</span><span>New Artists</span><span class="mq-dot">&bull;</span><span>Gig Photography</span><span class="mq-dot">&bull;</span><span>Festival Coverage</span><span class="mq-dot">&bull;</span>
+        <span>Live Music</span><span class="mq-dot">&bull;</span><span>Interviews</span><span class="mq-dot">&bull;</span><span>New Artists</span><span class="mq-dot">&bull;</span><span>Gig Photography</span><span class="mq-dot">&bull;</span><span>Festival Coverage</span><span class="mq-dot">&bull;</span>
+      </div>
+    </div>
     <!-- WHAT WE DO -->
-    <section class="section what-we-do">
+    <section class="section what-we-do reveal">
       <h2 class="section-title">What We Do?</h2>
       <p>We are an independent music publication that focuses on upcoming and talented artists within the wider music industry. We Strive to bring change to the industry through sharing stories and highlighting the journeys behind your favourite music!</p>
       <p>We work with a spectrum of artists from all over the music industry, bringing you news, interviews, and giving you tips on everything you need to know!</p>
@@ -99,7 +95,7 @@
     <!-- CTA -->
     <section class="cta-section" style="background-image:url('/images/cta-bg.jpg')">
       <div class="overlay"></div>
-      <div class="content">
+      <div class="content reveal">
         <h2>Let's Work Together</h2>
         <p>If you're involved with a project you would like to see covered, send us an email or drop a DM on Instagram at @Feats.Live</p>
         <a href="/contact" class="btn">Contact Us</a>
@@ -116,7 +112,8 @@
     <p class="footer-links"><a href="/youth-development" target="_blank">Youth Development Programme</a> ｜<a href="/s/Feats-Contributor-Code-of-Conduct-V3.pdf" target="_blank">Contributor Code of Conduct</a><br><br><a href="/privacy-policy" target="_blank">Privacy Policy</a> ｜<a href="/sitemap.xml">Sitemap</a>｜<a href="/robots.txt">Robots.txt</a></p>
   </footer>
 
-  <script src="js/nav.js"></script>
+  <script src="js/theme.js"></script>
+  <script src="js/reveal.js"></script>
   <script>
     // Mobile nav toggle
     document.getElementById('navToggle').addEventListener('click', function(){

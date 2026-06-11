@@ -7,14 +7,16 @@
   <meta name="description" content="Feats. is an independent non-profit music publication. Meet the team behind the coverage.">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Work+Sans:ital,wght@0,500;0,700;1,500;1,700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;700&family=Work+Sans:ital,wght@0,400;0,500;0,700;1,500&display=swap" rel="stylesheet">
+  <script>(function(){var d=document.documentElement;d.className+=' js';var t;try{t=localStorage.getItem('theme')}catch(e){}if(!t)t=matchMedia('(prefers-color-scheme: dark)').matches?'dark':'light';d.setAttribute('data-theme',t)})()</script>
   <link rel="stylesheet" href="/css/style.css">
   <link rel="icon" type="image/x-icon" href="/favicon.ico">
 </head>
 <body>
   <header class="site-header">
     <a href="/" class="site-logo">Feats.</a>
-    <button class="nav-toggle" id="navToggle" aria-label="Toggle menu">☰</button>
+    <button class="theme-toggle" id="themeToggle" aria-label="Toggle dark mode"></button>
+    <button class="nav-toggle" id="navToggle" aria-label="Toggle menu"><span></span><span></span><span></span></button>
     <nav class="nav-links" id="navLinks">
       <a href="/music">Music</a>
       <a href="/about" class="active" aria-current="page">About</a>
@@ -35,28 +37,28 @@
 
     <section class="section">
       <h1 class="section-title">About</h1>
-      <div class="about-text">
+      <div class="about-text reveal">
         <p>We are an independent, non-profit publication that covers everything in the music industry from the exciting creative infused underground scene to your favourite titans in the industry that front it today.</p>
       </div>
 
       <h2 class="section-title" style="text-align:center;margin-top:4rem">Meet the Team</h2>
       <div class="team-grid">
-        <div class="team-card">
+        <div class="team-card reveal">
           <img src="https://feats-live.louishitchcock.xyz/images/articles/soph.jpg" alt="Soph" loading="lazy">
           <h3>Soph</h3>
           <p class="role">Founder - Music Journalist / Photographer</p>
         </div>
-        <div class="team-card">
+        <div class="team-card reveal">
           <img src="https://feats-live.louishitchcock.xyz/images/articles/flore.jpg" alt="Flore" loading="lazy">
           <h3>Flore</h3>
           <p class="role">Founder - Music Journalist</p>
         </div>
-        <div class="team-card">
+        <div class="team-card reveal">
           <img src="https://feats-live.louishitchcock.xyz/images/articles/tom.jpg" alt="Tom" loading="lazy">
           <h3>Tom</h3>
           <p class="role">Founder - Photographer / Writer</p>
         </div>
-        <div class="team-card">
+        <div class="team-card reveal">
           <img src="https://feats-live.louishitchcock.xyz/images/articles/louis.jpg" alt="Louis" loading="lazy">
           <h3>Louis</h3>
           <p class="role">Founder - Photographer / Business Development Lead</p>
@@ -94,8 +96,11 @@
     </div>
   </footer>
 
+  <script src="/js/theme.js"></script>
+  <script src="/js/reveal.js"></script>
   <script>
     document.getElementById('navToggle').addEventListener('click', function(){
+      this.classList.toggle('open');
       document.getElementById('navLinks').classList.toggle('open');
     });
   </script>
