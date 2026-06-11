@@ -1497,6 +1497,14 @@ function initializeArticleEditor() {
     });
     slugInput.addEventListener('input', function() {
       slugInput.dataset.manual = '1';
+      var cursor = slugInput.selectionStart;
+      var before = slugInput.value;
+      var after = before.replace(/ /g, '-');
+      if (after !== before) {
+        slugInput.value = after;
+        slugInput.selectionStart = cursor;
+        slugInput.selectionEnd = cursor;
+      }
     });
   }
 
