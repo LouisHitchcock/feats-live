@@ -3993,6 +3993,50 @@ function importGdoc() {
 
 
 
+
+function convertGdocInlineStyles(root) {
+  var spans = root.querySelectorAll('span, p');
+  for (var i = spans.length - 1; i >= 0; i--) {
+    var el = spans[i];
+    var style = (el.getAttribute('style') || '').toLowerCase();
+    if (!style) continue;
+    var fd = style;
+    var hasBold = /font-weight\s*:\s*(bold|[6-9]00)/.test(fd);
+    var hasItalic = /font-style\s*:\s*italic/.test(fd);
+    var hasUnderline = /text-decoration\s*:\s*underline/.test(fd);
+    var hasStrike = /text-decoration\s*:\s*line-through/.test(fd);
+    var fontSizeMatch = fd.match(/font-size\s*:\s*(\d+)/);
+
+    if (!hasBold && !hasItalic && !hasUnderline && !hasStrike && !fontSizeMatch) {
+      el.removeAttribute('style');
+      continue;
+    }
+
+    if (el.tagName === 'P' && fontSizeMatch) {
+      var sz = parseInt(fontSizeMatch[1], 10);
+      var hTag = sz >= 24 ? 'h2' : sz >= 20 ? 'h3' : 'h4';
+      var h = document.createElement(hTag);
+      h.innerHTML = el.innerHTML;
+      el.parentNode.replaceChild(h, el);
+      continue;
+    }
+
+    var html = el.innerHTML;
+    if (hasBold) html = '<b>' + html + '</b>';
+    if (hasItalic) html = '<i>' + html + '</i>';
+    if (hasUnderline) html = '<u>' + html + '</u>';
+    if (hasStrike) html = '<s>' + html + '</s>';
+    el.innerHTML = html;
+    el.removeAttribute('style');
+  }
+
+  var emptySpans = root.querySelectorAll('span:not([style])');
+  for (var es = emptySpans.length - 1; es >= 0; es--) {
+    var sp = emptySpans[es];
+    while (sp.firstChild) sp.parentNode.insertBefore(sp.firstChild, sp);
+    sp.parentNode.removeChild(sp);
+  }
+}
 function sanitizeGdocHtml(html) {
   var container = document.createElement('div');
   container.innerHTML = html;
@@ -4045,6 +4089,68 @@ function sanitizeGdocHtml(html) {
   return container.innerHTML;
 }
 
+function sanitizeGdocHtml(html) {
+  var container = document.createElement('div');
+  container.innerHTML = html;
+
+  var cssRules = {};
+  var styleTags = container.querySelectorAll('style');
+  for (var st = 0; st < styleTags.length; st++) {
+    var cssText = styleTags[st].textContent || '';
+    var blocks = cssText.split('}');
+    for (var b = 0; b < blocks.length; b++) {
+      var parts = blocks[b].split('{');
+      if (parts.length < 2) continue;
+      var sel = parts[0].trim();
+      if (sel.charAt(0) !== '.') continue;
+      var cls = sel.substring(1);
+      var body = parts[1].trim();
+      if (cssRules[cls]) cssRules[cls] = cssRules[cls] + ';' + body;
+      else cssRules[cls] = body;
+    }
+  }
+
+  var allEls = container.querySelectorAll('[class]');
+  for (var ei = 0; ei < allEls.length; ei++) {
+    var el = allEls[ei];
+    var className = el.getAttribute('class') || '';
+    var classes = className.split(/\s+/);
+    var inherited = [];
+    for (var ci = 0; ci < classes.length; ci++) {
+      if (cssRules[classes[ci]]) inherited.push(cssRules[classes[ci]]);
+    }
+    if (inherited.length) {
+      var existing = el.getAttribute('style') || '';
+      el.setAttribute('style', inherited.join(';') + ';' + existing);
+    }
+  }
+
+  var metaNodes = container.querySelectorAll('meta, link, style, script, title, head');
+  for (var mi = 0; mi < metaNodes.length; mi++) metaNodes[mi].parentNode.removeChild(metaNodes[mi]);
+
+  var fontNodes = container.querySelectorAll('font');
+  for (var fi = fontNodes.length - 1; fi >= 0; fi--) {
+    var fn = fontNodes[fi];
+    while (fn.firstChild) fn.parentNode.insertBefore(fn.firstChild, fn);
+    fn.parentNode.removeChild(fn);
+  }
+
+  var walker = document.createTreeWalker(container, NodeFilter.SHOW_ELEMENT, null, false);
+  while (walker.nextNode()) {
+    var nd = walker.currentNode;
+    if (nd.nodeType !== 1) continue;
+    nd.removeAttribute('id');
+    nd.removeAttribute('lang');
+    nd.removeAttribute('dir');
+    nd.className = '';
+  }
+
+  convertGdocInlineStyles(container);
+
+  var bodyEl = container.querySelector('body');
+  if (bodyEl) return bodyEl.innerHTML;
+  return container.innerHTML;
+}
 // ===== WORD COUNT =====
 
 var wordCountTimer = null;
