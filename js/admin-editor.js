@@ -428,7 +428,7 @@ function captureCurrentArticleDraft() {
 
   if (titleEl) articleState.current.title = titleEl.value;
 
-  if (slugEl) articleState.current.url_id = slugEl.value.trim();
+  if (slugEl) articleState.current.url_id = slugify(slugEl.value).trim();
 
   if (excerptEl) articleState.current.excerpt = excerptEl.value;
 
@@ -1336,6 +1336,15 @@ function insertTextIntoTextarea(textarea, text) {
 
 
 
+function slugify(text) {
+  return String(text || '')
+    .toLowerCase()
+    .replace(/[^a-z0-9\s-]/g, '')
+    .replace(/[\s]+/g, '-')
+    .replace(/-+/g, '-')
+    .replace(/^-|-$/g, '');
+}
+
 function initializeArticleEditor() {
 
   var editor = document.getElementById('articleBodyEditor');
@@ -1474,6 +1483,22 @@ function initializeArticleEditor() {
 
   updateWordCount();
 
+
+
+  var titleInput = document.getElementById('articleTitleInput');
+  var slugInput = document.getElementById('articleSlugInput');
+  if (titleInput && slugInput && !titleInput.dataset.slugBound) {
+    titleInput.dataset.slugBound = '1';
+    titleInput.addEventListener('input', function() {
+      if (!slugInput.dataset.manual || !slugInput.value.trim()) {
+        slugInput.value = slugify(titleInput.value);
+        delete slugInput.dataset.manual;
+      }
+    });
+    slugInput.addEventListener('input', function() {
+      slugInput.dataset.manual = '1';
+    });
+  }
 
 
   var statusBar = document.getElementById('articleEditorStatusBar');
@@ -4069,6 +4094,22 @@ function updateWordCountDebounced() {
 function updateWordCount() {
 
   var editor = document.getElementById('articleBodyEditor');
+
+  var titleInput = document.getElementById('articleTitleInput');
+  var slugInput = document.getElementById('articleSlugInput');
+  if (titleInput && slugInput && !titleInput.dataset.slugBound) {
+    titleInput.dataset.slugBound = '1';
+    titleInput.addEventListener('input', function() {
+      if (!slugInput.dataset.manual || !slugInput.value.trim()) {
+        slugInput.value = slugify(titleInput.value);
+        delete slugInput.dataset.manual;
+      }
+    });
+    slugInput.addEventListener('input', function() {
+      slugInput.dataset.manual = '1';
+    });
+  }
+
 
   var statusBar = document.getElementById('articleEditorStatusBar');
 
