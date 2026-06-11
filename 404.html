@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>404 — Page not found · Feats.</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Work+Sans:ital,wght@0,500;0,700;1,500;1,700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="icon" type="image/x-icon" href="favicon.ico">
+  <style>
+    .error-page {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      min-height: 70vh;
+      text-align: center;
+      padding: 2rem;
+    }
+    .error-page .code {
+      font-size: 8rem;
+      font-weight: 700;
+      line-height: 1;
+      letter-spacing: -.04em;
+      color: #0a0a0a;
+      margin-bottom: .5rem;
+    }
+    .error-page .tagline {
+      font-size: 1.5rem;
+      font-weight: 500;
+      margin-bottom: .75rem;
+      opacity: .7;
+    }
+    .error-page .sub {
+      font-size: 1rem;
+      opacity: .5;
+      margin-bottom: 2.5rem;
+      max-width: 400px;
+    }
+    .error-page .home-btn {
+      display: inline-block;
+      padding: .8rem 2.5rem;
+      border: 1px solid #0a0a0a;
+      text-transform: uppercase;
+      letter-spacing: 2px;
+      font-size: .85rem;
+      transition: all .3s;
+      color: #0a0a0a;
+      text-decoration: none;
+    }
+    .error-page .home-btn:hover {
+      background: #0a0a0a;
+      color: #fff;
+    }
+    @media (max-width: 768px) {
+      .error-page .code { font-size: 5rem; }
+      .error-page .tagline { font-size: 1.2rem; }
+    }
+  </style>
+</head>
+<body>
+  <header class="site-header">
+    <a href="/" class="site-logo">Feats.</a>
+    <nav class="nav-links" id="navLinks">
+      <a href="/music">Music</a>
+      <a href="/about">About</a>
+      <a href="/contact">Contact</a>
+    </nav>
+  </header>
+
+  <main class="error-page">
+    <div class="code">404</div>
+    <div class="tagline">This track doesn't exist.</div>
+    <div class="sub">The page you're looking for has been removed, renamed, or never made it past the demo stage.</div>
+    <a href="/" class="home-btn">Back to Feats.</a>
+  </main>
+
+  <footer class="site-footer">
+    <div class="brand">Feats.</div>
+    <div class="info">Independent Music Publication</div>
+    <div class="footer-links">
+      <a href="/about">About</a> ·
+      <a href="/contact">Contact</a> ·
+      <a href="/privacy-policy">Privacy</a>
+    </div>
+  </footer>
+</body>
+</html>
