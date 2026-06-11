@@ -92,12 +92,14 @@ ul{list-style:none}
 /* === WORK TOGETHER CTA === */
 .cta-section{
   position:relative;padding:6rem 2rem;text-align:center;
-  background-size:cover;background-position:center
+  background:#0a0a0a;color:#fff
 }
 .cta-section .overlay{position:absolute;inset:0;background:rgba(255,255,255,.5)}
 .cta-section .content{position:relative;z-index:1}
 .cta-section h2{font-size:2.5rem;margin-bottom:1rem}
 .cta-section p{font-size:1.1rem;opacity:.8;margin-bottom:2rem;max-width:600px;margin-left:auto;margin-right:auto}
+.cta-btn{border-color:#fff;color:#fff}
+.cta-btn:hover{background:#fff;color:#0a0a0a}
 .btn{
   display:inline-block;padding:.8rem 2.5rem;
   border:1px solid #0a0a0a;text-transform:uppercase;
