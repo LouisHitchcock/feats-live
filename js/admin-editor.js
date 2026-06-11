@@ -272,7 +272,7 @@ function syncArticleAuthorFromSelection() {
 }
 
 function getArticleEditorHtml(article) {
-  return '<div class="editor-toolbar"><select id="editorStyleDropdown" class="editor-style-dropdown" data-command="formatBlock"><option value="">Normal text</option><option value="H1">Heading 1</option><option value="H2">Heading 2</option><option value="H3">Heading 3</option><option value="H4">Heading 4</option><option value="H5">Heading 5</option><option value="H6">Heading 6</option></select><div class="editor-toolbar-sep"></div><button type="button" data-command="bold" title="Bold (Ctrl+B)"><b>B</b></button><button type="button" data-command="italic" title="Italic (Ctrl+I)"><i>I</i></button><button type="button" data-command="underline" title="Underline (Ctrl+U)"><u>U</u></button><button type="button" data-command="strikeThrough" title="Strikethrough"><s>S</s></button><button type="button" data-command="code" title="Inline code">&lt;/&gt;</button><div class="editor-toolbar-sep"></div><button type="button" data-command="justifyLeft" title="Align left">≡</button><button type="button" data-command="justifyCenter" title="Align center">≡</button><button type="button" data-command="justifyRight" title="Align right">≡</button><div class="editor-toolbar-sep"></div><button type="button" data-command="insertUnorderedList" title="Bullet list">•</button><button type="button" data-command="insertOrderedList" title="Numbered list">1.</button><button type="button" data-command="blockquote" title="Blockquote">"</button><button type="button" data-command="superscript" title="Superscript">x²</button><div class="editor-toolbar-sep"></div><button type="button" data-command="createLink" title="Insert link (Ctrl+K)">🔗</button><button type="button" data-command="unlink" title="Remove link">🔗</button><button type="button" data-command="removeFormat" title="Clear formatting">TX</button><div class="editor-toolbar-sep"></div><button type="button" data-command="insertImage" title="Insert image">🖼</button><button type="button" data-command="insertTable" title="Insert table">⊞</button></div><div class="article-field"><label>Title</label><input id="articleTitleInput" class="article-input" value="' + escAttr(article.title) + '" placeholder="Article title"></div><div class="article-field"><label>Article Body</label><div id="articleEditorModeToggle" class="article-editor-mode-toggle"><button type="button" data-mode="rich">Rich Text</button><button type="button" data-mode="markdown">Markdown</button></div><div id="articleBodyEditor" class="editor-canvas" contenteditable="true">' + (article.body || '') + '</div><textarea id="articleBodyMarkdownInput" class="article-textarea article-markdown-input" placeholder="Write Markdown here..." spellcheck="false"></textarea><div id="articleImageOverlayBackdrop" class="article-image-overlay-backdrop"></div><div id="articleImageInsertPanel" class="article-image-insert-panel"><button class="overlay-close" onclick="toggleArticleImagePanel(false)">x</button><h3>Insert Media</h3><div class="article-image-insert-rows"><div class="article-image-insert-row"><label>Upload or drag images</label><div class="article-image-dropzone" id="imageDropZone" onclick="document.getElementById(&apos;imageUploadFileInput&apos;).click()" ondragover="this.classList.add(&apos;drag-over&apos;);return false" ondragleave="this.classList.remove(&apos;drag-over&apos;)" ondrop="handleImageDrop(event);this.classList.remove(&apos;drag-over&apos;);return false"><span class="dropzone-icon">+</span><span>Click or drag images here</span><input type="file" id="imageUploadFileInput" accept="image/*" multiple onchange="handleArticleImageUpload(this.files)"></div></div><div id="imageUploadPreview" class="article-image-uploaded-previews"></div><div class="article-image-insert-row"><label>Layout</label><select id="imageOverlayLayout" class="article-select" onchange="toggleArticleCarouselInput()"><option value="full">Full Width</option><option value="left">Float Left</option><option value="right">Float Right</option><option value="carousel">Carousel</option></select><input id="imageOverlayCaption" class="article-input" placeholder="Optional caption"></div><div class="article-image-insert-row"><label>Recent uploads</label><div id="imageOverlayRecent" class="article-image-recent"></div></div></div><div class="article-image-insert-actions"><button type="button" class="btn btn-sm" onclick="toggleArticleImagePanel(false)">Cancel</button><button type="button" class="btn btn-sm btn-primary" onclick="insertArticleImageBlock()">Insert</button></div></div></div><div class="editor-statusbar" id="articleEditorStatusBar">Words: 0 • Characters: 0</div>';
+  return '<div class="editor-toolbar"><select id="editorStyleDropdown" class="editor-style-dropdown" data-command="formatBlock"><option value="">Normal text</option><option value="H1">Heading 1</option><option value="H2">Heading 2</option><option value="H3">Heading 3</option><option value="H4">Heading 4</option><option value="H5">Heading 5</option><option value="H6">Heading 6</option></select><div class="editor-toolbar-sep"></div><button type="button" data-command="bold" title="Bold (Ctrl+B)"><b>B</b></button><button type="button" data-command="italic" title="Italic (Ctrl+I)"><i>I</i></button><button type="button" data-command="underline" title="Underline (Ctrl+U)"><u>U</u></button><button type="button" data-command="strikeThrough" title="Strikethrough"><s>S</s></button><button type="button" data-command="code" title="Inline code">&lt;/&gt;</button><div class="editor-toolbar-sep"></div><button type="button" data-command="justifyLeft" title="Align left">≡</button><button type="button" data-command="justifyCenter" title="Align center">≡</button><button type="button" data-command="justifyRight" title="Align right">≡</button><div class="editor-toolbar-sep"></div><button type="button" data-command="insertUnorderedList" title="Bullet list">•</button><button type="button" data-command="insertOrderedList" title="Numbered list">1.</button><button type="button" data-command="blockquote" title="Blockquote">"</button><button type="button" data-command="superscript" title="Superscript">x²</button><div class="editor-toolbar-sep"></div><button type="button" data-command="createLink" title="Insert link (Ctrl+K)">🔗</button><button type="button" data-command="unlink" title="Remove link">🔗</button><button type="button" data-command="removeFormat" title="Clear formatting">TX</button><div class="editor-toolbar-sep"></div><button type="button" data-command="insertImage" title="Insert image">🖼</button><button type="button" data-command="insertTable" title="Insert table">⊞</button><div class="editor-toolbar-sep"></div><button type="button" data-command="importGdoc" title="Import from Google Docs">📄↓</button></div><div class="article-field"><label>Title</label><input id="articleTitleInput" class="article-input" value="' + escAttr(article.title) + '" placeholder="Article title"></div><div class="article-field"><label>Article Body</label><div id="articleEditorModeToggle" class="article-editor-mode-toggle"><button type="button" data-mode="rich">Rich Text</button><button type="button" data-mode="markdown">Markdown</button></div><div id="articleBodyEditor" class="editor-canvas" contenteditable="true">' + (article.body || '') + '</div><textarea id="articleBodyMarkdownInput" class="article-textarea article-markdown-input" placeholder="Write Markdown here..." spellcheck="false"></textarea><div id="articleImageOverlayBackdrop" class="article-image-overlay-backdrop"></div><div id="articleImageInsertPanel" class="article-image-insert-panel"><button class="overlay-close" onclick="toggleArticleImagePanel(false)">x</button><h3>Insert Media</h3><div class="article-image-insert-rows"><div class="article-image-insert-row"><label>Upload or drag images</label><div class="article-image-dropzone" id="imageDropZone" onclick="document.getElementById(&apos;imageUploadFileInput&apos;).click()" ondragover="this.classList.add(&apos;drag-over&apos;);return false" ondragleave="this.classList.remove(&apos;drag-over&apos;)" ondrop="handleImageDrop(event);this.classList.remove(&apos;drag-over&apos;);return false"><span class="dropzone-icon">+</span><span>Click or drag images here</span><input type="file" id="imageUploadFileInput" accept="image/*" multiple onchange="handleArticleImageUpload(this.files)"></div></div><div id="imageUploadPreview" class="article-image-uploaded-previews"></div><div class="article-image-insert-row"><label>Layout</label><select id="imageOverlayLayout" class="article-select" onchange="toggleArticleCarouselInput()"><option value="full">Full Width</option><option value="left">Float Left</option><option value="right">Float Right</option><option value="carousel">Carousel</option></select><input id="imageOverlayCaption" class="article-input" placeholder="Optional caption"></div><div class="article-image-insert-row"><label>Recent uploads</label><div id="imageOverlayRecent" class="article-image-recent"></div></div></div><div class="article-image-insert-actions"><button type="button" class="btn btn-sm" onclick="toggleArticleImagePanel(false)">Cancel</button><button type="button" class="btn btn-sm btn-primary" onclick="insertArticleImageBlock()">Insert</button></div></div></div><div id="articleGdocImportOverlayBackdrop" class="article-image-overlay-backdrop"></div><div id="articleGdocImportPanel" class="article-image-insert-panel"><button class="overlay-close" onclick="closeGdocImportDialog()">x</button><h3>Import from Google Docs</h3><div class="article-image-insert-rows"><div class="article-image-insert-row"><label>Google Docs URL</label><input id="gdocImportUrlInput" class="article-input" placeholder="https://docs.google.com/document/d/..." onkeydown="if(event.key===&apos;Enter&apos;)importGdoc()"></div><div style="font-size:.72rem;color:#888;line-height:1.4">Paste a published Google Docs URL (File > Share > Publish to web) or a publicly shared document link. The document content will be imported into the editor.</div><div id="gdocImportStatus" style="font-size:.72rem;margin-top:.25rem"></div></div><div class="article-image-insert-actions"><button type="button" class="btn btn-sm" onclick="closeGdocImportDialog()">Cancel</button><button type="button" class="btn btn-sm btn-primary" onclick="importGdoc()" id="gdocImportBtn">Import</button></div></div><div class="editor-statusbar" id="articleEditorStatusBar">Words: 0 • Characters: 0</div>';
 }
 
 function getArticlePropertiesHtml(article) {
@@ -701,6 +701,11 @@ function initializeArticleEditor() {
     backdrop.onclick = function() { toggleArticleImagePanel(false); };
   }
 
+  var gdocBackdrop = document.getElementById('articleGdocImportOverlayBackdrop');
+  if (gdocBackdrop) {
+    gdocBackdrop.onclick = function() { closeGdocImportDialog(); };
+  }
+
   ensureArticleContextMenu();
   if (!editor.dataset.contextMenuBound) {
     editor.addEventListener('contextmenu', function(e) {
@@ -764,6 +769,8 @@ function ensureToolbarDelegation() {
       openArticleImageOverlayWithLayout('full');
     } else if (command === 'insertTable') {
       showTableGridPicker();
+    } else if (command === 'importGdoc') {
+      showGdocImportDialog();
     } else if (command === 'formatBlock') {
       var value = btn.value;
       executeArticleEditorCommand('formatBlock', value);
@@ -948,7 +955,7 @@ function ensureArticleContextMenu() {
   menu = document.createElement('div');
   menu.id = 'articleEditorContextMenu';
   menu.className = 'editor-context-menu';
-  menu.innerHTML = '<button type="button" data-action="divider">Insert Divider Line</button><button type="button" data-action="image">Insert Image</button><button type="button" data-action="carousel">Insert Carousel</button><button type="button" data-action="embed">Insert Embed</button><div class="menu-separator"></div><button type="button" data-action="quote">Insert Pull Quote</button><button type="button" data-action="callout">Insert Callout Box</button><div class="menu-separator"></div><button type="button" data-action="spacer-sm">Insert Small Spacer</button><button type="button" data-action="spacer-md">Insert Medium Spacer</button><button type="button" data-action="spacer-lg">Insert Large Spacer</button><div class="menu-separator"></div><button type="button" data-action="cta">Insert CTA Button</button>';
+  menu.innerHTML = '<button type="button" data-action="divider">Insert Divider Line</button><button type="button" data-action="image">Insert Image</button><button type="button" data-action="carousel">Insert Carousel</button><button type="button" data-action="embed">Insert Embed</button><div class="menu-separator"></div><button type="button" data-action="importGdoc">Import from Google Docs</button><div class="menu-separator"></div><button type="button" data-action="quote">Insert Pull Quote</button><button type="button" data-action="callout">Insert Callout Box</button><div class="menu-separator"></div><button type="button" data-action="spacer-sm">Insert Small Spacer</button><button type="button" data-action="spacer-md">Insert Medium Spacer</button><button type="button" data-action="spacer-lg">Insert Large Spacer</button><div class="menu-separator"></div><button type="button" data-action="cta">Insert CTA Button</button>';
   menu.addEventListener('mousedown', function(e) { e.preventDefault(); });
   menu.addEventListener('click', function(e) {
     var btn = e.target.closest('button[data-action]');
@@ -1046,6 +1053,10 @@ function handleArticleContextMenuAction(action) {
   }
   if (action === 'embed') {
     showEmbedDialog();
+    return;
+  }
+  if (action === 'importGdoc') {
+    showGdocImportDialog();
     return;
   }
   if (action === 'cta') {
@@ -1914,6 +1925,106 @@ function buildEmbedIframe(url) {
     return '<iframe src="https://open.spotify.com/embed/' + spotifyMatch[1] + '/' + spotifyMatch[2] + '" allowfullscreen></iframe>';
   }
   return null;
+}
+
+// ===== GOOGLE DOCS IMPORT =====
+function showGdocImportDialog() {
+  var backdrop = document.getElementById('articleGdocImportOverlayBackdrop');
+  var panel = document.getElementById('articleGdocImportPanel');
+  if (!backdrop || !panel) return;
+  var urlInput = document.getElementById('gdocImportUrlInput');
+  var statusEl = document.getElementById('gdocImportStatus');
+  if (urlInput) urlInput.value = '';
+  if (statusEl) statusEl.textContent = '';
+  backdrop.classList.add('active');
+  panel.classList.add('active');
+  setTimeout(function() { if (urlInput) urlInput.focus(); }, 100);
+}
+
+function closeGdocImportDialog() {
+  var backdrop = document.getElementById('articleGdocImportOverlayBackdrop');
+  var panel = document.getElementById('articleGdocImportPanel');
+  if (backdrop) backdrop.classList.remove('active');
+  if (panel) panel.classList.remove('active');
+}
+
+function importGdoc() {
+  var urlInput = document.getElementById('gdocImportUrlInput');
+  var statusEl = document.getElementById('gdocImportStatus');
+  var btn = document.getElementById('gdocImportBtn');
+  if (!urlInput) return;
+  var url = urlInput.value.trim();
+  if (!url) {
+    if (statusEl) { statusEl.textContent = 'Please enter a Google Docs URL'; statusEl.style.color = '#e74c3c'; }
+    return;
+  }
+  if (!url.match(/\/d\/([a-zA-Z0-9_-]+)/)) {
+    if (statusEl) { statusEl.textContent = 'Invalid URL. Expected format: https://docs.google.com/document/d/DOC_ID/edit'; statusEl.style.color = '#e74c3c'; }
+    return;
+  }
+  if (statusEl) { statusEl.textContent = 'Fetching document...'; statusEl.style.color = '#888'; }
+  if (btn) btn.disabled = true;
+  apiPost('/admin/import-gdoc', { url: url }).then(function(r) {
+    if (!r.ok) return r.json().then(function(err) { throw new Error(err.error || 'Import failed'); });
+    return r.json();
+  }).then(function(data) {
+    var rawHtml = data.html;
+    var cleanHtml = sanitizeGdocHtml(rawHtml);
+    insertArticleHtmlAtCursor(cleanHtml);
+    closeGdocImportDialog();
+    setArticleSaveStatus('Document imported from Google Docs', false, true);
+    takeImmediateUndoSnapshot();
+  }).catch(function(err) {
+    if (statusEl) { statusEl.textContent = err.message; statusEl.style.color = '#e74c3c'; }
+  }).finally(function() {
+    if (btn) btn.disabled = false;
+  });
+}
+
+function sanitizeGdocHtml(html) {
+  var container = document.createElement('div');
+  container.innerHTML = html;
+  var walker = document.createTreeWalker(container, NodeFilter.SHOW_ELEMENT, null, false);
+  var nodesToUnwrap = [];
+  var nodesToRemove = [];
+  while (walker.nextNode()) {
+    var el = walker.currentNode;
+    if (el.nodeType !== 1) continue;
+    el.removeAttribute('style');
+    el.removeAttribute('id');
+    el.removeAttribute('data-*');
+    var tag = el.tagName.toLowerCase();
+    if (tag === 'font' || tag === 'span') {
+      var hasAttrs = false;
+      for (var a = 0; a < (el.attributes || []).length; a++) {
+        if (el.attributes[a].name !== 'style') { hasAttrs = true; break; }
+      }
+      if (!hasAttrs || tag === 'font') {
+        nodesToUnwrap.push(el);
+        continue;
+      }
+    }
+    if (tag === 'meta' || tag === 'link' || tag === 'style' || tag === 'script' || tag === 'title') {
+      nodesToRemove.push(el);
+      continue;
+    }
+    if (el.className && typeof el.className === 'string') {
+      el.className = '';
+    }
+  }
+  for (var i = 0; i < nodesToUnwrap.length; i++) {
+    var n = nodesToUnwrap[i];
+    if (!n.parentNode) continue;
+    while (n.firstChild) n.parentNode.insertBefore(n.firstChild, n);
+    n.parentNode.removeChild(n);
+  }
+  for (var j = 0; j < nodesToRemove.length; j++) {
+    var m = nodesToRemove[j];
+    if (m.parentNode) m.parentNode.removeChild(m);
+  }
+  var bodyEl = container.querySelector('body');
+  if (bodyEl) return bodyEl.innerHTML;
+  return container.innerHTML;
 }
 
 // ===== WORD COUNT =====

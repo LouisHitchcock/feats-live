@@ -146,6 +146,37 @@ export default {
           return Response.json({ totalArticles: ac.c, publishedArticles: pc.c, totalWriters: wc.c, totalViews: vc.c, uniqueVisitors: uc.c, storageMB: 'N/A' }, { headers: corsHeaders });
         }
 
+        if (path === '/admin/import-gdoc' && method === 'POST') {
+          const body = await request.json();
+          const gdocUrl = (body.url || '').trim();
+          if (!gdocUrl) {
+            return Response.json({ error: 'Please provide a Google Docs URL.' }, { status: 400, headers: corsHeaders });
+          }
+          var docIdMatch = gdocUrl.match(/\/d\/([a-zA-Z0-9_-]+)/);
+          if (!docIdMatch) {
+            return Response.json({ error: 'Invalid Google Docs URL. Expected format: https://docs.google.com/document/d/DOC_ID/edit' }, { status: 400, headers: corsHeaders });
+          }
+          var docId = docIdMatch[1];
+          var exportUrl = 'https://docs.google.com/document/d/' + docId + '/export?format=html';
+          var gdocRes;
+          try {
+            gdocRes = await fetch(exportUrl, { headers: { 'User-Agent': 'Feats-Admin/1.0' } });
+          } catch (e) {
+            return Response.json({ error: 'Could not reach Google Docs. Check your connection.' }, { status: 502, headers: corsHeaders });
+          }
+          if (!gdocRes.ok) {
+            var hint = 'Could not fetch the Google Doc.';
+            if (gdocRes.status === 403 || gdocRes.status === 401) {
+              hint = 'This Google Doc is not publicly accessible. Open it in Google Docs, go to File > Share > Publish to web, then paste the published URL instead.';
+            } else if (gdocRes.status === 404) {
+              hint = 'Document not found. Check that the URL is correct.';
+            }
+            return Response.json({ error: hint }, { status: gdocRes.status, headers: corsHeaders });
+          }
+          var rawHtml = await gdocRes.text();
+          return Response.json({ html: rawHtml }, { headers: corsHeaders });
+        }
+
         if (path === '/admin/articles' && method === 'GET') {
           const { results } = await env.DB.prepare(
             'SELECT id, title, url_id, author, publish_date, status FROM articles ORDER BY publish_date DESC'
