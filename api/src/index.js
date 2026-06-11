@@ -152,12 +152,17 @@ export default {
           if (!gdocUrl) {
             return Response.json({ error: 'Please provide a Google Docs URL.' }, { status: 400, headers: corsHeaders });
           }
+          var pubMatch = gdocUrl.match(/\/d\/e\/([a-zA-Z0-9_-]+)\/pub/);
           var docIdMatch = gdocUrl.match(/\/d\/([a-zA-Z0-9_-]+)/);
-          if (!docIdMatch) {
+          if (!pubMatch && !docIdMatch) {
             return Response.json({ error: 'Invalid Google Docs URL. Expected format: https://docs.google.com/document/d/DOC_ID/edit' }, { status: 400, headers: corsHeaders });
           }
-          var docId = docIdMatch[1];
-          var exportUrl = 'https://docs.google.com/document/d/' + docId + '/export?format=html';
+          var exportUrl;
+          if (pubMatch) {
+            exportUrl = 'https://docs.google.com/document/d/e/' + pubMatch[1] + '/pub';
+          } else {
+            exportUrl = 'https://docs.google.com/document/d/' + docIdMatch[1] + '/export?format=html';
+          }
           var gdocRes;
           try {
             gdocRes = await fetch(exportUrl, { headers: { 'User-Agent': 'Feats-Admin/1.0' } });

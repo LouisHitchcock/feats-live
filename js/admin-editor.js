@@ -1957,8 +1957,8 @@ function importGdoc() {
     if (statusEl) { statusEl.textContent = 'Please enter a Google Docs URL'; statusEl.style.color = '#e74c3c'; }
     return;
   }
-  if (!url.match(/\/d\/([a-zA-Z0-9_-]+)/)) {
-    if (statusEl) { statusEl.textContent = 'Invalid URL. Expected format: https://docs.google.com/document/d/DOC_ID/edit'; statusEl.style.color = '#e74c3c'; }
+  if (!url.match(/\/d\/(?:e\/)?([a-zA-Z0-9_-]+)/)) {
+    if (statusEl) { statusEl.textContent = 'Invalid URL. Expected format: https://docs.google.com/document/d/DOC_ID/edit'; statusEl.style.color = '#e74c3c'; }
     return;
   }
   if (statusEl) { statusEl.textContent = 'Fetching document...'; statusEl.style.color = '#888'; }
