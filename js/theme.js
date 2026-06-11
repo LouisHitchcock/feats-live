@@ -47,8 +47,31 @@
     }
   }
 
+  function applyHeroPrimaryAccent() {
+    var heroKicker = document.querySelector('.hero .hero-kicker');
+    var heroMusicButton = document.querySelector('.hero .btn-solid');
+    var heroContactButton = document.querySelector('.hero .btn-ghost');
+    if (!heroKicker || !heroMusicButton || !heroContactButton) return;
+
+    var accent = randomAccent();
+    var ink = getAccentInk(accent);
+
+    heroKicker.style.setProperty('--accent', accent);
+    heroKicker.style.setProperty('--accent-ink', ink);
+    heroKicker.setAttribute('data-accentized', 'true');
+
+    heroMusicButton.style.setProperty('--accent', accent);
+    heroMusicButton.style.setProperty('--accent-ink', ink);
+    heroMusicButton.setAttribute('data-accentized', 'true');
+
+    heroContactButton.style.setProperty('--accent', accent);
+    heroContactButton.style.setProperty('--accent-ink', ink);
+    heroContactButton.setAttribute('data-accentized', 'true');
+  }
+
   root.style.setProperty('--accent', accentPalette[0]);
   root.style.setProperty('--accent-ink', getAccentInk(accentPalette[0]));
+  applyHeroPrimaryAccent();
   applyAccentPalette(document);
   window.applyAccentPalette = applyAccentPalette;
   var btn = document.getElementById('themeToggle');
